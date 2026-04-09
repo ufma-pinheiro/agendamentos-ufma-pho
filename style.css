@@ -1610,7 +1610,8 @@ body {
 }
 
 /* Tags */
-.tag-local {
+.tag-local,
+.tag-local-mini {
     font-size: 0.6875rem;
     padding: 0.25rem 0.625rem;
     border-radius: var(--radius-full);
@@ -1618,17 +1619,37 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
+    white-space: nowrap;
 }
 
-.tag-local.badge-eng { background: #f3e8ff; color: #7c3aed; }
-.tag-local.badge-lic { background: #ffedd5; color: #ea580c; }
-.tag-local.badge-sau { background: #dcfce7; color: #16a34a; }
-.tag-local.badge-outros { background: #dbeafe; color: #2563eb; }
+.tag-local-mini {
+    font-size: 0.625rem;
+    padding: 0.2rem 0.5rem;
+}
 
-[data-theme="dark"] .tag-local.badge-eng { background: rgba(126, 34, 206, 0.2); color: #d8b4fe; }
-[data-theme="dark"] .tag-local.badge-lic { background: rgba(234, 88, 12, 0.2); color: #fdba74; }
-[data-theme="dark"] .tag-local.badge-sau { background: rgba(22, 163, 74, 0.2); color: #86efac; }
-[data-theme="dark"] .tag-local.badge-outros { background: rgba(37, 99, 235, 0.2); color: #93c5fd; }
+.tag-local.badge-eng,
+.tag-local-mini.badge-eng { background: #f3e8ff; color: #7c3aed; }
+
+.tag-local.badge-lic,
+.tag-local-mini.badge-lic { background: #ffedd5; color: #ea580c; }
+
+.tag-local.badge-sau,
+.tag-local-mini.badge-sau { background: #dcfce7; color: #16a34a; }
+
+.tag-local.badge-outros,
+.tag-local-mini.badge-outros { background: #dbeafe; color: #2563eb; }
+
+[data-theme="dark"] .tag-local.badge-eng,
+[data-theme="dark"] .tag-local-mini.badge-eng { background: rgba(126, 34, 206, 0.2); color: #d8b4fe; }
+
+[data-theme="dark"] .tag-local.badge-lic,
+[data-theme="dark"] .tag-local-mini.badge-lic { background: rgba(234, 88, 12, 0.2); color: #fdba74; }
+
+[data-theme="dark"] .tag-local.badge-sau,
+[data-theme="dark"] .tag-local-mini.badge-sau { background: rgba(22, 163, 74, 0.2); color: #86efac; }
+
+[data-theme="dark"] .tag-local.badge-outros,
+[data-theme="dark"] .tag-local-mini.badge-outros { background: rgba(37, 99, 235, 0.2); color: #93c5fd; }
 
 /* ============================================
    FULLCALENDAR CUSTOMIZAÇÃO
