@@ -830,8 +830,8 @@ function iniciarRealtime() {
         .channel('reservas-realtime')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'reservas' }, (payload) => {
             const evento = dbParaFrontend(payload.new);
-            // Evitar duplicatas (se a gente mesmo inseriu)
-            const existing = calendar.getEventById(evento.id);
+            // Evitar duplicatas: converter ID para string para comparação consistente
+            const existing = calendar.getEventById(String(evento.id));
             if(!existing) {
                 calendar.addEvent(evento);
                 atualizarTodasTelas();
@@ -858,8 +858,11 @@ function iniciarRealtime() {
 // SALVAR/EDITAR/DELETAR
 // ==========================================
 
+let _salvando = false;
 async function salvarOuEditarEvento(e) {
     e.preventDefault();
+    if(_salvando) return; // Prevenção de duplo clique
+    _salvando = true;
     const btn = document.getElementById('btnSalvar');
     setButtonLoading(btn, true);
     
@@ -971,12 +974,10 @@ async function salvarOuEditarEvento(e) {
                 console.error("Erro ao inserir:", error);
                 showToast('Erro ao salvar: ' + error.message, 'error');
                 setButtonLoading(btn, false);
+                _salvando = false;
                 return;
             }
-            
-            // Adiciona ao calendário localmente
-            const eventoFrontend = dbParaFrontend(inserted);
-            calendar.addEvent(eventoFrontend);
+            // O realtime INSERT vai adicionar ao calendário automaticamente
         }
         
         fecharModalForm();
@@ -987,7 +988,7 @@ async function salvarOuEditarEvento(e) {
         console.error("Erro:", erro);
         showToast('Erro ao salvar: ' + erro.message, 'error'); 
     } 
-    finally { setButtonLoading(btn, false); }
+    finally { setButtonLoading(btn, false); _salvando = false; }
 }
 
 async function deletarEvento() {
