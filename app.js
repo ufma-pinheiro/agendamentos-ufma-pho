@@ -1122,16 +1122,27 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
     if(estado.termoBusca) {
         lista = eventos.filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel} ${(ev.extendedProps.espacos || []).join(' ')}`.toLowerCase()).includes(estado.termoBusca));
     }
-    
+
+    // Atualiza contador se existir header com .tab-count próximo ao container
+    const countBadge = document.getElementById(containerId + '__count');
+    if(countBadge) countBadge.textContent = lista.length;
+
     if(lista.length === 0) {
-        container.innerHTML = `<div class="empty-state"><i class="fas fa-calendar-times"></i><h3>${estado.termoBusca ? 'Nenhum resultado' : mensagemVazio}</h3></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-calendar-times"></i>
+                <h3>${estado.termoBusca ? 'Nenhum resultado' : mensagemVazio}</h3>
+                <p>${estado.termoBusca ? 'Tente outro termo de busca.' : 'Nenhum evento para exibir aqui.'}</p>
+            </div>`;
         return;
     }
+
+    const agora = new Date();
     
     container.innerHTML = lista.map(ev => {
         const inicio = ev.start;
         const fim = ev.end;
-        const passado = (fim || inicio) < new Date();
+        const passado = (fim || inicio) < agora;
         const dia = inicio.getDate().toString().padStart(2,'0');
         const mes = mesesAbrev[inicio.getMonth()];
         const horaInicio = inicio.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
@@ -1139,23 +1150,38 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
         const periodo = horaFim ? `${horaInicio} - ${horaFim}` : `A partir das ${horaInicio}`;
         const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
         
+        const badgePassado = passado
+            ? `<span class="badge-passado"><i class="fas fa-check-circle"></i> Encerrado</span>`
+            : '';
+        const badgeConflito = ev.extendedProps.isConflito
+            ? `<span class="badge-conflito"><i class="fas fa-exclamation"></i> Conflito</span>` : '';
+
         return `
             <div class="event-row ${passado ? 'past' : ''} ${ev.extendedProps.isConflito ? 'conflito' : ''}" style="--event-color: ${ev.backgroundColor || '#0056b3'}">
-                <div class="event-date-box"><span class="day">${dia}</span><span class="month">${mes}</span></div>
+                <div class="event-date-box">
+                    <span class="day">${dia}</span>
+                    <span class="month">${mes}</span>
+                </div>
                 <div class="event-content" onclick="abrirDetalhes(calendar.getEventById('${ev.id}'))">
                     <div class="event-header-row">
                         <h4>${ev.extendedProps.tituloPuro}</h4>
-                        ${ev.extendedProps.isConflito ? '<span class="badge-conflito"><i class="fas fa-exclamation"></i>Conflito</span>' : ''}
+                        ${badgePassado}
+                        ${badgeConflito}
                     </div>
-                    <div class="event-meta"><span><i class="far fa-clock"></i> ${periodo}</span><span><i class="far fa-user"></i> ${ev.extendedProps.responsavel || '-'}</span></div>
+                    <div class="event-meta">
+                        <span><i class="far fa-clock"></i> ${periodo}</span>
+                        <span><i class="far fa-user"></i> ${ev.extendedProps.responsavel || '-'}</span>
+                    </div>
                     <div class="event-locais">${espacos.map(e => `<span class="tag-local-mini ${getClasseBadge(e)}">${e}</span>`).join('')}</div>
                 </div>
                 ${(estado.nivelAcesso !== 'leitor') ? `
                 <div class="event-actions">
-                    <button class="btn-icon-sm" onclick="event.stopPropagation(); prepararEdicaoPorId('${ev.id}')" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir"><i class="fas fa-trash"></i></button>
+                    <button class="btn-icon-sm" onclick="event.stopPropagation(); prepararEdicaoPorId('${ev.id}')" title="Editar agendamento"><i class="fas fa-edit"></i></button>
+                    <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir agendamento"><i class="fas fa-trash"></i></button>
                 </div>` : ''}
             </div>`;
+    }).join('');
+}
     }).join('');
 }
 

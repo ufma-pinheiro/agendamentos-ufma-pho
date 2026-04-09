@@ -1289,26 +1289,51 @@ body {
 
 .month-chip {
     padding: 0.5rem 1rem;
-    border: 1px solid var(--border-color);
+    border: 1.5px solid var(--border-color);
     background: transparent;
     border-radius: var(--radius-full);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all 0.18s ease;
+    position: relative;
+    min-width: 52px;
+    text-align: center;
 }
 
 .month-chip:hover {
-    background: var(--bg-elevated);
-    border-color: var(--gray-300);
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: var(--text-primary);
+    transform: translateY(-1px);
 }
 
 .month-chip.active {
     background: var(--primary-600);
     color: white;
     border-color: var(--primary-600);
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+}
+
+/* Events count badge */
+.events-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 0.5rem;
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--primary-500);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    transition: all 0.2s ease;
 }
 
 /* Event Lists */
@@ -1316,55 +1341,80 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     margin-bottom: 0.75rem;
     background: var(--bg-card);
-    transition: all var(--transition-fast);
+    transition: all 0.2s ease;
     border-left: 4px solid var(--event-color, var(--primary-500));
+    position: relative;
+    overflow: hidden;
+}
+
+.event-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(var(--event-color-rgb, 59,130,246), 0.04) 0%, transparent 40%);
+    pointer-events: none;
 }
 
 .event-row:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+    border-color: var(--event-color, var(--primary-500));
 }
 
 .event-row.past {
-    opacity: 0.6;
-    filter: grayscale(0.5);
+    opacity: 0.55;
+    filter: grayscale(0.4);
+}
+
+.event-row.past:hover {
+    opacity: 0.75;
 }
 
 .event-row.conflito {
     border-left-color: var(--danger-500) !important;
+}
+
+[data-theme="dark"] .event-row.conflito {
+    background: rgba(239, 68, 68, 0.06);
+}
+
+[data-theme="light"] .event-row.conflito {
     background: var(--danger-50);
 }
 
 .event-date-box {
-    width: 56px;
-    height: 56px;
-    background: var(--bg-elevated);
+    width: 60px;
+    height: 60px;
+    background: var(--event-color, var(--primary-500));
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .event-date-box .day {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     font-weight: 800;
-    color: var(--text-primary);
+    color: white;
     line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .event-date-box .month {
-    font-size: 0.6875rem;
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--text-tertiary);
+    color: rgba(255,255,255,0.85);
     margin-top: 0.125rem;
+    letter-spacing: 0.05em;
 }
 
 .event-content {
@@ -1389,13 +1439,28 @@ body {
     text-overflow: ellipsis;
 }
 
+/* Badge passado */
+.badge-passado {
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-full);
+    background: rgba(148,163,184,0.15);
+    color: var(--text-tertiary);
+    border: 1px solid rgba(148,163,184,0.3);
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
 .badge-conflito {
-    background: var(--danger-100);
-    color: var(--danger-600);
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--danger-500);
     font-size: 0.6875rem;
     font-weight: 700;
     padding: 0.25rem 0.5rem;
     border-radius: var(--radius-full);
+    border: 1px solid rgba(239, 68, 68, 0.3);
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
@@ -1425,31 +1490,37 @@ body {
 .event-actions {
     display: flex;
     gap: 0.5rem;
+    flex-shrink: 0;
 }
 
+/* Botões de ação coloridos */
 .btn-icon-sm {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border: 1px solid var(--border-color);
     background: transparent;
-    border-radius: var(--radius);
-    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    color: var(--text-tertiary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all var(--transition-fast);
+    font-size: 0.8125rem;
 }
 
 .btn-icon-sm:hover {
-    background: var(--bg-elevated);
-    color: var(--text-primary);
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary-500);
+    border-color: rgba(59, 130, 246, 0.3);
+    transform: scale(1.08);
 }
 
 .btn-icon-sm.danger:hover {
-    background: var(--danger-50);
-    color: var(--danger-600);
-    border-color: var(--danger-100);
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-500);
+    border-color: rgba(239, 68, 68, 0.3);
+    transform: scale(1.08);
 }
 
 /* Mini Cards (Recent Events) */
