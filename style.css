@@ -305,40 +305,54 @@ body {
 .sidebar.collapsed .nav-item span,
 .sidebar.collapsed .user-info,
 .sidebar.collapsed .btn-logout span {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    transition: opacity var(--transition-fast);
+    display: none;
 }
 
 .sidebar.collapsed .sidebar-brand {
-    justify-content: center;
-    padding: 1.5rem 0.75rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    gap: 0.5rem;
 }
 
 .sidebar.collapsed .brand-icon {
     margin: 0;
 }
 
+.sidebar.collapsed .btn-collapse-sidebar {
+    margin-left: 0;
+}
+
 .sidebar.collapsed .btn-collapse-sidebar i {
     transform: rotate(180deg);
 }
 
+.sidebar.collapsed .sidebar-nav {
+    padding: 0.5rem;
+}
+
 .sidebar.collapsed .nav-item {
     justify-content: center;
-    padding: 0.75rem;
+    padding: 0.75rem 0;
+    width: 48px;
+    height: 48px;
+    margin: 0.125rem auto;
+    border-radius: var(--radius-lg);
     position: relative;
 }
 
 .sidebar.collapsed .nav-item i {
     font-size: 1.125rem;
-    width: 24px;
-    min-width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: auto;
+    min-width: auto;
+}
+
+.sidebar.collapsed .nav-item .nav-indicator {
+    display: none;
+}
+
+.sidebar.collapsed .nav-item.active {
+    background: var(--primary-50);
 }
 
 /* Tooltip on hover when collapsed */
@@ -359,30 +373,34 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
-.sidebar.collapsed .user-card {
-    justify-content: center;
+.sidebar.collapsed .sidebar-footer {
     padding: 0.5rem;
 }
 
+.sidebar.collapsed .user-card {
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
 .sidebar.collapsed .user-avatar {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    font-size: 0.6875rem;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 0.75rem;
+    margin: 0 auto;
 }
 
 .sidebar.collapsed .btn-logout {
     justify-content: center;
-    padding: 0.625rem;
+    padding: 0.625rem 0;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
 }
 
 .sidebar.collapsed .btn-logout i {
     font-size: 1rem;
-}
-
-.sidebar.collapsed .btn-collapse-sidebar {
-    position: static;
-    margin: 0;
 }
 
 .btn-collapse-sidebar {
