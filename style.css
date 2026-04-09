@@ -2153,17 +2153,20 @@ body {
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    padding: 0.625rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    padding: 0.625rem 0.75rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all var(--transition-fast);
     font-size: 0.875rem;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
 }
 
 .checkbox-card:hover {
-    border-color: var(--primary-300);
-    background: var(--primary-50);
+    border-color: var(--primary-400);
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--text-primary);
 }
 
 .checkbox-card input {
@@ -2171,28 +2174,67 @@ body {
 }
 
 .checkbox-box {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--gray-300);
-    border-radius: var(--radius-sm);
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 0.625rem;
+    font-size: 0.5625rem;
     transition: all var(--transition-fast);
+    flex-shrink: 0;
 }
 
 .checkbox-card input:checked + .checkbox-box {
     background: var(--primary-600);
     border-color: var(--primary-600);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
 }
 
 .checkbox-card:has(input:checked) {
-    background: var(--primary-50);
+    background: rgba(59, 130, 246, 0.12);
     border-color: var(--primary-500);
-    color: var(--primary-700);
+    color: var(--text-primary);
     font-weight: 600;
+}
+
+/* Dark mode specific overrides for form */
+[data-theme="dark"] .checkbox-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .checkbox-card:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .checkbox-card:has(input:checked) {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+[data-theme="dark"] .checkbox-box {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Espaço accordion dark mode */
+[data-theme="dark"] .espaco-group {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .espaco-header {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .espaco-header:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .espaco-content {
+    background: rgba(255, 255, 255, 0.02);
 }
 
 /* Datas List */
@@ -2207,10 +2249,15 @@ body {
     grid-template-columns: 1fr auto 1fr auto;
     gap: 0.75rem;
     align-items: flex-end;
-    background: var(--bg-card);
+    background: var(--bg-elevated);
     padding: 1rem;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
+}
+
+[data-theme="dark"] .data-row-styled {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .date-input-group,
@@ -2231,11 +2278,42 @@ body {
 
 .input-date,
 .input-time {
-    padding: 0.5rem;
+    padding: 0.5rem 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     font-size: 0.9375rem;
     text-align: center;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    transition: all var(--transition-fast);
+}
+
+.input-date:focus,
+.input-time:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+[data-theme="dark"] .input-date,
+[data-theme="dark"] .input-time {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .input-date:focus,
+[data-theme="dark"] .input-time:focus {
+    border-color: var(--primary-500);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+/* Flatpickr dark mode override */
+[data-theme="dark"] .flatpickr-input {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 .time-inputs {
@@ -2266,6 +2344,31 @@ body {
     background: var(--danger-50);
     color: var(--danger-600);
     border-color: var(--danger-200);
+}
+
+[data-theme="dark"] .btn-remove-data:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Dark mode for all form inputs */
+[data-theme="dark"] .input-group input,
+[data-theme="dark"] .input-group select {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .input-group input:focus,
+[data-theme="dark"] .input-group select:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+/* Form section step badges dark mode */
+[data-theme="dark"] .form-section-header .step-badge {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--primary-400);
 }
 
 /* ============================================
