@@ -73,6 +73,9 @@
                     <h1>Agenda UFMA</h1>
                     <span>Gestão de Espaços</span>
                 </div>
+                <button class="btn-collapse-sidebar" id="btnCollapseSidebar" title="Recolher menu">
+                    <i class="fas fa-angles-left"></i>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -140,11 +143,29 @@
                     </div>
                 </div>
 
+                <div class="top-bar-center">
+                    <!-- Legend Filter Chips -->
+                    <div class="legend-filter-chips" id="legendFilterChips">
+                        <button class="legend-chip active" data-filter="all" onclick="filtrarPorEspaco('all', this)">
+                            <span class="chip-dot" style="background: var(--primary-500)"></span>Todos
+                        </button>
+                        <button class="legend-chip active" data-filter="Engenharia" onclick="filtrarPorEspaco('Engenharia', this)">
+                            <span class="chip-dot" style="background: var(--eng-color)"></span>Engenharia
+                        </button>
+                        <button class="legend-chip active" data-filter="Licenciaturas" onclick="filtrarPorEspaco('Licenciaturas', this)">
+                            <span class="chip-dot" style="background: var(--lic-color)"></span>Licenciaturas
+                        </button>
+                        <button class="legend-chip active" data-filter="Saúde" onclick="filtrarPorEspaco('Saúde', this)">
+                            <span class="chip-dot" style="background: var(--sau-color)"></span>Saúde
+                        </button>
+                    </div>
+                </div>
+
                 <div class="top-bar-right">
                     <!-- Search -->
                     <div class="search-box">
                         <i class="fas fa-search search-icon"></i>
-                        <input type="search" id="buscaGlobal" placeholder="Buscar eventos, responsáveis..." autocomplete="off">
+                        <input type="search" id="buscaGlobal" placeholder="Buscar... (/)" autocomplete="off">
                         <button id="btnLimparBusca" class="btn-clear-search" style="display:none;">
                             <i class="fas fa-times"></i>
                         </button>
@@ -159,7 +180,7 @@
                         <button id="btnRefreshDados" class="btn-icon btn-refresh" title="Sincronizar dados">
                             <i class="fas fa-sync-alt"></i>
                         </button>
-                        <button id="btnNovoAgendamento" class="btn-primary" style="display:none;">
+                        <button id="btnNovoAgendamento" class="btn-primary btn-pulse" style="display:none;" title="Novo agendamento (N)">
                             <i class="fas fa-plus"></i>
                             <span>Novo Agendamento</span>
                         </button>
@@ -173,14 +194,6 @@
                 <!-- Calendário -->
                 <div id="abaCalendario" class="tab-content active">
                     <div class="card calendar-card calendar-full">
-                        <div class="card-header">
-                            <div class="calendar-legend">
-                                <div class="legend-item"><span class="dot eng"></span>Engenharia</div>
-                                <div class="legend-item"><span class="dot lic"></span>Licenciaturas</div>
-                                <div class="legend-item"><span class="dot sau"></span>Saúde</div>
-                                <div class="legend-item"><span class="dot outros"></span>Outros</div>
-                            </div>
-                        </div>
                         <div id="calendar"></div>
                     </div>
 

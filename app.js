@@ -232,6 +232,40 @@ window.abrirDetalhes = function(event) {
     document.body.style.overflow = 'hidden';
 };
 
+// Filtro por espaço via chips
+window.filtrarPorEspaco = function(filtro, btn) {
+    const chips = document.querySelectorAll('.legend-chip');
+    
+    if(filtro === 'all') {
+        // Toggle all: se todos estão ativos, desativa todos; senão, ativa todos
+        const todosAtivos = Array.from(chips).every(c => c.classList.contains('active'));
+        chips.forEach(c => {
+            if(todosAtivos) c.classList.remove('active');
+            else c.classList.add('active');
+        });
+    } else {
+        btn.classList.toggle('active');
+        // Atualizar "Todos" automaticamente
+        const allChip = document.querySelector('.legend-chip[data-filter="all"]');
+        const categoryChips = document.querySelectorAll('.legend-chip:not([data-filter="all"])');
+        const todosAtivos = Array.from(categoryChips).every(c => c.classList.contains('active'));
+        if(todosAtivos) allChip.classList.add('active');
+        else allChip.classList.remove('active');
+    }
+    
+    // Aplicar filtro no calendário
+    if(!calendar) return;
+    const activeFilters = Array.from(document.querySelectorAll('.legend-chip.active:not([data-filter="all"])'))
+        .map(c => c.getAttribute('data-filter'));
+    
+    calendar.getEvents().forEach(ev => {
+        if(ev.extendedProps.isFeriado) return;
+        const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
+        const match = activeFilters.length === 0 || espacos.some(e => activeFilters.some(f => e.includes(f)));
+        ev.setProp('display', match ? 'block' : 'none');
+    });
+};
+
 window.abrirModalFormulario = function(dataInicial = null) {
     const modal = document.getElementById('modalFormAgendamento');
     const form = document.getElementById('reservaForm');
@@ -473,6 +507,22 @@ function initUI() {
     document.getElementById('btnToggleTheme')?.addEventListener('click', toggleTheme);
     document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
     
+    // Sidebar collapse
+    const btnCollapse = document.getElementById('btnCollapseSidebar');
+    if(btnCollapse) {
+        // Restaurar estado do localStorage
+        if(localStorage.getItem('sidebarCollapsed') === 'true') {
+            document.getElementById('sidebar').classList.add('collapsed');
+        }
+        btnCollapse.addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+            // Atualizar calendário após a transição
+            setTimeout(() => { if(calendar) calendar.updateSize(); }, 350);
+        });
+    }
+    
     document.getElementById('btnCloseModal')?.addEventListener('click', fecharModal);
     document.getElementById('btnCloseModalOnly')?.addEventListener('click', fecharModal);
     document.getElementById('btnFecharModalForm')?.addEventListener('click', fecharModalForm);
@@ -485,6 +535,43 @@ function initUI() {
                 if(modal.id === 'modalFormAgendamento') fecharModalForm();
             }
         });
+    });
+
+    // Atalhos de teclado
+    document.addEventListener('keydown', (e) => {
+        // Ignorar se estiver digitando em input/textarea
+        const tag = e.target.tagName.toLowerCase();
+        if(tag === 'input' || tag === 'textarea' || tag === 'select') {
+            if(e.key === 'Escape') {
+                e.target.blur();
+                fecharModal();
+                fecharModalForm();
+            }
+            return;
+        }
+        
+        switch(e.key.toLowerCase()) {
+            case 'n':
+                if(estado.nivelAcesso !== 'leitor') {
+                    e.preventDefault();
+                    window.abrirModalFormulario();
+                }
+                break;
+            case 't':
+                if(calendar) {
+                    e.preventDefault();
+                    calendar.today();
+                }
+                break;
+            case '/':
+                e.preventDefault();
+                document.getElementById('buscaGlobal')?.focus();
+                break;
+            case 'escape':
+                fecharModal();
+                fecharModalForm();
+                break;
+        }
     });
 
     initTheme();
