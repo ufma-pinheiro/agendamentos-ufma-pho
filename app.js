@@ -1182,8 +1182,6 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
             </div>`;
     }).join('');
 }
-    }).join('');
-}
 
 function atualizarUltimosEventos() {
     if(!calendar) return;
