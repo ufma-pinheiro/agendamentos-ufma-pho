@@ -1123,9 +1123,13 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
         lista = eventos.filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel} ${(ev.extendedProps.espacos || []).join(' ')}`.toLowerCase()).includes(estado.termoBusca));
     }
 
-    // Atualiza contador se existir header com .tab-count próximo ao container
+    const agora = new Date();
+    const ativos   = lista.filter(ev => (ev.end || ev.start) >= agora);
+    const passados = lista.filter(ev => (ev.end || ev.start) < agora);
+
+    // Contador mostra só os ativos
     const countBadge = document.getElementById(containerId + '__count');
-    if(countBadge) countBadge.textContent = lista.length;
+    if(countBadge) countBadge.textContent = ativos.length;
 
     if(lista.length === 0) {
         container.innerHTML = `
@@ -1137,22 +1141,16 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
         return;
     }
 
-    const agora = new Date();
-    
-    container.innerHTML = lista.map(ev => {
+    function renderCard(ev) {
+        const passado = (ev.end || ev.start) < agora;
         const inicio = ev.start;
         const fim = ev.end;
-        const passado = (fim || inicio) < agora;
         const dia = inicio.getDate().toString().padStart(2,'0');
         const mes = mesesAbrev[inicio.getMonth()];
         const horaInicio = inicio.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
         const horaFim = fim ? fim.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : '';
         const periodo = horaFim ? `${horaInicio} - ${horaFim}` : `A partir das ${horaInicio}`;
         const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
-        
-        const badgePassado = passado
-            ? `<span class="badge-passado"><i class="fas fa-check-circle"></i> Encerrado</span>`
-            : '';
         const badgeConflito = ev.extendedProps.isConflito
             ? `<span class="badge-conflito"><i class="fas fa-exclamation"></i> Conflito</span>` : '';
 
@@ -1165,7 +1163,6 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
                 <div class="event-content" onclick="abrirDetalhes(calendar.getEventById('${ev.id}'))">
                     <div class="event-header-row">
                         <h4>${ev.extendedProps.tituloPuro}</h4>
-                        ${badgePassado}
                         ${badgeConflito}
                     </div>
                     <div class="event-meta">
@@ -1180,7 +1177,33 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
                     <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir agendamento"><i class="fas fa-trash"></i></button>
                 </div>` : ''}
             </div>`;
-    }).join('');
+    }
+
+    let html = '';
+
+    // Eventos ativos
+    if(ativos.length === 0) {
+        html += `<div class="empty-state small"><i class="fas fa-calendar-check"></i><p>Nenhum evento ativo no momento.</p></div>`;
+    } else {
+        html += ativos.map(renderCard).join('');
+    }
+
+    // Seção de passados colapsável
+    if(passados.length > 0) {
+        html += `
+        <div class="past-events-section">
+            <button class="btn-past-toggle" onclick="this.closest('.past-events-section').classList.toggle('open')">
+                <i class="fas fa-history"></i>
+                <span>Encerrados (${passados.length})</span>
+                <i class="fas fa-chevron-down toggle-chevron"></i>
+            </button>
+            <div class="past-events-list">
+                ${passados.map(renderCard).join('')}
+            </div>
+        </div>`;
+    }
+
+    container.innerHTML = html;
 }
 
 function atualizarUltimosEventos() {

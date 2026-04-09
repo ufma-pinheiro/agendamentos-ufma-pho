@@ -1609,6 +1609,74 @@ body {
     font-size: 0.875rem;
 }
 
+/* Past Events Section */
+.past-events-section {
+    margin-top: 1.5rem;
+}
+
+.btn-past-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.btn-past-toggle:hover {
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-primary);
+}
+
+.btn-past-toggle i:first-child {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+}
+
+.btn-past-toggle span {
+    flex: 1;
+}
+
+.toggle-chevron {
+    transition: transform 0.25s ease;
+    font-size: 0.75rem !important;
+    color: var(--text-tertiary);
+}
+
+.past-events-section.open .toggle-chevron {
+    transform: rotate(180deg);
+}
+
+.past-events-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    margin-top: 0.75rem;
+}
+
+.past-events-section.open .past-events-list {
+    max-height: 9999px;
+}
+
+.past-events-list .event-row {
+    opacity: 0.5;
+    filter: grayscale(0.6);
+    transition: opacity 0.2s, filter 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.past-events-list .event-row:hover {
+    opacity: 0.8;
+    filter: grayscale(0.2);
+}
+
 /* Tags */
 .tag-local,
 .tag-local-mini {
