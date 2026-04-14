@@ -23,5 +23,12 @@ Este arquivo serve como memória persistente para o Antigravity sobre o estado a
 - [ ] Testar a criação de novos agendamentos manuais para ver se o cálculo de conflito automático continua preciso após a carga massiva.
 - [ ] Verificar se os eventos de meses distantes (Setembro/Dezembro) estão aparecendo corretamente no seletor de meses.
 
+
+### 4. Deploy e Visibilidade (14/04/2026)
+- **Problema:** Deploy bloqueado no Vercel (Status: Blocked).
+- **Causa:** Repositório era privado em uma organização, o que bloqueia o plano Hobby.
+- **Solução:** Repositório alterado para **Público**.
+- **Ação:** Novo push realizado para gatilhar o deploy automático.
+
 ---
-*Atualizado em: 13/04/2026 às 10:55*
+*Atualizado em: 14/04/2026 às 16:47*
