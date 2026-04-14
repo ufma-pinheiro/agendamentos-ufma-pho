@@ -234,34 +234,38 @@ window.abrirDetalhes = function(event) {
 
 // Filtro por espaço via chips
 window.filtrarPorEspaco = function(filtro, btn) {
-    const chips = document.querySelectorAll('.legend-chip');
-    
+    const allChip = document.querySelector('.legend-chip[data-filter="all"]');
+    const categoryChips = Array.from(document.querySelectorAll('.legend-chip:not([data-filter="all"])')); 
+
     if(filtro === 'all') {
-        // Toggle all: se todos estão ativos, desativa todos; senão, ativa todos
-        const todosAtivos = Array.from(chips).every(c => c.classList.contains('active'));
-        chips.forEach(c => {
-            if(todosAtivos) c.classList.remove('active');
-            else c.classList.add('active');
-        });
+        // Chip "Todos": ativa todos os outros e marca Todos
+        categoryChips.forEach(c => c.classList.add('active'));
+        allChip.classList.add('active');
     } else {
         btn.classList.toggle('active');
-        // Atualizar "Todos" automaticamente
-        const allChip = document.querySelector('.legend-chip[data-filter="all"]');
-        const categoryChips = document.querySelectorAll('.legend-chip:not([data-filter="all"])');
-        const todosAtivos = Array.from(categoryChips).every(c => c.classList.contains('active'));
+        // Se algum foi desativado, desmarcar "Todos"; se todos ativos, marcar "Todos"
+        const todosAtivos = categoryChips.every(c => c.classList.contains('active'));
+        const algumAtivo  = categoryChips.some(c => c.classList.contains('active'));
         if(todosAtivos) allChip.classList.add('active');
         else allChip.classList.remove('active');
+        // Se nenhum estiver ativo, re-ativar todos (não deixar tudo invisível)
+        if(!algumAtivo) {
+            categoryChips.forEach(c => c.classList.add('active'));
+            allChip.classList.add('active');
+        }
     }
-    
+
     // Aplicar filtro no calendário
     if(!calendar) return;
-    const activeFilters = Array.from(document.querySelectorAll('.legend-chip.active:not([data-filter="all"])'))
+    const activeFilters = categoryChips
+        .filter(c => c.classList.contains('active'))
         .map(c => c.getAttribute('data-filter'));
-    
+
     calendar.getEvents().forEach(ev => {
         if(ev.extendedProps.isFeriado) return;
         const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
-        const match = activeFilters.length === 0 || espacos.some(e => activeFilters.some(f => e.includes(f)));
+        // Mostra se qualquer espaço do evento bater com qualquer filtro ativo
+        const match = activeFilters.some(f => espacos.some(e => e.toLowerCase().includes(f.toLowerCase())));
         ev.setProp('display', match ? 'block' : 'none');
     });
 };
@@ -653,14 +657,12 @@ function construirInterfaceDinamica() {
                             ${g.extras.map(e => `
                                 <label class="checkbox-card">
                                     <input type="checkbox" name="espaco" value="${e.value}">
-                                    <div class="checkbox-box"><i class="fas fa-check"></i></div>
                                     <span>${e.label}</span>
                                 </label>
                             `).join('')}
                             ${Array.from({length: g.salas}, (_, i) => i + 1).map(i => `
                                 <label class="checkbox-card">
                                     <input type="checkbox" name="espaco" value="${g.titulo.split(' &')[0]} - Sala ${i}">
-                                    <div class="checkbox-box"><i class="fas fa-check"></i></div>
                                     <span>Sala ${i}</span>
                                 </label>
                             `).join('')}
@@ -742,12 +744,11 @@ function iniciarSistema() {
         eventContent: function(arg) {
             const props = arg.event.extendedProps;
             const time = arg.event.start ? `${arg.event.start.getHours().toString().padStart(2,'0')}h` : '';
-            const conflitoBadge = props.isConflito ? '<div class="event-conflito-badge"><i class="fas fa-exclamation"></i></div>' : '';
+            const conflitoDot = props.isConflito ? '<span class="event-conflito-dot" title="Conflito de horário"></span>' : '';
             return {
                 html: `
                     <div class="fc-event-custom">
-                        ${conflitoBadge}
-                        <div class="event-time">${time}</div>
+                        <div class="event-time">${time} ${conflitoDot}</div>
                         <div class="event-title">${props.tituloPuro || arg.event.title}</div>
                         <div class="event-loc">${(props.espacos || [props.espaco])[0]}</div>
                     </div>
