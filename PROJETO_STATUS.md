@@ -30,5 +30,14 @@ Este arquivo serve como memória persistente para o Antigravity sobre o estado a
 - **Solução:** Repositório alterado para **Público**.
 - **Ação:** Novo push realizado para gatilhar o deploy automático.
 
+### 5. Otimização de Performance e Lazy Loading (14/04/2026)
+- **Problema:** Sistema demorava vários segundos para carregar devido ao alto volume de dados (~400 registros).
+- **Causa:** Busca global (`select *`) seguida de inserção individual no calendário via loop.
+- **Solução Implementada:**
+    - **Lazy Loading no Calendário:** O FullCalendar agora busca apenas os eventos do período visível (ex: mês atual) via Supabase.
+    - **Uso de Batching:** Removido o loop `forEach` para inserção de eventos.
+    - **Consultas Especializadas:** Dashboard, Resumo Mensal e Lista de Meus Eventos agora fazem buscas independentes e filtradas por período diretamente no banco de dados.
+    - **Dashboard Focado:** Conforme decidido, o Dashboard agora inicia focado no mês atual por padrão, reduzindo o tempo de processamento.
+
 ---
-*Atualizado em: 14/04/2026 às 16:47*
+*Atualizado em: 14/04/2026 às 17:05*

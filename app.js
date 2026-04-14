@@ -730,7 +730,29 @@ function iniciarSistema() {
         headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' },
         buttonText: { today: 'Hoje', month: 'Mês', week: 'Semana', day: 'Dia' },
         eventDisplay: 'block',
-        events: feriadosFixos,
+        events: async function(info, successCallback, failureCallback) {
+            try {
+                // Iniciar carregamento
+                const { data, error } = await supabase
+                    .from('reservas')
+                    .select('*')
+                    .gte('start_time', info.start.toISOString())
+                    .lte('end_time', info.end.toISOString());
+
+                if (error) throw error;
+
+                const eventos = data.map(dbParaFrontend);
+                // Garantir que os feriados também sejam incluídos se necessário
+                successCallback([...eventos, ...feriadosFixos]);
+                
+                // Sincronizar outras telas após carregar os dados visíveis
+                atualizarTodasTelas();
+            } catch (error) {
+                console.error("Erro ao carregar eventos:", error);
+                showToast("Erro ao carregar eventos do calendário", "error");
+                failureCallback(error);
+            }
+        },
         height: 'auto',
         contentHeight: 'auto',
         
@@ -758,7 +780,7 @@ function iniciarSistema() {
     });
     
     calendar.render();
-    carregarDadosDaNuvem();
+    // carregarDadosDaNuvem(); // Removido em favor do Lazy Loading automático do FullCalendar
     iniciarRealtime();
     
     const whatsInput = document.getElementById('contatoWhats');
@@ -789,37 +811,33 @@ function getClasseBadge(nomeEspaco) {
     return "badge-outros";
 }
 
-async function carregarDadosDaNuvem() {
-    try {
-        const { data, error } = await supabase.from('reservas').select('*');
+// Função utilitária para buscar dados de um mês específico (usada por outras abas)
+async function buscarDadosMensais(ano, mes) {
+    const inicioMes = new Date(ano, mes, 1).toISOString();
+    const fimMes = new Date(ano, mes + 1, 0, 23, 59, 59).toISOString();
+    
+    const { data, error } = await supabase
+        .from('reservas')
+        .select('*')
+        .gte('start_time', inicioMes)
+        .lte('end_time', fimMes);
         
-        if(error) {
-            console.error("Erro ao carregar dados:", error);
-            showToast('Erro ao carregar dados: ' + error.message, 'error');
-            return;
-        }
-        
-        if(data) {
-            data.forEach(row => {
-                const evento = dbParaFrontend(row);
-                calendar.addEvent(evento);
-            });
-        }
-        
-        atualizarTodasTelas();
-    } catch(e) {
-        console.error("Erro ao carregar dados:", e);
-        showToast('Erro ao carregar dados', 'error');
+    if (error) {
+        console.error("Erro ao buscar dados mensais:", error);
+        return [];
     }
+    return data.map(dbParaFrontend);
 }
 
+// Mantido para compatibilidade, mas otimizado
 async function recarregarDados() {
     const btn = document.getElementById('btnRefreshDados');
     btn.classList.add('rotating');
-    calendar.removeAllEvents();
-    await carregarDadosDaNuvem();
+    if (calendar) {
+        calendar.refetchEvents(); // Força o Lazy Loading a rodar novamente
+    }
     setTimeout(() => btn.classList.remove('rotating'), 500);
-    showToast('Dados atualizados com sucesso!');
+    showToast('Dados sincronizados com sucesso!');
 }
 
 // ==========================================
@@ -1056,9 +1074,14 @@ function prepararEdicao() {
 
 function atualizarTodasTelas() {
     atualizarUltimosEventos();
-    atualizarResumoMes();
-    if(estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
-    if(estado.nivelAcesso === 'dono') atualizarDashboard();
+    // Note: atualizarResumoMes e atualizarDashboard agora são acionados na troca de abas 
+    // ou podem ser chamados aqui se estiverem visíveis.
+    const abaResumo = document.getElementById('abaResumo');
+    const abaDashboard = document.getElementById('abaDashboard');
+    
+    if (abaResumo?.classList.contains('active')) atualizarResumoMes();
+    if (abaDashboard?.classList.contains('active')) atualizarDashboard();
+    if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 
 function mudarAno(delta) {
@@ -1207,44 +1230,76 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
     container.innerHTML = html;
 }
 
-function atualizarUltimosEventos() {
+async function atualizarUltimosEventos() {
     if(!calendar) return;
-    const eventos = calendar.getEvents().filter(ev => !ev.extendedProps.isFeriado)
-        .sort((a, b) => (b.extendedProps.dataCriacao || 0) - (a.extendedProps.dataCriacao || 0)).slice(0, 5);
     const container = document.getElementById('containerUltimosEventos');
     if(!container) return;
-    if(eventos.length === 0) { container.innerHTML = `<div class="empty-state small"><i class="fas fa-inbox"></i><span>Nenhum evento recente</span></div>`; return; }
     
-    container.innerHTML = eventos.map(ev => {
-        const data = ev.start;
-        const hoje = new Date(); const ontem = new Date(hoje); ontem.setDate(ontem.getDate() - 1);
-        let dataTexto = (data.toDateString() === hoje.toDateString()) ? 'Hoje' : (data.toDateString() === ontem.toDateString()) ? 'Ontem' : data.toLocaleDateString('pt-BR', {day: 'numeric', month: 'short'});
-        return `
-            <div class="event-mini-card" onclick="abrirDetalhes(calendar.getEventById('${ev.id}'))" style="--card-color: ${ev.backgroundColor}">
-                <div class="event-status"></div>
-                <div class="event-info">
-                    <h5>${ev.extendedProps.tituloPuro}</h5>
-                    <div class="event-meta-mini"><span><i class="far fa-calendar"></i> ${dataTexto}</span><span><i class="far fa-user"></i> ${ev.extendedProps.responsavel || '-'}</span></div>
-                </div>
-                <i class="fas fa-chevron-right arrow"></i>
-            </div>`;
-    }).join('');
+    try {
+        const { data, error } = await supabase
+            .from('reservas')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(5);
+
+        if (error) throw error;
+        
+        const eventos = data.map(dbParaFrontend);
+        
+        if(eventos.length === 0) { 
+            container.innerHTML = `<div class="empty-state small"><i class="fas fa-inbox"></i><span>Nenhum evento recente</span></div>`; 
+            return; 
+        }
+        
+        container.innerHTML = eventos.map(ev => {
+            const data = new Date(ev.start);
+            const hoje = new Date(); const ontem = new Date(hoje); ontem.setDate(ontem.getDate() - 1);
+            let dataTexto = (data.toDateString() === hoje.toDateString()) ? 'Hoje' : (data.toDateString() === ontem.toDateString()) ? 'Ontem' : data.toLocaleDateString('pt-BR', {day: 'numeric', month: 'short'});
+            return `
+                <div class="event-mini-card" onclick="abrirDetalhes({id: '${ev.id}', extendedProps: ${JSON.stringify(ev.extendedProps)}, title: '${ev.title.replace(/'/g, "\\'")}', backgroundColor: '${ev.backgroundColor}', start: new Date('${ev.start}'), end: new Date('${ev.end}')})" style="--card-color: ${ev.backgroundColor}">
+                    <div class="event-status"></div>
+                    <div class="event-info">
+                        <h5>${ev.extendedProps.tituloPuro}</h5>
+                        <div class="event-meta-mini"><span><i class="far fa-calendar"></i> ${dataTexto}</span><span><i class="far fa-user"></i> ${ev.extendedProps.responsavel || '-'}</span></div>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>`;
+        }).sort((a, b) => b.dataCriacao - a.dataCriacao).join(''); // Manter a ordenação visual
+    } catch (e) {
+        console.error("Erro ao atualizar últimos eventos:", e);
+    }
 }
 
-function atualizarMeusEventos() {
+async function atualizarMeusEventos() {
     if(!calendar || !estado.usuarioLogado) return;
-    const meus = calendar.getEvents().filter(ev => !ev.extendedProps.isFeriado && ev.extendedProps.criadoPor === estado.usuarioLogado.email).sort((a, b) => a.start - b.start);
-    renderizarCards(meus, 'containerMeusEventos', 'Você ainda não criou nenhum evento');
+    const container = document.getElementById('containerMeusEventos');
+    container.innerHTML = `<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Carregando seus eventos...</div>`;
+
+    try {
+        const { data, error } = await supabase
+            .from('reservas')
+            .select('*')
+            .eq('criado_por', estado.usuarioLogado.email)
+            .order('start_time', { ascending: true });
+
+        if (error) throw error;
+        
+        const meus = data.map(dbParaFrontend);
+        renderizarCards(meus, 'containerMeusEventos', 'Você ainda não criou nenhum evento');
+    } catch (e) {
+        console.error("Erro ao carregar meus eventos:", e);
+        container.innerHTML = `<div class="empty-state small"><p>Erro ao carregar seus dados.</p></div>`;
+    }
 }
 
-function atualizarResumoMes() {
+async function atualizarResumoMes() {
     if(!calendar) return;
-    const inicioMes = new Date(estado.anoFiltro, estado.mesFiltro, 1);
-    const fimMes = new Date(estado.anoFiltro, estado.mesFiltro + 1, 0, 23, 59, 59);
-    const eventos = calendar.getEvents().filter(ev => {
-        if(ev.extendedProps.isFeriado || !ev.start) return false;
-        return ev.start <= fimMes && (ev.end || ev.start) >= inicioMes;
-    }).sort((a, b) => a.start - b.start);
+    const container = document.getElementById('listaResumo');
+    container.innerHTML = `<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Carregando resumo...</div>`;
+    
+    const eventos = await buscarDadosMensais(estado.anoFiltro, estado.mesFiltro);
+    eventos.sort((a, b) => new Date(a.start) - new Date(b.start));
+    
     renderizarCards(eventos, 'listaResumo', 'Nenhum evento neste mês');
 }
 
@@ -1252,19 +1307,33 @@ function atualizarResumoMes() {
 // DASHBOARD & ADMIN & EXPORTAÇÃO
 // ==========================================
 
-function atualizarDashboard() {
+async function atualizarDashboard() {
     if(!calendar || estado.nivelAcesso !== 'dono') return;
-    const filtroAno = document.getElementById('filtroDashAno').value;
-    const filtroMes = document.getElementById('filtroDashMes').value;
-    const filtroCat = document.getElementById('filtroDashCategoria').value;
     
-    let eventos = calendar.getEvents().filter(ev => {
-        if(ev.extendedProps.isFeriado || !ev.start) return false;
-        const matchAno = filtroAno === "Todos" || ev.start.getFullYear().toString() === filtroAno;
-        const matchMes = filtroMes === "Todos" || ev.start.getMonth().toString() === filtroMes;
-        const matchCat = filtroCat === "Todas" || (ev.extendedProps.espacos || []).some(e => e.includes(filtroCat));
-        return matchAno && matchMes && matchCat;
-    });
+    const filtroAno = parseInt(document.getElementById('filtroDashAno').value);
+    const filtroMesRaw = document.getElementById('filtroDashMes').value;
+    const filtroMes = filtroMesRaw === "Todos" ? "Todos" : parseInt(filtroMesRaw);
+    const filtroCat = document.getElementById('filtroDashCategoria').value;
+
+    let eventos = [];
+    
+    if (filtroMes === "Todos") {
+        // Se precisar de todos os meses, infelizmente temos que buscar o ano todo
+        // Mas o usuário falou que o foco é o mês atual.
+        const { data, error } = await supabase
+            .from('reservas')
+            .select('*')
+            .gte('start_time', `${filtroAno}-01-01T00:00:00`)
+            .lte('end_time', `${filtroAno}-12-31T23:59:59`);
+        if (!error && data) eventos = data.map(dbParaFrontend);
+    } else {
+        eventos = await buscarDadosMensais(filtroAno, filtroMes);
+    }
+
+    // Filtragem por categoria (feita em memória para não complicar a query SQL)
+    if (filtroCat !== "Todas") {
+        eventos = eventos.filter(ev => (ev.espacos || []).some(e => e.includes(filtroCat)));
+    }
     
     let totalHoras = 0; let conflitos = 0;
     const espacosUnicos = new Set(); const respsUnicos = new Set();
