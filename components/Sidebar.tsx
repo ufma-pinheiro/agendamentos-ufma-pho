@@ -1,11 +1,52 @@
 "use client";
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [role, setRole] = useState<string>("leitor");
+  const [loading, setLoading] = useState(true);
   
-  // Mock de nível de acesso (será dinâmico na Fase 2 com Supabase)
-  const role: string = "editor"; 
+  const supabase = createClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    async function loadUser() {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session) {
+        setUser(session.user);
+        
+        // Lógica de verificação de papel (conforme legacy/login.js)
+        const email = session.user.email;
+        
+        if (email === 'tipinheiro@ufma.br') {
+          setRole('dono');
+        } else {
+          const { data } = await supabase
+            .from('usuarios')
+            .select('role')
+            .eq('email', email)
+            .single();
+          
+          if (data) {
+            setRole(data.role);
+          }
+        }
+      }
+      setLoading(false);
+    }
+
+    loadUser();
+  }, [supabase]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/login');
+  };
 
   const mainNavItems = [
     { id: 'abaCalendario', label: 'Calendário', icon: 'fa-calendar-alt' },
@@ -18,6 +59,8 @@ const Sidebar = () => {
     { id: 'abaRelatorios', label: 'Relatórios', icon: 'fa-file-export', visible: role === 'dono' || role === 'editor' },
     { id: 'abaUsuarios', label: 'Usuários', icon: 'fa-users-cog', visible: role === 'dono' },
   ];
+
+  if (loading) return <aside className="sidebar loading-state"></aside>;
 
   return (
     <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`} id="sidebar">
@@ -69,16 +112,20 @@ const Sidebar = () => {
       <div className="sidebar-footer">
         <div className="user-card">
           <div className="user-avatar" id="userAvatar">
-            <i className="fas fa-user"></i>
+            {user?.user_metadata?.avatar_url ? (
+               <img src={user.user_metadata.avatar_url} alt="Avatar" style={{ borderRadius: '50%', width: '100%' }} />
+            ) : (
+               <i className="fas fa-user"></i>
+            )}
           </div>
           {!isCollapsed && (
             <div className="user-info">
-              <span id="userEmailDisplay" className="user-email">usuario@ufma.br</span>
+              <span id="userEmailDisplay" className="user-email">{user?.email || 'carregando...'}</span>
               <span id="userRoleDisplay" className="user-role">{role}</span>
             </div>
           )}
         </div>
-        <button id="btnLogout" className="btn-logout">
+        <button id="btnLogout" className="btn-logout" onClick={handleLogout}>
           <i className="fas fa-sign-out-alt"></i>
           <span>Sair</span>
         </button>
