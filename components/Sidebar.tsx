@@ -5,7 +5,7 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   
   // Mock de nível de acesso (será dinâmico na Fase 2 com Supabase)
-  const role = "editor"; 
+  const role: string = "editor"; 
 
   const mainNavItems = [
     { id: 'abaCalendario', label: 'Calendário', icon: 'fa-calendar-alt' },
@@ -73,8 +73,8 @@ const Sidebar = () => {
           </div>
           {!isCollapsed && (
             <div className="user-info">
-              <span id="userEmailDisplay" class="user-email">usuario@ufma.br</span>
-              <span id="userRoleDisplay" class="user-role">{role}</span>
+              <span id="userEmailDisplay" className="user-email">usuario@ufma.br</span>
+              <span id="userRoleDisplay" className="user-role">{role}</span>
             </div>
           )}
         </div>
