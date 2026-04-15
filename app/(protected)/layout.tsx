@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Sidebar from "@/components/Sidebar";
 import TopBar from "@/components/TopBar";
 import { createClient } from "@/lib/supabase/server";
@@ -6,7 +7,7 @@ import { redirect } from "next/navigation";
 export default async function ProtectedLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const supabase = await createClient();
   const {
