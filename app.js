@@ -1261,7 +1261,9 @@ async function atualizarUltimosEventos() {
             return; 
         }
         
-        container.innerHTML = eventos.map(ev => {
+        container.innerHTML = eventos
+            .sort((a, b) => b.extendedProps.dataCriacao - a.extendedProps.dataCriacao)
+            .map(ev => {
             const data = new Date(ev.start);
             const hoje = new Date(); const ontem = new Date(hoje); ontem.setDate(ontem.getDate() - 1);
             let dataTexto = (data.toDateString() === hoje.toDateString()) ? 'Hoje' : (data.toDateString() === ontem.toDateString()) ? 'Ontem' : data.toLocaleDateString('pt-BR', {day: 'numeric', month: 'short'});
@@ -1274,7 +1276,7 @@ async function atualizarUltimosEventos() {
                     </div>
                     <i class="fas fa-chevron-right arrow"></i>
                 </div>`;
-        }).sort((a, b) => b.extendedProps.dataCriacao - a.extendedProps.dataCriacao).join(''); // Manter a ordenação visual
+        }).join(''); // Manter a ordenação visual
     } catch (e) {
         console.error("Erro ao atualizar últimos eventos:", e);
     }
