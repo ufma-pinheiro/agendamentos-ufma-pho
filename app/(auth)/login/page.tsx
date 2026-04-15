@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
-export default function LoginPage() {
+function LoginContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
 
-  // Verifica se há erro na URL (ex: redirecionado do callback)
   useEffect(() => {
     const errorParam = searchParams.get('error');
     if (errorParam === 'auth_failed') {
@@ -23,7 +21,7 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
@@ -69,7 +67,7 @@ export default function LoginPage() {
                 </div>
                 <h3>Acesso ao Sistema</h3>
                 <p>Utilize sua conta Google institucional para acessar. Apenas e-mails autorizados têm permissão.</p>
-                
+
                 {error && (
                   <div className="error-message show" style={{ marginBottom: '1rem' }}>
                     <i className="fas fa-exclamation-circle"></i>
@@ -77,8 +75,8 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <button 
-                  className={`btn-google-login ${loading ? 'loading' : ''}`} 
+                <button
+                  className={`btn-google-login ${loading ? 'loading' : ''}`}
                   onClick={handleGoogleLogin}
                   disabled={loading}
                 >
@@ -112,5 +110,14 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Suspense boundary required for useSearchParams in Next.js
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="login-page" />}>
+      <LoginContent />
+    </Suspense>
   );
 }
