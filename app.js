@@ -1239,7 +1239,7 @@ async function atualizarUltimosEventos() {
         const { data, error } = await supabase
             .from('reservas')
             .select('*')
-            .order('created_at', { ascending: false })
+            .order('datacriacao', { ascending: false })
             .limit(5);
 
         if (error) throw error;
@@ -1279,7 +1279,7 @@ async function atualizarMeusEventos() {
         const { data, error } = await supabase
             .from('reservas')
             .select('*')
-            .eq('criado_por', estado.usuarioLogado.email)
+            .eq('criadopor', estado.usuarioLogado.email)
             .order('start_time', { ascending: true });
 
         if (error) throw error;

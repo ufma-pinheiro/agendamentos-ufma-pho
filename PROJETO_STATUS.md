@@ -39,5 +39,10 @@ Este arquivo serve como memória persistente para o Antigravity sobre o estado a
     - **Consultas Especializadas:** Dashboard, Resumo Mensal e Lista de Meus Eventos agora fazem buscas independentes e filtradas por período diretamente no banco de dados.
     - **Dashboard Focado:** Conforme decidido, o Dashboard agora inicia focado no mês atual por padrão, reduzindo o tempo de processamento.
 
+### 6. Restauração e Correção de Esquema (14/04/2026 - Noite)
+- **Ação:** Projeto restaurado para o branch `main` e diretório limpo de pastas extras (`src`, `dist`, `node_modules`).
+- **Correção Cronológica:** Identificamos que o branch `main` continha código de busca (queries) usando nomes de colunas padrão `snake_case` (`criado_por`, `created_at`), enquanto o banco de dados Supabase ainda usava os nomes originais (`criadopor`, `datacriacao`).
+- **Resultado:** Código do `app.js` ajustado para ser compatível com o banco atual, restaurando a visualização dos agendamentos e das métricas do dashboard.
+
 ---
-*Atualizado em: 14/04/2026 às 17:05*
+*Atualizado em: 14/04/2026 às 22:20*
