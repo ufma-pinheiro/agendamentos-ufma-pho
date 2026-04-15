@@ -21,46 +21,56 @@ const feriadosFixos = [];
 // MAPEAMENTO DE COLUNAS (Frontend ↔ DB)
 // ==========================================
 
-// Converte dados do banco (lowercase) para o formato do frontend (camelCase)
+// Converte dados do banco (lowercase) para o formato do frontend (compatível com FullCalendar)
 function dbParaFrontend(row) {
+    if (!row) return null;
+    const start = row.start_time ? new Date(row.start_time) : null;
+    const end = row.end_time ? new Date(row.end_time) : null;
+    
     return {
         id: row.id,
         title: row.title,
-        tituloPuro: row.titulopuro,
-        start: row.start_time,
-        end: row.end_time,
-        espacos: row.espacos,
-        responsavel: row.responsavel,
-        contatoWhats: row.contatowhats,
-        contatoEmail: row.contatoemail,
+        start: start,
+        end: end,
+        allDay: false,
         color: row.color,
         backgroundColor: row.color,
         borderColor: row.color,
         textColor: '#fff',
-        isConflito: row.isconflito,
-        groupId: row.groupid,
-        dataCriacao: row.datacriacao,
-        criadoPor: row.criadopor,
-        display: 'block'
+        display: 'block',
+        extendedProps: {
+            id: row.id,
+            title: row.title,
+            tituloPuro: row.titulopuro,
+            espacos: row.espacos,
+            responsavel: row.responsavel,
+            contatoWhats: row.contatowhats,
+            contatoEmail: row.contatoemail,
+            isConflito: row.isconflito,
+            groupId: row.groupid,
+            dataCriacao: row.datacriacao,
+            criadoPor: row.criadopor
+        }
     };
 }
 
 // Converte dados do frontend para o formato do banco (lowercase)
 function frontendParaDb(dados) {
+    const ext = dados.extendedProps || {};
     return {
-        title: dados.title,
-        titulopuro: dados.tituloPuro,
+        title: dados.title || ext.title,
+        titulopuro: ext.tituloPuro || dados.tituloPuro || dados.title,
         start_time: dados.start,
         end_time: dados.end,
-        espacos: dados.espacos,
-        responsavel: dados.responsavel,
-        contatowhats: dados.contatoWhats || null,
-        contatoemail: dados.contatoEmail || null,
-        color: dados.color,
-        isconflito: dados.isConflito || false,
-        groupid: dados.groupId || null,
-        datacriacao: dados.dataCriacao,
-        criadopor: dados.criadoPor
+        espacos: ext.espacos || dados.espacos,
+        responsavel: ext.responsavel || dados.responsavel,
+        contatowhats: ext.contatoWhats || dados.contatoWhats || null,
+        contatoemail: ext.contatoEmail || dados.contatoEmail || null,
+        color: dados.color || ext.color,
+        isconflito: ext.isConflito || dados.isConflito || false,
+        groupid: ext.groupId || dados.groupId || null,
+        datacriacao: ext.dataCriacao || dados.dataCriacao,
+        criadopor: ext.criadoPor || dados.criadoPor
     };
 }
 
@@ -1264,7 +1274,7 @@ async function atualizarUltimosEventos() {
                     </div>
                     <i class="fas fa-chevron-right arrow"></i>
                 </div>`;
-        }).sort((a, b) => b.dataCriacao - a.dataCriacao).join(''); // Manter a ordenação visual
+        }).sort((a, b) => b.extendedProps.dataCriacao - a.extendedProps.dataCriacao).join(''); // Manter a ordenação visual
     } catch (e) {
         console.error("Erro ao atualizar últimos eventos:", e);
     }
@@ -1332,7 +1342,7 @@ async function atualizarDashboard() {
 
     // Filtragem por categoria (feita em memória para não complicar a query SQL)
     if (filtroCat !== "Todas") {
-        eventos = eventos.filter(ev => (ev.espacos || []).some(e => e.includes(filtroCat)));
+        eventos = eventos.filter(ev => (ev.extendedProps.espacos || []).some(e => e.includes(filtroCat)));
     }
     
     let totalHoras = 0; let conflitos = 0;
