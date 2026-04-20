@@ -462,16 +462,14 @@ async function initAuth() {
         const user = session.user;
         estado.usuarioLogado = user;
         
-        // Buscar role do usuário
+        // Buscar role do usuário exclusivamente pelo banco de dados
         const { data: userData, error: roleError } = await supabase
             .from('usuarios')
             .select('role')
             .eq('email', user.email)
             .single();
         
-        if(user.email === 'tipinheiro@ufma.br') {
-            estado.nivelAcesso = 'dono';
-        } else if(userData && userData.role) {
+        if(userData && userData.role) {
             estado.nivelAcesso = userData.role;
         } else {
             // Email não cadastrado - mostrar tela de acesso negado
