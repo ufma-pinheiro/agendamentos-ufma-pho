@@ -8,9 +8,9 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.1.0`
+- Versão: `1.2.0`
 - Última atualização: `2026-04-20`
-- Atualizado por: `Antigravity`
+- Atualizado por: `Antigravity (Orchestrator + Auditor)`
 
 ---
 
@@ -145,12 +145,12 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 ---
 
 ## 🤖 Modo de Operação da IA
-- Especialistas ativos: `Orchestrator, Backend, Frontend.`
+- Especialistas ativos: `Orchestrator, Backend, Frontend, Auditor Independente.`
 - Nível de autonomia: `Sugerir + implementar (sob supervisão).`
 - Língua de resposta: `PT-BR`
 - Formato padrão de resposta: `Markdown + Código Direto.`
 - Quando escalar para humano: `Em caso de ambiguidades críticas no esquema do banco.`
-- Gates obrigatórios: `Validação de deleção/remoção de arquivos.`
+- Gates obrigatórios: `Validação de deleção/remoção de arquivos. Auditor deve emitir veredicto ANTES do push.`
 
 ---
 
@@ -158,9 +158,16 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 *(Preenchido automaticamente. Não apague.)*
 
 - **Estrutura de Pastas Detectada**: Monolítica na raiz (HTML/JS/CSS). Presença de `.agents` para orquestração.
-- **Riscos Imediatos Observados**: Grande volume de lógica em um único arquivo (`app.js` de ~1500 linhas) dificulta a depuração. Dependência de CDNs externas pode gerar indisponibilidade.
-- **Modelo de Dados / Schema Inferido**: `reservas` (id, title, start_time, end_time, espacos, responsavel, etc.).
+- **Riscos Imediatos Observados**:
+    - `app.js` agora com ~1620 linhas após melhorias — modularização ainda pendente.
+    - Dependência de CDNs externas pode gerar indisponibilidade.
+    - Ponto residual de XSS: `c.extendedProps.espacos.join(', ')` no modal SweetAlert2 de conflito ainda sem `escapeHtml()` por item.
+- **Modelo de Dados / Schema Inferido**: `reservas` (id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, etc).
 - **Lacunas de Documentação**: Descrição detalhada dos campos da tabela `usuarios` [não identificado].
+- **Fixes SECURITY-001 Aplicados** (branch `devAgendamento`):
+    - `8a67a97` — Removido admin hardcoded
+    - `5b5d753` — Sanitizaçâo XSS com `escapeHtml()` + `createElement`
+    - `352d85c` — Memory leak Realtime corrigido com `realtimeChannel` + `beforeunload`
 
 ---
 
@@ -170,6 +177,10 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 |------|-------------|-------------|-------------------|----------------|
 | 2026-04-20 | Orchestrator | Re-população total do Contexto | Manual reset e inserção de novas diretrizes | Sim |
 | 2026-04-20 | Orchestrator | Deletados arquivos legados | Limpeza de artefatos temporários (PROJETO_STATUS.md, etc) | Sim |
+| 2026-04-20 | Orchestrator + Backend | SECURITY-001 Fix 1: removido admin hardcoded | Role 100% baseada na tabela `usuarios`; admin verificado via MCP antes da remoção | Sim |
+| 2026-04-20 | Frontend | SECURITY-001 Fix 2: sanitização XSS | Adicionado `escapeHtml()`, `createElement`+`textContent` nos pontos críticos | Sim |
+| 2026-04-20 | Frontend | SECURITY-001 Fix 3: memory leak Realtime | Canal salvo em `realtimeChannel`, `removeChannel()` + `beforeunload` | Sim |
+| 2026-04-20 | Auditor | Veredicto CONDICIONADO — SECURITY-001 | Push ocorreu antes da auditoria (gate violado); 2 condições abertas | Parcial |
 
 ---
 
@@ -182,3 +193,13 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - [x] Modo de operação da IA e gates estão configurados
 - [x] Artefatos externos estão linkados
 - [x] Nenhuma decisão contradiz entrada anterior sem justificativa
+
+---
+
+## ⚠️ Pendências Abertas (Rastreadas pelo Auditor)
+
+| ID | Severidade | Descrição | Responsável | Prazo |
+|----|-----------|-----------|-------------|-------|
+| P-001 | Médio | CA-01 a CA-04 (SECURITY-001) sem evidência de teste — login admin, acesso negado, XSS literal, Realtime único | QA / Usuário | Próximo ciclo |
+| P-002 | Médio | `c.extendedProps.espacos.join(', ')` no modal SweetAlert2 de conflito sem `escapeHtml()` por item | Frontend | Próximo ciclo |
+| P-003 | Baixo | Gate do Auditor deve ser acionado ANTES do push (não depois) | Orchestrator | Processo |
