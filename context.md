@@ -8,7 +8,7 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.2.0`
+- Versão: `1.3.0`
 - Última atualização: `2026-04-20`
 - Atualizado por: `Antigravity (Orchestrator + Auditor)`
 
@@ -157,17 +157,22 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 ## 🔍 Contexto Inferido pela IA
 *(Preenchido automaticamente. Não apague.)*
 
-- **Estrutura de Pastas Detectada**: Monolítica na raiz (HTML/JS/CSS). Presença de `.agents` para orquestração.
+- **Estrutura de Pastas Detectada**: Modularização iniciada. Nova pasta `/js` com `utils.js` e `db.js`. `app.js` reduzido de ~1630 para ~1492 linhas.
 - **Riscos Imediatos Observados**:
-    - `app.js` agora com ~1620 linhas após melhorias — modularização ainda pendente.
+    - `app.js` ainda monolítico (auth, calendar, dashboard misturados) — modularização em progresso.
     - Dependência de CDNs externas pode gerar indisponibilidade.
-    - Ponto residual de XSS: `c.extendedProps.espacos.join(', ')` no modal SweetAlert2 de conflito ainda sem `escapeHtml()` por item.
-- **Modelo de Dados / Schema Inferido**: `reservas` (id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, etc).
-- **Lacunas de Documentação**: Descrição detalhada dos campos da tabela `usuarios` [não identificado].
-- **Fixes SECURITY-001 Aplicados** (branch `devAgendamento`):
-    - `8a67a97` — Removido admin hardcoded
-    - `5b5d753` — Sanitizaçâo XSS com `escapeHtml()` + `createElement`
-    - `352d85c` — Memory leak Realtime corrigido com `realtimeChannel` + `beforeunload`
+- **Schema Confirmado**:
+    - `reservas`: `id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, titulopuro, contatowhats, contatoemail`
+    - `usuarios`: `email, role` (sem coluna `id` — confirmado pelo 400 na PERF-001)
+- **Módulos JS Criados** (branch `devAgendamento`):
+    - `js/utils.js` — funções utilitarias puras (showToast, escapeHtml, adjustColor, etc.)
+    - `js/db.js` — mapeamento DB↔Frontend (dbParaFrontend, frontendParaDb)
+- **CSP Ativa** em `index.html` e `login.html` com diretivas para: cdn.jsdelivr.net, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com, fonts.gstatic.com, vercel.live (frame-src).
+- **Fixes Aplicados** (branch `devAgendamento`):
+    - `SECURITY-001`: admin hardcoded, XSS, memory leak
+    - `SECURITY-002`: CSP headers + hotfixes de frame-src e font-src
+    - `PERF-001`: projeções explícitas no Supabase
+    - `ARCH-001 Step 1`: extração de utils.js e db.js
 
 ---
 
@@ -184,6 +189,9 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-20 | Orchestrator/Backend | PERF-001 implementada (Projeções Explícitas) | `.select('*')` substituído para reduzir TTI e rede. Aguarda auditoria. | Não (Pendente Auditor) |
 | 2026-04-20 | Auditor | Veredicto APROVADO — PERF-001 | Nenhuma regressão detectada; campos validados contra o dbParaFrontend. Gate validado antes do push. | Sim |
 | 2026-04-20 | Security/Frontend | SECURITY-002 implementada e Auditada | Injeção de Meta tag CSP em index.html e login.html. Gate Auditor Aprovado (sem quebra de CDNs validado). | Sim |
+| 2026-04-20 | Security | SECURITY-002 hotfix #1 | CSP bloqueava esm.sh (Supabase SDK), vercel.live, fontes base64. Domínios adicionados. | Sim |
+| 2026-04-20 | Security + Backend | SECURITY-002 hotfix #2 | Adicionado frame-src vercel.live; removido `id` inválido da query `usuarios` (error 400). Schema `usuarios` confirmado: apenas `email, role`. | Sim |
+| 2026-04-20 | Frontend (ARCH-001) | Modularização Step 1: js/utils.js + js/db.js criados | Redução de 141 linhas no app.js. Auditado e aprovado antes do push. | Sim |
 
 ---
 
@@ -205,3 +213,5 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 |----|-----------|-----------|-------------|-------|
 | P-001 | Médio | CA-01 a CA-04 (SECURITY-001) sem evidência de teste — login admin, acesso negado, XSS literal, Realtime único | QA / Usuário | Próximo ciclo |
 | P-003 | Baixo | Gate do Auditor deve ser acionado ANTES do push (não depois) | Orchestrator | Processo |
+| P-004 | Médio | ARCH-001 Step 2 pendente: extrair `js/auth.js` com a lógica de initAuth + mostrarAcessoNegado | Frontend | Próximo ciclo |
+| P-005 | Baixo | Inventariar TODOS os domínios externos antes de qualquer nova CSP (lição do hotfix SECURITY-002) | Security | Processo |
