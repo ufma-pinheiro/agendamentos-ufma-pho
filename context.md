@@ -76,8 +76,8 @@
 ---
 
 ## 📂 Artefatos Vinculados
-- Status do Projeto: [PROJETO_STATUS.md](file:///c:/Users/Admin/OneDrive/Documentos/TRABALHO/SISTEMA%20AGENDAMENTO/em-dev-agendamentos-main/PROJETO_STATUS.md)
-- Plano de Melhoria: [melhora agenda.md](file:///c:/Users/Admin/OneDrive/Documentos/TRABALHO/SISTEMA%20AGENDAMENTO/em-dev-agendamentos-main/melhora%20agenda.md)
+- Status do Projeto: `[Removido — Contexto migrado para este arquivo]`
+- Plano de Melhoria: `[Removido — Contexto migrado para este arquivo]`
 
 ---
 
