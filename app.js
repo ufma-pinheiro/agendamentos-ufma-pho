@@ -1345,7 +1345,7 @@ async function carregarListaUsuariosAdmin() {
     const lista = document.getElementById('listaUsuariosAdmin');
     lista.innerHTML = '<div class="loading-skeleton"><div class="skeleton" style="height:50px"></div></div>';
     try {
-        const { data: usuarios, error } = await supabase.from('usuarios').select('id, email, role');
+        const { data: usuarios, error } = await supabase.from('usuarios').select('email, role');
 
         if (error) {
             lista.innerHTML = '<div class="empty-state small error"><span>Erro ao carregar usuários</span></div>';
