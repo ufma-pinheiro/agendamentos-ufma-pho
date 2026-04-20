@@ -781,7 +781,7 @@ function iniciarSistema() {
                 // Iniciar carregamento
                 const { data, error } = await supabase
                     .from('reservas')
-                    .select('*')
+                    .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
                     .gte('start_time', info.start.toISOString())
                     .lte('end_time', info.end.toISOString());
 
@@ -864,7 +864,7 @@ async function buscarDadosMensais(ano, mes) {
 
     const { data, error } = await supabase
         .from('reservas')
-        .select('*')
+        .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
         .gte('start_time', inicioMes)
         .lte('end_time', fimMes);
 
@@ -1295,7 +1295,7 @@ async function atualizarUltimosEventos() {
     try {
         const { data, error } = await supabase
             .from('reservas')
-            .select('*')
+            .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
             .order('datacriacao', { ascending: false })
             .limit(5);
 
@@ -1337,7 +1337,7 @@ async function atualizarMeusEventos() {
     try {
         const { data, error } = await supabase
             .from('reservas')
-            .select('*')
+            .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
             .eq('criadopor', estado.usuarioLogado.email)
             .order('start_time', { ascending: true });
 
@@ -1381,7 +1381,7 @@ async function atualizarDashboard() {
         // Mas o usuário falou que o foco é o mês atual.
         const { data, error } = await supabase
             .from('reservas')
-            .select('*')
+            .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
             .gte('start_time', `${filtroAno}-01-01T00:00:00`)
             .lte('end_time', `${filtroAno}-12-31T23:59:59`);
         if (!error && data) eventos = data.map(dbParaFrontend);
@@ -1483,7 +1483,7 @@ async function carregarListaUsuariosAdmin() {
     const lista = document.getElementById('listaUsuariosAdmin');
     lista.innerHTML = '<div class="loading-skeleton"><div class="skeleton" style="height:50px"></div></div>';
     try {
-        const { data: usuarios, error } = await supabase.from('usuarios').select('*');
+        const { data: usuarios, error } = await supabase.from('usuarios').select('id, email, role');
 
         if (error) {
             lista.innerHTML = '<div class="empty-state small error"><span>Erro ao carregar usuários</span></div>';
