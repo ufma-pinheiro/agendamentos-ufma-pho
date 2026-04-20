@@ -201,5 +201,4 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | ID | Severidade | Descrição | Responsável | Prazo |
 |----|-----------|-----------|-------------|-------|
 | P-001 | Médio | CA-01 a CA-04 (SECURITY-001) sem evidência de teste — login admin, acesso negado, XSS literal, Realtime único | QA / Usuário | Próximo ciclo |
-| P-002 | Médio | `c.extendedProps.espacos.join(', ')` no modal SweetAlert2 de conflito sem `escapeHtml()` por item | Frontend | Próximo ciclo |
 | P-003 | Baixo | Gate do Auditor deve ser acionado ANTES do push (não depois) | Orchestrator | Processo |

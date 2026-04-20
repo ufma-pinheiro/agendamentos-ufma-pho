@@ -996,7 +996,7 @@ async function salvarOuEditarEvento(e) {
                 html: `<p style="margin-bottom:15px">Este agendamento conflita com <b>${conflitos.length}</b> evento(s) existente(s).</p>
                        <div style="text-align:left;max-height:150px;overflow:auto;background:#f8f9fa;padding:10px;border-radius:8px;">
                        ${conflitos.map(c => `<div style="padding:5px;border-left:3px solid #e74c3c;margin:5px 0;padding-left:8px;">
-                            <b>${escapeHtml(c.extendedProps.tituloPuro)}</b><br><small>${(c.extendedProps.espacos || [c.extendedProps.espaco]).join(', ')}</small>
+                            <b>${escapeHtml(c.extendedProps.tituloPuro)}</b><br><small>${(c.extendedProps.espacos || [c.extendedProps.espaco]).map(escapeHtml).join(', ')}</small>
                        </div>`).join('')}</div>`,
                 icon: 'warning',
                 showCancelButton: true,
