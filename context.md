@@ -2,88 +2,183 @@
 > ⚠️ Este arquivo NÃO é preenchido manualmente pelo humano.
 > A IA deve inferir e preencher automaticamente com base nos artefatos fornecidos.
 > Todos os especialistas devem ler este arquivo antes de qualquer ação.
+> Campos inferidos com incerteza: `[inferido — confirmar]`
+> Campos sem evidência: `[não identificado — aguardando mais contexto]`
 
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.0.0`
+- Versão: `1.1.0`
 - Última atualização: `2026-04-20`
 - Atualizado por: `Antigravity`
 
 ---
 
-## 2️⃣ Identidade e Propósito
+## 🤖 Instrução de Autopreenchimento
+Ao receber qualquer artefato (código, repositório, README, descrição, PR, conversa), a IA deve:
+1. Analisar o artefato e inferir os campos abaixo
+2. Preencher cada campo com o que foi identificado
+3. Marcar campos incertos como `[inferido — confirmar]`
+4. Marcar campos sem evidência como `[não identificado — aguardando mais contexto]`
+5. Nunca pedir ao humano para preencher este arquivo manualmente
+6. Registrar no histórico o que foi inferido e quando
+
+---
+
+## 1️⃣ Identidade e Propósito
 - Nome do Produto: `Sistema de Agendamento UFMA (Pinheiro)`
-- Proposta de Valor (1 frase): `Gestão centralizada e automatizada de reservas de espaços acadêmicos com detecção de conflitos em tempo real.`
-- Fase Atual: `Refatoração e Otimização`
+- Proposta de Valor (1 frase): `Gestão centralizada de reservas de espaços acadêmicos com calendários dinâmicos, controle de permissões e análise de ocupação.`
+- Fase Atual: `Refatoração` (Otimização de performance e segurança em código legado).
 - Tipo de Sistema: `Ferramenta Interna`
 
+> 🤖 Inferir de: README, nome do repositório, descrição do projeto, landing page, conversas iniciais.
+
 ---
 
-## 3️⃣ Domínio e Glossário
-- Termos-chave do negócio: `Agendamento (Reserva), Sala (Espaço), Responsável, Conflito, Dashboard.`
+## 2️⃣ Domínio e Glossário
+- Termos-chave do negócio: `Agendamento/Reserva`, `Espaço/Sala`, `Responsável`, `Conflito`, `Role (Papel)`.
 - Regras de negócio não-óbvias:
-    - Eventos de múltiplos dias no CSV foram fragmentados em entradas diárias individuais para melhor visualização no calendário.
-    - O status "BLOQUEADO" no sistema legado podia ser interpretado incorretamente como conflito.
-    - Fuso horário fixo em UTC-3 (Horário de Brasília).
-- Entidades e relações principais: `Reservas (Eventos) -> Locais (Salas) -> Responsáveis.`
+    - Fuso horário fixo em `UTC-3` (Brasília) para evitar erros de renderização no calendário.
+    - Divisão cronológica: Eventos que abrangem vários dias são fragmentados em registros individuais (um por dia) para evitar blocos contínuos ilegíveis.
+    - Filtros por categoria: Engenharia, Licenciaturas, Saúde (com cores específicas).
+- Entidades e relações principais: `Reservas` (eventos de agenda), `Usuários` (permissões vinculadas ao e-mail institucional).
+- Termos proibidos ou ambíguos: `[não identificado — aguardando mais contexto]`
+
+> 🤖 Inferir de: modelos de dados, nomes de tabelas, comentários no código, documentação existente.
 
 ---
 
-## 4️⃣ Usuários e Mercado
-- Público Principal: `Administradores e Professores/Alunos da UFMA.`
-- Perfis / Níveis de Acesso: `Admin (ex: tipinheiro@ufma.br) e Usuário Padrão [inferido — confirmar].`
-- Nível de Confiança Exigido: `Médio (Controle de agenda pública).`
+## 3️⃣ Usuários e Mercado
+- Público Principal: `Comunidade UFMA (Professores, Alunos e Técnicos do Campus Pinheiro).`
+- Perfis / Níveis de Acesso:
+    - `leitor`: Apenas visualiza a agenda e dashboard.
+    - `editor`: Cria, edita e exclui seus próprios agendamentos.
+    - `dono`: Acesso total (Gestão de usuários, dashboard administrativo, exclusão global).
+- Nível de Confiança Exigido: `Alto` (Controle de acesso físico a salas e auditórios).
+- Tom ou Diferencial de Marca: `Institucional e Profissional.`
+
+> 🤖 Inferir de: roles no código, fluxos de autenticação, copy da interface, tipo de produto.
 
 ---
 
-## 5️⃣ Fluxos e Funcionalidades Críticas
-- Fluxo Principal (Job to be Done): `Consultar disponibilidade de sala e registrar reserva sem sobreposição de horários.`
-- Funcionalidades Essenciais: `Calendário Dinâmico (FullCalendar), Dashboard de Métricas (Chart.js), Exportação de Relatórios (Excel/PDF).`
-- Fluxos de Alto Risco / Sensíveis: `Cálculo de conflitos automáticos e exclusão de eventos.`
+## 4️⃣ Fluxos e Funcionalidades Críticas
+- Fluxo Principal (Job to be Done): `Verificar disponibilidade de local -> Selecionar Horário -> Confirmar Agendamento.`
+- Funcionalidades Essenciais: `Calendário Interativo (FullCalendar), Dashboard de métricas de ocupação (Chart.js), Exportação em PDF/Excel.`
+- Fluxos de Alto Risco / Sensíveis: `Detecção de conflitos automática` no momento da criação/edição e `remoção de usuários`.
+- Estados que Não Podem Falhar: `Sincronização com Supabase Realtime` e `Verificação de Auth` no Login.
+
+> 🤖 Inferir de: rotas principais, controllers, fluxos de navegação, testes existentes.
 
 ---
 
-## 6️⃣ Stack e Arquitetura
-- Frontend: `Vanilla JavaScript, HTML5, CSS3.`
-- Backend: `Supabase (PostgreSQL + Realtime).`
+## 5️⃣ Stack e Arquitetura
+- Frontend: `Vanilla JavaScript (ES Modules), HTML5, CSS3.`
+- Backend: `Supabase (PostgREST + Realtime).`
 - Banco de Dados: `PostgreSQL (Supabase).`
-- Infra / Deploy: `Vercel (Repositório Público).`
-- Estilo de API: `Supabase Client (Direct PostgREST).`
-- Autenticação / Autorização: `Supabase Auth (em implementação/ajuste).`
-- Dependências Críticas: `FullCalendar, Chart.js, XLSX, jsPDF, SweetAlert2, Flatpickr.`
+- Infra / Deploy: `Vercel.`
+- Estilo de API: `Direct PostgREST` (via SDK do Supabase).
+- Autenticação / Autorização: `Supabase Auth` com validação customizada baseada na tabela `usuarios`.
+- Gerenciamento de Estado / Cache: `Estado Global` (objeto `estado` em `app.js`).
+- Dependências Críticas: `FullCalendar@6`, `Chart.js`, `Flatpickr`, `SweetAlert2`, `XLSX`, `jsPDF`.
+
+> 🤖 Inferir de: package.json, requirements.txt, Dockerfile, imports, estrutura de pastas.
 
 ---
 
-## 7️⃣ Ambientes e Secrets
-- Ambientes ativos: `Local e Produção (Vercel).`
+## 6️⃣ Ambientes e Secrets
+- Ambientes ativos: `Local` (desenvolvimento) e `Produção` (Vercel).
+- Diferenças entre ambientes: `[não identificado — aguardando mais contexto]`
+- Estratégia de secrets: `Supabase URL/Anon Key` gerenciadas via arquivos de configuração/variáveis de ambiente no Vercel.
 - URLs de referência: `https://github.com/ufma-pinheiro/agendamentos-ufma-pho`
+
+> 🤖 Inferir de: .env.example, docker-compose, CI/CD configs, README de setup.
+
+---
+
+## 7️⃣ Integrações e Dependências Externas
+- Integrações ativas: `Supabase (Backend-as-a-Service).`
+- SLAs ou limites conhecidos: `[não identificado — aguardando mais contexto]`
+- Fallback se integração cair: `Alertas visuais via showToast e SweetAlert2.`
+- Dependências críticas: `CDN's de bibliotecas (jsDelivr, unpkg).`
+
+> 🤖 Inferir de: imports de SDKs, variáveis de ambiente, chamadas HTTP externas.
 
 ---
 
 ## 8️⃣ Restrições e Regras
-- Equipe e Recursos: `Refatoração focada em performance e segurança.`
-- Compliance / Privacidade: `Uso interno universitário.`
-- Limites Técnicos: `Código legado em arquivo monolítico (app.js ~800 linhas) em processo de modularização.`
+- Equipe e Recursos: `Refatoração focada em modularização (app.js de 1500+ linhas).`
+- Prazos ou Marcos: `[não identificado — aguardando mais contexto]`
+- Compliance / Privacidade: `Uso restrito institucional (LGPD implícita).`
+- Limites Técnicos ou de Negócio: `O código atual é monolítico; mudanças devem ser incrementais (ZERO regressão).`
+
+> 🤖 Inferir de: comentários no código, README, conversas, tipo de dados tratados.
 
 ---
 
 ## 9️⃣ Contrato de Qualidade
-- Tratamento de erros: `Obrigatório para falhas de rede/Supabase.`
-- Acessibilidade: `Semântica básica de HTML.`
-- Internacionalização: `PT-BR apenas.`
+- Cobertura de testes mínima: `[não identificado]`
+- Padrão de code review: `Não modularizado inicialmente; refatoração para padrão modular em andamento.`
+- Tratamento de erros obrigatório: `Captura de exceções em todas as chamadas do Supabase com feedback visual.`
+- Acessibilidade: `Semântica básica e uso de tags ARIA [inferido — confirmar].`
+- Internacionalização: `Somente PT-BR.`
+- Definição de "Pronto": `Funcionalidade testada, sem conflitos de agenda e persistida no Supabase.`
+
+> 🤖 Inferir de: configurações de linting, testes existentes, CI/CD, PRs anteriores.
 
 ---
 
-## 📂 Artefatos Vinculados
-- Status do Projeto: `[Removido — Contexto migrado para este arquivo]`
-- Plano de Melhoria: `[Removido — Contexto migrado para este arquivo]`
+## 🔟 Métricas e Sucesso
+- Métrica Principal (North Star): `Taxa de utilização dos espaços versus pedidos de agendamento.`
+- Indicadores de Saúde Técnica: `Tempo de carregamento (TTI) com Lazy Loading das abas.`
+- O que NÃO deve acontecer (Anti-Goals): `Sobreposição de horários (Conflitos), Acesso de usuários não cadastrados.`
+
+> 🤖 Inferir de: documentação de produto, OKRs, conversas sobre objetivos.
+
+---
+
+## 🗂️ Artefatos Vinculados
+- Figma / Protótipo: `[não identificado]`
+- Diagrama de arquitetura: `[não identificado]`
+- Schema do banco: `Tabelas: reservas, usuarios (Supabase).`
+- Repositório(s): `https://github.com/ufma-pinheiro/agendamentos-ufma-pho`
+
+---
+
+## 🤖 Modo de Operação da IA
+- Especialistas ativos: `Orchestrator, Backend, Frontend.`
+- Nível de autonomia: `Sugerir + implementar (sob supervisão).`
+- Língua de resposta: `PT-BR`
+- Formato padrão de resposta: `Markdown + Código Direto.`
+- Quando escalar para humano: `Em caso de ambiguidades críticas no esquema do banco.`
+- Gates obrigatórios: `Validação de deleção/remoção de arquivos.`
 
 ---
 
 ## 🔍 Contexto Inferido pela IA
 *(Preenchido automaticamente. Não apague.)*
 
-- **Estrutura de Pastas Detectada**: Raiz com arquivos desacoplados (HTML/JS/CSS). Presença de `.agents` e `.antigravityignore`. 
-- **Riscos Imediatos Observados**: Manutenibilidade de script único de 800 linhas (`app.js`). Falsos positivos em conflitos de agenda devido a nomes de colunas.
-- **Lacunas de Contexto**: Níveis de permissão detalhados por usuário ainda não mapeados completamente no código.
+- **Estrutura de Pastas Detectada**: Monolítica na raiz (HTML/JS/CSS). Presença de `.agents` para orquestração.
+- **Riscos Imediatos Observados**: Grande volume de lógica em um único arquivo (`app.js` de ~1500 linhas) dificulta a depuração. Dependência de CDNs externas pode gerar indisponibilidade.
+- **Modelo de Dados / Schema Inferido**: `reservas` (id, title, start_time, end_time, espacos, responsavel, etc.).
+- **Lacunas de Documentação**: Descrição detalhada dos campos da tabela `usuarios` [não identificado].
+
+---
+
+## 🔄 Histórico de Decisões e Atualizações
+
+| Data | Especialista | O que mudou | Motivo / Trade-off | Gate Validado? |
+|------|-------------|-------------|-------------------|----------------|
+| 2026-04-20 | Orchestrator | Re-população total do Contexto | Manual reset e inserção de novas diretrizes | Sim |
+| 2026-04-20 | Orchestrator | Deletados arquivos legados | Limpeza de artefatos temporários (PROJETO_STATUS.md, etc) | Sim |
+
+---
+
+## ✅ Checklist de Validação (Orchestrator)
+- [x] `context.md` está legível, versionado e atualizado
+- [x] Glossário e regras de domínio estão explícitos
+- [x] Stack, ambientes e integrações estão documentados
+- [x] Fluxos críticos e anti-goals estão definidos
+- [x] Contrato de qualidade e definição de "pronto" estão claros
+- [x] Modo de operação da IA e gates estão configurados
+- [x] Artefatos externos estão linkados
+- [x] Nenhuma decisão contradiz entrada anterior sem justificativa
