@@ -181,6 +181,8 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-20 | Frontend | SECURITY-001 Fix 2: sanitização XSS | Adicionado `escapeHtml()`, `createElement`+`textContent` nos pontos críticos | Sim |
 | 2026-04-20 | Frontend | SECURITY-001 Fix 3: memory leak Realtime | Canal salvo em `realtimeChannel`, `removeChannel()` + `beforeunload` | Sim |
 | 2026-04-20 | Auditor | Veredicto CONDICIONADO — SECURITY-001 | Push ocorreu antes da auditoria (gate violado); 2 condições abertas | Parcial |
+| 2026-04-20 | Orchestrator/Backend | PERF-001 implementada (Projeções Explícitas) | `.select('*')` substituído para reduzir TTI e rede. Aguarda auditoria. | Não (Pendente Auditor) |
+| 2026-04-20 | Auditor | Veredicto APROVADO — PERF-001 | Nenhuma regressão detectada; campos validados contra o dbParaFrontend. Gate validado antes do push. | Sim |
 
 ---
 
