@@ -1,0 +1,677 @@
+<!-- index.html - Estrutura aprimorada -->
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamentos | UFMA</title>
+    <meta name="description" content="Sistema de agendamentos de espaços UFMA">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Libraries -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-text">Verificando acesso<span>.</span><span>.</span><span>.</span></div>
+        </div>
+    </div>
+
+    <!-- Acesso Negado Overlay -->
+    <div id="accessDeniedOverlay" class="loading-overlay" style="display: none;">
+        <div style="text-align: center; max-width: 400px; padding: 2rem;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #dc2626); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: white;">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--text-primary);">Acesso Não Autorizado</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">Seu e-mail não está cadastrado no sistema. Solicite acesso ao administrador.</p>
+            <a href="login.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600; font-size: 0.9rem; transition: all 0.2s;">
+                <i class="fas fa-arrow-left"></i> Voltar ao Login
+            </a>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Alerta Modo Leitura -->
+    <div id="leitorBlockMessage" class="alert-mode-banner">
+        <i class="fas fa-eye"></i>
+        <span>Modo Leitura Ativo: Você possui permissão apenas para visualizar a agenda</span>
+    </div>
+
+    <!-- Container Principal -->
+    <div id="appContainer" class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Agenda UFMA</h1>
+                    <span>Gestão de Espaços</span>
+                </div>
+                <button class="btn-collapse-sidebar" id="btnCollapseSidebar" title="Recolher menu">
+                    <i class="fas fa-angles-left"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <span class="nav-label">Principal</span>
+                    <button class="nav-item active" data-target="abaCalendario" onclick="switchTab('abaCalendario')">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Calendário</span>
+                        <div class="nav-indicator"></div>
+                    </button>
+                    <button class="nav-item" id="btnTabMeusEventos" data-target="abaMeusEventos" onclick="switchTab('abaMeusEventos')" style="display:none;">
+                        <i class="fas fa-user-check"></i>
+                        <span>Meus Eventos</span>
+                    </button>
+                    <button class="nav-item" data-target="abaResumo" onclick="switchTab('abaResumo')">
+                        <i class="fas fa-list-alt"></i>
+                        <span>Resumo Mensal</span>
+                    </button>
+                </div>
+
+                <div class="nav-section admin-only" style="display:none;">
+                    <span class="nav-label">Administração</span>
+                    <button class="nav-item" id="btnTabDashboard" data-target="abaDashboard" onclick="switchTab('abaDashboard')">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </button>
+                    <button class="nav-item" id="btnTabRelatorios" data-target="abaRelatorios" onclick="switchTab('abaRelatorios')">
+                        <i class="fas fa-file-export"></i>
+                        <span>Relatórios</span>
+                    </button>
+                    <button class="nav-item" id="btnTabUsuarios" data-target="abaUsuarios" onclick="switchTab('abaUsuarios')">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Usuários</span>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar" id="userAvatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span id="userEmailDisplay" class="user-email">carregando...</span>
+                        <span id="userRoleDisplay" class="user-role">...</span>
+                    </div>
+                </div>
+                <button id="btnLogout" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="btn-icon menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <span class="page-title" id="pageTitle">Calendário</span>
+                    </div>
+                </div>
+
+                <div class="top-bar-center">
+                    <!-- Legend Filter Chips -->
+                    <div class="legend-filter-chips" id="legendFilterChips">
+                        <button class="legend-chip active" data-filter="all" onclick="filtrarPorEspaco('all', this)">
+                            <span class="chip-dot" style="background: var(--primary-500)"></span>Todos
+                        </button>
+                        <button class="legend-chip active" data-filter="Engenharia" onclick="filtrarPorEspaco('Engenharia', this)">
+                            <span class="chip-dot" style="background: var(--eng-color)"></span>Engenharia
+                        </button>
+                        <button class="legend-chip active" data-filter="Licenciaturas" onclick="filtrarPorEspaco('Licenciaturas', this)">
+                            <span class="chip-dot" style="background: var(--lic-color)"></span>Licenciaturas
+                        </button>
+                        <button class="legend-chip active" data-filter="Saúde" onclick="filtrarPorEspaco('Saúde', this)">
+                            <span class="chip-dot" style="background: var(--sau-color)"></span>Saúde
+                        </button>
+                    </div>
+                </div>
+
+                <div class="top-bar-right">
+                    <!-- Search -->
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="search" id="buscaGlobal" placeholder="Buscar... (/)" autocomplete="off">
+                        <button id="btnLimparBusca" class="btn-clear-search" style="display:none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div id="searchResults" class="search-dropdown"></div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="action-group">
+                        <button id="btnToggleTheme" class="btn-icon btn-theme" title="Alternar tema">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="btnRefreshDados" class="btn-icon btn-refresh" title="Sincronizar dados">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button id="btnNovoAgendamento" class="btn-primary btn-pulse" style="display:none;" title="Novo agendamento (N)">
+                            <i class="fas fa-plus"></i>
+                            <span>Novo Agendamento</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Areas -->
+            <div class="content-wrapper custom-scrollbar">
+                
+                <!-- Calendário -->
+                <div id="abaCalendario" class="tab-content active">
+                    <div class="card calendar-card calendar-full">
+                        <div id="calendar"></div>
+                    </div>
+
+                    <div class="recent-strip" id="recentStrip">
+                        <button class="recent-strip-toggle" id="btnToggleRecent" onclick="document.getElementById('recentStrip').classList.toggle('open')">
+                            <span><i class="fas fa-bolt"></i> Últimos Registros</span>
+                            <i class="fas fa-chevron-down toggle-chevron"></i>
+                        </button>
+                        <div class="recent-strip-content" id="containerUltimosEventos">
+                            <div class="empty-state small">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Carregando eventos...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meus Eventos -->
+                <div id="abaMeusEventos" class="tab-content">
+                    <div class="page-header">
+                        <div>
+                            <h2><i class="fas fa-user-check"></i> Meus Agendamentos <span class="events-count-badge" id="containerMeusEventos__count">0</span></h2>
+                            <p class="page-description">Gerencie todos os eventos criados por você</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" id="containerMeusEventos">
+                            <div class="empty-state">
+                                <i class="fas fa-calendar-times"></i>
+                                <h3>Nenhum evento encontrado</h3>
+                                <p>Você ainda não criou nenhum agendamento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumo Mensal -->
+                <div id="abaResumo" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-list-alt"></i> Resumo Mensal <span class="events-count-badge" id="listaResumo__count">0</span></h2>
+                    </div>
+                    
+                    <div class="filter-bar">
+                        <div class="year-selector">
+                            <button id="btnAnoAnt" class="btn-icon"><i class="fas fa-chevron-left"></i></button>
+                            <span id="displayAno" class="year-display">2026</span>
+                            <button id="btnAnoProx" class="btn-icon"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="month-grid" id="monthGridContainer"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body" id="listaResumo">
+                            <div class="empty-state">
+                                <i class="fas fa-calendar-day"></i>
+                                <h3>Selecione um mês</h3>
+                                <p>Escolha um mês para visualizar os agendamentos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard -->
+                <div id="abaDashboard" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-chart-pie"></i> Dashboard Analytics</h2>
+                        <p class="page-description">Métricas e análises de utilização dos espaços</p>
+                    </div>
+
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <select id="filtroDashAno" class="select-styled">
+                                <option value="Todos">Todos os Anos</option>
+                                <option value="2026" selected>2026</option>
+                            </select>
+                            <select id="filtroDashMes" class="select-styled">
+                                <option value="Todos">Todos os Meses</option>
+                            </select>
+                            <select id="filtroDashCategoria" class="select-styled">
+                                <option value="Todas">Todas as Categorias</option>
+                            </select>
+                            <button id="btnAplicarFiltrosDash" class="btn-secondary">
+                                <i class="fas fa-filter"></i>
+                                Aplicar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-card primary">
+                            <div class="metric-icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">Total Agendamentos</span>
+                                <span class="metric-value" id="dashMetrica1">0</span>
+                            </div>
+                        </div>
+                        <div class="metric-card success">
+                            <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">Horas Reservadas</span>
+                                <span class="metric-value" id="dashMetrica5">0<span class="suffix">h</span></span>
+                            </div>
+                        </div>
+                        <div class="metric-card info">
+                            <div class="metric-icon"><i class="fas fa-door-open"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">Salas Utilizadas</span>
+                                <span class="metric-value" id="dashMetrica2">0</span>
+                            </div>
+                        </div>
+                        <div class="metric-card warning">
+                            <div class="metric-icon"><i class="fas fa-users"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">Responsáveis</span>
+                                <span class="metric-value" id="dashMetrica4">0</span>
+                            </div>
+                        </div>
+                        <div class="metric-card danger">
+                            <div class="metric-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="metric-info">
+                                <span class="metric-label">Conflitos</span>
+                                <span class="metric-value" id="dashMetrica3">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3>Agendamentos por Mês</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chartMeses"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3>Ocupação por Dia da Semana</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chartDias"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3>Top 5 Espaços Mais Usados</h3>
+                            </div>
+                            <div class="chart-container doughnut">
+                                <canvas id="chartEspacos"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3>Top 5 Responsáveis</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chartResps"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relatórios -->
+                <div id="abaRelatorios" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-file-export"></i> Relatórios & Exportação</h2>
+                        <p class="page-description">Exporte dados em diferentes formatos</p>
+                    </div>
+
+                    <div class="export-grid">
+                        <div class="card export-card">
+                            <div class="export-icon excel">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                            <h3>Exportar Excel</h3>
+                            <p>Planilha completa com todos os campos para análise no Excel ou Google Sheets.</p>
+                            <div class="export-filters">
+                                <select id="filtroRelatorioAno" class="select-styled">
+                                    <option value="Todos">Todos os Anos</option>
+                                    <option value="2026" selected>2026</option>
+                                </select>
+                                <select id="filtroRelatorioMes" class="select-styled">
+                                    <option value="Todos">Todos os Meses</option>
+                                </select>
+                            </div>
+                            <button id="btnExportExcel" class="btn-success">
+                                <i class="fas fa-download"></i>
+                                Baixar Excel
+                            </button>
+                        </div>
+
+                        <div class="card export-card">
+                            <div class="export-icon pdf">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3>Exportar PDF</h3>
+                            <p>Relatório formatado em PDF pronto para impressão ou envio por e-mail.</p>
+                            <button id="btnExportPDF" class="btn-danger">
+                                <i class="fas fa-download"></i>
+                                Baixar PDF
+                            </button>
+                        </div>
+
+                        <div class="card export-card admin-only" id="painelBackup" style="display:none;">
+                            <div class="export-icon backup">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>Backup do Sistema</h3>
+                            <p>Exporte ou restaure o banco de dados completo em formato JSON.</p>
+                            <div class="backup-actions">
+                                <button id="btnBackupJSON" class="btn-secondary">
+                                    <i class="fas fa-download"></i>
+                                    Backup
+                                </button>
+                                <button id="btnRestoreJSON" class="btn-warning">
+                                    <i class="fas fa-upload"></i>
+                                    Restaurar
+                                </button>
+                                <input type="file" id="inputRestoreJSON" accept=".json" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usuários -->
+                <div id="abaUsuarios" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-users-cog"></i> Gestão de Usuários</h2>
+                        <p class="page-description">Adicione ou remova acessos ao sistema</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-user-plus"></i> Novo Usuário</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="formNovoUsuario" class="form-styled">
+                                    <div class="form-group">
+                                        <label>E-mail Institucional</label>
+                                        <div class="input-group">
+                                            <i class="fas fa-envelope"></i>
+                                            <input type="email" id="novoUsuarioEmail" placeholder="usuario@ufma.br" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nível de Acesso</label>
+                                        <div class="input-group">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <select id="novoUsuarioRole" required>
+                                                <option value="leitor">👁️ Leitor (apenas visualização)</option>
+                                                <option value="editor">✍️ Editor (criar e editar)</option>
+                                                <option value="dono">👑 Administrador (acesso total)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <p class="form-helper-text" style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 1rem;">
+                                        <i class="fas fa-info-circle"></i>
+                                        O usuário fará login via Google ou criará conta própria. Você apenas define a permissão.
+                                    </p>
+                                    <button type="submit" id="btnSalvarUsuario" class="btn-primary w-full">
+                                        <i class="fas fa-plus-circle"></i>
+                                        Atribuir Permissão
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-users"></i> Usuários Cadastrados</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="user-list-styled" id="listaUsuariosAdmin">
+                                    <li class="loading-item">
+                                        <div class="skeleton" style="height: 40px; width: 100%;"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Detalhes do Evento -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content modal-detail">
+            <div class="modal-header" id="modalHeaderBg">
+                <div class="modal-tags" id="modalTags">
+                    <span class="tag" id="modalTipo">Evento</span>
+                </div>
+                <button class="btn-close" id="btnCloseModal">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 class="event-title" id="modalTitle">Título do Evento</h2>
+            </div>
+            
+            <div class="modal-body"> 
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="info-content">
+                            <label>Data e Horário</label>
+                            <p id="modalDateTime">--</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="info-content">
+                            <label>Responsável</label>
+                            <p id="modalResp">--</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item" id="rowModalContato" style="display:none;">
+                        <div class="info-icon">
+                            <i class="fas fa-address-book"></i>
+                        </div>
+                        <div class="info-content">
+                            <label>Contato</label>
+                            <p id="modalContato">--</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="info-content">
+                            <label>Criado por</label>
+                            <p id="modalCriador">--</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item full-width">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <label>Espaços Reservados</label>
+                            <div class="tags-container" id="modalEspacosTags"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="modalWarning" class="alert alert-warning" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Conflito Detectado</strong>
+                        <span>Este agendamento sobrepõe outro evento nos mesmos espaços/horários.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer" id="modalActionButtons">
+               
+                <button id="btnDeleteEvent" class="btn-danger">
+                    <i class="fas fa-trash-alt"></i>
+                    Excluir
+                </button>
+                 <button id="btnEditEvent" class="btn-primary">
+                    <i class="fas fa-edit"></i>
+                    Editar
+                </button>
+            </div>
+            
+            <div class="modal-footer" id="modalCloseOnly" style="display: none;">
+                <button id="btnCloseModalOnly" class="btn-secondary">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Formulário -->
+    <div id="modalFormAgendamento" class="modal modal-lg">
+        <div class="modal-content modal-form">
+            <div class="modal-header-form">
+                <div class="modal-title-group">
+                    <h2 id="formTitleModal"><i class="fas fa-plus-circle"></i> Novo Agendamento</h2>
+                    <p class="modal-subtitle">Preencha os dados para reservar o(s) espaço(s)</p>
+                </div>
+                <button class="btn-close" id="btnFecharModalForm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="reservaForm">
+                    <input type="hidden" id="editEventId">
+                    <input type="hidden" id="editGroupId">
+                    
+                    <div class="form-sections">
+                        <section class="form-section">
+                            <div class="section-header">
+                                <div class="section-number">1</div>
+                                <h3>Informações do Evento</h3>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label>Título / Nome do Evento</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-heading"></i>
+                                        <input type="text" id="titulo" placeholder="Ex: I Congresso de Engenharia" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label>Responsável / Departamento</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-user-tie"></i>
+                                        <input type="text" id="responsavel" placeholder="Ex: Prof. Dr. Carlos Silva" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>WhatsApp</label>
+                                    <div class="input-group">
+                                        <i class="fab fa-whatsapp"></i>
+                                        <input type="tel" id="contatoWhats" placeholder="(98) 90000-0000">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-envelope"></i>
+                                        <input type="email" id="contatoEmail" placeholder="email@ufma.br">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="form-section">
+                            <div class="section-header">
+                                <div class="section-number">2</div>
+                                <h3>Seleção de Espaços</h3>
+                            </div>
+                            
+                            <div class="espacos-accordion" id="espacosAccordionContainer">
+                                <!-- Preenchido via JS -->
+                            </div>
+                        </section>
+
+                        <section class="form-section">
+                            <div class="section-header">
+                                <div class="section-number">3</div>
+                                <h3>Datas e Horários</h3>
+                                <button type="button" id="btnAddDataRow" class="btn-add-mini">
+                                    <i class="fas fa-plus"></i>
+                                    Adicionar Dia
+                                </button>
+                            </div>
+                            
+                            <div class="datas-list" id="datasContainer">
+                                <!-- Linhas de data preenchidas via JS -->
+                            </div>
+                        </section>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" id="btnCancelarForm" class="btn-text">Cancelar</button>
+                <button type="submit" form="reservaForm" id="btnSalvar" class="btn-primary btn-lg">
+                    <i class="fas fa-check"></i>
+                    Confirmar Agendamento
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
