@@ -13,6 +13,7 @@ const estado = {
 };
 
 let calendar;
+let realtimeChannel = null; // Referência global do canal Realtime para evitar memory leak
 let eventoSelecionadoNoModal = null;
 const mesesAbrev = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 const feriadosFixos = [];
@@ -890,7 +891,13 @@ async function recarregarDados() {
 // ==========================================
 
 function iniciarRealtime() {
-    supabase
+    // Desconectar canal anterior se existir (evita conexões zumbis em recarregamentos)
+    if (realtimeChannel) {
+        supabase.removeChannel(realtimeChannel);
+        realtimeChannel = null;
+    }
+
+    realtimeChannel = supabase
         .channel('reservas-realtime')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'reservas' }, (payload) => {
             const evento = dbParaFrontend(payload.new);
@@ -916,6 +923,11 @@ function iniciarRealtime() {
             }
         })
         .subscribe();
+
+    // Cleanup gracioso ao fechar ou recarregar a página
+    window.addEventListener('beforeunload', () => {
+        if (realtimeChannel) supabase.removeChannel(realtimeChannel);
+    }, { once: true });
 }
 
 // ==========================================
