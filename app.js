@@ -1,5 +1,7 @@
 // app.js - Versão Supabase (Auth + PostgreSQL + Realtime)
 import { supabase } from './supabaseClient.js';
+import { showToast, setButtonLoading, hideLoading, debounce, stringToColor, adjustColor, escapeHtml } from './js/utils.js';
+import { dbParaFrontend, frontendParaDb } from './js/db.js';
 
 // Estado global
 const estado = {
@@ -19,147 +21,7 @@ const mesesAbrev = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set
 const feriadosFixos = [];
 
 // ==========================================
-// MAPEAMENTO DE COLUNAS (Frontend ↔ DB)
-// ==========================================
-
-// Converte dados do banco (lowercase) para o formato do frontend (compatível com FullCalendar)
-function dbParaFrontend(row) {
-    if (!row) return null;
-    const start = row.start_time ? new Date(row.start_time) : null;
-    const end = row.end_time ? new Date(row.end_time) : null;
-
-    return {
-        id: row.id,
-        title: row.title,
-        start: start,
-        end: end,
-        allDay: false,
-        color: row.color,
-        backgroundColor: row.color,
-        borderColor: row.color,
-        textColor: '#fff',
-        display: 'block',
-        extendedProps: {
-            id: row.id,
-            title: row.title,
-            tituloPuro: row.titulopuro,
-            espacos: row.espacos,
-            responsavel: row.responsavel,
-            contatoWhats: row.contatowhats,
-            contatoEmail: row.contatoemail,
-            isConflito: row.isconflito,
-            groupId: row.groupid,
-            dataCriacao: row.datacriacao,
-            criadoPor: row.criadopor
-        }
-    };
-}
-
-// Converte dados do frontend para o formato do banco (lowercase)
-function frontendParaDb(dados) {
-    const ext = dados.extendedProps || {};
-    return {
-        title: dados.title || ext.title,
-        titulopuro: ext.tituloPuro || dados.tituloPuro || dados.title,
-        start_time: dados.start,
-        end_time: dados.end,
-        espacos: ext.espacos || dados.espacos,
-        responsavel: ext.responsavel || dados.responsavel,
-        contatowhats: ext.contatoWhats || dados.contatoWhats || null,
-        contatoemail: ext.contatoEmail || dados.contatoEmail || null,
-        color: dados.color || ext.color,
-        isconflito: ext.isConflito || dados.isConflito || false,
-        groupid: ext.groupId || dados.groupId || null,
-        datacriacao: ext.dataCriacao || dados.dataCriacao,
-        criadopor: ext.criadoPor || dados.criadoPor
-    };
-}
-
-// ==========================================
-// UTILITÁRIOS VISUAIS
-// ==========================================
-
-function showToast(message, type = 'success', duration = 3000) {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.innerHTML = `
-        <div class="toast-icon">
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-info-circle'}"></i>
-        </div>
-        <div class="toast-content">
-            <span>${message}</span>
-        </div>
-    `;
-
-    container.appendChild(toast);
-
-    requestAnimationFrame(() => {
-        toast.style.transform = 'translateY(0)';
-        toast.style.opacity = '1';
-    });
-
-    setTimeout(() => {
-        toast.style.transform = 'translateY(20px)';
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-    }, duration);
-}
-
-function setButtonLoading(btn, loading = true) {
-    if (loading) {
-        btn.dataset.originalHtml = btn.innerHTML;
-        btn.innerHTML = '<div class="spinner-inline"></div>';
-        btn.disabled = true;
-    } else {
-        btn.innerHTML = btn.dataset.originalHtml;
-        btn.disabled = false;
-    }
-}
-
-function hideLoading() {
-    const overlay = document.getElementById('loadingOverlay');
-    if (overlay) {
-        overlay.style.opacity = '0';
-        setTimeout(() => overlay.style.display = 'none', 300);
-    }
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => { clearTimeout(timeout); func(...args); };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-function stringToColor(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
-    return '#' + "00000".substring(0, 6 - c.length) + c;
-}
-
-function adjustColor(color, amount) {
-    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
-}
-
-// Sanitização: converte dados de usuário em texto seguro para uso em innerHTML
-function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
-// ==========================================
-// FUNÇÕES GLOBAIS (EXPOSTAS AO WINDOW)
+// ESTADO E VARÁVEIS GLOBAIS
 // ==========================================
 
 window.switchTab = function (tabId, navElement) {
