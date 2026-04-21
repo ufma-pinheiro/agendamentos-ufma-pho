@@ -664,48 +664,6 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
     container.innerHTML = html;
 }
 
-async function atualizarUltimosEventos() {
-    if (!calendar) return;
-    const container = document.getElementById('containerUltimosEventos');
-    if (!container) return;
-
-    try {
-        const { data, error } = await supabase
-            .from('reservas')
-            .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
-            .order('datacriacao', { ascending: false })
-            .limit(5);
-
-        if (error) throw error;
-
-        const eventos = data.map(dbParaFrontend);
-
-        if (eventos.length === 0) {
-            container.innerHTML = `<div class="empty-state small"><i class="fas fa-inbox"></i><span>Nenhum evento recente</span></div>`;
-            return;
-        }
-
-        container.innerHTML = eventos
-            .sort((a, b) => b.extendedProps.dataCriacao - a.extendedProps.dataCriacao)
-            .map(ev => {
-                const data = new Date(ev.start);
-                const hoje = new Date(); const ontem = new Date(hoje); ontem.setDate(ontem.getDate() - 1);
-                let dataTexto = (data.toDateString() === hoje.toDateString()) ? 'Hoje' : (data.toDateString() === ontem.toDateString()) ? 'Ontem' : data.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' });
-                return `
-                <div class="event-mini-card" onclick="abrirDetalhes({id: '${ev.id}', extendedProps: ${JSON.stringify(ev.extendedProps)}, title: '${ev.title.replace(/'/g, "\\'")}', backgroundColor: '${ev.backgroundColor}', start: new Date('${ev.start}'), end: new Date('${ev.end}')})" style="--card-color: ${ev.backgroundColor}">
-                    <div class="event-status"></div>
-                    <div class="event-info">
-                        <h5>${escapeHtml(ev.extendedProps.tituloPuro)}</h5>
-                        <div class="event-meta-mini"><span><i class="far fa-calendar"></i> ${dataTexto}</span><span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel) || '-'}</span></div>
-                    </div>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>`;
-            }).join(''); // Manter a ordenação visual
-    } catch (e) {
-        console.error("Erro ao atualizar últimos eventos:", e);
-    }
-}
-
 // ==========================================
 // VISUALIZAÇÕES E FILTROS
 // ==========================================
@@ -758,7 +716,11 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
             </div>`;
     }
 
-    container.innerHTML = ativos.map(renderCard).join('') + (passados.length > 0 ? `<div class="past-divider">Encerrados</div>` + passados.map(renderCard).join('') : '');
+    let html = ativos.map(renderCard).join('');
+    if (passados.length > 0) {
+        html += `<div class="past-divider">Encerrados (${passados.length})</div>` + passados.map(renderCard).join('');
+    }
+    container.innerHTML = html;
 }
 
 async function atualizarUltimosEventos() {
@@ -790,6 +752,7 @@ async function atualizarUltimosEventos() {
 async function atualizarMeusEventos() {
     if (!calendar || !estado.usuarioLogado) return;
     const container = document.getElementById('containerMeusEventos');
+    if (!container) return;
     try {
         const { data, error } = await supabase.from('reservas').select('*').eq('criadopor', estado.usuarioLogado.email).order('start_time', { ascending: true });
         if (error) throw error;
