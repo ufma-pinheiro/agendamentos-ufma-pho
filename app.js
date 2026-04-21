@@ -22,6 +22,9 @@ const estado = {
 // calendar, realtimeChannel, mesesAbrev e feriadosFixos movidos para módulos
 let eventoSelecionadoNoModal = null;
 
+// Expor funções de módulo no escopo global para uso em onclick inline do HTML
+window.getCalendar = getCalendar;
+
 // ==========================================
 // ESTADO E VARÁVEIS GLOBAIS
 // ==========================================
