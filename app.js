@@ -576,6 +576,19 @@ function atualizarTodasTelas() {
     if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 
+function renderizarCards(eventos, containerId, mensagemVazio) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    let lista = eventos;
+    if (estado.termoBusca) {
+        lista = eventos.filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel} ${(ev.extendedProps.espacos || []).join(' ')}`.toLowerCase()).includes(estado.termoBusca));
+    }
+
+    const agora = new Date();
+    const ativos = lista.filter(ev => (ev.end || ev.start) >= agora);
+    const passados = lista.filter(ev => (ev.end || ev.start) < agora);
+
     function renderCard(ev) {
         const passado = (ev.end || ev.start) < agora;
         const inicio = new Date(ev.start);
