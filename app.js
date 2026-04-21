@@ -503,20 +503,8 @@ let _salvando = false;
 // CRUD removido e movido para js/reservas.js
 
 // ==========================================
-// VISUALIZAÇÕES E FILTROS
+// ESTADO E AUXILIARES
 // ==========================================
-
-function atualizarTodasTelas() {
-    atualizarUltimosEventos();
-    // Note: atualizarResumoMes e atualizarDashboard agora são acionados na troca de abas 
-    // ou podem ser chamados aqui se estiverem visíveis.
-    const abaResumo = document.getElementById('abaResumo');
-    const abaDashboard = document.getElementById('abaDashboard');
-
-    if (abaResumo?.classList.contains('active')) atualizarResumoMes();
-    if (abaDashboard?.classList.contains('active')) atualizarDashboard(estado);
-    if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
-}
 
 function mudarAno(delta) {
     estado.anoFiltro += delta;
@@ -570,98 +558,6 @@ function aplicarBusca(termo) {
             dropdown.classList.add('active');
         } else dropdown.classList.remove('active');
     } else dropdown.classList.remove('active');
-}
-
-function renderizarCards(eventos, containerId, mensagemVazio) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    let lista = eventos;
-    if (estado.termoBusca) {
-        lista = eventos.filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel} ${(ev.extendedProps.espacos || []).join(' ')}`.toLowerCase()).includes(estado.termoBusca));
-    }
-
-    const agora = new Date();
-    const ativos = lista.filter(ev => (ev.end || ev.start) >= agora);
-    const passados = lista.filter(ev => (ev.end || ev.start) < agora);
-
-    // Contador mostra só os ativos
-    const countBadge = document.getElementById(containerId + '__count');
-    if (countBadge) countBadge.textContent = ativos.length;
-
-    if (lista.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-calendar-times"></i>
-                <h3>${estado.termoBusca ? 'Nenhum resultado' : mensagemVazio}</h3>
-                <p>${estado.termoBusca ? 'Tente outro termo de busca.' : 'Nenhum evento para exibir aqui.'}</p>
-            </div>`;
-        return;
-    }
-
-    function renderCard(ev) {
-        const passado = (ev.end || ev.start) < agora;
-        const inicio = ev.start;
-        const fim = ev.end;
-        const dia = inicio.getDate().toString().padStart(2, '0');
-        const mes = mesesAbrev[inicio.getMonth()];
-        const horaInicio = inicio.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        const horaFim = fim ? fim.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
-        const periodo = horaFim ? `${horaInicio} - ${horaFim}` : `A partir das ${horaInicio}`;
-        const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
-        const badgeConflito = ev.extendedProps.isConflito
-            ? `<span class="badge-conflito"><i class="fas fa-exclamation"></i> Conflito</span>` : '';
-
-        return `
-            <div class="event-row ${passado ? 'past' : ''} ${ev.extendedProps.isConflito ? 'conflito' : ''}" style="--event-color: ${ev.backgroundColor || '#0056b3'}">
-                <div class="event-date-box">
-                    <span class="day">${dia}</span>
-                    <span class="month">${mes}</span>
-                </div>
-                <div class="event-content" onclick="abrirDetalhes(calendar.getEventById('${ev.id}'))">
-                    <div class="event-header-row">
-                        <h4>${escapeHtml(ev.extendedProps.tituloPuro)}</h4>
-                        ${badgeConflito}
-                    </div>
-                    <div class="event-meta">
-                        <span><i class="far fa-clock"></i> ${periodo}</span>
-                        <span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel) || '-'}</span>
-                    </div>
-                    <div class="event-locais">${espacos.map(e => `<span class="tag-local-mini ${getClasseBadge(e)}">${escapeHtml(e)}</span>`).join('')}</div>
-                </div>
-                ${(estado.nivelAcesso !== 'leitor') ? `
-                <div class="event-actions">
-                    <button class="btn-icon-sm" onclick="event.stopPropagation(); prepararEdicaoPorId('${ev.id}')" title="Editar agendamento"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir agendamento"><i class="fas fa-trash"></i></button>
-                </div>` : ''}
-            </div>`;
-    }
-
-    let html = '';
-
-    // Eventos ativos
-    if (ativos.length === 0) {
-        html += `<div class="empty-state small"><i class="fas fa-calendar-check"></i><p>Nenhum evento ativo no momento.</p></div>`;
-    } else {
-        html += ativos.map(renderCard).join('');
-    }
-
-    // Seção de passados colapsável
-    if (passados.length > 0) {
-        html += `
-        <div class="past-events-section">
-            <button class="btn-past-toggle" onclick="this.closest('.past-events-section').classList.toggle('open')">
-                <i class="fas fa-history"></i>
-                <span>Encerrados (${passados.length})</span>
-                <i class="fas fa-chevron-down toggle-chevron"></i>
-            </button>
-            <div class="past-events-list">
-                ${passados.map(renderCard).join('')}
-            </div>
-        </div>`;
-    }
-
-    container.innerHTML = html;
 }
 
 // ==========================================
