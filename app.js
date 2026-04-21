@@ -202,67 +202,9 @@ window.deletarUsuario = async function (email) {
     }
 };
 
-window.adicionarLinhaData = function (dataEspecifica = null) {
-    const container = document.getElementById('datasContainer');
-    const id = Date.now();
+// Funções auxiliares movidas para js/reservas.js
 
-    const row = document.createElement('div');
-    row.className = 'data-row-styled';
-    row.innerHTML = `
-        <div class="date-input-group">
-            <label>Data</label>
-            <input type="text" class="input-date flatpickr" id="data_${id}" required placeholder="Selecione">
-        </div>
-        <div class="time-inputs">
-            <div class="time-input">
-                <label>Início</label>
-                <input type="text" class="input-time" placeholder="08:00" maxlength="5" value="08:00" required>
-            </div>
-            <div class="time-separator">até</div>
-            <div class="time-input">
-                <label>Término</label>
-                <input type="text" class="input-time" placeholder="12:00" maxlength="5" value="12:00" required>
-            </div>
-        </div>
-        <button type="button" class="btn-remove-data" onclick="this.closest('.data-row-styled').remove()">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-
-    container.appendChild(row);
-
-    flatpickr(row.querySelector('.flatpickr'), {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d/m/Y",
-        locale: "pt",
-        defaultDate: dataEspecifica,
-        disableMobile: true
-    });
-
-    row.querySelectorAll('.input-time').forEach(input => {
-        input.addEventListener('input', function (e) {
-            let v = e.target.value.replace(/\D/g, '');
-            if (v.length >= 2) v = v.slice(0, 2) + ':' + v.slice(2, 4);
-            e.target.value = v;
-        });
-    });
-};
-
-function fecharModal() {
-    document.getElementById('eventModal').classList.remove('active');
-    document.body.style.overflow = '';
-    eventoSelecionadoNoModal = null;
-}
-
-function fecharModalForm() {
-    document.getElementById('modalFormAgendamento').classList.remove('active');
-    document.body.style.overflow = '';
-    setTimeout(() => {
-        document.getElementById('reservaForm').reset();
-        document.getElementById('datasContainer').innerHTML = '';
-    }, 300);
-}
+// Funções de fechamento de modal movidas para js/reservas.js
 
 // ==========================================
 // TEMA
