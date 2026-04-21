@@ -185,6 +185,8 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-21 | Auditor | Veredicto REJEITADO (Regressão) | Identificados SyntaxErrors e deleção acidental de funções de UI. | Não |
 | 2026-04-21 | Frontend | Hotfix Integridade & Sintaxe | Resolvidos conflitos de imports e restaurada lógica de visualização. | Sim |
 | 2026-04-21 | Auditor | Veredicto APROVADO — Sistema Modular | Estabilidade confirmada. Fim do plano ARCH-001 e FEAT-001. | Sim |
+| 2026-04-21 | Frontend | Hotfixes Finais de UI (Pós-Auditoria) | Correção de 'Unexpected token' no renderizarCards e ReferenceError do getCalendar. | Sim |
+| 2026-04-21 | Orchestrator | Save State | Estado final da modularização sincronizado com origin/devAgendamento. | Sim |
 
 ---
 
