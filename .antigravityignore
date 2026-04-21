@@ -1,0 +1,43 @@
+# .antigravityignore
+# Arquivos e pastas que o sistema de especialistas NAO deve ler ou modificar.
+# Sintaxe identica ao .gitignore.
+
+# Controle de versao
+.git/
+
+# Dependencias
+node_modules/
+
+# Variaveis de ambiente e secrets
+.env
+.env.local
+.env.production
+*.env
+
+# Builds e caches
+dist/
+build/
+.cache/
+.vercel/
+
+# Binarios e midia
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.webp
+*.mp4
+*.pdf
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Backups do proprio sistema (evitar loop)
+.antigravity/history/

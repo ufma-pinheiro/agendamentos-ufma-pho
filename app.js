@@ -1,7 +1,7 @@
-// app.js - Versão Supabase (Auth + PostgreSQL + Realtime)
 import { supabase } from './supabaseClient.js';
 import { showToast, setButtonLoading, hideLoading, debounce, stringToColor, adjustColor, escapeHtml } from './js/utils.js';
 import { dbParaFrontend, frontendParaDb } from './js/db.js';
+import { initAuth, aplicarPermissoes, setupAuthListener } from './js/auth.js';
 
 // Estado global
 const estado = {
@@ -327,74 +327,26 @@ function updateThemeIcon(theme) {
 // AUTENTICAÇÃO E INICIALIZAÇÃO
 // ==========================================
 
-// NÃO usar failsafe que esconde o loading antes da verificação
+// ==========================================
+// AUTENTICAÇÃO E INICIALIZAÇÃO
+// ==========================================
+
 let authVerificado = false;
 const failsafeLoading = setTimeout(() => {
     if (authVerificado) hideLoading();
 }, 15000);
 
-function mostrarAcessoNegado() {
-    // Esconde o loading e mostra o overlay de acesso negado
-    const loading = document.getElementById('loadingOverlay');
-    if (loading) loading.style.display = 'none';
-
-    const denied = document.getElementById('accessDeniedOverlay');
-    if (denied) denied.style.display = 'flex';
-}
-
-async function initAuth() {
-    try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-
-        if (!session) {
-            window.location.href = "login.html";
-            return;
-        }
-
-        const user = session.user;
-        estado.usuarioLogado = user;
-
-        // Buscar role do usuário
-        const { data: userData, error: roleError } = await supabase
-            .from('usuarios')
-            .select('role')
-            .eq('email', user.email)
-            .single();
-
-        if (user.email === 'tipinheiro@ufma.br') {
-            estado.nivelAcesso = 'dono';
-        } else if (userData && userData.role) {
-            estado.nivelAcesso = userData.role;
-        } else {
-            // Email não cadastrado - mostrar tela de acesso negado
-            await supabase.auth.signOut();
-            mostrarAcessoNegado();
-            return;
-        }
-
-        // Só inicializa a UI depois de confirmar acesso
-        authVerificado = true;
-        initUI();
-        aplicarPermissoes();
-        iniciarSistema();
-        hideLoading();
-
-    } catch (erro) {
-        console.error("Erro na inicialização:", erro);
-        hideLoading();
-        showToast("Houve um problema de conexão com o banco de dados.", "error");
-    }
-}
-
-// Escuta mudanças de auth (logout, etc.)
-supabase.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_OUT' && authVerificado) {
-        window.location.href = "login.html";
-    }
+// Iniciar autenticação
+initAuth(estado, () => {
+    authVerificado = true;
+    initUI();
+    aplicarPermissoes(estado.nivelAcesso, carregarListaUsuariosAdmin);
+    iniciarSistema();
+    hideLoading();
 });
 
-// Iniciar autenticação
-initAuth();
+// Listener de logout
+setupAuthListener(authVerificado);
 
 function initUI() {
     const avatar = document.getElementById('userAvatar');
@@ -491,34 +443,7 @@ function initUI() {
     });
 }
 
-function aplicarPermissoes() {
-    const roles = {
-        'dono': { label: 'Administrador', icon: 'fa-crown', class: 'badge-admin' },
-        'editor': { label: 'Editor', icon: 'fa-pen', class: 'badge-editor' },
-        'leitor': { label: 'Leitor', icon: 'fa-eye', class: 'badge-leitor' }
-    };
-
-    const role = roles[estado.nivelAcesso];
-    const roleEl = document.getElementById('userRoleDisplay');
-    roleEl.innerHTML = `<i class="fas ${role.icon}"></i>${role.label}`;
-    roleEl.className = `user-role ${role.class}`;
-
-    const adminOnly = document.querySelectorAll('.admin-only');
-    const editorOnly = ['btnNovoAgendamento', 'btnTabMeusEventos', 'btnTabRelatorios'];
-
-    if (estado.nivelAcesso === 'dono') {
-        adminOnly.forEach(el => el.style.display = '');
-        editorOnly.forEach(id => document.getElementById(id).style.display = '');
-        carregarListaUsuariosAdmin();
-    } else if (estado.nivelAcesso === 'editor') {
-        adminOnly.forEach(el => el.style.display = 'none');
-        editorOnly.forEach(id => document.getElementById(id).style.display = '');
-    } else {
-        adminOnly.forEach(el => el.style.display = 'none');
-        editorOnly.forEach(id => document.getElementById(id).style.display = 'none');
-        document.getElementById('leitorBlockMessage').style.display = 'flex';
-    }
-}
+// removido: aplicarPermissoes agora está em js/auth.js
 
 // ==========================================
 // CONSTRUÇÃO DA INTERFACE

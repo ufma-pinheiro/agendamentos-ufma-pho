@@ -1,0 +1,60 @@
+{
+  "versao": "1.0.0",
+  "ultima_atualizacao": "2026-04-21",
+  "specs_ativas": [
+    {
+      "id": "ARCH-001",
+      "titulo": "Modularizacao do app.js em ES Modules",
+      "fase": "em_andamento",
+      "step_atual": "Step 2 — extrair js/auth.js",
+      "especialista_responsavel": "frontend",
+      "criado_em": "2026-04-20",
+      "arquivo": "specs/active/ARCH-001-modularizacao.md"
+    }
+  ],
+  "specs_concluidas": [
+    {
+      "id": "SECURITY-001",
+      "titulo": "Hardening de Segurança (admin hardcoded, XSS, memory leak)",
+      "concluido_em": "2026-04-20",
+      "veredicto_auditor": "CONDICIONADO",
+      "arquivo": "specs/completed/SECURITY-001.md"
+    },
+    {
+      "id": "PERF-001",
+      "titulo": "Projecoes explicitas nas queries do Supabase",
+      "concluido_em": "2026-04-20",
+      "veredicto_auditor": "APROVADO",
+      "arquivo": "specs/completed/PERF-001.md"
+    },
+    {
+      "id": "SECURITY-002",
+      "titulo": "Content Security Policy (CSP)",
+      "concluido_em": "2026-04-20",
+      "veredicto_auditor": "APROVADO",
+      "arquivo": "specs/completed/SECURITY-002.md"
+    }
+  ],
+  "pendencias_abertas": [
+    {
+      "id": "P-001",
+      "severidade": "Medio",
+      "descricao": "CA-01 a CA-04 (SECURITY-001) sem evidencia de teste"
+    },
+    {
+      "id": "P-003",
+      "severidade": "Baixo",
+      "descricao": "Gate do Auditor deve ser acionado ANTES do push"
+    },
+    {
+      "id": "P-004",
+      "severidade": "Medio",
+      "descricao": "ARCH-001 Step 2 pendente: extrair js/auth.js"
+    },
+    {
+      "id": "P-005",
+      "severidade": "Baixo",
+      "descricao": "Inventariar dominios externos antes de nova CSP"
+    }
+  ]
+}

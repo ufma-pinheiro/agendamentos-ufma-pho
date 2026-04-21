@@ -1,10 +1,6 @@
----
-trigger: always_on
----
-
-# Token Optimizer — Rules para Antigravity (PT-BR · v1.0)
-> Cole estas rules em ~/.gemini/antigravity/rules.md junto com o Orchestrator.
-> Objetivo: máximo resultado com mínimo consumo de tokens.
+# Token Optimizer — Rules para Antigravity (PT-BR · v3.0)
+&gt; Cole estas rules em ~/.gemini/antigravity/rules.md junto com o Orchestrator.
+&gt; Objetivo: máximo resultado com mínimo consumo de tokens.
 
 ---
 
@@ -14,7 +10,7 @@ trigger: always_on
 - Antes de ler arquivos, pergunte: "Quais arquivos são relevantes para ESTA tarefa?"
 - Leia apenas os arquivos diretamente relacionados ao pedido
 - Nunca leia node_modules, dist, .next, coverage, build ou arquivos de lock
-- Se precisar entender o projeto, leia PRIMEIRO o context.md — não o diretório inteiro
+- Se precisar entender o projeto, leia PRIMEIRO o `.antigravity/context.md` — não o diretório inteiro
 
 ### 2. Planeje antes de executar
 - Antes de qualquer tarefa, declare em 2-3 linhas o que vai fazer e quais arquivos vai tocar
@@ -39,9 +35,23 @@ trigger: always_on
 
 ---
 
+## CAMINHOS DO SISTEMA AUTÔNOMO
+
+Sempre priorize esta ordem de leitura:
+
+1. `.antigravity/context.md` — memória viva do projeto
+2. `.antigravity/context.lock` — estado da sessão
+3. `.antigravity/spec-index.json` — specs e dependências
+4. `specs/spec-ativa.md` — especificação do ciclo atual
+5. Código-fonte relevante (apontado pelo contexto)
+
+NUNCA leia o diretório inteiro antes de ler o context.md.
+
+---
+
 ## .antigravityignore RECOMENDADO
 
-Crie este arquivo na raiz do projeto para bloquear o que não deve ser lido:
+Crie este arquivo na raiz do projeto:
 
 \`\`\`
 # Dependências
@@ -101,13 +111,16 @@ Thumbs.db
 *.ttf
 public/
 assets/
+
+# Sistema autônomo (já lido via context.md)
+.antigravity/history/
 \`\`\`
 
 ---
 
 ## ESTRATÉGIA DE MODELO POR TAREFA
 
-Use o modelo certo para cada tipo de tarefa — isso reduz consumo drasticamente:
+Use o modelo certo para cada tipo de tarefa:
 
 | Tarefa | Modelo recomendado | Por quê |
 |--------|-------------------|---------|
@@ -158,13 +171,13 @@ Não misture "melhorar UI" com "corrigir bug de auth" na mesma sessão.
 Contexto misturado = tokens desperdiçados + resultados piores.
 
 ### Ao iniciar uma sessão nova:
-1. Cole o context.md atualizado
+1. Cole o `.antigravity/context.md` atualizado (ou deixe a IA ler sozinha)
 2. Descreva APENAS o que quer fazer nesta sessão
 3. Referencie arquivos específicos com @arquivo.ts
 4. Declare o que está fora do escopo
 
 ### Ao encerrar uma sessão:
-1. Atualize o context.md com decisões tomadas
+1. Atualize o `.antigravity/context.md` com decisões tomadas
 2. Registre o que ficou pendente
 3. Feche a sessão — não arraste contexto antigo
 
@@ -199,7 +212,7 @@ Stack: Next.js + Firebase Auth"
 
 | Situação | O que fazer |
 |----------|-------------|
-| Precisa entender o projeto | Leia o context.md, não o diretório |
+| Precisa entender o projeto | Leia o `.antigravity/context.md`, não o diretório |
 | Precisa corrigir um bug | Aponte o arquivo e a linha |
 | Precisa de nova feature | Use spec.md completo antes |
 | Sessão está longa e lenta | Encerre, atualize context.md, abra nova sessão |

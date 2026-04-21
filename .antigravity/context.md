@@ -8,9 +8,9 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.3.0`
-- Última atualização: `2026-04-20`
-- Atualizado por: `Antigravity (Orchestrator + Auditor)`
+- Versão: `1.4.0`
+- Última atualização: `2026-04-21`
+- Atualizado por: `Antigravity (Orchestrator) — Migração para .antigravity/context.md`
 
 ---
 
@@ -31,20 +31,17 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - Fase Atual: `Refatoração` (Otimização de performance e segurança em código legado).
 - Tipo de Sistema: `Ferramenta Interna`
 
-> 🤖 Inferir de: README, nome do repositório, descrição do projeto, landing page, conversas iniciais.
-
 ---
 
 ## 2️⃣ Domínio e Glossário
 - Termos-chave do negócio: `Agendamento/Reserva`, `Espaço/Sala`, `Responsável`, `Conflito`, `Role (Papel)`.
 - Regras de negócio não-óbvias:
-    - Fuso horário fixo em `UTC-3` (Brasília) para evitar erros de renderização no calendário.
-    - Divisão cronológica: Eventos que abrangem vários dias são fragmentados em registros individuais (um por dia) para evitar blocos contínuos ilegíveis.
+    - Fuso horário fixo em `UTC-3` (Brasília) para evitar erros de renderização no calendario.
+    - Divisão cronológica: Eventos que abrangem vários dias são fragmentados em registros individuais (um por dia).
     - Filtros por categoria: Engenharia, Licenciaturas, Saúde (com cores específicas).
+    - **Notificações:** Apenas via E-mail (24h antes) para avisar TI/Responsáveis sobre logística (datashow, auditório). WhatsApp proibido.
 - Entidades e relações principais: `Reservas` (eventos de agenda), `Usuários` (permissões vinculadas ao e-mail institucional).
 - Termos proibidos ou ambíguos: `[não identificado — aguardando mais contexto]`
-
-> 🤖 Inferir de: modelos de dados, nomes de tabelas, comentários no código, documentação existente.
 
 ---
 
@@ -57,17 +54,13 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - Nível de Confiança Exigido: `Alto` (Controle de acesso físico a salas e auditórios).
 - Tom ou Diferencial de Marca: `Institucional e Profissional.`
 
-> 🤖 Inferir de: roles no código, fluxos de autenticação, copy da interface, tipo de produto.
-
 ---
 
 ## 4️⃣ Fluxos e Funcionalidades Críticas
-- Fluxo Principal (Job to be Done): `Verificar disponibilidade de local -> Selecionar Horário -> Confirmar Agendamento.`
-- Funcionalidades Essenciais: `Calendário Interativo (FullCalendar), Dashboard de métricas de ocupação (Chart.js), Exportação em PDF/Excel.`
-- Fluxos de Alto Risco / Sensíveis: `Detecção de conflitos automática` no momento da criação/edição e `remoção de usuários`.
+- Fluxo Principal (Job to be Done): `Verificar disponibilidade -> Selecionar Horário -> Confirmar Agendamento -> [Opcional] Cancelamento.`
+- Funcionalidades Essenciais: `Calendário Interativo (FullCalendar), Dashboard de ocupação (Chart.js), Exportação PDF/Excel, Notificações de 24h por E-mail.`
+- Fluxos de Alto Risco / Sensíveis: `Detecção de conflitos automática` e `Cancelamento de reservas`.
 - Estados que Não Podem Falhar: `Sincronização com Supabase Realtime` e `Verificação de Auth` no Login.
-
-> 🤖 Inferir de: rotas principais, controllers, fluxos de navegação, testes existentes.
 
 ---
 
@@ -81,8 +74,6 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - Gerenciamento de Estado / Cache: `Estado Global` (objeto `estado` em `app.js`).
 - Dependências Críticas: `FullCalendar@6`, `Chart.js`, `Flatpickr`, `SweetAlert2`, `XLSX`, `jsPDF`.
 
-> 🤖 Inferir de: package.json, requirements.txt, Dockerfile, imports, estrutura de pastas.
-
 ---
 
 ## 6️⃣ Ambientes e Secrets
@@ -91,8 +82,6 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - Estratégia de secrets: `Supabase URL/Anon Key` gerenciadas via arquivos de configuração/variáveis de ambiente no Vercel.
 - URLs de referência: `https://github.com/ufma-pinheiro/agendamentos-ufma-pho`
 
-> 🤖 Inferir de: .env.example, docker-compose, CI/CD configs, README de setup.
-
 ---
 
 ## 7️⃣ Integrações e Dependências Externas
@@ -100,8 +89,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - SLAs ou limites conhecidos: `[não identificado — aguardando mais contexto]`
 - Fallback se integração cair: `Alertas visuais via showToast e SweetAlert2.`
 - Dependências críticas: `CDN's de bibliotecas (jsDelivr, unpkg).`
-
-> 🤖 Inferir de: imports de SDKs, variáveis de ambiente, chamadas HTTP externas.
+- Domínios externos inventariados (CSP): `cdn.jsdelivr.net, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com, fonts.gstatic.com, vercel.live`
 
 ---
 
@@ -110,8 +98,6 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - Prazos ou Marcos: `[não identificado — aguardando mais contexto]`
 - Compliance / Privacidade: `Uso restrito institucional (LGPD implícita).`
 - Limites Técnicos ou de Negócio: `O código atual é monolítico; mudanças devem ser incrementais (ZERO regressão).`
-
-> 🤖 Inferir de: comentários no código, README, conversas, tipo de dados tratados.
 
 ---
 
@@ -123,16 +109,12 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 - Internacionalização: `Somente PT-BR.`
 - Definição de "Pronto": `Funcionalidade testada, sem conflitos de agenda e persistida no Supabase.`
 
-> 🤖 Inferir de: configurações de linting, testes existentes, CI/CD, PRs anteriores.
-
 ---
 
 ## 🔟 Métricas e Sucesso
 - Métrica Principal (North Star): `Taxa de utilização dos espaços versus pedidos de agendamento.`
 - Indicadores de Saúde Técnica: `Tempo de carregamento (TTI) com Lazy Loading das abas.`
 - O que NÃO deve acontecer (Anti-Goals): `Sobreposição de horários (Conflitos), Acesso de usuários não cadastrados.`
-
-> 🤖 Inferir de: documentação de produto, OKRs, conversas sobre objetivos.
 
 ---
 
@@ -145,12 +127,13 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 ---
 
 ## 🤖 Modo de Operação da IA
-- Especialistas ativos: `Orchestrator, Backend, Frontend, Auditor Independente.`
+- Especialistas ativos: `Orchestrator, Backend, Frontend, Security, QA, DevOps, Auditor Independente, Product Strategist, UI Reviewer.`
 - Nível de autonomia: `Sugerir + implementar (sob supervisão).`
 - Língua de resposta: `PT-BR`
 - Formato padrão de resposta: `Markdown + Código Direto.`
 - Quando escalar para humano: `Em caso de ambiguidades críticas no esquema do banco.`
 - Gates obrigatórios: `Validação de deleção/remoção de arquivos. Auditor deve emitir veredicto ANTES do push.`
+- Prompts dos especialistas: `.antigravity/prompts/`
 
 ---
 
@@ -165,7 +148,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
     - `reservas`: `id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, titulopuro, contatowhats, contatoemail`
     - `usuarios`: `email, role` (sem coluna `id` — confirmado pelo 400 na PERF-001)
 - **Módulos JS Criados** (branch `devAgendamento`):
-    - `js/utils.js` — funções utilitarias puras (showToast, escapeHtml, adjustColor, etc.)
+    - `js/utils.js` — funções utilitárias puras (showToast, escapeHtml, adjustColor, etc.)
     - `js/db.js` — mapeamento DB↔Frontend (dbParaFrontend, frontendParaDb)
 - **CSP Ativa** em `index.html` e `login.html` com diretivas para: cdn.jsdelivr.net, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com, fonts.gstatic.com, vercel.live (frame-src).
 - **Fixes Aplicados** (branch `devAgendamento`):
@@ -173,6 +156,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
     - `SECURITY-002`: CSP headers + hotfixes de frame-src e font-src
     - `PERF-001`: projeções explícitas no Supabase
     - `ARCH-001 Step 1`: extração de utils.js e db.js
+- **Sistema de Especialistas**: configurado em `2026-04-21`. Prompts em `.antigravity/prompts/`. Specs rastreadas em `.antigravity/spec-index.json`.
 
 ---
 
@@ -186,12 +170,14 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-20 | Frontend | SECURITY-001 Fix 2: sanitização XSS | Adicionado `escapeHtml()`, `createElement`+`textContent` nos pontos críticos | Sim |
 | 2026-04-20 | Frontend | SECURITY-001 Fix 3: memory leak Realtime | Canal salvo em `realtimeChannel`, `removeChannel()` + `beforeunload` | Sim |
 | 2026-04-20 | Auditor | Veredicto CONDICIONADO — SECURITY-001 | Push ocorreu antes da auditoria (gate violado); 2 condições abertas | Parcial |
-| 2026-04-20 | Orchestrator/Backend | PERF-001 implementada (Projeções Explícitas) | `.select('*')` substituído para reduzir TTI e rede. Aguarda auditoria. | Não (Pendente Auditor) |
-| 2026-04-20 | Auditor | Veredicto APROVADO — PERF-001 | Nenhuma regressão detectada; campos validados contra o dbParaFrontend. Gate validado antes do push. | Sim |
-| 2026-04-20 | Security/Frontend | SECURITY-002 implementada e Auditada | Injeção de Meta tag CSP em index.html e login.html. Gate Auditor Aprovado (sem quebra de CDNs validado). | Sim |
+| 2026-04-20 | Orchestrator/Backend | PERF-001 implementada (Projeções Explícitas) | `.select('*')` substituído para reduzir TTI e rede. | Sim |
+| 2026-04-20 | Auditor | Veredicto APROVADO — PERF-001 | Nenhuma regressão detectada; campos validados contra o dbParaFrontend. | Sim |
+| 2026-04-20 | Security/Frontend | SECURITY-002 implementada e Auditada | Injeção de Meta tag CSP em index.html e login.html. Gate Auditor Aprovado. | Sim |
 | 2026-04-20 | Security | SECURITY-002 hotfix #1 | CSP bloqueava esm.sh (Supabase SDK), vercel.live, fontes base64. Domínios adicionados. | Sim |
-| 2026-04-20 | Security + Backend | SECURITY-002 hotfix #2 | Adicionado frame-src vercel.live; removido `id` inválido da query `usuarios` (error 400). Schema `usuarios` confirmado: apenas `email, role`. | Sim |
+| 2026-04-20 | Security + Backend | SECURITY-002 hotfix #2 | Adicionado frame-src vercel.live; removido `id` inválido da query `usuarios` (error 400). | Sim |
 | 2026-04-20 | Frontend (ARCH-001) | Modularização Step 1: js/utils.js + js/db.js criados | Redução de 141 linhas no app.js. Auditado e aprovado antes do push. | Sim |
+| 2026-04-21 | Orchestrator | Migração context.md para .antigravity/context.md | Alinhamento com novo protocolo do orquestrador v3.0 | Sim |
+| 2026-04-21 | Orchestrator | Infraestrutura do sistema criada | .antigravity/context.lock, spec-index.json, history/, specs/active/, specs/completed/ | Sim |
 
 ---
 
