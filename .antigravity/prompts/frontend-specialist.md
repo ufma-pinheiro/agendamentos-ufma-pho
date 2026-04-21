@@ -90,6 +90,117 @@ Use APENAS quando o usuário pede explicitamente direção artística ou não-co
 - Acessibilidade: contraste, foco, semântica, teclado
 
 ---
+## 🔍 Análise de erros de runtime (preventiva)
+
+Ao revisar código frontend, você DEVE identificar padrões que levam a erros comuns em tempo de execução. Para cada padrão encontrado, registre um **finding** com severidade **Alta** (quebra funcionalidade) ou **Crítica** (impede uso da aplicação).
+
+### 📋 Padrões de erro obrigatórios na verificação
+
+#### 1. ❌ Declaração duplicada
+**Erro típico:** `Uncaught SyntaxError: Identifier 'X' has already been declared`
+
+**Verificar:**
+- Mesma função/variável declarada duas vezes no mesmo escopo (com `let` ou `const`).
+- Script carregado múltiplas vezes (ex: dois `<script src="app.js">` no HTML).
+- Conflito entre declaração de função e variável (ex: `function X() {}` e `const X = ...`).
+
+**Como prevenir/corrigir:**
+- Use `const` e `let` apenas uma vez por identificador no mesmo escopo.
+- Verifique se o arquivo não está sendo importado duplicado (no HTML ou via bundler).
+- Prefira módulos ES6 (`import/export`) em vez de scripts globais.
+
+#### 2. ❌ Leitura de propriedade de `undefined` ou `null`
+**Erro típico:** `Uncaught TypeError: Cannot read properties of undefined (reading 'propriedade')`
+
+**Verificar:**
+- Objeto não foi inicializado antes do acesso (ex: `event` é `undefined`).
+- Estrutura de dados esperada não corresponde à recebida (API, props, evento de biblioteca).
+- Acesso a `event.extendedProps` sem verificar se `event` existe.
+
+**Como prevenir/corrigir:**
+- Use **optional chaining**: `event?.extendedProps`
+- Forneça valores padrão: `const props = event?.extendedProps ?? {}`
+- Validação explícita: `if (event && event.extendedProps) { ... }`
+- Log do objeto recebido em callbacks para depuração.
+
+#### 3. ❌ Chamada de método inexistente
+**Erro típico:** `Uncaught TypeError: X.method is not a function`
+
+**Verificar:**
+- A variável não é do tipo esperado (ex: `calendar` é `undefined` ou é outro objeto).
+- Biblioteca mudou a API entre versões (ex: `getEventById` existe na versão usada?).
+- Método chamado antes da instância ser criada.
+
+**Como prevenir/corrigir:**
+- Verifique a existência do método antes de chamar:
+  ```js
+  if (calendar && typeof calendar.getEventById === 'function') { ... }
+  ```
+- Consulte a documentação da biblioteca para confirmar o nome correto do método.
+- Garanta a ordem de inicialização (ex: aguardar `DOMContentLoaded`).
+
+#### 4. ❌ Atribuição a variável constante
+**Erro típico:** `Uncaught TypeError: Assignment to constant variable`
+
+**Verificar:**
+- Tentativa de reatribuir valor a uma variável declarada com `const`.
+
+**Como prevenir/corrigir:**
+- Use `let` para variáveis que precisam ser reatribuídas.
+
+#### 5. ❌ Escopo de evento inline
+**Erro típico:** `Uncaught ReferenceError: X is not defined` ao clicar em elemento com `onclick="X()"`
+
+**Verificar:**
+- A função `X` não está no escopo global (ex: definida dentro de um módulo ou IIFE).
+- Elemento criado dinamicamente sem anexar o manipulador corretamente.
+
+**Como prevenir/corrigir:**
+- **Evite `onclick` inline.** Use `addEventListener` no JavaScript.
+- Para eventos dinâmicos, delegue a um pai estável:
+  ```js
+  document.getElementById('container').addEventListener('click', (e) => {
+    if (e.target.matches('.meu-botao')) { ... }
+  });
+  ```
+
+#### 6. ❌ Ordem de execução (instância não pronta)
+**Erro típico:** Método chamado em objeto que ainda não foi inicializado (ex: `calendar.getEventById` antes do `calendar` ser criado).
+
+**Verificar:**
+- O código que define a instância roda **antes** do evento que a usa?
+- Scripts estão posicionados no HTML (ex: `<script>` antes do elemento que manipula)?
+
+**Como prevenir/corrigir:**
+- Envolva a inicialização em `DOMContentLoaded` ou `defer`.
+- Use `setTimeout` ou `requestAnimationFrame` se houver dependência de renderização.
+
+---
+
+### ✅ Checklist de revisão preventiva (sempre aplicar)
+
+- [ ] Todas as variáveis globais são declaradas **uma única vez** e com nomes únicos.
+- [ ] Acesso a propriedades de objetos externos (API, bibliotecas, eventos) usa **optional chaining** ou validação explícita.
+- [ ] Métodos chamados em instâncias de bibliotecas são verificados quanto à existência.
+- [ ] Não há scripts duplicados no HTML.
+- [ ] Manipuladores de eventos usam `addEventListener` em vez de atributos inline (`onclick`).
+- [ ] Variáveis com `const` não são reatribuídas.
+- [ ] A ordem de inicialização garante que objetos estejam prontos antes do uso.
+
+---
+
+### 📌 Exemplo de finding gerado
+
+```yaml
+findings:
+  - severidade: Alta
+    titulo: "Possível erro de leitura de propriedade undefined em window.abrirDetalhes"
+    impacto: "Quebra a exibição de detalhes do evento no calendário"
+    responsavel: "frontend"
+    correcao: "Adicionar verificação: if (event?.extendedProps) antes de acessar"
+```
+
+Se qualquer item do checklist falhar, registre como **finding de severidade Alta** (ou Crítica se impedir totalmente o uso) e proponha a correção conforme os padrões acima.
 
 ## Formato de Resposta
 Direção de Design

@@ -2,7 +2,7 @@ import { supabase } from './supabaseClient.js';
 import { showToast, setButtonLoading, hideLoading, debounce, stringToColor, adjustColor, escapeHtml } from './js/utils.js';
 import { dbParaFrontend, frontendParaDb } from './js/db.js';
 import { initAuth, aplicarPermissoes, setupAuthListener } from './js/auth.js';
-import { iniciarSistema, calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './js/calendar.js';
+import { iniciarSistema, getCalendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './js/calendar.js';
 import { mesesAbrev, feriadosFixos } from './js/constants.js';
 import { atualizarPainelNotificacoes } from './js/notifications.js';
 import { atualizarDashboard } from './js/dashboard.js';
@@ -50,8 +50,8 @@ window.switchTab = function (tabId, navElement) {
     if (pageTitle) pageTitle.textContent = titles[tabId] || 'Calendário';
 
     try {
-        if (tabId === 'abaCalendario' && typeof calendar !== 'undefined' && calendar) {
-            setTimeout(() => calendar.updateSize(), 100);
+        if (tabId === 'abaCalendario' && getCalendar()) {
+            setTimeout(() => getCalendar().updateSize(), 100);
         }
         if (tabId === 'abaResumo') atualizarResumoMes();
         if (tabId === 'abaDashboard') atualizarDashboard(estado);
@@ -168,12 +168,13 @@ window.filtrarPorEspaco = function (filtro, btn) {
     }
 
     // Aplicar filtro no calendário
-    if (!calendar) return;
+    const cal = getCalendar();
+    if (!cal) return;
     const activeFilters = categoryChips
         .filter(c => c.classList.contains('active'))
         .map(c => c.getAttribute('data-filter'));
 
-    calendar.getEvents().forEach(ev => {
+    cal.getEvents().forEach(ev => {
         if (ev.extendedProps.isFeriado) return;
         const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
         // Mostra se qualquer espaço do evento bater com qualquer filtro ativo
@@ -227,7 +228,7 @@ function toggleTheme() {
     localStorage.setItem('themeUFMA', next);
     updateThemeIcon(next);
 
-    if (typeof calendar !== 'undefined' && calendar) calendar.render();
+    if (getCalendar()) getCalendar().render();
 
     if (typeof atualizarDashboard === 'function' &&
         document.getElementById('abaDashboard')?.classList.contains('active')) {
@@ -306,7 +307,7 @@ function initUI() {
             sidebar.classList.toggle('collapsed');
             localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
             // Atualizar calendário após a transição
-            setTimeout(() => { if (calendar) calendar.updateSize(); }, 350);
+            setTimeout(() => { if (getCalendar()) getCalendar().updateSize(); }, 350);
         });
     }
 
@@ -345,9 +346,9 @@ function initUI() {
                 }
                 break;
             case 't':
-                if (calendar) {
+                if (getCalendar()) {
                     e.preventDefault();
-                    calendar.today();
+                    getCalendar().today();
                 }
                 break;
             case '/':
@@ -528,8 +529,9 @@ function aplicarBusca(termo) {
     if (document.getElementById('abaResumo').classList.contains('active')) atualizarResumoMes();
 
     // Filtrar calendário
-    if (calendar) {
-        calendar.getEvents().forEach(ev => {
+    const cal = getCalendar();
+    if (cal) {
+        cal.getEvents().forEach(ev => {
             if (!estado.termoBusca) {
                 ev.setProp('display', 'block');
                 return;
@@ -540,14 +542,14 @@ function aplicarBusca(termo) {
     }
 
     const dropdown = document.getElementById('searchResults');
-    if (estado.termoBusca.length > 2) {
-        const matches = calendar.getEvents()
+    if (estado.termoBusca.length > 2 && cal) {
+        const matches = cal.getEvents()
             .filter(ev => !ev.extendedProps.isFeriado)
             .filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel}`.toLowerCase()).includes(estado.termoBusca))
             .slice(0, 5);
         if (matches.length > 0) {
             dropdown.innerHTML = matches.map(ev => `
-                <div class="search-result-item" onclick="abrirDetalhes(calendar.getEventById('${ev.id}')); document.getElementById('searchResults').classList.remove('active')">
+                <div class="search-result-item" onclick="abrirDetalhes(getCalendar().getEventById('${ev.id}')); document.getElementById('searchResults').classList.remove('active')">
                     <div class="search-result-color" style="background:${ev.backgroundColor}"></div>
                     <div class="search-result-info">
                         <div class="search-result-title">${escapeHtml(ev.extendedProps.tituloPuro)}</div>
@@ -574,41 +576,43 @@ function atualizarTodasTelas() {
     if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 
-function renderizarCards(eventos, containerId, mensagemVazio) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    let lista = eventos;
-    if (estado.termoBusca) {
-        lista = eventos.filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel} ${(ev.extendedProps.espacos || []).join(' ')}`.toLowerCase()).includes(estado.termoBusca));
-    }
-
-    const agora = new Date();
-    const ativos = lista.filter(ev => (ev.end || ev.start) >= agora);
-    const passados = lista.filter(ev => (ev.end || ev.start) < agora);
-
-    if (lista.length === 0) {
-        container.innerHTML = `<div class="empty-state"><i class="fas fa-calendar-times"></i><h3>${mensagemVazio}</h3></div>`;
-        return;
-    }
-
     function renderCard(ev) {
         const passado = (ev.end || ev.start) < agora;
         const inicio = new Date(ev.start);
+        const fim = ev.end ? new Date(ev.end) : null;
         const dia = inicio.getDate().toString().padStart(2, '0');
         const mes = mesesAbrev[inicio.getMonth()];
+        
+        const horaInicio = inicio.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        const horaFim = fim ? fim.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
+        const periodo = horaFim ? `${horaInicio} - ${horaFim}` : `A partir das ${horaInicio}`;
+        
         const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco] || [];
+        const cor = ev.backgroundColor || ev.color || '#0056b3';
+        const badgeConflito = ev.extendedProps.isConflito ? `<span class="badge-conflito"><i class="fas fa-exclamation"></i> Conflito</span>` : '';
 
         return `
-            <div class="event-row ${passado ? 'past' : ''}" onclick="abrirDetalhes(calendar.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
-                <div class="event-date-box"><span class="day">${dia}</span><span class="month">${mes}</span></div>
-                <div class="event-content">
-                    <h4>${escapeHtml(ev.extendedProps.tituloPuro || ev.title)}</h4>
+            <div class="event-row ${passado ? 'past' : ''}" style="--event-color: ${cor}">
+                <div class="event-date-box" style="background: ${cor}15; color: ${cor};">
+                    <span class="day">${dia}</span>
+                    <span class="month">${mes}</span>
+                </div>
+                <div class="event-content" onclick="abrirDetalhes(getCalendar()?.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
+                    <div class="event-header-row">
+                        <h4>${escapeHtml(ev.extendedProps.tituloPuro || ev.title)}</h4>
+                        ${badgeConflito}
+                    </div>
                     <div class="event-meta">
+                        <span><i class="far fa-clock"></i> ${periodo}</span>
                         <span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel) || '-'}</span>
                     </div>
                     <div class="event-locais">${espacos.map(e => `<span class="tag-local-mini ${getClasseBadge(e)}">${escapeHtml(e)}</span>`).join('')}</div>
                 </div>
+                ${(estado.nivelAcesso !== 'leitor' && !ev.extendedProps.isFeriado) ? `
+                <div class="event-actions">
+                    <button class="btn-icon-sm" onclick="event.stopPropagation(); prepararEdicaoPorId('${ev.id}')" title="Editar"><i class="fas fa-edit"></i></button>
+                    <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir"><i class="fas fa-trash"></i></button>
+                </div>` : ''}
             </div>`;
     }
 
@@ -620,7 +624,8 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
 }
 
 async function atualizarUltimosEventos() {
-    if (!calendar) return;
+    const cal = getCalendar();
+    if (!cal) return;
     const container = document.getElementById('containerUltimosEventos');
     if (!container) return;
 
@@ -635,7 +640,7 @@ async function atualizarUltimosEventos() {
         const eventos = data.map(dbParaFrontend);
 
         container.innerHTML = eventos.map(ev => `
-            <div class="event-mini-card" onclick="abrirDetalhes(calendar.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
+            <div class="event-mini-card" onclick="abrirDetalhes(getCalendar()?.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
                 <div class="event-info">
                     <h5>${escapeHtml(ev.extendedProps.tituloPuro)}</h5>
                     <div class="event-meta-mini"><span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel)}</span></div>
@@ -646,7 +651,7 @@ async function atualizarUltimosEventos() {
 }
 
 async function atualizarMeusEventos() {
-    if (!calendar || !estado.usuarioLogado) return;
+    if (!getCalendar() || !estado.usuarioLogado) return;
     const container = document.getElementById('containerMeusEventos');
     if (!container) return;
     try {
@@ -657,7 +662,7 @@ async function atualizarMeusEventos() {
 }
 
 async function atualizarResumoMes() {
-    if (!calendar) return;
+    if (!getCalendar()) return;
     const eventos = await buscarDadosMensais(estado.anoFiltro, estado.mesFiltro);
     renderizarCards(eventos, 'listaResumo', 'Nenhum evento neste mês');
 }
@@ -731,10 +736,11 @@ async function carregarListaUsuariosAdmin() {
 }
 
 function obterDadosParaExportacao() {
-    if (!calendar) return [];
+    const cal = getCalendar();
+    if (!cal) return [];
     const filtroAno = document.getElementById('filtroRelatorioAno').value;
     const filtroMes = document.getElementById('filtroRelatorioMes').value;
-    let eventos = calendar.getEvents().filter(ev => {
+    let eventos = cal.getEvents().filter(ev => {
         if (ev.extendedProps.isFeriado || !ev.start) return false;
         const matchAno = filtroAno === "Todos" || ev.start.getFullYear().toString() === filtroAno;
         const matchMes = filtroMes === "Todos" || ev.start.getMonth().toString() === filtroMes;
@@ -773,8 +779,9 @@ function exportarPDF() {
 }
 
 function fazerBackupJSON() {
-    if (!calendar) return;
-    const dados = calendar.getEvents().map(ev => ({
+    const cal = getCalendar();
+    if (!cal) return;
+    const dados = cal.getEvents().map(ev => ({
         id: ev.id,
         ...ev.extendedProps,
         start: ev.start?.toISOString(),

@@ -5,6 +5,7 @@ import { dbParaFrontend } from './db.js';
 import { feriadosFixos } from './constants.js';
 
 export let calendar;
+export function getCalendar() { return calendar; }
 export let realtimeChannel = null;
 
 /**
@@ -96,7 +97,7 @@ export function iniciarSistema(estado, callbacks) {
             if (callbacks.onDateClick) callbacks.onDateClick(info.dateStr);
         },
         eventClick: (info) => {
-            if (callbacks.onEventClick) callbacks.onEventClick(info.event);
+            if (callbacks.onEventClick) callbacks.onEventClick(info);
         },
         eventContent: function (arg) {
             const props = arg.event.extendedProps;
