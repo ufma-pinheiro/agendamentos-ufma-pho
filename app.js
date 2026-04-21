@@ -68,9 +68,13 @@ window.switchTab = function (tabId, navElement) {
 };
 
 window.abrirDetalhes = function (event) {
+    if (!event) return;
     eventoSelecionadoNoModal = event;
     const modal = document.getElementById('eventModal');
-    const props = event.extendedProps;
+    
+    // Suporte para quando passamos o objeto 'event' do FullCalendar ou um objeto plano
+    const props = event.extendedProps || event;
+    if (!props) return;
 
     const cor = event.backgroundColor || '#0056b3';
     const header = document.getElementById('modalHeaderBg');
@@ -702,36 +706,100 @@ async function atualizarUltimosEventos() {
     }
 }
 
-async function atualizarMeusEventos() {
-    if (!calendar || !estado.usuarioLogado) return;
-    const container = document.getElementById('containerMeusEventos');
-    container.innerHTML = `<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Carregando seus eventos...</div>`;
+// ==========================================
+// VISUALIZAÇÕES E FILTROS
+// ==========================================
+
+function atualizarTodasTelas() {
+    atualizarUltimosEventos();
+    const abaResumo = document.getElementById('abaResumo');
+    const abaDashboard = document.getElementById('abaDashboard');
+
+    if (abaResumo?.classList.contains('active')) atualizarResumoMes();
+    if (abaDashboard?.classList.contains('active')) atualizarDashboard(estado);
+    if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
+}
+
+function renderizarCards(eventos, containerId, mensagemVazio) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    let lista = eventos;
+    if (estado.termoBusca) {
+        lista = eventos.filter(ev => (`${ev.extendedProps.tituloPuro} ${ev.extendedProps.responsavel} ${(ev.extendedProps.espacos || []).join(' ')}`.toLowerCase()).includes(estado.termoBusca));
+    }
+
+    const agora = new Date();
+    const ativos = lista.filter(ev => (ev.end || ev.start) >= agora);
+    const passados = lista.filter(ev => (ev.end || ev.start) < agora);
+
+    if (lista.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-calendar-times"></i><h3>${mensagemVazio}</h3></div>`;
+        return;
+    }
+
+    function renderCard(ev) {
+        const passado = (ev.end || ev.start) < agora;
+        const inicio = new Date(ev.start);
+        const dia = inicio.getDate().toString().padStart(2, '0');
+        const mes = mesesAbrev[inicio.getMonth()];
+        const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco] || [];
+
+        return `
+            <div class="event-row ${passado ? 'past' : ''}" onclick="abrirDetalhes(calendar.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
+                <div class="event-date-box"><span class="day">${dia}</span><span class="month">${mes}</span></div>
+                <div class="event-content">
+                    <h4>${escapeHtml(ev.extendedProps.tituloPuro || ev.title)}</h4>
+                    <div class="event-meta">
+                        <span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel) || '-'}</span>
+                    </div>
+                    <div class="event-locais">${espacos.map(e => `<span class="tag-local-mini ${getClasseBadge(e)}">${escapeHtml(e)}</span>`).join('')}</div>
+                </div>
+            </div>`;
+    }
+
+    container.innerHTML = ativos.map(renderCard).join('') + (passados.length > 0 ? `<div class="past-divider">Encerrados</div>` + passados.map(renderCard).join('') : '');
+}
+
+async function atualizarUltimosEventos() {
+    if (!calendar) return;
+    const container = document.getElementById('containerUltimosEventos');
+    if (!container) return;
 
     try {
         const { data, error } = await supabase
             .from('reservas')
             .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
-            .eq('criadopor', estado.usuarioLogado.email)
-            .order('start_time', { ascending: true });
+            .order('datacriacao', { ascending: false })
+            .limit(5);
 
         if (error) throw error;
+        const eventos = data.map(dbParaFrontend);
 
-        const meus = data.map(dbParaFrontend);
-        renderizarCards(meus, 'containerMeusEventos', 'Você ainda não criou nenhum evento');
-    } catch (e) {
-        console.error("Erro ao carregar meus eventos:", e);
-        container.innerHTML = `<div class="empty-state small"><p>Erro ao carregar seus dados.</p></div>`;
-    }
+        container.innerHTML = eventos.map(ev => `
+            <div class="event-mini-card" onclick="abrirDetalhes(calendar.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
+                <div class="event-info">
+                    <h5>${escapeHtml(ev.extendedProps.tituloPuro)}</h5>
+                    <div class="event-meta-mini"><span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel)}</span></div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>`).join('');
+    } catch (e) { console.error(e); }
+}
+
+async function atualizarMeusEventos() {
+    if (!calendar || !estado.usuarioLogado) return;
+    const container = document.getElementById('containerMeusEventos');
+    try {
+        const { data, error } = await supabase.from('reservas').select('*').eq('criadopor', estado.usuarioLogado.email).order('start_time', { ascending: true });
+        if (error) throw error;
+        renderizarCards(data.map(dbParaFrontend), 'containerMeusEventos', 'Você ainda não criou eventos');
+    } catch (e) { console.error(e); }
 }
 
 async function atualizarResumoMes() {
     if (!calendar) return;
-    const container = document.getElementById('listaResumo');
-    container.innerHTML = `<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Carregando resumo...</div>`;
-
     const eventos = await buscarDadosMensais(estado.anoFiltro, estado.mesFiltro);
-    eventos.sort((a, b) => new Date(a.start) - new Date(b.start));
-
     renderizarCards(eventos, 'listaResumo', 'Nenhum evento neste mês');
 }
 

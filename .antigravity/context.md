@@ -180,6 +180,11 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-21 | Orchestrator | Infraestrutura do sistema criada | .antigravity/context.lock, spec-index.json, history/, specs/active/, specs/completed/ | Sim |
 | 2026-04-21 | Frontend (ARCH-001) | Modularização Step 2: js/auth.js criado | Extração de initAuth e aplicarPermissoes. app.js reduzido. | Sim |
 | 2026-04-21 | Auditor | Veredicto APROVADO — Step 2 | Fluxo de auth e permissões íntegro após modularização. | Sim |
+| 2026-04-21 | Frontend (FEAT-001) | Central de Notificações Criada | Aba administrativa, logs de disparos, templates e regras de 24h. | Sim |
+| 2026-04-21 | Frontend (ARCH-001) | Modularização Step 3, 4 e 5: js/calendar.js, js/dashboard.js, js/reservas.js | Extração total de lógica. app.js reduzido a orquestrador (< 300 linhas). | Sim |
+| 2026-04-21 | Auditor | Veredicto REJEITADO (Regressão) | Identificados SyntaxErrors e deleção acidental de funções de UI. | Não |
+| 2026-04-21 | Frontend | Hotfix Integridade & Sintaxe | Resolvidos conflitos de imports e restaurada lógica de visualização. | Sim |
+| 2026-04-21 | Auditor | Veredicto APROVADO — Sistema Modular | Estabilidade confirmada. Fim do plano ARCH-001 e FEAT-001. | Sim |
 
 ---
 
