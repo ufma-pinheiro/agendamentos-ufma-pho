@@ -1,21 +1,25 @@
 <!-- index.html - Estrutura aprimorada -->
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://esm.sh https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' wss://ibukwhlxefiyqalrooam.supabase.co https://ibukwhlxefiyqalrooam.supabase.co https://cdn.jsdelivr.net https://esm.sh; img-src 'self' data: https://vercel.live; frame-src https://vercel.live">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://esm.sh https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' wss://ibukwhlxefiyqalrooam.supabase.co https://ibukwhlxefiyqalrooam.supabase.co https://cdn.jsdelivr.net https://esm.sh; img-src 'self' data: https://vercel.live; frame-src https://vercel.live">
     <title>Sistema de Agendamentos | UFMA</title>
     <meta name="description" content="Sistema de agendamentos de espaços UFMA">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
     <!-- Libraries -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -26,9 +30,10 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay">
@@ -41,12 +46,16 @@
     <!-- Acesso Negado Overlay -->
     <div id="accessDeniedOverlay" class="loading-overlay" style="display: none;">
         <div style="text-align: center; max-width: 400px; padding: 2rem;">
-            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #dc2626); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: white;">
+            <div
+                style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #dc2626); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: white;">
                 <i class="fas fa-lock"></i>
             </div>
-            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--text-primary);">Acesso Não Autorizado</h2>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">Seu e-mail não está cadastrado no sistema. Solicite acesso ao administrador.</p>
-            <a href="login.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600; font-size: 0.9rem; transition: all 0.2s;">
+            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--text-primary);">Acesso
+                Não Autorizado</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">Seu
+                e-mail não está cadastrado no sistema. Solicite acesso ao administrador.</p>
+            <a href="login.html"
+                style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; text-decoration: none; border-radius: var(--radius-lg); font-weight: 600; font-size: 0.9rem; transition: all 0.2s;">
                 <i class="fas fa-arrow-left"></i> Voltar ao Login
             </a>
         </div>
@@ -63,7 +72,7 @@
 
     <!-- Container Principal -->
     <div id="appContainer" class="app-container">
-        
+
         <!-- Sidebar Navigation -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
@@ -87,7 +96,8 @@
                         <span>Calendário</span>
                         <div class="nav-indicator"></div>
                     </button>
-                    <button class="nav-item" id="btnTabMeusEventos" data-target="abaMeusEventos" onclick="switchTab('abaMeusEventos')" style="display:none;">
+                    <button class="nav-item" id="btnTabMeusEventos" data-target="abaMeusEventos"
+                        onclick="switchTab('abaMeusEventos')" style="display:none;">
                         <i class="fas fa-user-check"></i>
                         <span>Meus Eventos</span>
                     </button>
@@ -99,15 +109,18 @@
 
                 <div class="nav-section admin-only" style="display:none;">
                     <span class="nav-label">Administração</span>
-                    <button class="nav-item" id="btnTabDashboard" data-target="abaDashboard" onclick="switchTab('abaDashboard')">
+                    <button class="nav-item" id="btnTabDashboard" data-target="abaDashboard"
+                        onclick="switchTab('abaDashboard')">
                         <i class="fas fa-chart-pie"></i>
                         <span>Dashboard</span>
                     </button>
-                    <button class="nav-item" id="btnTabRelatorios" data-target="abaRelatorios" onclick="switchTab('abaRelatorios')">
+                    <button class="nav-item" id="btnTabRelatorios" data-target="abaRelatorios"
+                        onclick="switchTab('abaRelatorios')">
                         <i class="fas fa-file-export"></i>
                         <span>Relatórios</span>
                     </button>
-                    <button class="nav-item" id="btnTabUsuarios" data-target="abaUsuarios" onclick="switchTab('abaUsuarios')">
+                    <button class="nav-item" id="btnTabUsuarios" data-target="abaUsuarios"
+                        onclick="switchTab('abaUsuarios')">
                         <i class="fas fa-users-cog"></i>
                         <span>Usuários</span>
                     </button>
@@ -150,13 +163,16 @@
                         <button class="legend-chip active" data-filter="all" onclick="filtrarPorEspaco('all', this)">
                             <span class="chip-dot" style="background: var(--primary-500)"></span>Todos
                         </button>
-                        <button class="legend-chip active" data-filter="Engenharia" onclick="filtrarPorEspaco('Engenharia', this)">
+                        <button class="legend-chip active" data-filter="Engenharia"
+                            onclick="filtrarPorEspaco('Engenharia', this)">
                             <span class="chip-dot" style="background: var(--eng-color)"></span>Engenharia
                         </button>
-                        <button class="legend-chip active" data-filter="Licenciaturas" onclick="filtrarPorEspaco('Licenciaturas', this)">
+                        <button class="legend-chip active" data-filter="Licenciaturas"
+                            onclick="filtrarPorEspaco('Licenciaturas', this)">
                             <span class="chip-dot" style="background: var(--lic-color)"></span>Licenciaturas
                         </button>
-                        <button class="legend-chip active" data-filter="Saúde" onclick="filtrarPorEspaco('Saúde', this)">
+                        <button class="legend-chip active" data-filter="Saúde"
+                            onclick="filtrarPorEspaco('Saúde', this)">
                             <span class="chip-dot" style="background: var(--sau-color)"></span>Saúde
                         </button>
                     </div>
@@ -181,7 +197,8 @@
                         <button id="btnRefreshDados" class="btn-icon btn-refresh" title="Sincronizar dados">
                             <i class="fas fa-sync-alt"></i>
                         </button>
-                        <button id="btnNovoAgendamento" class="btn-primary btn-pulse" style="display:none;" title="Novo agendamento (N)">
+                        <button id="btnNovoAgendamento" class="btn-primary btn-pulse" style="display:none;"
+                            title="Novo agendamento (N)">
                             <i class="fas fa-plus"></i>
                             <span>Novo Agendamento</span>
                         </button>
@@ -191,7 +208,7 @@
 
             <!-- Content Areas -->
             <div class="content-wrapper custom-scrollbar">
-                
+
                 <!-- Calendário -->
                 <div id="abaCalendario" class="tab-content active">
                     <div class="card calendar-card calendar-full">
@@ -199,7 +216,8 @@
                     </div>
 
                     <div class="recent-strip" id="recentStrip">
-                        <button class="recent-strip-toggle" id="btnToggleRecent" onclick="document.getElementById('recentStrip').classList.toggle('open')">
+                        <button class="recent-strip-toggle" id="btnToggleRecent"
+                            onclick="document.getElementById('recentStrip').classList.toggle('open')">
                             <span><i class="fas fa-bolt"></i> Últimos Registros</span>
                             <i class="fas fa-chevron-down toggle-chevron"></i>
                         </button>
@@ -216,7 +234,8 @@
                 <div id="abaMeusEventos" class="tab-content">
                     <div class="page-header">
                         <div>
-                            <h2><i class="fas fa-user-check"></i> Meus Agendamentos <span class="events-count-badge" id="containerMeusEventos__count">0</span></h2>
+                            <h2><i class="fas fa-user-check"></i> Meus Agendamentos <span class="events-count-badge"
+                                    id="containerMeusEventos__count">0</span></h2>
                             <p class="page-description">Gerencie todos os eventos criados por você</p>
                         </div>
                     </div>
@@ -234,9 +253,10 @@
                 <!-- Resumo Mensal -->
                 <div id="abaResumo" class="tab-content">
                     <div class="page-header">
-                        <h2><i class="fas fa-list-alt"></i> Resumo Mensal <span class="events-count-badge" id="listaResumo__count">0</span></h2>
+                        <h2><i class="fas fa-list-alt"></i> Resumo Mensal <span class="events-count-badge"
+                                id="listaResumo__count">0</span></h2>
                     </div>
-                    
+
                     <div class="filter-bar">
                         <div class="year-selector">
                             <button id="btnAnoAnt" class="btn-icon"><i class="fas fa-chevron-left"></i></button>
@@ -437,7 +457,8 @@
                                         <label>E-mail Institucional</label>
                                         <div class="input-group">
                                             <i class="fas fa-envelope"></i>
-                                            <input type="email" id="novoUsuarioEmail" placeholder="usuario@ufma.br" required>
+                                            <input type="email" id="novoUsuarioEmail" placeholder="usuario@ufma.br"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -451,9 +472,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <p class="form-helper-text" style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 1rem;">
+                                    <p class="form-helper-text"
+                                        style="font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 1rem;">
                                         <i class="fas fa-info-circle"></i>
-                                        O usuário fará login via Google ou criará conta própria. Você apenas define a permissão.
+                                        O usuário fará login via Google ou criará conta própria. Você apenas define a
+                                        permissão.
                                     </p>
                                     <button type="submit" id="btnSalvarUsuario" class="btn-primary w-full">
                                         <i class="fas fa-plus-circle"></i>
@@ -477,6 +500,91 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Notificações -->
+                <div id="abaNotificacoes" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-paper-plane"></i> Central de Notificações</h2>
+                        <p class="page-description">Gerencie as regras de comunicação e alertas automáticos</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <!-- Configurações de Notificação -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-cog"></i> Configuração de Regras</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="formConfigNotificacao" class="form-styled">
+                                    <div class="form-group">
+                                        <label>Antecedência do Alerta (Horas)</label>
+                                        <div class="input-group">
+                                            <i class="fas fa-clock"></i>
+                                            <input type="number" id="notifHorasAntecedencia" value="24" min="1" max="168">
+                                        </div>
+                                        <p class="form-helper-text">O sistema buscará eventos X horas antes do início para notificar a TI.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail Padrão da TI (Cópia)</label>
+                                        <div class="input-group">
+                                            <i class="fas fa-envelope-open-text"></i>
+                                            <input type="email" id="notifEmailTI" placeholder="ti.pinheiro@ufma.br">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-primary w-full">
+                                        <i class="fas fa-save"></i> Salvar Configurações
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Editor de Template -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-edit"></i> Template de E-mail</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Assunto do E-mail</label>
+                                    <input type="text" id="notifTemplateAssunto" class="input-styled" value="[Agenda UFMA] Lembrete de Evento em 24h">
+                                </div>
+                                <div class="form-group">
+                                    <label>Corpo da Mensagem (HTML disponível)</label>
+                                    <textarea id="notifTemplateCorpo" class="input-styled" rows="6" style="resize: vertical;">Olá, este é um lembrete sobre o evento {{titulo}} marcado para {{data}} às {{hora}} no espaço {{espaco}}.</textarea>
+                                </div>
+                                <div class="alert alert-info" style="font-size: 0.8rem; padding: 0.75rem; background: var(--primary-50); border: 1px solid var(--primary-100); border-radius: var(--radius-md); color: var(--primary-700);">
+                                    <i class="fas fa-info-circle"></i> Tags: {{titulo}}, {{data}}, {{hora}}, {{espaco}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> Histórico de Disparos e Pendências</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table-styled">
+                                    <thead>
+                                        <tr>
+                                            <th>Data/Hora</th>
+                                            <th>Evento</th>
+                                            <th>Destinatário</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaLogsNotificacoes">
+                                        <tr>
+                                            <td colspan="5" class="text-center p-4">Carregando logs...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -493,8 +601,8 @@
                 </button>
                 <h2 class="event-title" id="modalTitle">Título do Evento</h2>
             </div>
-            
-            <div class="modal-body"> 
+
+            <div class="modal-body">
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-icon">
@@ -505,7 +613,7 @@
                             <p id="modalDateTime">--</p>
                         </div>
                     </div>
-                    
+
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-user-tie"></i>
@@ -515,7 +623,7 @@
                             <p id="modalResp">--</p>
                         </div>
                     </div>
-                    
+
                     <div class="info-item" id="rowModalContato" style="display:none;">
                         <div class="info-icon">
                             <i class="fas fa-address-book"></i>
@@ -525,7 +633,7 @@
                             <p id="modalContato">--</p>
                         </div>
                     </div>
-                    
+
                     <div class="info-item">
                         <div class="info-icon">
                             <i class="fas fa-user-edit"></i>
@@ -535,7 +643,7 @@
                             <p id="modalCriador">--</p>
                         </div>
                     </div>
-                    
+
                     <div class="info-item full-width">
                         <div class="info-icon">
                             <i class="fas fa-map-marker-alt"></i>
@@ -555,19 +663,19 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer" id="modalActionButtons">
-               
+
                 <button id="btnDeleteEvent" class="btn-danger">
                     <i class="fas fa-trash-alt"></i>
                     Excluir
                 </button>
-                 <button id="btnEditEvent" class="btn-primary">
+                <button id="btnEditEvent" class="btn-primary">
                     <i class="fas fa-edit"></i>
                     Editar
                 </button>
             </div>
-            
+
             <div class="modal-footer" id="modalCloseOnly" style="display: none;">
                 <button id="btnCloseModalOnly" class="btn-secondary">Fechar</button>
             </div>
@@ -586,36 +694,38 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
+
             <div class="modal-body">
                 <form id="reservaForm">
                     <input type="hidden" id="editEventId">
                     <input type="hidden" id="editGroupId">
-                    
+
                     <div class="form-sections">
                         <section class="form-section">
                             <div class="section-header">
                                 <div class="section-number">1</div>
                                 <h3>Informações do Evento</h3>
                             </div>
-                            
+
                             <div class="form-grid">
                                 <div class="form-group full-width">
                                     <label>Título / Nome do Evento</label>
                                     <div class="input-group">
                                         <i class="fas fa-heading"></i>
-                                        <input type="text" id="titulo" placeholder="Ex: I Congresso de Engenharia" required>
+                                        <input type="text" id="titulo" placeholder="Ex: I Congresso de Engenharia"
+                                            required>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group full-width">
                                     <label>Responsável / Departamento</label>
                                     <div class="input-group">
                                         <i class="fas fa-user-tie"></i>
-                                        <input type="text" id="responsavel" placeholder="Ex: Prof. Dr. Carlos Silva" required>
+                                        <input type="text" id="responsavel" placeholder="Ex: Prof. Dr. Carlos Silva"
+                                            required>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label>WhatsApp</label>
                                     <div class="input-group">
@@ -623,7 +733,7 @@
                                         <input type="tel" id="contatoWhats" placeholder="(98) 90000-0000">
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label>E-mail</label>
                                     <div class="input-group">
@@ -639,7 +749,7 @@
                                 <div class="section-number">2</div>
                                 <h3>Seleção de Espaços</h3>
                             </div>
-                            
+
                             <div class="espacos-accordion" id="espacosAccordionContainer">
                                 <!-- Preenchido via JS -->
                             </div>
@@ -654,7 +764,7 @@
                                     Adicionar Dia
                                 </button>
                             </div>
-                            
+
                             <div class="datas-list" id="datasContainer">
                                 <!-- Linhas de data preenchidas via JS -->
                             </div>
@@ -662,7 +772,7 @@
                     </div>
                 </form>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" id="btnCancelarForm" class="btn-text">Cancelar</button>
                 <button type="submit" form="reservaForm" id="btnSalvar" class="btn-primary btn-lg">
@@ -675,4 +785,5 @@
 
     <script type="module" src="app.js"></script>
 </body>
+
 </html>
