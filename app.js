@@ -40,7 +40,8 @@ window.switchTab = function (tabId, navElement) {
     const titles = {
         'abaCalendario': 'Calendário', 'abaMeusEventos': 'Meus Eventos',
         'abaResumo': 'Resumo Mensal', 'abaDashboard': 'Dashboard Analytics',
-        'abaRelatorios': 'Relatórios', 'abaUsuarios': 'Gestão de Usuários'
+        'abaRelatorios': 'Relatórios', 'abaUsuarios': 'Gestão de Usuários',
+        'abaNotificacoes': 'Central de Notificações'
     };
     const pageTitle = document.getElementById('pageTitle');
     if (pageTitle) pageTitle.textContent = titles[tabId] || 'Calendário';
@@ -52,6 +53,9 @@ window.switchTab = function (tabId, navElement) {
         if (tabId === 'abaResumo') atualizarResumoMes();
         if (tabId === 'abaDashboard') atualizarDashboard();
         if (tabId === 'abaMeusEventos') atualizarMeusEventos();
+        if (tabId === 'abaNotificacoes' && typeof atualizarPainelNotificacoes === 'function') {
+            atualizarPainelNotificacoes();
+        }
     } catch (e) {
         console.error("Erro ao carregar dados da aba:", e);
     }

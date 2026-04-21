@@ -90,6 +90,9 @@ export function aplicarPermissoes(nivelAcesso, carregarListaUsuariosAdmin) {
             const el = document.getElementById(id);
             if (el) el.style.display = '';
         });
+        const notifTab = document.getElementById('btnTabNotificacoes');
+        if (notifTab) notifTab.style.display = '';
+
         if (typeof carregarListaUsuariosAdmin === 'function') {
             carregarListaUsuariosAdmin();
         }
