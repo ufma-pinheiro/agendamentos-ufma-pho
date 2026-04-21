@@ -2,6 +2,8 @@ import { supabase } from './supabaseClient.js';
 import { showToast, setButtonLoading, hideLoading, debounce, stringToColor, adjustColor, escapeHtml } from './js/utils.js';
 import { dbParaFrontend, frontendParaDb } from './js/db.js';
 import { initAuth, aplicarPermissoes, setupAuthListener } from './js/auth.js';
+import { iniciarSistema, calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './js/calendar.js';
+import { mesesAbrev, feriadosFixos } from './js/constants.js';
 
 // Estado global
 const estado = {
@@ -14,11 +16,8 @@ const estado = {
     timerBusca: null
 };
 
-let calendar;
-let realtimeChannel = null; // Referência global do canal Realtime para evitar memory leak
+// calendar, realtimeChannel, mesesAbrev e feriadosFixos movidos para módulos
 let eventoSelecionadoNoModal = null;
-const mesesAbrev = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-const feriadosFixos = [];
 
 // ==========================================
 // ESTADO E VARÁVEIS GLOBAIS
@@ -341,7 +340,12 @@ initAuth(estado, () => {
     authVerificado = true;
     initUI();
     aplicarPermissoes(estado.nivelAcesso, carregarListaUsuariosAdmin);
-    iniciarSistema();
+    iniciarSistema(estado, {
+        onEventsLoaded: atualizarTodasTelas,
+        onUpdate: atualizarTodasTelas,
+        onDateClick: window.abrirModalFormulario,
+        onEventClick: window.abrirDetalhes
+    });
     hideLoading();
 });
 
@@ -547,74 +551,6 @@ function construirInterfaceDinamica() {
     document.getElementById('reservaForm')?.addEventListener('submit', salvarOuEditarEvento);
     document.getElementById('btnAddDataRow')?.addEventListener('click', () => window.adicionarLinhaData());
     document.getElementById('formNovoUsuario')?.addEventListener('submit', adicionarUsuarioViaAdmin);
-}
-
-// ==========================================
-// FUNÇÕES DO CALENDÁRIO
-// ==========================================
-
-function iniciarSistema() {
-    const calendarEl = document.getElementById('calendar');
-    if (!calendarEl) return;
-
-    calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'pt-br',
-        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' },
-        buttonText: { today: 'Hoje', month: 'Mês', week: 'Semana', day: 'Dia' },
-        eventDisplay: 'block',
-        events: async function (info, successCallback, failureCallback) {
-            try {
-                // Iniciar carregamento
-                const { data, error } = await supabase
-                    .from('reservas')
-                    .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
-                    .gte('start_time', info.start.toISOString())
-                    .lte('end_time', info.end.toISOString());
-
-                if (error) throw error;
-
-                const eventos = data.map(dbParaFrontend);
-                // Garantir que os feriados também sejam incluídos se necessário
-                successCallback([...eventos, ...feriadosFixos]);
-
-                // Sincronizar outras telas após carregar os dados visíveis
-                atualizarTodasTelas();
-            } catch (error) {
-                console.error("Erro ao carregar eventos:", error);
-                showToast("Erro ao carregar eventos do calendário", "error");
-                failureCallback(error);
-            }
-        },
-        height: 'auto',
-        contentHeight: 'auto',
-
-        dateClick: function (info) {
-            if (estado.nivelAcesso === 'leitor') { showToast('Modo leitura: Não é possível criar eventos', 'info'); return; }
-            window.abrirModalFormulario(info.dateStr);
-        },
-
-        eventClick: function (info) { window.abrirDetalhes(info.event); },
-
-        eventContent: function (arg) {
-            const props = arg.event.extendedProps;
-            const time = arg.event.start ? `${arg.event.start.getHours().toString().padStart(2, '0')}h` : '';
-            const conflitoDot = props.isConflito ? '<span class="event-conflito-dot" title="Conflito de horário"></span>' : '';
-            return {
-                html: `
-                    <div class="fc-event-custom">
-                        <div class="event-time">${time} ${conflitoDot}</div>
-                        <div class="event-title">${escapeHtml(props.tituloPuro || arg.event.title)}</div>
-                        <div class="event-loc">${escapeHtml((props.espacos || [props.espaco])[0])}</div>
-                    </div>
-                `
-            };
-        }
-    });
-
-    calendar.render();
-    // carregarDadosDaNuvem(); // Removido em favor do Lazy Loading automático do FullCalendar
-    iniciarRealtime();
 
     const whatsInput = document.getElementById('contatoWhats');
     if (whatsInput) {
@@ -628,94 +564,11 @@ function iniciarSistema() {
     }
 }
 
-function getCorPorEspaco(espacos) {
-    const esp = (espacos || [])[0] || "";
-    if (esp.includes("Licenciaturas")) return "#e67e22";
-    if (esp.includes("Saúde")) return "#27ae60";
-    if (esp.includes("Engenharia")) return "#8e44ad";
-    return "#0056b3";
-}
-
-function getClasseBadge(nomeEspaco) {
-    const esp = nomeEspaco || "";
-    if (esp.includes("Engenharia")) return "badge-eng";
-    if (esp.includes("Saúde")) return "badge-sau";
-    if (esp.includes("Licenciaturas")) return "badge-lic";
-    return "badge-outros";
-}
-
-// Função utilitária para buscar dados de um mês específico (usada por outras abas)
-async function buscarDadosMensais(ano, mes) {
-    const inicioMes = new Date(ano, mes, 1).toISOString();
-    const fimMes = new Date(ano, mes + 1, 0, 23, 59, 59).toISOString();
-
-    const { data, error } = await supabase
-        .from('reservas')
-        .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
-        .gte('start_time', inicioMes)
-        .lte('end_time', fimMes);
-
-    if (error) {
-        console.error("Erro ao buscar dados mensais:", error);
-        return [];
-    }
-    return data.map(dbParaFrontend);
-}
-
-// Mantido para compatibilidade, mas otimizado
-async function recarregarDados() {
-    const btn = document.getElementById('btnRefreshDados');
-    btn.classList.add('rotating');
-    if (calendar) {
-        calendar.refetchEvents(); // Força o Lazy Loading a rodar novamente
-    }
-    setTimeout(() => btn.classList.remove('rotating'), 500);
-    showToast('Dados sincronizados com sucesso!');
-}
-
 // ==========================================
-// REALTIME
+// FUNÇÕES DO CALENDÁRIO
 // ==========================================
 
-function iniciarRealtime() {
-    // Desconectar canal anterior se existir (evita conexões zumbis em recarregamentos)
-    if (realtimeChannel) {
-        supabase.removeChannel(realtimeChannel);
-        realtimeChannel = null;
-    }
-
-    realtimeChannel = supabase
-        .channel('reservas-realtime')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'reservas' }, (payload) => {
-            const evento = dbParaFrontend(payload.new);
-            // Evitar duplicatas: converter ID para string para comparação consistente
-            const existing = calendar.getEventById(String(evento.id));
-            if (!existing) {
-                calendar.addEvent(evento);
-                atualizarTodasTelas();
-            }
-        })
-        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'reservas' }, (payload) => {
-            const evento = dbParaFrontend(payload.new);
-            const existing = calendar.getEventById(evento.id);
-            if (existing) existing.remove();
-            calendar.addEvent(evento);
-            atualizarTodasTelas();
-        })
-        .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'reservas' }, (payload) => {
-            const existing = calendar.getEventById(payload.old.id);
-            if (existing) {
-                existing.remove();
-                atualizarTodasTelas();
-            }
-        })
-        .subscribe();
-
-    // Cleanup gracioso ao fechar ou recarregar a página
-    window.addEventListener('beforeunload', () => {
-        if (realtimeChannel) supabase.removeChannel(realtimeChannel);
-    }, { once: true });
-}
+// Funções de calendário movidas para js/calendar.js
 
 // ==========================================
 // SALVAR/EDITAR/DELETAR

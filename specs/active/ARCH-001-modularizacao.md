@@ -29,8 +29,8 @@ Quebrar o `app.js` monolítico (~1492 linhas atualmente) em módulos ES coesos, 
 |------|--------|-------------------|--------|
 | Step 1 | `js/utils.js` | showToast, escapeHtml, adjustColor, formatarData, etc. | ✅ Concluído (Auditado) |
 | Step 1 | `js/db.js` | dbParaFrontend, frontendParaDb | ✅ Concluído (Auditado) |
-| Step 2 | `js/auth.js` | initAuth, mostrarAcessoNegado, verificarRole | 🔄 Pendente (P-004) |
-| Step 3 | `js/calendar.js` | initCalendar, renderizarEventos, abrirModal | ⏳ Planejado |
+| Step 2 | `js/auth.js` | initAuth, mostrarAcessoNegado, verificarRole | ✅ Concluído (Auditado) |
+| Step 3 | `js/calendar.js` | initCalendar, renderizarEventos, abrirModal | 🔄 Pendente |
 | Step 4 | `js/dashboard.js` | initDashboard, renderizarGraficos, exportarPDF/Excel | ⏳ Planejado |
 | Step 5 | `js/reservas.js` | criarReserva, editarReserva, deletarReserva, detectarConflito | ⏳ Planejado |
 

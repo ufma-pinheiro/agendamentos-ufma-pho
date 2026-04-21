@@ -140,7 +140,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 ## 🔍 Contexto Inferido pela IA
 *(Preenchido automaticamente. Não apague.)*
 
-- **Estrutura de Pastas Detectada**: Modularização iniciada. Nova pasta `/js` com `utils.js` e `db.js`. `app.js` reduzido de ~1630 para ~1492 linhas.
+- **Estrutura de Pastas Detectada**: Modularização em progresso. Pasta `/js` com `utils.js`, `db.js` e `auth.js`. `app.js` reduzido para ~1390 linhas.
 - **Riscos Imediatos Observados**:
     - `app.js` ainda monolítico (auth, calendar, dashboard misturados) — modularização em progresso.
     - Dependência de CDNs externas pode gerar indisponibilidade.
@@ -178,6 +178,8 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-20 | Frontend (ARCH-001) | Modularização Step 1: js/utils.js + js/db.js criados | Redução de 141 linhas no app.js. Auditado e aprovado antes do push. | Sim |
 | 2026-04-21 | Orchestrator | Migração context.md para .antigravity/context.md | Alinhamento com novo protocolo do orquestrador v3.0 | Sim |
 | 2026-04-21 | Orchestrator | Infraestrutura do sistema criada | .antigravity/context.lock, spec-index.json, history/, specs/active/, specs/completed/ | Sim |
+| 2026-04-21 | Frontend (ARCH-001) | Modularização Step 2: js/auth.js criado | Extração de initAuth e aplicarPermissoes. app.js reduzido. | Sim |
+| 2026-04-21 | Auditor | Veredicto APROVADO — Step 2 | Fluxo de auth e permissões íntegro após modularização. | Sim |
 
 ---
 

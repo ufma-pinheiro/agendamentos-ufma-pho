@@ -6,7 +6,7 @@
       "id": "ARCH-001",
       "titulo": "Modularizacao do app.js em ES Modules",
       "fase": "em_andamento",
-      "step_atual": "Step 2 — extrair js/auth.js",
+      "step_atual": "Step 3 — extrair js/calendar.js",
       "especialista_responsavel": "frontend",
       "criado_em": "2026-04-20",
       "arquivo": "specs/active/ARCH-001-modularizacao.md"
