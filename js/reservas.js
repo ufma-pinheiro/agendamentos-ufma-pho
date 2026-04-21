@@ -1,6 +1,7 @@
 // js/reservas.js - Gerenciamento de Reservas e Eventos (CRUD)
 import { supabase } from '../supabaseClient.js';
-import { calendar, getCorPorEspaco, getClasseBadge, frontendParaDb, dbParaFrontend, buscarDadosMensais, recarregarDados } from './calendar.js';
+import { calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './calendar.js';
+import { frontendParaDb, dbParaFrontend } from './db.js';
 import { showToast, escapeHtml } from './utils.js';
 
 let _salvando = false;
