@@ -1,4 +1,5 @@
 // js/calendar.js - Módulo de Gestão do FullCalendar e Realtime
+import { supabase } from '../supabaseClient.js';
 import { showToast, escapeHtml, debounce } from './utils.js';
 import { dbParaFrontend } from './db.js';
 import { feriadosFixos } from './constants.js';
