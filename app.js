@@ -4,6 +4,9 @@ import { dbParaFrontend, frontendParaDb } from './js/db.js';
 import { initAuth, aplicarPermissoes, setupAuthListener } from './js/auth.js';
 import { iniciarSistema, calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './js/calendar.js';
 import { mesesAbrev, feriadosFixos } from './js/constants.js';
+import { atualizarPainelNotificacoes } from './js/notifications.js';
+import { atualizarDashboard } from './js/dashboard.js';
+import { salvarOuEditarEvento, deletarEvento, initReservasWindow, fecharModal, fecharModalForm } from './js/reservas.js';
 
 // Estado global
 const estado = {
@@ -51,7 +54,7 @@ window.switchTab = function (tabId, navElement) {
             setTimeout(() => calendar.updateSize(), 100);
         }
         if (tabId === 'abaResumo') atualizarResumoMes();
-        if (tabId === 'abaDashboard') atualizarDashboard();
+        if (tabId === 'abaDashboard') atualizarDashboard(estado);
         if (tabId === 'abaMeusEventos') atualizarMeusEventos();
         if (tabId === 'abaNotificacoes' && typeof atualizarPainelNotificacoes === 'function') {
             atualizarPainelNotificacoes();
@@ -175,43 +178,8 @@ window.filtrarPorEspaco = function (filtro, btn) {
     });
 };
 
-window.abrirModalFormulario = function (dataInicial = null) {
-    const modal = document.getElementById('modalFormAgendamento');
-    const form = document.getElementById('reservaForm');
-
-    form.reset();
-    document.getElementById('editEventId').value = '';
-    document.getElementById('editGroupId').value = '';
-    document.getElementById('formTitleModal').innerHTML = '<i class="fas fa-plus-circle"></i> Novo Agendamento';
-    document.getElementById('btnSalvar').innerHTML = '<i class="fas fa-check"></i> Confirmar Agendamento';
-
-    document.querySelectorAll('input[name="espaco"]').forEach(cb => {
-        cb.checked = false;
-        cb.closest('.checkbox-card')?.classList.remove('checked');
-    });
-
-    document.getElementById('datasContainer').innerHTML = '';
-    window.adicionarLinhaData(dataInicial);
-
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-};
-
-window.selecionarMes = function (mes) {
-    estado.mesFiltro = mes;
-    atualizarSelecaoMes();
-    atualizarResumoMes();
-};
-
-window.prepararEdicaoPorId = function (id) {
-    eventoSelecionadoNoModal = calendar.getEventById(id);
-    prepararEdicao();
-};
-
-window.deletarPorId = async function (id) {
-    eventoSelecionadoNoModal = calendar.getEventById(id);
-    deletarEvento();
-};
+// Funções de Modal e Form movidas para js/reservas.js
+// Inicialização via initReservasWindow()
 
 window.deletarUsuario = async function (email) {
     const result = await Swal.fire({
@@ -348,8 +316,15 @@ initAuth(estado, () => {
         onEventsLoaded: atualizarTodasTelas,
         onUpdate: atualizarTodasTelas,
         onDateClick: window.abrirModalFormulario,
-        onEventClick: window.abrirDetalhes
+        onEventClick: (info) => {
+            if (typeof window.setEventoSelecionado === 'function') {
+                window.setEventoSelecionado(info.event);
+            }
+            window.abrirDetalhes(info.event);
+        }
     });
+
+    initReservasWindow(atualizarTodasTelas);
     hideLoading();
 });
 
@@ -533,7 +508,7 @@ function construirInterfaceDinamica() {
     document.getElementById('btnAnoProx')?.addEventListener('click', () => mudarAno(1));
     document.getElementById('btnRefreshDados')?.addEventListener('click', recarregarDados);
     document.getElementById('btnNovoAgendamento')?.addEventListener('click', () => window.abrirModalFormulario());
-    document.getElementById('btnAplicarFiltrosDash')?.addEventListener('click', atualizarDashboard);
+    document.getElementById('btnAplicarFiltrosDash')?.addEventListener('click', () => atualizarDashboard(estado));
     document.getElementById('btnExportExcel')?.addEventListener('click', exportarExcel);
     document.getElementById('btnExportPDF')?.addEventListener('click', exportarPDF);
     document.getElementById('btnBackupJSON')?.addEventListener('click', fazerBackupJSON);
@@ -550,9 +525,9 @@ function construirInterfaceDinamica() {
         });
     }
 
-    document.getElementById('btnDeleteEvent')?.addEventListener('click', deletarEvento);
-    document.getElementById('btnEditEvent')?.addEventListener('click', prepararEdicao);
-    document.getElementById('reservaForm')?.addEventListener('submit', salvarOuEditarEvento);
+    document.getElementById('btnDeleteEvent')?.addEventListener('click', () => deletarEvento(atualizarTodasTelas));
+    document.getElementById('btnEditEvent')?.addEventListener('click', () => window.prepararEdicao());
+    document.getElementById('reservaForm')?.addEventListener('submit', (e) => salvarOuEditarEvento(e, estado, atualizarTodasTelas));
     document.getElementById('btnAddDataRow')?.addEventListener('click', () => window.adicionarLinhaData());
     document.getElementById('formNovoUsuario')?.addEventListener('submit', adicionarUsuarioViaAdmin);
 
@@ -579,195 +554,7 @@ function construirInterfaceDinamica() {
 // ==========================================
 
 let _salvando = false;
-async function salvarOuEditarEvento(e) {
-    e.preventDefault();
-    if (_salvando) return; // Prevenção de duplo clique
-    _salvando = true;
-    const btn = document.getElementById('btnSalvar');
-    setButtonLoading(btn, true);
-
-    try {
-        const editId = document.getElementById('editEventId').value;
-        const titulo = document.getElementById('titulo').value;
-        const responsavel = document.getElementById('responsavel').value;
-        const contatoWhats = document.getElementById('contatoWhats').value;
-        const contatoEmail = document.getElementById('contatoEmail').value;
-
-        const espacos = Array.from(document.querySelectorAll('input[name="espaco"]:checked')).map(cb => cb.value);
-        if (espacos.length === 0) { showToast('Selecione pelo menos um espaço', 'error'); setButtonLoading(btn, false); return; }
-
-        const sessoes = [];
-        document.querySelectorAll('.data-row-styled').forEach(row => {
-            const data = row.querySelector('.flatpickr').value;
-            const horaIni = row.querySelectorAll('.input-time')[0].value;
-            const horaFim = row.querySelectorAll('.input-time')[1].value;
-            if (data && horaIni && horaFim) sessoes.push({ start: `${data}T${horaIni}`, end: `${data}T${horaFim}` });
-        });
-
-        if (sessoes.length === 0) { showToast('Adicione pelo menos uma data válida', 'error'); setButtonLoading(btn, false); return; }
-
-        // Validação de horário: fim deve ser após início
-        for (const sess of sessoes) {
-            const ini = new Date(sess.start).getTime();
-            const fim = new Date(sess.end).getTime();
-            if (fim <= ini) {
-                showToast('O horário de término deve ser posterior ao de início', 'error');
-                setButtonLoading(btn, false);
-                return;
-            }
-        }
-
-        const conflitos = [];
-        sessoes.forEach(sess => {
-            const ini = new Date(sess.start).getTime();
-            const fim = new Date(sess.end).getTime();
-            calendar.getEvents().forEach(ev => {
-                if (editId && ev.id === editId) return;
-                if (ev.extendedProps.isFeriado) return;
-                const evEspacos = ev.extendedProps.espacos || [ev.extendedProps.espaco];
-                const comum = espacos.filter(e => evEspacos.includes(e));
-                if (comum.length === 0) return;
-                const evIni = ev.start.getTime();
-                const evFim = ev.end ? ev.end.getTime() : evIni + 3600000;
-                if (ini < evFim && fim > evIni) conflitos.push(ev);
-            });
-        });
-
-        let forcar = false;
-        if (conflitos.length > 0) {
-            const result = await Swal.fire({
-                title: 'Conflitos detectados',
-                html: `<p style="margin-bottom:15px">Este agendamento conflita com <b>${conflitos.length}</b> evento(s) existente(s).</p>
-                       <div style="text-align:left;max-height:150px;overflow:auto;background:#f8f9fa;padding:10px;border-radius:8px;">
-                       ${conflitos.map(c => `<div style="padding:5px;border-left:3px solid #e74c3c;margin:5px 0;padding-left:8px;">
-                            <b>${escapeHtml(c.extendedProps.tituloPuro)}</b><br><small>${(c.extendedProps.espacos || [c.extendedProps.espaco]).map(escapeHtml).join(', ')}</small>
-                       </div>`).join('')}</div>`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Forçar mesmo assim',
-                cancelButtonText: 'Voltar e corrigir',
-                confirmButtonColor: '#e74c3c'
-            });
-            if (!result.isConfirmed) { setButtonLoading(btn, false); return; }
-            forcar = true;
-        }
-
-        const cor = getCorPorEspaco(espacos);
-        const groupId = editId ? document.getElementById('editGroupId').value : `GRP-${Date.now()}`;
-        const timestamp = Date.now();
-        const criadoPor = estado.usuarioLogado.email;
-
-        // Se editando, deletar o antigo
-        if (editId) {
-            const antigo = calendar.getEventById(editId);
-            if (antigo) antigo.remove();
-            await supabase.from('reservas').delete().eq('id', editId);
-        }
-
-        // Inserir novas sessões
-        for (let i = 0; i < sessoes.length; i++) {
-            const dadosFrontend = {
-                title: titulo,
-                tituloPuro: titulo,
-                start: sessoes[i].start,
-                end: sessoes[i].end,
-                espacos: espacos,
-                responsavel: responsavel,
-                contatoWhats: contatoWhats,
-                contatoEmail: contatoEmail,
-                color: cor,
-                isConflito: forcar,
-                groupId: groupId,
-                dataCriacao: timestamp + i,
-                criadoPor: criadoPor
-            };
-
-            const dadosDb = frontendParaDb(dadosFrontend);
-
-            const { data: inserted, error } = await supabase
-                .from('reservas')
-                .insert(dadosDb)
-                .select()
-                .single();
-
-            if (error) {
-                console.error("Erro ao inserir:", error);
-                showToast('Erro ao salvar: ' + error.message, 'error');
-                setButtonLoading(btn, false);
-                _salvando = false;
-                return;
-            }
-            // O realtime INSERT vai adicionar ao calendário automaticamente
-        }
-
-        fecharModalForm();
-        atualizarTodasTelas();
-        showToast(editId ? 'Agendamento atualizado!' : 'Agendamento criado com sucesso!');
-
-    } catch (erro) {
-        console.error("Erro:", erro);
-        showToast('Erro ao salvar: ' + erro.message, 'error');
-    }
-    finally { setButtonLoading(btn, false); _salvando = false; }
-}
-
-async function deletarEvento() {
-    if (!eventoSelecionadoNoModal) return;
-    const result = await Swal.fire({
-        title: 'Confirmar exclusão?', text: 'Esta ação não pode ser desfeita.', icon: 'warning',
-        showCancelButton: true, confirmButtonText: 'Sim, excluir', cancelButtonText: 'Cancelar', confirmButtonColor: '#e74c3c'
-    });
-    if (result.isConfirmed) {
-        try {
-            const { error } = await supabase.from('reservas').delete().eq('id', eventoSelecionadoNoModal.id);
-            if (error) {
-                showToast('Erro ao excluir: ' + error.message, 'error');
-                return;
-            }
-            eventoSelecionadoNoModal.remove();
-            fecharModal();
-            atualizarTodasTelas();
-            showToast('Evento excluído com sucesso');
-        } catch (e) { showToast('Erro ao excluir', 'error'); }
-    }
-}
-
-function prepararEdicao() {
-    if (!eventoSelecionadoNoModal) return;
-    const ev = eventoSelecionadoNoModal;
-    const props = ev.extendedProps;
-
-    fecharModal();
-
-    document.getElementById('editEventId').value = ev.id;
-    document.getElementById('editGroupId').value = props.groupId || '';
-    document.getElementById('formTitleModal').innerHTML = '<i class="fas fa-edit"></i> Editar Agendamento';
-    document.getElementById('btnSalvar').innerHTML = '<i class="fas fa-save"></i> Salvar Alterações';
-    document.getElementById('titulo').value = props.tituloPuro || ev.title;
-    document.getElementById('responsavel').value = props.responsavel || '';
-    document.getElementById('contatoWhats').value = props.contatoWhats || '';
-    document.getElementById('contatoEmail').value = props.contatoEmail || '';
-
-    document.querySelectorAll('input[name="espaco"]').forEach(cb => {
-        cb.checked = (props.espacos || [props.espaco]).includes(cb.value);
-        if (cb.checked) cb.closest('.checkbox-card')?.classList.add('checked');
-    });
-
-    document.getElementById('datasContainer').innerHTML = '';
-    window.adicionarLinhaData();
-
-    const row = document.querySelector('.data-row-styled');
-    const dataIni = new Date(ev.start.getTime() - (ev.start.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
-    const horaIni = ev.start.toTimeString().slice(0, 5);
-    const horaFim = ev.end ? ev.end.toTimeString().slice(0, 5) : horaIni;
-
-    row.querySelector('.flatpickr')._flatpickr.setDate(dataIni);
-    row.querySelectorAll('.input-time')[0].value = horaIni;
-    row.querySelectorAll('.input-time')[1].value = horaFim;
-
-    document.getElementById('modalFormAgendamento').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+// CRUD removido e movido para js/reservas.js
 
 // ==========================================
 // VISUALIZAÇÕES E FILTROS
@@ -781,7 +568,7 @@ function atualizarTodasTelas() {
     const abaDashboard = document.getElementById('abaDashboard');
 
     if (abaResumo?.classList.contains('active')) atualizarResumoMes();
-    if (abaDashboard?.classList.contains('active')) atualizarDashboard();
+    if (abaDashboard?.classList.contains('active')) atualizarDashboard(estado);
     if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 
@@ -1010,89 +797,7 @@ async function atualizarResumoMes() {
 // DASHBOARD & ADMIN & EXPORTAÇÃO
 // ==========================================
 
-async function atualizarDashboard() {
-    if (!calendar || estado.nivelAcesso !== 'dono') return;
-
-    const filtroAno = parseInt(document.getElementById('filtroDashAno').value);
-    const filtroMesRaw = document.getElementById('filtroDashMes').value;
-    const filtroMes = filtroMesRaw === "Todos" ? "Todos" : parseInt(filtroMesRaw);
-    const filtroCat = document.getElementById('filtroDashCategoria').value;
-
-    let eventos = [];
-
-    if (filtroMes === "Todos") {
-        // Se precisar de todos os meses, infelizmente temos que buscar o ano todo
-        // Mas o usuário falou que o foco é o mês atual.
-        const { data, error } = await supabase
-            .from('reservas')
-            .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
-            .gte('start_time', `${filtroAno}-01-01T00:00:00`)
-            .lte('end_time', `${filtroAno}-12-31T23:59:59`);
-        if (!error && data) eventos = data.map(dbParaFrontend);
-    } else {
-        eventos = await buscarDadosMensais(filtroAno, filtroMes);
-    }
-
-    // Filtragem por categoria (feita em memória para não complicar a query SQL)
-    if (filtroCat !== "Todas") {
-        eventos = eventos.filter(ev => (ev.extendedProps.espacos || []).some(e => e.includes(filtroCat)));
-    }
-
-    let totalHoras = 0; let conflitos = 0;
-    const espacosUnicos = new Set(); const respsUnicos = new Set();
-    const porMes = Array(12).fill(0); const porDia = Array(7).fill(0);
-    const contagemEspacos = {}; const contagemResps = {};
-
-    eventos.forEach(ev => {
-        const ini = ev.start.getTime(); const fim = ev.end ? ev.end.getTime() : ini + 3600000;
-        totalHoras += (fim - ini) / 3600000;
-        if (ev.extendedProps.isConflito) conflitos++;
-        (ev.extendedProps.espacos || [ev.extendedProps.espaco]).forEach(e => {
-            espacosUnicos.add(e); contagemEspacos[e] = (contagemEspacos[e] || 0) + 1;
-        });
-        respsUnicos.add(ev.extendedProps.responsavel);
-        contagemResps[ev.extendedProps.responsavel] = (contagemResps[ev.extendedProps.responsavel] || 0) + 1;
-        porMes[ev.start.getMonth()]++; porDia[ev.start.getDay()]++;
-    });
-
-    animateValue('dashMetrica1', parseInt(document.getElementById('dashMetrica1').textContent), eventos.length, 1000);
-    animateValue('dashMetrica5', parseInt(document.getElementById('dashMetrica5').textContent), Math.round(totalHoras), 1000);
-    animateValue('dashMetrica2', parseInt(document.getElementById('dashMetrica2').textContent), espacosUnicos.size, 1000);
-    animateValue('dashMetrica4', parseInt(document.getElementById('dashMetrica4').textContent), respsUnicos.size, 1000);
-    animateValue('dashMetrica3', parseInt(document.getElementById('dashMetrica3').textContent), conflitos, 1000);
-
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    Chart.defaults.color = isDark ? '#94a3b8' : '#64748b';
-    Chart.defaults.borderColor = isDark ? '#334155' : '#e2e8f0';
-
-    if (estado.graficosAtivos.meses) estado.graficosAtivos.meses.destroy();
-    if (estado.graficosAtivos.dias) estado.graficosAtivos.dias.destroy();
-    if (estado.graficosAtivos.espacos) estado.graficosAtivos.espacos.destroy();
-    if (estado.graficosAtivos.resps) estado.graficosAtivos.resps.destroy();
-
-    estado.graficosAtivos.meses = new Chart(document.getElementById('chartMeses'), { type: 'bar', data: { labels: mesesAbrev, datasets: [{ label: 'Reservas', data: porMes, backgroundColor: '#3b82f6', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
-    estado.graficosAtivos.dias = new Chart(document.getElementById('chartDias'), { type: 'bar', data: { labels: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], datasets: [{ label: 'Reservas', data: porDia, backgroundColor: '#10b981', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
-
-    const topEspacos = Object.entries(contagemEspacos).sort((a, b) => b[1] - a[1]).slice(0, 5);
-    estado.graficosAtivos.espacos = new Chart(document.getElementById('chartEspacos'), { type: 'doughnut', data: { labels: topEspacos.map(i => i[0].split(' - ')[0]), datasets: [{ data: topEspacos.map(i => i[1]), backgroundColor: ['#8e44ad', '#e67e22', '#27ae60', '#3498db', '#e74c3c'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12 } } }, cutout: '70%' } });
-
-    const topResps = Object.entries(contagemResps).sort((a, b) => b[1] - a[1]).slice(0, 5);
-    estado.graficosAtivos.resps = new Chart(document.getElementById('chartResps'), { type: 'bar', data: { labels: topResps.map(i => i[0].split(' ')[0]), datasets: [{ label: 'Eventos', data: topResps.map(i => i[1]), backgroundColor: '#f59e0b', borderRadius: 6 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
-}
-
-function animateValue(id, start, end, duration) {
-    if (start === end) return;
-    const range = end - start;
-    let stepTime = Math.max(Math.abs(Math.floor(duration / range)), 50);
-    let startTime = new Date().getTime(); let endTime = startTime + duration; let timer;
-    function run() {
-        let now = new Date().getTime(); let remaining = Math.max((endTime - now) / duration, 0);
-        let value = Math.round(end - (remaining * range));
-        document.getElementById(id).innerHTML = value + (id === 'dashMetrica5' ? '<span class="suffix">h</span>' : '');
-        if (value == end) clearInterval(timer);
-    }
-    timer = setInterval(run, stepTime); run();
-}
+// Funções de Dashboard removidas e movidas para js/dashboard.js
 
 async function adicionarUsuarioViaAdmin(e) {
     e.preventDefault();
