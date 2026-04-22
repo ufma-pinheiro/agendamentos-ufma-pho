@@ -41,7 +41,7 @@ export async function initAuth(estado, onAuthenticated) {
         if (user.email === 'tipinheiro@ufma.br') {
             estado.nivelAcesso = 'dono';
         } else if (userData && userData.role) {
-            estado.nivelAcesso = userData.role;
+            estado.nivelAcesso = (userData.role || 'leitor').toLowerCase().trim();
         } else {
             // Email não cadastrado ou sem role - bloquear acesso
             await supabase.auth.signOut();

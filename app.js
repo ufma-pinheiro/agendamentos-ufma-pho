@@ -23,6 +23,7 @@ const estado = {
 let eventoSelecionadoNoModal = null;
 
 // Expor funções de módulo no escopo global para uso em onclick inline do HTML
+window.estadoGlobal = estado;
 window.getCalendar = getCalendar;
 
 // ==========================================
@@ -142,7 +143,9 @@ window.abrirDetalhes = function (event) {
     if (props.isConflito) warning.style.display = 'flex';
     else warning.style.display = 'none';
 
-    const podeEditar = estado.nivelAcesso !== 'leitor' && !props.isFeriado;
+    const isDono = estado.nivelAcesso === 'dono';
+    const isCriador = props.criadoPor === estado.usuarioLogado?.email;
+    const podeEditar = !props.isFeriado && (isDono || (estado.nivelAcesso === 'editor' && isCriador));
     document.getElementById('modalActionButtons').style.display = podeEditar ? 'flex' : 'none';
     document.getElementById('modalCloseOnly').style.display = podeEditar ? 'none' : 'flex';
 
@@ -633,7 +636,7 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
                     </div>
                     <div class="event-locais">${espacos.map(e => `<span class="tag-local-mini ${getClasseBadge(e)}">${escapeHtml(e)}</span>`).join('')}</div>
                 </div>
-                ${(estado.nivelAcesso !== 'leitor' && !ev.extendedProps.isFeriado) ? `
+                ${(!ev.extendedProps.isFeriado && (estado.nivelAcesso === 'dono' || (estado.nivelAcesso === 'editor' && ev.extendedProps.criadoPor === estado.usuarioLogado?.email))) ? `
                 <div class="event-actions">
                     <button class="btn-icon-sm" onclick="event.stopPropagation(); prepararEdicaoPorId('${ev.id}')" title="Editar"><i class="fas fa-edit"></i></button>
                     <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir"><i class="fas fa-trash"></i></button>

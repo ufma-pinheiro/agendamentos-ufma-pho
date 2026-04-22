@@ -156,6 +156,17 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
  */
 export async function deletarEvento(atualizarTodasTelas) {
     if (!eventoSelecionadoNoModal) return;
+
+    if (window.estadoGlobal) {
+        const estado = window.estadoGlobal;
+        const isDono = estado.nivelAcesso === 'dono';
+        const isCriador = eventoSelecionadoNoModal.extendedProps?.criadoPor === estado.usuarioLogado?.email;
+        if (!isDono && !(estado.nivelAcesso === 'editor' && isCriador)) {
+            showToast('Acesso negado: Você só pode excluir seus próprios agendamentos', 'error');
+            return;
+        }
+    }
+
     const result = await Swal.fire({
         title: 'Confirmar exclusão?', text: 'Esta ação não pode ser desfeita.', icon: 'warning',
         showCancelButton: true, confirmButtonText: 'Sim, excluir', cancelButtonText: 'Cancelar', confirmButtonColor: '#e74c3c'
@@ -220,6 +231,16 @@ export function prepararEdicao() {
     if (!eventoSelecionadoNoModal) return;
     const ev = eventoSelecionadoNoModal;
     const props = ev.extendedProps;
+
+    if (window.estadoGlobal) {
+        const estado = window.estadoGlobal;
+        const isDono = estado.nivelAcesso === 'dono';
+        const isCriador = props.criadoPor === estado.usuarioLogado?.email;
+        if (!isDono && !(estado.nivelAcesso === 'editor' && isCriador)) {
+            showToast('Acesso negado: Você só pode editar seus próprios agendamentos', 'error');
+            return;
+        }
+    }
 
     fecharModal();
 

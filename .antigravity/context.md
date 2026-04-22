@@ -189,6 +189,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-21 | Orchestrator | Save State | Estado final da modularização sincronizado com origin/devAgendamento. | Sim |
 | 2026-04-21 | Backend | Correção RLS (tabela usuarios) | Adicionada política RLS e `is_dono()` no Supabase para resolver erro 403. | Sim |
 | 2026-04-21 | Frontend | Hotfix Botão Logout | Removida dependência da flag primitiva `authVerificado` que impedia redirecionamento. | Sim |
+| 2026-04-21 | Security | Hotfix Permissões UI/CRUD | Bloqueada exclusão/edição para Leitores e Editores (exceto os próprios) via `window.estadoGlobal`. | Sim |
 
 ---
 
