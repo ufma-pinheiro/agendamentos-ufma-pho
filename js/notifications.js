@@ -68,8 +68,9 @@ export async function dispararNotificacaoManual(id) {
     try {
         const { data: ev, error } = await supabase
             .from('reservas')
-            .select('*')
+            .select('id, title, start_time, responsavel, contatoemail, espacos')
             .eq('id', id)
+            .eq('cancelado', false)
             .single();
 
         if (error) throw error;
