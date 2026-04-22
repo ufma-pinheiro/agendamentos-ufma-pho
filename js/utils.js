@@ -234,7 +234,10 @@ export function showConflictModal(conflitos, dadosPendentes) {
             <div class="info-modal-conflict-item">
                 <div class="conflict-bar"></div>
                 <div class="conflict-info">
-                    <strong>${escapeHtml(c.extendedProps.tituloPuro || c.title)}</strong>
+                    <div class="conflict-header">
+                        <strong>${escapeHtml(c.extendedProps.tituloPuro || c.title)}</strong>
+                        <span class="conflict-time"><i class="far fa-clock"></i> ${formatTime(c.start)} – ${formatTime(c.end)}</span>
+                    </div>
                     <div class="conflict-locais">${locaisBadges}</div>
                 </div>
             </div>`;
