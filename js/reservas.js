@@ -209,7 +209,7 @@ export function fecharModalForm() {
 }
 
 export function fecharModal() {
-    const modal = document.getElementById('modalDetalhes');
+    const modal = document.getElementById('eventModal');
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';

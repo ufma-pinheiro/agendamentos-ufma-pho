@@ -73,6 +73,9 @@ window.switchTab = function (tabId, navElement) {
 window.abrirDetalhes = function (event) {
     if (!event) return;
     eventoSelecionadoNoModal = event;
+    if (typeof window.setEventoSelecionado === 'function') {
+        window.setEventoSelecionado(event);
+    }
     const modal = document.getElementById('eventModal');
     
     // Suporte para quando passamos o objeto 'event' do FullCalendar ou um objeto plano
