@@ -223,14 +223,22 @@ export function showConflictModal(conflitos, dadosPendentes) {
                 <i class="fas fa-map-marker-alt"></i> ${escapeHtml(esp)}
             </span>`).join('');
 
-        const conflitosHtml = conflitos.map(c => `
+        const conflitosHtml = conflitos.map(c => {
+            const locais = c.extendedProps.espacos || [c.extendedProps.espaco];
+            const locaisBadges = locais.map(esp => `
+                <span class="tag-local tag-local-modal tag-local-conflict ${getBadgeClass(esp)}">
+                    <i class="fas fa-map-marker-alt"></i> ${escapeHtml(esp)}
+                </span>`).join('');
+            
+            return `
             <div class="info-modal-conflict-item">
                 <div class="conflict-bar"></div>
                 <div class="conflict-info">
                     <strong>${escapeHtml(c.extendedProps.tituloPuro || c.title)}</strong>
-                    <span>${(c.extendedProps.espacos || [c.extendedProps.espaco]).map(escapeHtml).join(', ')}</span>
+                    <div class="conflict-locais">${locaisBadges}</div>
                 </div>
-            </div>`).join('');
+            </div>`;
+        }).join('');
 
         const sessoesHtml = dadosPendentes.sessoes.map(s => `
             <div class="info-modal-session">
