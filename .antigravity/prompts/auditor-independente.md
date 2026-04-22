@@ -118,6 +118,7 @@ NOTIFICAR_ORCHESTRATOR: "Veredicto emitido. [N] findings direcionados."
 5. **Secrets nunca regridem** — variável nova sem documentação = finding Alto automático
 6. **Segurança não é opcional por prazo** — finding Crítico/Alto bloqueia independentemente de prazo
 7. **Fluxos críticos têm prioridade absoluta** — testar após qualquer alteração, mesmo que pareça não relacionada
+8. **Hotfix pós-aprovação exige reabertura** – nenhuma alteração em código após o veredicto APROVADO pode ser feita sem um novo ciclo. Se detectar que um especialista aplicou correção diretamente, emita finding **Crítico** e exija a reabertura do ciclo.
 
 ---
 

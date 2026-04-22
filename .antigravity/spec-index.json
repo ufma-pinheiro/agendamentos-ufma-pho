@@ -1,18 +1,15 @@
 {
   "versao": "1.0.0",
   "ultima_atualizacao": "2026-04-21",
-  "specs_ativas": [
+  "specs_ativas": [],
+  "specs_concluidas": [
     {
       "id": "ARCH-001",
       "titulo": "Modularizacao do app.js em ES Modules",
-      "fase": "em_andamento",
-      "step_atual": "Step 3 — extrair js/calendar.js",
-      "especialista_responsavel": "frontend",
-      "criado_em": "2026-04-20",
-      "arquivo": "specs/active/ARCH-001-modularizacao.md"
-    }
-  ],
-  "specs_concluidas": [
+      "concluido_em": "2026-04-21",
+      "veredicto_auditor": "APROVADO",
+      "arquivo": "specs/completed/ARCH-001-modularizacao.md"
+    },
     {
       "id": "SECURITY-001",
       "titulo": "Hardening de Segurança (admin hardcoded, XSS, memory leak)",
@@ -45,11 +42,6 @@
       "id": "P-003",
       "severidade": "Baixo",
       "descricao": "Gate do Auditor deve ser acionado ANTES do push"
-    },
-    {
-      "id": "P-004",
-      "severidade": "Medio",
-      "descricao": "ARCH-001 Step 2 pendente: extrair js/auth.js"
     },
     {
       "id": "P-005",

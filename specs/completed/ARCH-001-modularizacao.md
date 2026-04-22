@@ -1,6 +1,6 @@
 # ARCH-001 — Modularização do app.js em ES Modules
 
-**Status:** Em Andamento  
+**Status:** Concluído  
 **Criado em:** 2026-04-20  
 **Última atualização:** 2026-04-21  
 **Especialista responsável:** Frontend  
@@ -30,9 +30,9 @@ Quebrar o `app.js` monolítico (~1492 linhas atualmente) em módulos ES coesos, 
 | Step 1 | `js/utils.js` | showToast, escapeHtml, adjustColor, formatarData, etc. | ✅ Concluído (Auditado) |
 | Step 1 | `js/db.js` | dbParaFrontend, frontendParaDb | ✅ Concluído (Auditado) |
 | Step 2 | `js/auth.js` | initAuth, mostrarAcessoNegado, verificarRole | ✅ Concluído (Auditado) |
-| Step 3 | `js/calendar.js` | initCalendar, renderizarEventos, abrirModal | 🔄 Pendente |
-| Step 4 | `js/dashboard.js` | initDashboard, renderizarGraficos, exportarPDF/Excel | ⏳ Planejado |
-| Step 5 | `js/reservas.js` | criarReserva, editarReserva, deletarReserva, detectarConflito | ⏳ Planejado |
+| Step 3 | `js/calendar.js` | initCalendar, renderizarEventos, abrirModal | ✅ Concluído (Auditado) |
+| Step 4 | `js/dashboard.js` | initDashboard, renderizarGraficos, exportarPDF/Excel | ✅ Concluído (Auditado) |
+| Step 5 | `js/reservas.js` | criarReserva, editarReserva, deletarReserva, detectarConflito | ✅ Concluído (Auditado) |
 
 ---
 

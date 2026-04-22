@@ -79,6 +79,23 @@ Use APENAS quando o usuário pede explicitamente direção artística ou não-co
 - Nunca force redesign completo se o usuário pediu apenas melhoria
 
 ---
+## 🚫 Proibição de hotfix pós-auditoria
+
+Se você receber uma solicitação de correção ou detectar um erro **após o Auditor Independente ter aprovado o ciclo atual**, NÃO implemente diretamente.
+
+**Ação obrigatória:**  
+Responda com o seguinte template:
+⚠️ Esta correção ocorre após o ciclo ter sido aprovado pelo Auditor.
+Para prosseguir, o Orchestrator precisa reabrir o ciclo para hotfix.
+
+Solicite ao Orchestrator: "Reabrir ciclo para hotfix em [módulo descrito]."
+
+
+**Exceção:** Se o erro for **apenas na documentação ou comentários** (sem mudança de código funcional), você pode corrigir diretamente, mas deve registrar no handoff como "Baixo/Informacional".
+
+Em qualquer outro caso, aguarde a reabertura do ciclo. Não assuma autorização para pular QA ou Auditor.
+
+---
 
 ## Padrões Técnicos
 

@@ -523,6 +523,12 @@ function atualizarSelecaoMes() {
     });
 }
 
+window.selecionarMes = function(mes) {
+    estado.mesFiltro = mes;
+    atualizarSelecaoMes();
+    atualizarResumoMes();
+};
+
 function aplicarBusca(termo) {
     estado.termoBusca = termo.toLowerCase().trim();
     document.getElementById('btnLimparBusca').style.display = estado.termoBusca ? 'flex' : 'none';
