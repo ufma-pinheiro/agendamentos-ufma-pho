@@ -2,7 +2,7 @@
 import { supabase } from '../supabaseClient.js';
 import { calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './calendar.js';
 import { frontendParaDb, dbParaFrontend } from './db.js';
-import { showToast, escapeHtml } from './utils.js';
+import { showToast, escapeHtml, showSuccessModal, showConflictModal } from './utils.js';
 
 let _salvando = false;
 let eventoSelecionadoNoModal = null;
@@ -81,23 +81,16 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
 
         let forcar = false;
         if (conflitos.length > 0) {
-            const result = await Swal.fire({
-                title: 'Conflitos detectados',
-                html: `<p style="margin-bottom:15px">Este agendamento conflita com <b>${conflitos.length}</b> evento(s) existente(s).</p>
-                       <div style="text-align:left;max-height:150px;overflow:auto;background:#f8f9fa;padding:10px;border-radius:8px;">
-                       ${conflitos.map(c => `<div style="padding:5px;border-left:3px solid #e74c3c;margin:5px 0;padding-left:8px;">
-                            <b>${escapeHtml(c.extendedProps.tituloPuro)}</b><br><small>${(c.extendedProps.espacos || [c.extendedProps.espaco]).map(escapeHtml).join(', ')}</small>
-                       </div>`).join('')}</div>`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Forçar mesmo assim',
-                cancelButtonText: 'Voltar e corrigir',
-                confirmButtonColor: '#e74c3c'
+            const forcarConflito = await showConflictModal(conflitos, {
+                titulo,
+                responsavel,
+                espacos,
+                sessoes
             });
-            if (!result.isConfirmed) { 
-                if (typeof window.setButtonLoading === 'function') window.setButtonLoading(btn, false); 
+            if (!forcarConflito) {
+                if (typeof window.setButtonLoading === 'function') window.setButtonLoading(btn, false);
                 _salvando = false;
-                return; 
+                return;
             }
             forcar = true;
         }
@@ -140,7 +133,12 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
 
         fecharModalForm();
         if (typeof atualizarTodasTelas === 'function') atualizarTodasTelas();
-        showToast(editId ? 'Agendamento atualizado!' : 'Agendamento criado com sucesso!');
+
+        if (!editId) {
+            showSuccessModal({ titulo, responsavel, espacos, sessoes });
+        } else {
+            showToast('Agendamento atualizado!');
+        }
 
     } catch (error) {
         console.error("Erro ao salvar:", error);

@@ -96,3 +96,162 @@ export function escapeHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
+// ==========================================
+// MODAIS INFORMATIVOS NATIVOS
+// ==========================================
+
+/**
+ * Exibe modal de sucesso com detalhes do agendamento.
+ * @param {Object} dados - { titulo, responsavel, espacos, sessoes }
+ */
+export function showSuccessModal(dados) {
+    const existing = document.getElementById('infoModalOverlay');
+    if (existing) existing.remove();
+
+    const formatDate = (isoStr) => {
+        const d = new Date(isoStr);
+        return d.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+    };
+    const formatTime = (isoStr) => {
+        const d = new Date(isoStr);
+        return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    };
+
+    const sessoesHtml = dados.sessoes.map(s => `
+        <div class="info-modal-session">
+            <i class="fas fa-calendar-day"></i>
+            <span>${escapeHtml(formatDate(s.start))}</span>
+            <span class="info-modal-time">${escapeHtml(formatTime(s.start))} – ${escapeHtml(formatTime(s.end))}</span>
+        </div>`).join('');
+
+    const overlay = document.createElement('div');
+    overlay.id = 'infoModalOverlay';
+    overlay.className = 'info-modal-overlay';
+    overlay.innerHTML = `
+        <div class="info-modal success" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+            <div class="info-modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="info-modal-title" id="infoModalTitle">Agendamento Confirmado!</h2>
+            <p class="info-modal-subtitle">Sua reserva foi registrada com sucesso.</p>
+            <div class="info-modal-details">
+                <div class="info-modal-row">
+                    <span class="info-modal-label"><i class="fas fa-heading"></i> Evento</span>
+                    <span class="info-modal-value">${escapeHtml(dados.titulo)}</span>
+                </div>
+                <div class="info-modal-row">
+                    <span class="info-modal-label"><i class="fas fa-user-tie"></i> Responsável</span>
+                    <span class="info-modal-value">${escapeHtml(dados.responsavel)}</span>
+                </div>
+                <div class="info-modal-row">
+                    <span class="info-modal-label"><i class="fas fa-map-marker-alt"></i> Local</span>
+                    <span class="info-modal-value">${dados.espacos.map(escapeHtml).join(', ')}</span>
+                </div>
+                <div class="info-modal-row full">
+                    <span class="info-modal-label"><i class="fas fa-clock"></i> Data(s) e Horário(s)</span>
+                    <div class="info-modal-sessions">${sessoesHtml}</div>
+                </div>
+            </div>
+            <button id="btnInfoModalOk" class="info-modal-btn success">Entendido</button>
+        </div>`;
+
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+
+    const close = () => {
+        overlay.classList.remove('visible');
+        setTimeout(() => overlay.remove(), 300);
+    };
+    document.getElementById('btnInfoModalOk').addEventListener('click', close);
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+}
+
+/**
+ * Exibe modal de conflito e retorna Promise<boolean> (true = forçar, false = cancelar).
+ * @param {Array} conflitos - lista de eventos FullCalendar em conflito
+ * @param {Object} dadosPendentes - { titulo, responsavel, espacos, sessoes }
+ */
+export function showConflictModal(conflitos, dadosPendentes) {
+    return new Promise(resolve => {
+        const existing = document.getElementById('infoModalOverlay');
+        if (existing) existing.remove();
+
+        const formatDate = (isoStr) => {
+            const d = new Date(isoStr);
+            return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        };
+        const formatTime = (isoStr) => {
+            const d = new Date(isoStr);
+            return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        };
+
+        const conflitosHtml = conflitos.map(c => `
+            <div class="info-modal-conflict-item">
+                <div class="conflict-bar"></div>
+                <div class="conflict-info">
+                    <strong>${escapeHtml(c.extendedProps.tituloPuro || c.title)}</strong>
+                    <span>${(c.extendedProps.espacos || [c.extendedProps.espaco]).map(escapeHtml).join(', ')}</span>
+                </div>
+            </div>`).join('');
+
+        const sessoesHtml = dadosPendentes.sessoes.map(s => `
+            <div class="info-modal-session">
+                <i class="fas fa-calendar-day"></i>
+                <span>${escapeHtml(formatDate(s.start))}</span>
+                <span class="info-modal-time">${escapeHtml(formatTime(s.start))} – ${escapeHtml(formatTime(s.end))}</span>
+            </div>`).join('');
+
+        const overlay = document.createElement('div');
+        overlay.id = 'infoModalOverlay';
+        overlay.className = 'info-modal-overlay';
+        overlay.innerHTML = `
+            <div class="info-modal conflict" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+                <div class="info-modal-icon conflict">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2 class="info-modal-title" id="infoModalTitle">Conflito Detectado</h2>
+                <p class="info-modal-subtitle">O agendamento abaixo conflita com <strong>${conflitos.length}</strong> evento(s) existente(s).</p>
+
+                <div class="info-modal-details">
+                    <div class="info-modal-row">
+                        <span class="info-modal-label"><i class="fas fa-heading"></i> Seu Evento</span>
+                        <span class="info-modal-value">${escapeHtml(dadosPendentes.titulo)}</span>
+                    </div>
+                    <div class="info-modal-row">
+                        <span class="info-modal-label"><i class="fas fa-user-tie"></i> Responsável</span>
+                        <span class="info-modal-value">${escapeHtml(dadosPendentes.responsavel)}</span>
+                    </div>
+                    <div class="info-modal-row">
+                        <span class="info-modal-label"><i class="fas fa-map-marker-alt"></i> Local</span>
+                        <span class="info-modal-value">${dadosPendentes.espacos.map(escapeHtml).join(', ')}</span>
+                    </div>
+                    <div class="info-modal-row full">
+                        <span class="info-modal-label"><i class="fas fa-clock"></i> Data(s) Solicitada(s)</span>
+                        <div class="info-modal-sessions">${sessoesHtml}</div>
+                    </div>
+                    <div class="info-modal-row full">
+                        <span class="info-modal-label"><i class="fas fa-times-circle"></i> Em Conflito Com</span>
+                        <div class="info-modal-conflicts-list">${conflitosHtml}</div>
+                    </div>
+                </div>
+
+                <div class="info-modal-actions">
+                    <button id="btnConflictCancel" class="info-modal-btn secondary"><i class="fas fa-arrow-left"></i> Voltar e Corrigir</button>
+                    <button id="btnConflictForce" class="info-modal-btn danger"><i class="fas fa-bolt"></i> Forçar Mesmo Assim</button>
+                </div>
+            </div>`;
+
+        document.body.appendChild(overlay);
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+
+        const close = (result) => {
+            overlay.classList.remove('visible');
+            setTimeout(() => overlay.remove(), 300);
+            resolve(result);
+        };
+        document.getElementById('btnConflictCancel').addEventListener('click', () => close(false));
+        document.getElementById('btnConflictForce').addEventListener('click', () => close(true));
+        overlay.addEventListener('click', e => { if (e.target === overlay) close(false); });
+    });
+}
