@@ -121,6 +121,19 @@ export function showSuccessModal(dados) {
         return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     };
 
+    const getBadgeClass = (nome) => {
+        const n = nome || "";
+        if (n.includes("Engenharia")) return "badge-eng";
+        if (n.includes("Saúde")) return "badge-sau";
+        if (n.includes("Licenciaturas")) return "badge-lic";
+        return "badge-outros";
+    };
+
+    const espacosHtml = dados.espacos.map(esp => `
+        <span class="tag-local tag-local-modal ${getBadgeClass(esp)}">
+            <i class="fas fa-map-marker-alt"></i> ${escapeHtml(esp)}
+        </span>`).join('');
+
     const sessoesHtml = dados.sessoes.map(s => `
         <div class="info-modal-session">
             <i class="fas fa-calendar-day"></i>
@@ -147,17 +160,22 @@ export function showSuccessModal(dados) {
                     <span class="info-modal-label"><i class="fas fa-user-tie"></i> Responsável</span>
                     <span class="info-modal-value">${escapeHtml(dados.responsavel)}</span>
                 </div>
-                <div class="info-modal-row">
-                    <span class="info-modal-label"><i class="fas fa-map-marker-alt"></i> Local</span>
-                    <span class="info-modal-value">${dados.espacos.map(escapeHtml).join(', ')}</span>
+                <div class="info-modal-row full">
+                    <span class="info-modal-label"><i class="fas fa-map-marker-alt"></i> Locais</span>
+                    <div class="info-modal-badges">
+                        ${espacosHtml}
+                    </div>
                 </div>
                 <div class="info-modal-row full">
-                    <span class="info-modal-label"><i class="fas fa-clock"></i> Data(s) e Horário(s)</span>
-                    <div class="info-modal-sessions">${sessoesHtml}</div>
+                    <span class="info-modal-label"><i class="fas fa-clock"></i> Horários</span>
+                    <div class="info-modal-sessions">
+                        ${sessoesHtml}
+                    </div>
                 </div>
             </div>
-            <button id="btnInfoModalOk" class="info-modal-btn success">Entendido</button>
-        </div>`;
+            <button class="info-modal-btn success" id="btnConfirmSuccess">Entendido</button>
+        </div>
+    `;
 
     document.body.appendChild(overlay);
     requestAnimationFrame(() => overlay.classList.add('visible'));
@@ -166,7 +184,7 @@ export function showSuccessModal(dados) {
         overlay.classList.remove('visible');
         setTimeout(() => overlay.remove(), 300);
     };
-    document.getElementById('btnInfoModalOk').addEventListener('click', close);
+    document.getElementById('btnConfirmSuccess').addEventListener('click', close);
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
 }
 
@@ -188,6 +206,19 @@ export function showConflictModal(conflitos, dadosPendentes) {
             const d = new Date(isoStr);
             return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
         };
+
+        const getBadgeClass = (nome) => {
+            const n = nome || "";
+            if (n.includes("Engenharia")) return "badge-eng";
+            if (n.includes("Saúde")) return "badge-sau";
+            if (n.includes("Licenciaturas")) return "badge-lic";
+            return "badge-outros";
+        };
+
+        const espacosHtml = dadosPendentes.espacos.map(esp => `
+            <span class="tag-local tag-local-modal ${getBadgeClass(esp)}">
+                <i class="fas fa-map-marker-alt"></i> ${escapeHtml(esp)}
+            </span>`).join('');
 
         const conflitosHtml = conflitos.map(c => `
             <div class="info-modal-conflict-item">
@@ -225,9 +256,11 @@ export function showConflictModal(conflitos, dadosPendentes) {
                         <span class="info-modal-label"><i class="fas fa-user-tie"></i> Responsável</span>
                         <span class="info-modal-value">${escapeHtml(dadosPendentes.responsavel)}</span>
                     </div>
-                    <div class="info-modal-row">
-                        <span class="info-modal-label"><i class="fas fa-map-marker-alt"></i> Local</span>
-                        <span class="info-modal-value">${dadosPendentes.espacos.map(escapeHtml).join(', ')}</span>
+                    <div class="info-modal-row full">
+                        <span class="info-modal-label"><i class="fas fa-map-marker-alt"></i> Locais Solicitados</span>
+                        <div class="info-modal-badges">
+                            ${espacosHtml}
+                        </div>
                     </div>
                     <div class="info-modal-row full">
                         <span class="info-modal-label"><i class="fas fa-clock"></i> Data(s) Solicitada(s)</span>
@@ -240,21 +273,25 @@ export function showConflictModal(conflitos, dadosPendentes) {
                 </div>
 
                 <div class="info-modal-actions">
-                    <button id="btnConflictCancel" class="info-modal-btn secondary"><i class="fas fa-arrow-left"></i> Voltar e Corrigir</button>
-                    <button id="btnConflictForce" class="info-modal-btn danger"><i class="fas fa-bolt"></i> Forçar Mesmo Assim</button>
+                    <button class="info-modal-btn secondary" id="btnCancelConflict">Voltar e Corrigir</button>
+                    <button class="info-modal-btn danger" id="btnForceConflict">Forçar Mesmo Assim</button>
                 </div>
-            </div>`;
+            </div>
+        `;
 
         document.body.appendChild(overlay);
         requestAnimationFrame(() => overlay.classList.add('visible'));
 
         const close = (result) => {
             overlay.classList.remove('visible');
-            setTimeout(() => overlay.remove(), 300);
-            resolve(result);
+            setTimeout(() => {
+                overlay.remove();
+                resolve(result);
+            }, 300);
         };
-        document.getElementById('btnConflictCancel').addEventListener('click', () => close(false));
-        document.getElementById('btnConflictForce').addEventListener('click', () => close(true));
+
+        document.getElementById('btnCancelConflict').addEventListener('click', () => close(false));
+        document.getElementById('btnForceConflict').addEventListener('click', () => close(true));
         overlay.addEventListener('click', e => { if (e.target === overlay) close(false); });
     });
 }
