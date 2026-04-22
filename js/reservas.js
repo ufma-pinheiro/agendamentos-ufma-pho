@@ -2,7 +2,7 @@
 import { supabase } from '../supabaseClient.js';
 import { calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './calendar.js';
 import { frontendParaDb, dbParaFrontend } from './db.js';
-import { showToast, escapeHtml, showSuccessModal, showConflictModal } from './utils.js';
+import { showToast, escapeHtml, showSuccessModal, showConflictModal, showConfirmModal } from './utils.js';
 
 let _salvando = false;
 let eventoSelecionadoNoModal = null;
@@ -100,10 +100,19 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
         const timestamp = Date.now();
         const criadoPor = estado.usuarioLogado.email;
 
-        // Se editando, deletar o antigo antes de inserir os novos (ou atualizar se fosse 1:1, mas aqui pode mudar o número de sessões)
+        // Se editando, validar propriedade ANTES de qualquer ação
         if (editId) {
             const antigo = calendar.getEventById(editId);
-            if (antigo) antigo.remove();
+            if (!antigo) throw new Error("Agendamento não encontrado.");
+            
+            const isDono = estado.nivelAcesso === 'dono';
+            const isCriador = antigo.extendedProps?.criadoPor === estado.usuarioLogado?.email;
+            
+            if (!isDono && !isCriador) {
+                throw new Error("Acesso negado: Você não tem permissão para alterar este agendamento.");
+            }
+
+            antigo.remove();
             await supabase.from('reservas').delete().eq('id', editId);
         }
 
@@ -170,12 +179,12 @@ export async function deletarEvento(atualizarTodasTelas) {
         }
     }
 
-    const result = await Swal.fire({
-        title: 'Confirmar exclusão?', text: 'Esta ação não pode ser desfeita.', icon: 'warning',
-        showCancelButton: true, confirmButtonText: 'Sim, excluir', cancelButtonText: 'Cancelar', confirmButtonColor: '#e74c3c'
-    });
+    const confirmado = await showConfirmModal(
+        'Confirmar exclusão?', 
+        'Esta ação não pode ser desfeita e removerá o agendamento permanentemente.'
+    );
     
-    if (result.isConfirmed) {
+    if (confirmado) {
         try {
             const { error } = await supabase.from('reservas').delete().eq('id', eventoSelecionadoNoModal.id);
             if (error) throw error;

@@ -37,10 +37,7 @@ export async function initAuth(estado, onAuthenticated) {
             .eq('email', user.email)
             .single();
 
-        // Regra de negócio: TI Pinheiro é sempre Dono
-        if (user.email === 'tipinheiro@ufma.br') {
-            estado.nivelAcesso = 'dono';
-        } else if (userData && userData.role) {
+        if (userData && userData.role) {
             estado.nivelAcesso = (userData.role || 'leitor').toLowerCase().trim();
         } else {
             // Email não cadastrado ou sem role - bloquear acesso

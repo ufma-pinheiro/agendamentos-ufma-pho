@@ -129,8 +129,11 @@ export function showSuccessModal(dados) {
         return "badge-outros";
     };
 
+    // Sanitiza o nome do local para uso seguro em classes CSS (remove espaços e caracteres especiais)
+    const sanitizeClass = (str) => str.replace(/[^a-z0-9_-]/gi, '');
+
     const espacosHtml = dados.espacos.map(esp => `
-        <span class="tag-local tag-local-modal ${getBadgeClass(esp)}">
+        <span class="tag-local tag-local-modal ${sanitizeClass(getBadgeClass(esp))}">
             <i class="fas fa-map-marker-alt"></i> ${escapeHtml(esp)}
         </span>`).join('');
 
@@ -292,6 +295,51 @@ export function showConflictModal(conflitos, dadosPendentes) {
 
         document.getElementById('btnCancelConflict').addEventListener('click', () => close(false));
         document.getElementById('btnForceConflict').addEventListener('click', () => close(true));
+        overlay.addEventListener('click', e => { if (e.target === overlay) close(false); });
+    });
+}
+
+/**
+ * Exibe modal de confirmação genérico.
+ * @param {string} titulo
+ * @param {string} mensagem
+ * @returns {Promise<boolean>}
+ */
+export function showConfirmModal(titulo, mensagem) {
+    return new Promise(resolve => {
+        const existing = document.getElementById('infoModalOverlay');
+        if (existing) existing.remove();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'infoModalOverlay';
+        overlay.className = 'info-modal-overlay';
+        overlay.innerHTML = `
+            <div class="info-modal conflict" role="dialog" aria-modal="true">
+                <div class="info-modal-icon conflict">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2 class="info-modal-title">${escapeHtml(titulo)}</h2>
+                <p class="info-modal-subtitle">${escapeHtml(mensagem)}</p>
+                <div class="info-modal-actions" style="margin-top: 1.5rem;">
+                    <button class="info-modal-btn secondary" id="btnCancelConfirm">Cancelar</button>
+                    <button class="info-modal-btn danger" id="btnConfirmAction">Sim, Confirmar</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+
+        const close = (result) => {
+            overlay.classList.remove('visible');
+            setTimeout(() => {
+                overlay.remove();
+                resolve(result);
+            }, 300);
+        };
+
+        document.getElementById('btnCancelConfirm').addEventListener('click', () => close(false));
+        document.getElementById('btnConfirmAction').addEventListener('click', () => close(true));
         overlay.addEventListener('click', e => { if (e.target === overlay) close(false); });
     });
 }
