@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Token Optimizer — Rules para Antigravity (PT-BR · v3.0)
 &gt; Cole estas rules em ~/.gemini/antigravity/rules.md junto com o Orchestrator.
 &gt; Objetivo: máximo resultado com mínimo consumo de tokens.
