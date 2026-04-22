@@ -8,9 +8,9 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.4.0`
-- Última atualização: `2026-04-21`
-- Atualizado por: `Antigravity (Orchestrator) — Migração para .antigravity/context.md`
+- Versão: `1.5.0`
+- Última atualização: `2026-04-22`
+- Atualizado por: `Antigravity (Orchestrator) — Implementação de Modais Nativos`
 
 ---
 
@@ -157,6 +157,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
     - `PERF-001`: projeções explícitas no Supabase
     - `ARCH-001 Step 1`: extração de utils.js e db.js
 - **Sistema de Especialistas**: configurado em `2026-04-21`. Prompts em `.antigravity/prompts/`. Specs rastreadas em `.antigravity/spec-index.json`.
+- **Interface de Notificações**: Substituição do SweetAlert2 por Modais Nativos Personalizados.
 
 ---
 
@@ -193,6 +194,9 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-21 | Frontend | Hotfix Modal UI | Removido o botão inferior "Fechar" do modal de detalhes, mantendo apenas o "X" superior. | Sim |
 | 2026-04-21 | Frontend | Hotfix Layout | Sincronizadas classes dinâmicas (`time-input`, `btn-remove-data`) em `reservas.js` para consertar o layout quebrado do Modal. | Sim |
 | 2026-04-21 | Frontend | Hotfix Regressão DOM | Corrigido `TypeError` no seletor de eventos do botão de remover data, atualizando-o para `.btn-remove-data`. | Sim |
+| 2026-04-22 | Orchestrator/Frontend | Modais Informativos Nativos | Substituído SweetAlert2 por modais customizados (Sucesso/Conflito) em `utils.js`. | Sim |
+| 2026-04-22 | Frontend/UI | Hotfix Consistência Edição | Modal de sucesso aplicado também ao fluxo de edição de agendamentos. | Sim |
+| 2026-04-22 | UI Reviewer | Badges de Local nos Modais | Locais agora aparecem como badges coloridos (estilo cards) em versão 20% maior. | Sim |
 
 ---
 
