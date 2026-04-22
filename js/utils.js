@@ -109,6 +109,9 @@ export function showSuccessModal(dados) {
     const existing = document.getElementById('infoModalOverlay');
     if (existing) existing.remove();
 
+    const title = dados.modalTitle || 'Agendamento Confirmado!';
+    const subtitle = dados.modalSubtitle || 'Sua reserva foi registrada com sucesso.';
+
     const formatDate = (isoStr) => {
         const d = new Date(isoStr);
         return d.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
@@ -133,8 +136,8 @@ export function showSuccessModal(dados) {
             <div class="info-modal-icon success">
                 <i class="fas fa-check-circle"></i>
             </div>
-            <h2 class="info-modal-title" id="infoModalTitle">Agendamento Confirmado!</h2>
-            <p class="info-modal-subtitle">Sua reserva foi registrada com sucesso.</p>
+            <h2 class="info-modal-title" id="infoModalTitle">${escapeHtml(title)}</h2>
+            <p class="info-modal-subtitle">${escapeHtml(subtitle)}</p>
             <div class="info-modal-details">
                 <div class="info-modal-row">
                     <span class="info-modal-label"><i class="fas fa-heading"></i> Evento</span>

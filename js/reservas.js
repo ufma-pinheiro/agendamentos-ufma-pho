@@ -134,11 +134,16 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
         fecharModalForm();
         if (typeof atualizarTodasTelas === 'function') atualizarTodasTelas();
 
-        if (!editId) {
-            showSuccessModal({ titulo, responsavel, espacos, sessoes });
-        } else {
-            showToast('Agendamento atualizado!');
-        }
+        const modalDados = { 
+            titulo, 
+            responsavel, 
+            espacos, 
+            sessoes,
+            modalTitle: editId ? 'Agendamento Atualizado!' : 'Agendamento Confirmado!',
+            modalSubtitle: editId ? 'As alterações foram salvas com sucesso.' : 'Sua reserva foi registrada com sucesso.'
+        };
+
+        showSuccessModal(modalDados);
 
     } catch (error) {
         console.error("Erro ao salvar:", error);
