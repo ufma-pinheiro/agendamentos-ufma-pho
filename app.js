@@ -147,7 +147,6 @@ window.abrirDetalhes = function (event) {
     const isCriador = props.criadoPor === estado.usuarioLogado?.email;
     const podeEditar = !props.isFeriado && (isDono || (estado.nivelAcesso === 'editor' && isCriador));
     document.getElementById('modalActionButtons').style.display = podeEditar ? 'flex' : 'none';
-    document.getElementById('modalCloseOnly').style.display = podeEditar ? 'none' : 'flex';
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
