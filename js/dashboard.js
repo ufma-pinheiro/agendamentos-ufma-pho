@@ -24,8 +24,8 @@ export async function atualizarDashboard(estado) {
             const { data, error } = await supabase
                 .from('reservas')
                 .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
-                .gte('start_time', `${filtroAno}-01-01T00:00:00`)
-                .lte('end_time', `${filtroAno}-12-31T23:59:59`);
+                .gte('start_time', `${filtroAno}-01-01T00:00:00-03:00`)
+                .lte('end_time', `${filtroAno}-12-31T23:59:59-03:00`);
             
             if (error) throw error;
             if (data) eventos = data.map(dbParaFrontend);

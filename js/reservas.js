@@ -40,7 +40,10 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
             const times = row.querySelectorAll('.input-time');
             const horaIni = times[0]?.value;
             const horaFim = times[1]?.value;
-            if (data && horaIni && horaFim) sessoes.push({ start: `${data}T${horaIni}`, end: `${data}T${horaFim}` });
+            if (data && horaIni && horaFim) sessoes.push({ 
+                start: `${data}T${horaIni}:00-03:00`, 
+                end: `${data}T${horaFim}:00-03:00` 
+            });
         });
 
         if (sessoes.length === 0) { 
