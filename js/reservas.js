@@ -293,16 +293,16 @@ export function adicionarLinhaData(dataEspecifica = null) {
             <input type="text" class="input-date flatpickr" id="data_${id}" required placeholder="Selecione">
         </div>
         <div class="time-inputs">
-            <div class="time-field">
+            <div class="time-input">
                 <label>Início</label>
                 <input type="time" class="input-time" value="08:00" required>
             </div>
-            <div class="time-field">
+            <div class="time-input">
                 <label>Término</label>
                 <input type="time" class="input-time" value="10:00" required>
             </div>
         </div>
-        <button type="button" class="btn-remove-row" title="Remover data"><i class="fas fa-times"></i></button>
+        <button type="button" class="btn-remove-data" title="Remover data"><i class="fas fa-times"></i></button>
     `;
 
     container.appendChild(row);
