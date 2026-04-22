@@ -1,14 +1,13 @@
 {
   "sessao_ativa": false,
-  "fim": "2026-04-22T15:56:00-03:00",
+  "fim": "2026-04-22T16:27:00-03:00",
   "especialista_atual": null,
-  "ultimo_especialista": "auditor",
+  "ultimo_especialista": "orchestrator",
   "proximo_especialista": null,
-  "ciclo_id": "CICLO-2026-04-22-4",
-  "veredicto": "APROVADO",
+  "ciclo_id": "CICLO-2026-04-22-5",
+  "veredicto": "CANCELADO PELO USUÁRIO",
   "findings_criticos": 0,
   "findings_altos": 0,
   "versao_context": "1.8.0",
-  "checksum": "painel-conflitos-v1-ok",
-  "nota": "Implementado Painel de Conflitos Global com visão comparativa Forçado vs Ocupante. UI integrada e ações de cancelamento funcionais."
+  "checksum": "sha256:none"
 }
