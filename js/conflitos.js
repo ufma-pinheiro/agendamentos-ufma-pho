@@ -4,12 +4,16 @@ import { dbParaFrontend } from './db.js';
 import { escapeHtml } from './utils.js';
 import { getClasseBadge } from './calendar.js';
 
+let _carregandoConflitos = false;
+
 /**
  * Atualiza o painel de conflitos administrativos
  */
 export async function atualizarPainelConflitos() {
     const container = document.getElementById('containerConflitosAdmin');
-    if (!container) return;
+    if (!container || _carregandoConflitos) return;
+
+    _carregandoConflitos = true;
 
     try {
         const agora = new Date().toISOString();
@@ -35,7 +39,7 @@ export async function atualizarPainelConflitos() {
             return;
         }
 
-        container.innerHTML = ''; // Limpar loading
+        let listaHtml = '';
 
         // 2. Para cada conflito, buscar os eventos que ocupam o mesmo espaço/tempo
         for (const forcado of conflitos) {
@@ -53,13 +57,16 @@ export async function atualizarPainelConflitos() {
                 continue;
             }
 
-            const html = renderizarParConflito(forcado, ocupantes);
-            container.insertAdjacentHTML('beforeend', html);
+            listaHtml += renderizarParConflito(forcado, ocupantes);
         }
+
+        container.innerHTML = listaHtml;
 
     } catch (e) {
         console.error("Erro no painel de conflitos:", e);
         container.innerHTML = `<div class="alert alert-danger">Erro ao carregar conflitos: ${e.message}</div>`;
+    } finally {
+        _carregandoConflitos = false;
     }
 }
 
