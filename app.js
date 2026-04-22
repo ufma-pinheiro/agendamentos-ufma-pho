@@ -282,7 +282,7 @@ initAuth(estado, () => {
 });
 
 // Listener de logout
-setupAuthListener(authVerificado);
+setupAuthListener();
 
 function initUI() {
     const avatar = document.getElementById('userAvatar');

@@ -116,11 +116,10 @@ export function aplicarPermissoes(nivelAcesso, carregarListaUsuariosAdmin) {
 
 /**
  * Escuta mudanças no estado de autenticação
- * @param {boolean} authVerificado - Flag se o sistema já foi inicializado
  */
-export function setupAuthListener(authVerificado) {
+export function setupAuthListener() {
     supabase.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_OUT' && authVerificado) {
+        if (event === 'SIGNED_OUT') {
             window.location.href = "login.html";
         }
     });
