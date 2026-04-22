@@ -1,0 +1,156 @@
+Edited MELHORIAS%20SUGERIDAS%20SONET
+Viewed MELHORIAS%20SUGERIDAS%20SONET:1-49
+
+[ignoring loop detection]
+
+🔧 **Ativando: Estrategista de Produto — Visão Admin (Dono)**
+**Objetivo:** Mapear funcionalidades de controle, monitoramento e gestão exclusivas para o perfil `dono`.
+
+---
+
+## 👑 PAINEL ADMINISTRATIVO COMPLETO — Visão `dono`
+
+---
+
+## 🔐 Controle Total de Acesso
+
+### 1. 👥 Gestão Avançada de Usuários
+Além de adicionar/remover, o admin precisa de:
+- **Histórico de ações** por usuário (quem criou, editou, apagou o quê e quando)
+- **Ativar/Suspender** contas temporariamente sem excluir
+- **Transferir propriedade** de agendamentos de um usuário para outro (ex: professor se aposenta)
+- **Forçar logout** de uma sessão ativa
+- **Esforço:** Médio
+
+### 2. 🔑 Convite por Link
+Em vez de adicionar usuários manualmente, o admin gera um **link de convite** com prazo de validade e role pré-definida. O usuário clica, faz login e já entra com a permissão certa.
+- **Por quê:** Hoje o admin precisa saber o e-mail exato antes do login. O convite inverte esse fluxo.
+- **Esforço:** Médio (tabela `invites` no Supabase)
+
+---
+
+## 📊 Logs e Auditoria
+
+### 3. 📜 Log de Auditoria (Audit Trail)
+Uma aba exclusiva do admin mostrando **todas as ações** do sistema em ordem cronológica:
+
+| Data/Hora | Usuário | Ação | Detalhes |
+|---|---|---|---|
+| 22/04 10:31 | prof@ufma.br | Criou agendamento | "Aula Prática" — Eng. Sala 3 |
+| 22/04 09:15 | tecnico@ufma.br | Excluiu agendamento | "Reunião" — Saúde Auditório |
+| 22/04 08:00 | admin@ufma.br | Alterou role | editor → leitor para user@ufma.br |
+
+- **Por quê:** Sem isso, quando algo some do calendário ninguém sabe quem apagou. Acontece muito em ambientes compartilhados.
+- **Esforço:** Médio (tabela `audit_log` no Supabase + trigger automático)
+
+### 4. 🚨 Painel de Conflitos Global
+Uma aba mostrando **todos os agendamentos marcados com `isConflito = true`** que foram forçados, com:
+- Quem forçou o conflito
+- Quais eventos estavam em colisão
+- Botão de resolução rápida (manter um, cancelar o outro)
+- **Por quê:** Atualmente conflitos forçados ficam invisíveis para o admin. Ele só descobre quando alguém reclama presencialmente.
+- **Esforço:** Baixo (query simples + nova view)
+
+---
+
+## 🏗️ Gestão de Espaços
+
+### 5. 🏛️ Cadastro Dinâmico de Espaços
+Hoje os espaços (salas, auditórios) estão **hardcoded** no `app.js`. O admin deveria poder:
+- Adicionar/remover salas pelo próprio sistema
+- Definir capacidade máxima por sala
+- Bloquear um espaço para manutenção (aparece no calendário como "indisponível")
+- **Por quê:** Quando abre uma sala nova ou fecha para reforma, hoje exige alteração de código.
+- **Esforço:** Alto (tabela `espacos` no banco + UI de gestão)
+
+### 6. 🚧 Bloqueio de Período
+O admin pode bloquear um período inteiro (ex: recesso escolar, reforma) e o sistema automaticamente rejeita novos agendamentos nesse intervalo.
+- **Por quê:** Fundamental para gestão de calendário acadêmico.
+- **Esforço:** Médio (tabela `periodos_bloqueados` + validação no salvamento)
+
+---
+
+## 📋 Aprovação e Fluxo
+
+### 7. ✅ Fila de Aprovação de Agendamentos
+Para espaços premium (auditórios), o agendamento fica em status **"Pendente"** até o admin aprovar ou recusar com um motivo.
+
+```
+Fila de Aprovação:
+┌─────────────────────────────────────────────────────┐
+│ 🟡 "Formatura 2025" — Eng. Auditório               │
+│    Solicitado por: prof@ufma.br em 22/04 às 10h     │
+│    [✅ Aprovar]  [❌ Recusar]  [💬 Pedir mais info] │
+└─────────────────────────────────────────────────────┘
+```
+- **Por quê:** Auditórios têm custo de logística (datashow, organização). Aprovação evita uso indevido.
+- **Esforço:** Alto (campo `status` no banco + UI de fila)
+
+### 8. 📣 Comunicados para Usuários
+O admin pode postar um aviso que aparece para todos os usuários ao abrir o sistema:
+- "⚠️ Manutenção programada no bloco de Engenharia — Dias 25 a 27/04"
+- **Por quê:** Canal de comunicação direto sem depender de e-mail ou WhatsApp.
+- **Esforço:** Baixo (tabela `comunicados` + banner no topo)
+
+---
+
+## 📈 Analytics Avançado (Admin Only)
+
+### 9. 📉 Dashboard Executivo
+Uma página de métricas que só o admin vê:
+- **Taxa de ocupação** por espaço (% do tempo reservado vs. disponível)
+- **Ranking de usuários mais ativos** (quem mais cria agendamentos)
+- **Pico de uso** por hora e dia da semana
+- **Taxa de conflitos forçados** (indicador de problema de gestão)
+- **Esforço:** Médio (queries agregadas no Supabase + gráficos)
+
+### 10. 📤 Exportação de Audit Trail
+Exportar o log completo de ações para Excel/PDF, com filtro por usuário, período e tipo de ação.
+- **Por quê:** Necessário para prestação de contas e compliance institucional.
+- **Esforço:** Baixo (extensão do sistema de exportação já existente)
+
+---
+
+## 🛡️ Segurança e Controle Avançado
+
+### 11. 🔒 Sessões Ativas
+O admin visualiza **quem está logado agora** no sistema:
+- E-mail, horário de login, último acesso
+- Botão de "forçar logout" para uma sessão específica
+- **Esforço:** Médio (Supabase `auth.sessions` table)
+
+### 12. 📏 Limites por Usuário
+O admin define regras como:
+- "Editores só podem criar até 5 agendamentos por mês"
+- "Agendamentos de editor não podem durar mais de 4 horas"
+- **Por quê:** Evita monopolização dos espaços por um único usuário.
+- **Esforço:** Médio (tabela `politicas` + validação no salvamento)
+
+---
+
+## 📊 Quadro de Priorização — Admin
+
+| Feature | Valor Admin | Esforço | Quick Win? |
+|---|---|---|---|
+| Log de Auditoria | 🔥 Crítico | ⚙️ Médio | Não |
+| Painel de Conflitos Global | 🔥 Crítico | 🟢 Baixo | **Sim** |
+| Comunicados para Usuários | 📈 Alto | 🟢 Baixo | **Sim** |
+| Bloqueio de Período | 🔥 Crítico | ⚙️ Médio | Não |
+| Fila de Aprovação | 📈 Alto | 🔴 Alto | Não |
+| Dashboard Executivo | 📈 Alto | ⚙️ Médio | Não |
+| Gestão de Espaços dinâmica | 🔥 Crítico | 🔴 Alto | Não |
+| Limites por Usuário | 📈 Alto | ⚙️ Médio | Não |
+
+---
+
+### 💡 Minha Recomendação de Sequência para o Admin:
+
+1. **Painel de Conflitos Global** → Quick win, resolve um problema real imediato.
+2. **Comunicados para Usuários** → Quick win, muito pedido em sistemas institucionais.
+3. **Bloqueio de Período** → Essencial para gestão do calendário acadêmico.
+4. **Log de Auditoria** → Fundação para todas as outras features de controle.
+5. **Fila de Aprovação** → Recurso mais complexo, mas de maior impacto no controle de auditórios.
+
+---
+
+Qual dessas você quer implementar primeiro? Posso iniciar o ciclo de **Product → Backend → Security → Frontend** agora mesmo.

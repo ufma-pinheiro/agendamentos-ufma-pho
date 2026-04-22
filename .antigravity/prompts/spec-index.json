@@ -1,0 +1,47 @@
+{
+  "versao": "1.0.0",
+  "ultima_atualizacao": "YYYY-MM-DDTHH:MM:SSZ",
+  "projeto": "[nome do projeto]",
+  "specs": [
+    {
+      "id": "FEAT-001",
+      "titulo": "[descrição curta]",
+      "tipo": "Feature Nova",
+      "prioridade": "Alta",
+      "status": "Rascunho",
+      "caminho": "specs/FEAT-001-nome.md",
+      "depende_de": [],
+      "bloqueia": ["FEAT-002"],
+      "ciclo_vinculado": "CICLO-YYYY-MM-DD-001",
+      "criterios_aceite": {
+        "total": 5,
+        "verificados": 0,
+        "pendentes": 5
+      },
+      "findings": {
+        "critico": 0,
+        "alto": 0,
+        "medio": 0,
+        "baixo": 0
+      },
+      "veredicto_auditor": null,
+      "data_criacao": "YYYY-MM-DD",
+      "data_conclusao": null
+    }
+  ],
+  "ativo": {
+    "spec_id": "FEAT-001",
+    "ciclo_id": "CICLO-YYYY-MM-DD-001",
+    "especialista_atual": null,
+    "proximo_especialista": null,
+    "status_ciclo": "[aguardando / em_andamento / pausado / concluido]"
+  },
+  "historico": [
+    {
+      "data": "YYYY-MM-DDTHH:MM:SSZ",
+      "evento": "[criada / iniciada / pausada / concluida / rejeitada]",
+      "spec_id": "FEAT-001",
+      "detalhes": "[texto]"
+    }
+  ]
+}

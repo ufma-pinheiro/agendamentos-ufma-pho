@@ -1,6 +1,19 @@
-# Token Optimizer — Rules para Antigravity (PT-BR · v3.0)
-&gt; Cole estas rules em ~/.gemini/antigravity/rules.md junto com o Orchestrator.
-&gt; Objetivo: máximo resultado com mínimo consumo de tokens.
+# Token Optimizer — Rules para Antigravity (PT-BR · v2.0)
+> Cole estas rules em ~/.gemini/antigravity/rules.md junto com o Orchestrator.
+> 🔄 Integrado com Orquestrador v3.1 — Executado automaticamente no Gate 0.
+> Objetivo: máximo resultado com mínimo consumo de tokens.
+
+---
+
+## INTEGRAÇÃO COM ORQUESTRADOR v3.1 (NOVO)
+
+O Token Optimizer é uma **etapa obrigatória do Gate 0**.
+Antes de ativar qualquer especialista, o Orquestrador:
+1. Lê este arquivo
+2. Aplica as regras abaixo
+3. Configura o contexto da sessão para eficiência máxima
+
+> Se o Orquestrador pular esta etapa → finding Médio automático.
 
 ---
 
@@ -43,7 +56,8 @@ Sempre priorize esta ordem de leitura:
 2. `.antigravity/context.lock` — estado da sessão
 3. `.antigravity/spec-index.json` — specs e dependências
 4. `specs/spec-ativa.md` — especificação do ciclo atual
-5. Código-fonte relevante (apontado pelo contexto)
+5. `.antigravity/handoffs/[CICLO-ID]-[especialista]-handoff.md` — handoffs do ciclo
+6. Código-fonte relevante (apontado pelo contexto ou spec)
 
 NUNCA leia o diretório inteiro antes de ler o context.md.
 
@@ -51,9 +65,9 @@ NUNCA leia o diretório inteiro antes de ler o context.md.
 
 ## .antigravityignore RECOMENDADO
 
-Crie este arquivo na raiz do projeto:
+Crie este arquivo na raiz do projeto (automático no setup):
 
-\`\`\`
+```
 # Dependências
 node_modules/
 .pnp/
@@ -114,7 +128,7 @@ assets/
 
 # Sistema autônomo (já lido via context.md)
 .antigravity/history/
-\`\`\`
+```
 
 ---
 
@@ -131,30 +145,32 @@ Use o modelo certo para cada tipo de tarefa:
 | Revisão de código pequena | Gemini Flash | Contexto limitado |
 | Debug complexo multi-arquivo | Gemini 3.1 Pro | Precisa raciocinar |
 
+> Nota: Se o sistema não detectar o modelo, assuma Gemini 3.1 Pro para segurança.
+
 ---
 
 ## COMO FORMULAR PROMPTS QUE ECONOMIZAM TOKENS
 
 ### ❌ Prompt caro (vago, força varredura)
-\`\`\`
+```
 "Melhora o sistema de autenticação"
-\`\`\`
+```
 → A IA vai ler o projeto inteiro para entender o que existe
 
 ### ✅ Prompt barato (específico, escopo definido)
-\`\`\`
+```
 "No arquivo src/auth/login.ts, o token JWT não está expirando corretamente.
 A função validateToken na linha 45 não verifica o campo exp.
 Corrija apenas essa função."
-\`\`\`
+```
 → A IA lê 1 arquivo, 1 função, faz 1 mudança
 
 ---
 
 ### Fórmula de prompt eficiente:
-\`\`\`
+```
 [ARQUIVO ou MÓDULO] + [PROBLEMA ESPECÍFICO] + [O QUE FAZER] + [O QUE NÃO TOCAR]
-\`\`\`
+```
 
 Exemplos:
 - "Em src/api/orders.ts, adicione validação de campo no endpoint POST /orders. Não altere os outros endpoints."
@@ -187,7 +203,7 @@ Contexto misturado = tokens desperdiçados + resultados piores.
 
 O pedido mal especificado custa muito mais do que o pedido completo:
 
-\`\`\`
+```
 ❌ 4 prompts vagos = ~90 créditos
 Prompt 1: "Cria página de login"           → 30 créditos
 Prompt 2: "Adiciona Google auth também"    → 25 créditos  
@@ -202,7 +218,7 @@ Prompt 4: "Deixa o design mais moderno"    → 15 créditos
 - Validação de formulário com mensagens de erro
 - Estados de loading
 Stack: Next.js + Firebase Auth"
-\`\`\`
+```
 
 **Regra:** pense 2 minutos antes de enviar. Vale muito mais que 4 prompts de correção.
 
@@ -219,3 +235,30 @@ Stack: Next.js + Firebase Auth"
 | IA está lendo arquivos desnecessários | Diga: "Pare. Leia apenas X e Y." |
 | Resposta ficou enorme e desnecessária | Diga: "Responda em no máximo 5 linhas." |
 | Contexto está poluído | Nova sessão com context.md atualizado |
+
+---
+
+## MÉTRICAS DE EFICIÊNCIA (NOVO)
+
+O Orquestrador registra automaticamente:
+
+```yaml
+metricas_tokens:
+  sessao_id: "[ID]"
+  tokens_entrada: "[N]"
+  tokens_saida: "[N]"
+  custo_estimado: "[N créditos]"
+  arquivos_lidos: "[N]"
+  arquivos_modificados: "[N]"
+  eficiencia: "[alta / media / baixa]"
+  motivo_baixa_eficiencia: "[se aplicável]"
+```
+
+> Se eficiência = baixa por 3 sessões consecutivas → ativar revisão de processo.
+
+---
+
+## Princípio Final
+
+Tokens economizados = tempo economizado = mais features entregues.
+Não seja barato por ser barato. Seja eficiente por ser preciso.

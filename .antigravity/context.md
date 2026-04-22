@@ -8,9 +8,9 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.5.0`
+- Versão: `1.6.5`
 - Última atualização: `2026-04-22`
-- Atualizado por: `Antigravity (Orchestrator) — Implementação de Modais Nativos`
+- Atualizado por: `Antigravity (Orchestrator) — Fix Overflow Conflitos`
 
 ---
 
@@ -197,6 +197,12 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-22 | Orchestrator/Frontend | Modais Informativos Nativos | Substituído SweetAlert2 por modais customizados (Sucesso/Conflito) em `utils.js`. | Sim |
 | 2026-04-22 | Frontend/UI | Hotfix Consistência Edição | Modal de sucesso aplicado também ao fluxo de edição de agendamentos. | Sim |
 | 2026-04-22 | UI Reviewer | Badges de Local nos Modais | Locais agora aparecem como badges coloridos (estilo cards) em versão 20% maior. | Sim |
+| 2026-04-22 | Security Auditor | Security Hardening v4.0 | Removido admin hardcoded, protegidas mutações em reservas.js e removido Swal. | Sim |
+| 2026-04-22 | Frontend/UX | Padronização de Data BR | Implementado formato DD/MM/YYYY nos modais via altInput do Flatpickr. | Sim |
+| 2026-04-22 | Backend/Fix | Fix Timezone Shift | Forçado offset -03:00 no salvamento para evitar shift de -3h (UTC vs Local). | Sim |
+| 2026-04-22 | Frontend/UI | UI Badges em Conflitos | Locais na lista de conflitos convertidos em badges coloridos dimensionados. | Sim |
+| 2026-04-22 | Frontend/UX | Detalhamento de Conflitos | Adicionada exibição de horários dos eventos conflitantes no modal de alerta. | Sim |
+| 2026-04-22 | Frontend/Fix | Fix Overflow Conflitos | Corrigido transbordamento de títulos longos no modal de conflito com word-break. | Sim |
 
 ---
 

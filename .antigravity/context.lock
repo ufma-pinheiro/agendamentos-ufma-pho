@@ -4,8 +4,8 @@
   "especialista": null,
   "ultimo_especialista": "orchestrator",
   "proximo_especialista": null,
-  "versao_context": "1.3.0",
-  "checksum": "a1b2c3d4e5f6",
-  "ultima_atualizacao": "2026-04-21T19:13:00-03:00",
-  "nota": "Sessao encerrada normalmente. Aguardando proximo ciclo."
+  "versao_context": "1.6.5",
+  "checksum": "ui-fix-overflow-ready",
+  "ultima_atualizacao": "2026-04-22T12:27:00-03:00",
+  "nota": "Correção de layout para títulos longos no modal de conflitos concluída."
 }

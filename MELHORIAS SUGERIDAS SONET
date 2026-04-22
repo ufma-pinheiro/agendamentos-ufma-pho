@@ -1,0 +1,93 @@
+[ignoring loop detection]
+
+🔧 **Ativando: Estrategista de Produto**
+**Objetivo:** Analisar o estado atual do sistema e propor melhorias com impacto real para os usuários da UFMA Pinheiro.
+
+---
+
+Com base no que conheço do sistema, aqui estão as sugestões organizadas por **impacto × esforço**:
+
+---
+
+## 🚀 Alto Impacto — Alta Prioridade
+
+### 1. 📱 PWA (Progressive Web App)
+Transformar o sistema em um PWA para que professores e técnicos possam "instalar" no celular, receber notificações push e usar offline para consultar a agenda.
+- **Por quê:** A maioria dos usuários acessa pelo celular. Um ícone na home screen aumenta a adoção drasticamente.
+- **Esforço:** Médio (manifest.json + service worker básico).
+
+### 2. 🔔 Notificações Push de Conflito em Tempo Real
+Quando um novo agendamento é criado que conflita com um existente, notificar o responsável do evento original via pop-up/push, não apenas sinalizar no calendário.
+- **Por quê:** Atualmente o sistema detecta conflitos mas não avisa o criador do evento original.
+- **Esforço:** Médio (Supabase Realtime + sistema de notificação já existente).
+
+### 3. 📅 Agendamentos Recorrentes
+Permitir criar um evento que se repete automaticamente (semanal, quinzenal, mensal) sem precisar adicionar cada data manualmente.
+- **Por quê:** A maioria das reservas de salas em universidades são de aulas — sempre no mesmo horário, toda semana.
+- **Esforço:** Médio (expansão do `groupId` + lógica de recorrência).
+
+### 4. 🔗 Link Público de Visualização
+Gerar uma URL pública (sem login) que mostre a agenda de um espaço específico para que qualquer pessoa possa consultar a disponibilidade.
+- **Por quê:** Remove a necessidade de criar conta só para ver se uma sala está disponível.
+- **Esforço:** Baixo (página estática com RLS de somente leitura).
+
+---
+
+## 📈 Médio Impacto — Valor Agregado
+
+### 5. 📊 Relatório de Ocupação por Espaço
+Uma visualização em heatmap (mapa de calor) mostrando quais salas são mais usadas, em quais horários e quais ficam ociosas.
+- **Por quê:** O Dashboard atual tem gráficos genéricos. Um heatmap de ocupação é muito mais útil para decisões administrativas.
+- **Esforço:** Médio (Chart.js heatmap ou biblioteca lightweight).
+
+### 6. ✉️ E-mail de Confirmação Automático
+Após confirmar um agendamento, enviar automaticamente um e-mail para o responsável com os detalhes da reserva em formato amigável.
+- **Por quê:** Substitui a necessidade de "anotar" o agendamento. Já tem a coluna `contatoemail` no banco.
+- **Esforço:** Médio (Supabase Edge Functions + Resend ou SMTP).
+
+### 7. 🗑️ Cancelamento com Motivo
+Ao excluir um agendamento, solicitar um motivo (campo texto) que fica registrado no histórico e notifica quem criou o evento.
+- **Por quê:** Atualmente não há rastro do motivo do cancelamento, o que gera confusão administrativa.
+- **Esforço:** Baixo (campo adicional no modal de exclusão já criado).
+
+### 8. 📋 Aprovação de Agendamentos
+Adicionar um fluxo de aprovação onde o `dono` precisa aprovar reservas de auditórios ou espaços premium antes que fiquem confirmados no calendário.
+- **Por quê:** Auditórios geralmente precisam de aprovação da direção.
+- **Esforço:** Alto (novo campo `status` no banco + workflow de aprovação).
+
+---
+
+## 🔧 Melhorias Técnicas e de UX
+
+### 9. 🎨 Personalização de Cor por Evento
+Permitir que o criador escolha a cor do evento no calendário além da cor automática por espaço.
+- **Por quê:** Diferencia visualmente eventos do mesmo local.
+- **Esforço:** Baixo (color picker no formulário já existente).
+
+### 10. 📱 View de Dia/Semana Melhorada
+Implementar uma visualização em formato de **grade de horários** (tipo Google Calendar) para facilitar a verificação de disponibilidade em um dia específico.
+- **Por quê:** A view padrão do FullCalendar já suporta isso, mas não está estilizada com o design system atual.
+- **Esforço:** Baixo (CSS + configuração do FullCalendar).
+
+### 11. 🔍 Busca por Disponibilidade
+Inverter a lógica: o usuário informa **o horário que quer** e o sistema mostra **quais salas estão disponíveis** naquele momento.
+- **Por quê:** Atualmente o usuário precisa olhar sala por sala. Essa feature economiza muito tempo.
+- **Esforço:** Médio (lógica de filtro inverso).
+
+---
+
+## 📊 Quadro de Priorização
+
+| Feature | Impacto | Esforço | Recomendação |
+|---|---|---|---|
+| Agendamentos Recorrentes | 🔥 Alto | ⚙️ Médio | **Iniciar primeiro** |
+| Link Público de Visualização | 🔥 Alto | 🟢 Baixo | **Iniciar primeiro** |
+| E-mail de Confirmação | 🔥 Alto | ⚙️ Médio | Segunda prioridade |
+| Busca por Disponibilidade | 📈 Médio | ⚙️ Médio | Segunda prioridade |
+| PWA | 🔥 Alto | ⚙️ Médio | Segunda prioridade |
+| Cancelamento com Motivo | 📈 Médio | 🟢 Baixo | Quick win |
+| Aprovação de Agendamentos | 📈 Médio | 🔴 Alto | Planejar bem antes |
+
+---
+
+Qual dessas sugestões mais faz sentido para o seu contexto? Posso montar um **plano de implementação detalhado** para a que você escolher e iniciar o ciclo imediatamente.
