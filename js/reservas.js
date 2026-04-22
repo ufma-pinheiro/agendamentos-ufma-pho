@@ -323,6 +323,8 @@ export function adicionarLinhaData(dataEspecifica = null) {
         flatpickr(`#data_${id}`, {
             locale: 'pt',
             dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd/m/Y',
             defaultDate: dataEspecifica || 'today',
             disable: [(date) => date.getDay() === 0]
         });

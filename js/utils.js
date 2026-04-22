@@ -114,7 +114,7 @@ export function showSuccessModal(dados) {
 
     const formatDate = (isoStr) => {
         const d = new Date(isoStr);
-        return d.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+        return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
     const formatTime = (isoStr) => {
         const d = new Date(isoStr);
