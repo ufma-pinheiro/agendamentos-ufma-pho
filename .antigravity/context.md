@@ -8,9 +8,9 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.6.5`
+- Versão: `1.7.0`
 - Última atualização: `2026-04-22`
-- Atualizado por: `Antigravity (Orchestrator) — Fix Overflow Conflitos`
+- Atualizado por: `Antigravity (Orchestrator) — CICLO-2026-04-22-1 Concluído`
 
 ---
 
@@ -145,7 +145,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
     - `app.js` ainda monolítico (auth, calendar, dashboard misturados) — modularização em progresso.
     - Dependência de CDNs externas pode gerar indisponibilidade.
 - **Schema Confirmado**:
-    - `reservas`: `id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, titulopuro, contatowhats, contatoemail`
+    - `reservas`: `id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, titulopuro, contatowhats, contatoemail, motivo_cancelamento, canceladopor, datacancelamento, cancelado`
     - `usuarios`: `email, role` (sem coluna `id` — confirmado pelo 400 na PERF-001)
 - **Módulos JS Criados** (branch `devAgendamento`):
     - `js/utils.js` — funções utilitárias puras (showToast, escapeHtml, adjustColor, etc.)
@@ -203,6 +203,8 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-22 | Frontend/UI | UI Badges em Conflitos | Locais na lista de conflitos convertidos em badges coloridos dimensionados. | Sim |
 | 2026-04-22 | Frontend/UX | Detalhamento de Conflitos | Adicionada exibição de horários dos eventos conflitantes no modal de alerta. | Sim |
 | 2026-04-22 | Frontend/Fix | Fix Overflow Conflitos | Corrigido transbordamento de títulos longos no modal de conflito com word-break. | Sim |
+| 2026-04-22 | Full Stack | Cancelamento com Motivo | Modal nativo com campo obrigatório; motivo salvo antes de deletar. Schema migrado. | Sim |
+| 2026-04-22 | Full Stack | Soft Delete (Opção A) | Substituiído delete físico por cancelado=true. Motivo e audit trail preservados no banco. | Sim |
 
 ---
 

@@ -189,23 +189,20 @@ export async function deletarEvento(atualizarTodasTelas) {
         try {
             const email = window.estadoGlobal?.usuarioLogado?.email || null;
             const agora = new Date();
-            // Offset -03:00 (Brasília)
             const offset = '-03:00';
             const pad = n => String(n).padStart(2, '0');
             const dataCanc = `${agora.getFullYear()}-${pad(agora.getMonth()+1)}-${pad(agora.getDate())}T${pad(agora.getHours())}:${pad(agora.getMinutes())}:${pad(agora.getSeconds())}${offset}`;
 
-            // Salva o motivo antes de deletar
-            const { error: errMotivo } = await supabase
+            // Soft delete: marca como cancelado e preserva o motivo para audit trail
+            const { error } = await supabase
                 .from('reservas')
                 .update({
+                    cancelado: true,
                     motivo_cancelamento: motivo,
                     canceladopor: email,
                     datacancelamento: dataCanc
                 })
                 .eq('id', eventoSelecionadoNoModal.id);
-            if (errMotivo) throw errMotivo;
-
-            const { error } = await supabase.from('reservas').delete().eq('id', eventoSelecionadoNoModal.id);
             if (error) throw error;
 
             eventoSelecionadoNoModal.remove();
@@ -213,7 +210,7 @@ export async function deletarEvento(atualizarTodasTelas) {
             if (typeof atualizarTodasTelas === 'function') atualizarTodasTelas();
             showToast('Agendamento cancelado com sucesso');
         } catch (e) {
-            console.error("Erro ao excluir:", e);
+            console.error("Erro ao cancelar:", e);
             showToast('Erro ao cancelar: ' + (e.message || e), 'error');
         }
     }

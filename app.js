@@ -660,6 +660,7 @@ async function atualizarUltimosEventos() {
         const { data, error } = await supabase
             .from('reservas')
             .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
+            .eq('cancelado', false)
             .order('datacriacao', { ascending: false })
             .limit(5);
 
@@ -682,7 +683,7 @@ async function atualizarMeusEventos() {
     const container = document.getElementById('containerMeusEventos');
     if (!container) return;
     try {
-        const { data, error } = await supabase.from('reservas').select('*').eq('criadopor', estado.usuarioLogado.email).order('start_time', { ascending: true });
+        const { data, error } = await supabase.from('reservas').select('*').eq('criadopor', estado.usuarioLogado.email).eq('cancelado', false).order('start_time', { ascending: true });
         if (error) throw error;
         renderizarCards(data.map(dbParaFrontend), 'containerMeusEventos', 'Você ainda não criou eventos');
     } catch (e) { console.error(e); }

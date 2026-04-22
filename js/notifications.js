@@ -20,6 +20,7 @@ export async function atualizarPainelNotificacoes() {
             .select('id, title, start_time, responsavel, contatoemail, espacos')
             .gte('start_time', agora.toISOString())
             .lte('start_time', limite.toISOString())
+            .eq('cancelado', false)
             .order('start_time', { ascending: true });
 
         if (error) throw error;

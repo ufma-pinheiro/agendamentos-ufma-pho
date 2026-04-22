@@ -41,7 +41,8 @@ export async function buscarDadosMensais(ano, mes) {
         .from('reservas')
         .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
         .gte('start_time', inicioMes)
-        .lte('end_time', fimMes);
+        .lte('end_time', fimMes)
+        .eq('cancelado', false);
 
     if (error) {
         console.error("Erro ao buscar dados mensais:", error);
@@ -73,7 +74,8 @@ export function iniciarSistema(estado, callbacks) {
                     .from('reservas')
                     .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
                     .gte('start_time', info.start.toISOString())
-                    .lte('end_time', info.end.toISOString());
+                    .lte('end_time', info.end.toISOString())
+                    .eq('cancelado', false);
 
                 if (error) throw error;
 
@@ -141,6 +143,14 @@ export function iniciarRealtime(onUpdate) {
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'reservas' }, (payload) => {
             const evento = dbParaFrontend(payload.new);
             const existing = calendar.getEventById(evento.id);
+            // Se foi soft-deleted (cancelado), remover do calendário sem re-adicionar
+            if (payload.new.cancelado === true) {
+                if (existing) {
+                    existing.remove();
+                    if (onUpdate) onUpdate();
+                }
+                return;
+            }
             if (existing) existing.remove();
             calendar.addEvent(evento);
             if (onUpdate) onUpdate();
