@@ -2,7 +2,7 @@
 import { supabase } from '../supabaseClient.js';
 import { calendar, getCorPorEspaco, getClasseBadge, buscarDadosMensais, recarregarDados } from './calendar.js';
 import { frontendParaDb, dbParaFrontend } from './db.js';
-import { showToast, escapeHtml, showSuccessModal, showConflictModal, showConfirmModal } from './utils.js';
+import { showToast, escapeHtml, showSuccessModal, showConflictModal, showConfirmModal, showCancelMotivModal } from './utils.js';
 
 let _salvando = false;
 let eventoSelecionadoNoModal = null;
@@ -182,23 +182,39 @@ export async function deletarEvento(atualizarTodasTelas) {
         }
     }
 
-    const confirmado = await showConfirmModal(
-        'Confirmar exclusão?', 
-        'Esta ação não pode ser desfeita e removerá o agendamento permanentemente.'
-    );
-    
+    const tituloEvento = eventoSelecionadoNoModal.extendedProps?.tituloPuro || eventoSelecionadoNoModal.title || 'este agendamento';
+    const { confirmado, motivo } = await showCancelMotivModal(tituloEvento);
+
     if (confirmado) {
         try {
+            const email = window.estadoGlobal?.usuarioLogado?.email || null;
+            const agora = new Date();
+            // Offset -03:00 (Brasília)
+            const offset = '-03:00';
+            const pad = n => String(n).padStart(2, '0');
+            const dataCanc = `${agora.getFullYear()}-${pad(agora.getMonth()+1)}-${pad(agora.getDate())}T${pad(agora.getHours())}:${pad(agora.getMinutes())}:${pad(agora.getSeconds())}${offset}`;
+
+            // Salva o motivo antes de deletar
+            const { error: errMotivo } = await supabase
+                .from('reservas')
+                .update({
+                    motivo_cancelamento: motivo,
+                    canceladopor: email,
+                    datacancelamento: dataCanc
+                })
+                .eq('id', eventoSelecionadoNoModal.id);
+            if (errMotivo) throw errMotivo;
+
             const { error } = await supabase.from('reservas').delete().eq('id', eventoSelecionadoNoModal.id);
             if (error) throw error;
 
             eventoSelecionadoNoModal.remove();
             fecharModal();
             if (typeof atualizarTodasTelas === 'function') atualizarTodasTelas();
-            showToast('Evento excluído com sucesso');
+            showToast('Agendamento cancelado com sucesso');
         } catch (e) {
             console.error("Erro ao excluir:", e);
-            showToast('Erro ao excluir: ' + (e.message || e), 'error');
+            showToast('Erro ao cancelar: ' + (e.message || e), 'error');
         }
     }
 }

@@ -3818,7 +3818,80 @@ body {
     background: rgba(239, 68, 68, 0.1);
 }
 
+/* ============================================
+   MODAL DE CANCELAMENTO COM MOTIVO
+   ============================================ */
+.cancel-motiv-field {
+    width: 100%;
+    margin-top: 1.25rem;
+    text-align: left;
+}
+
+.cancel-motiv-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.required-star {
+    color: #ef4444;
+    font-size: 1rem;
+}
+
+.cancel-motiv-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 90px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.cancel-motiv-textarea:focus {
+    outline: none;
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.cancel-motiv-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.375rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.cancel-motiv-hint {
+    font-weight: 500;
+    color: #f59e0b;
+    transition: color 0.2s;
+}
+
+.cancel-motiv-hint.valid {
+    color: #22c55e;
+}
+
+#btnCancelMotivConfirm:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
 /* Dark mode */
+
 [data-theme="dark"] .info-modal {
     background: var(--bg-card);
     border-color: var(--border-color);
