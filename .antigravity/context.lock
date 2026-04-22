@@ -1,11 +1,14 @@
 {
   "sessao_ativa": false,
-  "inicio": null,
-  "especialista": null,
-  "ultimo_especialista": "orchestrator",
+  "fim": "2026-04-22T15:56:00-03:00",
+  "especialista_atual": null,
+  "ultimo_especialista": "auditor",
   "proximo_especialista": null,
-  "versao_context": "1.6.5",
-  "checksum": "ui-fix-overflow-ready",
-  "ultima_atualizacao": "2026-04-22T12:27:00-03:00",
-  "nota": "Correção de layout para títulos longos no modal de conflitos concluída."
+  "ciclo_id": "CICLO-2026-04-22-4",
+  "veredicto": "APROVADO",
+  "findings_criticos": 0,
+  "findings_altos": 0,
+  "versao_context": "1.8.0",
+  "checksum": "painel-conflitos-v1-ok",
+  "nota": "Implementado Painel de Conflitos Global com visão comparativa Forçado vs Ocupante. UI integrada e ações de cancelamento funcionais."
 }

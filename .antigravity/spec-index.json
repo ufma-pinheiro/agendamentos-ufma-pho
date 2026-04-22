@@ -4,6 +4,13 @@
   "specs_ativas": [],
   "specs_concluidas": [
     {
+      "id": "FEAT-002",
+      "titulo": "Painel de Conflitos Global",
+      "concluido_em": "2026-04-22",
+      "veredicto_auditor": "APROVADO",
+      "arquivo": "specs/active/FEAT-002-painel-conflitos.md"
+    },
+    {
       "id": "ARCH-001",
       "titulo": "Modularizacao do app.js em ES Modules",
       "concluido_em": "2026-04-21",

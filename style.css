@@ -4018,3 +4018,120 @@ body {
     transform: translateY(-1px);
 }
 
+/* ============================================
+   PAINEL DE CONFLITOS GLOBAL (FEAT-002)
+   ============================================ */
+.conflitos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.conflito-pair-card-container {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.conflito-pair-card-container:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.conflito-pair-header {
+    background: var(--bg-elevated);
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.conflito-pair-card {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    background: var(--bg-card);
+}
+
+.conflito-side {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.conflito-side.forced {
+    background: rgba(239, 68, 68, 0.03);
+    border-right: 1px solid rgba(239, 68, 68, 0.05);
+}
+
+.conflito-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-elevated);
+    color: var(--text-tertiary);
+    font-weight: 800;
+    font-size: 0.75rem;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    letter-spacing: 0.1em;
+}
+
+.conflito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.conflito-id {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+.conflito-victims {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 900px) {
+    .conflito-pair-card {
+        grid-template-columns: 1fr;
+    }
+    .conflito-divider {
+        padding: 0.5rem;
+        border: none;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+    }
+}
+
+.badge-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.badge-warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+

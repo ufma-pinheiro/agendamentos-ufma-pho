@@ -6,6 +6,7 @@ import { iniciarSistema, getCalendar, getCorPorEspaco, getClasseBadge, buscarDad
 import { mesesAbrev, feriadosFixos } from './js/constants.js';
 import { atualizarPainelNotificacoes } from './js/notifications.js';
 import { atualizarDashboard } from './js/dashboard.js';
+import { atualizarPainelConflitos } from './js/conflitos.js';
 import { salvarOuEditarEvento, deletarEvento, initReservasWindow, fecharModal, fecharModalForm } from './js/reservas.js';
 
 // Estado global
@@ -50,7 +51,8 @@ window.switchTab = function (tabId, navElement) {
         'abaResumo': 'Resumo Mensal',        'abaDashboard': 'Dashboard Analytics',
         'abaRelatorios': 'Relatórios', 'abaUsuarios': 'Gestão de Usuários',
         'abaNotificacoes': 'Central de Notificações',
-        'abaCancelamentos': 'Histórico de Cancelamentos'
+        'abaCancelamentos': 'Histórico de Cancelamentos',
+        'abaConflitos': 'Painel de Conflitos Global'
     };
     const pageTitle = document.getElementById('pageTitle');
     if (pageTitle) pageTitle.textContent = titles[tabId] || 'Calendário';
@@ -63,6 +65,7 @@ window.switchTab = function (tabId, navElement) {
         if (tabId === 'abaDashboard') atualizarDashboard(estado);
         if (tabId === 'abaMeusEventos') atualizarMeusEventos();
         if (tabId === 'abaCancelamentos') atualizarCancelamentos();
+        if (tabId === 'abaConflitos') atualizarPainelConflitos();
         if (tabId === 'abaNotificacoes' && typeof atualizarPainelNotificacoes === 'function') {
             atualizarPainelNotificacoes();
         }
@@ -590,6 +593,7 @@ function atualizarTodasTelas() {
 
     if (abaResumo?.classList.contains('active')) atualizarResumoMes();
     if (abaDashboard?.classList.contains('active')) atualizarDashboard(estado);
+    if (document.getElementById('abaConflitos')?.classList.contains('active')) atualizarPainelConflitos();
     if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 

@@ -119,6 +119,11 @@
                         <i class="fas fa-trash-restore"></i>
                         <span>Cancelamentos</span>
                     </button>
+                    <button class="nav-item" id="btnTabConflitos" data-target="abaConflitos"
+                        onclick="switchTab('abaConflitos')">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Conflitos</span>
+                    </button>
                     <button class="nav-item" id="btnTabRelatorios" data-target="abaRelatorios"
                         onclick="switchTab('abaRelatorios')">
                         <i class="fas fa-file-export"></i>
@@ -625,6 +630,21 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conflitos (Admin) -->
+                <div id="abaConflitos" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-exclamation-triangle"></i> Painel de Conflitos Global</h2>
+                        <p class="page-description">Gerencie agendamentos que sobrepõem horários</p>
+                    </div>
+
+                    <div id="containerConflitosAdmin" class="conflitos-grid mt-4">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Carregando conflitos...</span>
                         </div>
                     </div>
                 </div>

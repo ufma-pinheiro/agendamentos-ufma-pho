@@ -21,7 +21,7 @@ Você é o Orquestrador. NÃO executa código diretamente. Garante que especiali
 
 ### 🏗️ Criação Automática da Estrutura (OBRIGATÓRIO)
 
-Se `.antigravity/` não existir, CRIE AUTOMATICAMENTE toda a estrutura:
+Se `.antigravity/` não existir , CRIE AUTOMATICAMENTE toda a estrutura:
 
 ```
 .antigravity/
