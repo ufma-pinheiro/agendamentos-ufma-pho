@@ -16,7 +16,8 @@ const estado = {
     nivelAcesso: 'leitor',
     graficosAtivos: { meses: null, espacos: null, dias: null, resps: null },
     termoBusca: '',
-    timerBusca: null
+    timerBusca: null,
+    meusEventosFiltro: 'ativos' // 'ativos' ou 'cancelados'
 };
 
 // calendar, realtimeChannel, mesesAbrev e feriadosFixos movidos para módulos
@@ -46,9 +47,10 @@ window.switchTab = function (tabId, navElement) {
 
     const titles = {
         'abaCalendario': 'Calendário', 'abaMeusEventos': 'Meus Eventos',
-        'abaResumo': 'Resumo Mensal', 'abaDashboard': 'Dashboard Analytics',
+        'abaResumo': 'Resumo Mensal',        'abaDashboard': 'Dashboard Analytics',
         'abaRelatorios': 'Relatórios', 'abaUsuarios': 'Gestão de Usuários',
-        'abaNotificacoes': 'Central de Notificações'
+        'abaNotificacoes': 'Central de Notificações',
+        'abaCancelamentos': 'Histórico de Cancelamentos'
     };
     const pageTitle = document.getElementById('pageTitle');
     if (pageTitle) pageTitle.textContent = titles[tabId] || 'Calendário';
@@ -60,6 +62,7 @@ window.switchTab = function (tabId, navElement) {
         if (tabId === 'abaResumo') atualizarResumoMes();
         if (tabId === 'abaDashboard') atualizarDashboard(estado);
         if (tabId === 'abaMeusEventos') atualizarMeusEventos();
+        if (tabId === 'abaCancelamentos') atualizarCancelamentos();
         if (tabId === 'abaNotificacoes' && typeof atualizarPainelNotificacoes === 'function') {
             atualizarPainelNotificacoes();
         }
@@ -683,10 +686,121 @@ async function atualizarMeusEventos() {
     const container = document.getElementById('containerMeusEventos');
     if (!container) return;
     try {
-        const { data, error } = await supabase.from('reservas').select('*').eq('criadopor', estado.usuarioLogado.email).eq('cancelado', false).order('start_time', { ascending: true });
+        const isCancelados = estado.meusEventosFiltro === 'cancelados';
+        const { data, error } = await supabase
+            .from('reservas')
+            .select('*')
+            .eq('criadopor', estado.usuarioLogado.email)
+            .eq('cancelado', isCancelados)
+            .order(isCancelados ? 'datacancelamento' : 'start_time', { ascending: !isCancelados });
+
         if (error) throw error;
-        renderizarCards(data.map(dbParaFrontend), 'containerMeusEventos', 'Você ainda não criou eventos');
+        
+        if (isCancelados) {
+            renderizarCardsCancelados(data.map(dbParaFrontend), 'containerMeusEventos', 'Nenhum cancelamento encontrado');
+        } else {
+            renderizarCards(data.map(dbParaFrontend), 'containerMeusEventos', 'Você ainda não criou eventos');
+        }
+        
+        const countEl = document.getElementById('containerMeusEventos__count');
+        if (countEl) countEl.textContent = data.length;
+        
     } catch (e) { console.error(e); }
+}
+
+window.mudarFiltroMeusEventos = function(filtro) {
+    estado.meusEventosFiltro = filtro;
+    document.getElementById('btnFiltroMeusAtivos').classList.toggle('active', filtro === 'ativos');
+    document.getElementById('btnFiltroMeusCancelados').classList.toggle('active', filtro === 'cancelados');
+    atualizarMeusEventos();
+};
+
+async function atualizarCancelamentos() {
+    const container = document.getElementById('listaCancelamentosAdmin');
+    if (!container) return;
+    
+    try {
+        const { data, error } = await supabase
+            .from('reservas')
+            .select('*')
+            .eq('cancelado', true)
+            .order('datacancelamento', { ascending: false });
+
+        if (error) throw error;
+        
+        if (data.length === 0) {
+            container.innerHTML = `<tr><td colspan="5" class="text-center p-4">Nenhum cancelamento registrado.</td></tr>`;
+            return;
+        }
+
+        container.innerHTML = data.map(ev => {
+            const evento = dbParaFrontend(ev);
+            const dataCanc = ev.datacancelamento ? new Date(ev.datacancelamento).toLocaleString('pt-BR') : '-';
+            const dataEvento = new Date(evento.start).toLocaleDateString('pt-BR');
+            
+            return `
+                <tr>
+                    <td><span class="text-secondary">${dataCanc}</span></td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <strong>${escapeHtml(evento.extendedProps.tituloPuro)}</strong>
+                            <span class="text-xs text-tertiary">${dataEvento} • ${escapeHtml(evento.extendedProps.espacos.join(', '))}</span>
+                        </div>
+                    </td>
+                    <td><span class="badge badge-leitor">${escapeHtml(ev.canceladopor || 'Sistema')}</span></td>
+                    <td><div class="text-sm italic text-danger" style="max-width: 250px;">"${escapeHtml(ev.motivo_cancelamento || 'Sem motivo')}"</div></td>
+                    <td>
+                        <button class="btn-restore-mini" onclick="window.restaurarEvento('${evento.id}')">
+                            <i class="fas fa-trash-restore"></i> Restaurar
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+    } catch (e) {
+        console.error(e);
+        container.innerHTML = `<tr><td colspan="5" class="text-center p-4 text-danger">Erro ao carregar dados.</td></tr>`;
+    }
+}
+
+function renderizarCardsCancelados(eventos, containerId, mensagemVazio) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (eventos.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-calendar-times"></i>
+                <h3>${mensagemVazio}</h3>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = eventos.map(ev => {
+        const props = ev.extendedProps;
+        const dataCanc = props.datacancelamento ? new Date(props.datacancelamento).toLocaleDateString('pt-BR') : '';
+        
+        return `
+            <div class="event-card cancelled">
+                <div class="event-card-header">
+                    <span class="event-card-date"><i class="far fa-calendar"></i> ${new Date(ev.start).toLocaleDateString('pt-BR')}</span>
+                    <span class="badge badge-leitor">Cancelado em ${dataCanc}</span>
+                </div>
+                <h4 class="event-card-title">${escapeHtml(props.tituloPuro)}</h4>
+                <div class="event-card-info">
+                    <i class="fas fa-map-marker-alt"></i> ${escapeHtml(props.espacos.join(', '))}
+                </div>
+                <div class="cancel-reason-badge">
+                    <i class="fas fa-comment-slash"></i>
+                    <div>
+                        <strong>Motivo do Cancelamento:</strong><br>
+                        ${escapeHtml(props.motivo_cancelamento || 'Não informado')}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 async function atualizarResumoMes() {

@@ -166,6 +166,9 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
     }
 }
 
+    }
+}
+
 /**
  * Exclui o evento selecionado
  */
@@ -212,6 +215,43 @@ export async function deletarEvento(atualizarTodasTelas) {
         } catch (e) {
             console.error("Erro ao cancelar:", e);
             showToast('Erro ao cancelar: ' + (e.message || e), 'error');
+        }
+    }
+}
+
+/**
+ * Restaura um evento cancelado (soft delete)
+ */
+export async function restaurarEvento(id, atualizarTodasTelas) {
+    if (!id) return;
+    
+    const { confirmado } = await showConfirmModal(
+        'Deseja restaurar este agendamento?',
+        'O evento voltará a aparecer no calendário e nas listas de agendamentos ativos.'
+    );
+
+    if (confirmado) {
+        try {
+            const { error } = await supabase
+                .from('reservas')
+                .update({ 
+                    cancelado: false,
+                    motivo_cancelamento: null,
+                    canceladopor: null,
+                    datacancelamento: null
+                })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            showToast('Agendamento restaurado com sucesso');
+            if (typeof atualizarTodasTelas === 'function') atualizarTodasTelas();
+            
+            // Recarregar calendário para garantir que o evento volte
+            if (typeof recarregarDados === 'function') recarregarDados();
+        } catch (e) {
+            console.error("Erro ao restaurar:", e);
+            showToast('Erro ao restaurar: ' + (e.message || e), 'error');
         }
     }
 }
@@ -364,6 +404,7 @@ export function initReservasWindow(atualizarTodasTelas) {
     window.fecharModalForm = fecharModalForm;
     window.fecharModal = fecharModal;
     window.prepararEdicao = prepararEdicao;
+    window.restaurarEvento = (id) => restaurarEvento(id, atualizarTodasTelas);
     
     window.prepararEdicaoPorId = (id) => {
         eventoSelecionadoNoModal = calendar.getEventById(id);

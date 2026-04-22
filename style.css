@@ -3931,3 +3931,90 @@ body {
         width: 100%;
     }
 }
+
+/* --- Estilos Histórico de Cancelamentos --- */
+.btn-toggle-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-toggle-filter i {
+    font-size: 1rem;
+}
+
+.btn-toggle-filter.active {
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border-color: var(--primary-200);
+}
+
+.btn-toggle-filter:hover:not(.active) {
+    background: var(--bg-hover);
+    border-color: var(--primary-100);
+}
+
+/* Card de Evento Cancelado */
+.event-card.cancelled {
+    opacity: 0.8;
+    border-left: 4px solid var(--text-tertiary);
+    background: var(--bg-body);
+}
+
+.event-card.cancelled .event-card-title {
+    text-decoration: line-through;
+    color: var(--text-tertiary);
+}
+
+.cancel-reason-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    color: #c53030;
+}
+
+.cancel-reason-badge i {
+    margin-top: 0.15rem;
+}
+
+.dark-mode .cancel-reason-badge {
+    background: #2d1a1a;
+    border-color: #742a2a;
+    color: #feb2b2;
+}
+
+.btn-restore-mini {
+    padding: 0.4rem 0.8rem;
+    background: var(--success-50);
+    color: var(--success-700);
+    border: 1px solid var(--success-200);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-restore-mini:hover {
+    background: var(--success-100);
+    transform: translateY(-1px);
+}
+

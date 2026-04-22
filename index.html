@@ -114,6 +114,11 @@
                         <i class="fas fa-chart-pie"></i>
                         <span>Dashboard</span>
                     </button>
+                    <button class="nav-item" id="btnTabCancelamentos" data-target="abaCancelamentos"
+                        onclick="switchTab('abaCancelamentos')">
+                        <i class="fas fa-trash-restore"></i>
+                        <span>Cancelamentos</span>
+                    </button>
                     <button class="nav-item" id="btnTabRelatorios" data-target="abaRelatorios"
                         onclick="switchTab('abaRelatorios')">
                         <i class="fas fa-file-export"></i>
@@ -239,6 +244,16 @@
                             <p class="page-description">Gerencie todos os eventos criados por você</p>
                         </div>
                     </div>
+                    
+                    <div class="filter-bar" style="margin-bottom: 1.5rem; display: flex; gap: 0.5rem;">
+                        <button class="btn-toggle-filter active" id="btnFiltroMeusAtivos" onclick="mudarFiltroMeusEventos('ativos')">
+                            <i class="fas fa-check-circle"></i> Ativos
+                        </button>
+                        <button class="btn-toggle-filter" id="btnFiltroMeusCancelados" onclick="mudarFiltroMeusEventos('cancelados')">
+                            <i class="fas fa-times-circle"></i> Cancelados
+                        </button>
+                    </div>
+
                     <div class="card">
                         <div class="card-body" id="containerMeusEventos">
                             <div class="empty-state">
@@ -575,6 +590,37 @@
                                     <tbody id="listaLogsNotificacoes">
                                         <tr>
                                             <td colspan="5" class="text-center p-4">Carregando logs...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cancelamentos (Admin) -->
+                <div id="abaCancelamentos" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-trash-restore"></i> Histórico de Cancelamentos</h2>
+                        <p class="page-description">Gerencie os eventos cancelados no sistema</p>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table-styled">
+                                    <thead>
+                                        <tr>
+                                            <th>Data do Cancelamento</th>
+                                            <th>Evento e Local</th>
+                                            <th>Cancelado Por</th>
+                                            <th>Motivo</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaCancelamentosAdmin">
+                                        <tr>
+                                            <td colspan="5" class="text-center p-4">Carregando cancelamentos...</td>
                                         </tr>
                                     </tbody>
                                 </table>
