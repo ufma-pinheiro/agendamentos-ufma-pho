@@ -166,9 +166,6 @@ export async function salvarOuEditarEvento(e, estado, atualizarTodasTelas) {
     }
 }
 
-    }
-}
-
 /**
  * Exclui o evento selecionado
  */
