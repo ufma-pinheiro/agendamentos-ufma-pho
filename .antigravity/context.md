@@ -192,6 +192,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-21 | Security | Hotfix Permissões UI/CRUD | Bloqueada exclusão/edição para Leitores e Editores (exceto os próprios) via `window.estadoGlobal`. | Sim |
 | 2026-04-21 | Frontend | Hotfix Modal UI | Removido o botão inferior "Fechar" do modal de detalhes, mantendo apenas o "X" superior. | Sim |
 | 2026-04-21 | Frontend | Hotfix Layout | Sincronizadas classes dinâmicas (`time-input`, `btn-remove-data`) em `reservas.js` para consertar o layout quebrado do Modal. | Sim |
+| 2026-04-21 | Frontend | Hotfix Regressão DOM | Corrigido `TypeError` no seletor de eventos do botão de remover data, atualizando-o para `.btn-remove-data`. | Sim |
 
 ---
 

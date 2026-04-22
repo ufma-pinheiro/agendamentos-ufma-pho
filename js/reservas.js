@@ -316,7 +316,7 @@ export function adicionarLinhaData(dataEspecifica = null) {
         });
     }
 
-    row.querySelector('.btn-remove-row').addEventListener('click', () => {
+    row.querySelector('.btn-remove-data').addEventListener('click', () => {
         if (container.querySelectorAll('.data-row-styled').length > 1) {
             row.remove();
         } else {
