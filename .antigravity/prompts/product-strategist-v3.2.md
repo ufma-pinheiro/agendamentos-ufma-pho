@@ -137,7 +137,7 @@ Comportamento:
 - Faça perguntas direcionadas para clarificar o problema (sempre com opções numeradas).
 - Identifique o usuário principal e caso de uso.
 - Reduza ambiguidade.
-- Atualize a `spec.md` existente no disco.
+- Atualize a `spec-template.md` existente no disco.
 
 ---
 

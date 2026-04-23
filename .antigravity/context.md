@@ -8,9 +8,9 @@
 ---
 
 ## 📌 Versão deste Arquivo
-- Versão: `1.8.0`
-- Última atualização: `2026-04-22`
-- Atualizado por: `Antigravity (Orchestrator) — CICLO-2026-04-22-3 Concluído`
+- Versão: `2.0.0`
+- Última atualização: `2026-04-23`
+- Atualizado por: `Auditor Independente — CICLO-2026-04-22-6 Concluído`
 
 ---
 
@@ -28,7 +28,7 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 ## 1️⃣ Identidade e Propósito
 - Nome do Produto: `Sistema de Agendamento UFMA (Pinheiro)`
 - Proposta de Valor (1 frase): `Gestão centralizada de reservas de espaços acadêmicos com calendários dinâmicos, controle de permissões e análise de ocupação.`
-- Fase Atual: `Refatoração` (Otimização de performance e segurança em código legado).
+- Fase Atual: `Polimento UI/UX e Redesign` (Calendário Premium concluído; Redesign de Listagens iniciado).
 - Tipo de Sistema: `Ferramenta Interna`
 
 ---
@@ -208,6 +208,8 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 | 2026-04-22 | Frontend/Admin | Histórico de Cancelamentos | Nova aba Admin e filtros Editor para visualização de soft deletes. | Sim |
 | 2026-04-22 | Full Stack | Recurso de Restauração | Botão "Restaurar" funcional para Admin e Auditoria de cancelamentos. | Sim |
 | 2026-04-22 | Auditor | Veredicto APROVADO — FEAT-002 | Painel de Conflitos Global implementado com visão pareada e soft-delete. | Sim |
+| 2026-04-23 | Auditor | Veredicto APROVADO — FEAT-004 | Redesign Premium do Calendário concluído (Drag, Resize, Tooltips). | Sim |
+| 2026-04-22 | Product | PRD FEAT-004 (Redesign Calendário) | Definição de tokens de design e regras de interatividade SaaS premium. | Sim |
 
 ---
 

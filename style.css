@@ -45,6 +45,25 @@
     --lic-color: #e67e22;
     --sau-color: #27ae60;
     --outros-color: #3b82f6;
+
+    /* Paleta Muted Premium (Calendário) */
+    --cal-eng-bg: rgba(126, 34, 206, 0.08);
+    --cal-eng-text: #7E22CE;
+    --cal-eng-border: #D8B4FE;
+
+    --cal-sau-bg: rgba(22, 163, 74, 0.08);
+    --cal-sau-text: #166534;
+    --cal-sau-border: #86EFAC;
+
+    --cal-lic-bg: rgba(234, 88, 12, 0.08);
+    --cal-lic-text: #9A3412;
+    --cal-lic-border: #FDBA74;
+
+    --cal-other-bg: rgba(37, 99, 235, 0.08);
+    --cal-other-text: #075985;
+    --cal-other-border: #93C5FD;
+
+    --cal-grid-border: rgba(226, 232, 240, 0.6);
     
     /* Sombras */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -134,9 +153,19 @@
 }
 
 /* Garante que o texto dos dias da semana e números sejam visíveis no modo escuro */
-[data-theme="dark"] .fc .fc-col-header-cell-cushion,
-[data-theme="dark"] .fc .fc-daygrid-day-number {
     color: var(--text-primary) !important;
+}
+
+/* Customização Premium do Grid */
+.fc-theme-standard td, .fc-theme-standard th {
+    border-color: var(--cal-grid-border) !important;
+}
+
+.fc-daygrid-day-number {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: var(--text-tertiary) !important;
+    padding: 8px !important;
 }
 
 /* Ajusta a cor de fundo do cabeçalho do calendário */
@@ -1782,47 +1811,85 @@ body {
     background: var(--primary-50) !important;
 }
 
-.fc-event-custom {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8125rem;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    max-width: 100%;
+/* Estilo Premium dos Cards de Evento (FEAT-004) */
+.fc-event {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
 }
 
-.fc-event-custom .event-time {
-    font-size: 0.6875rem;
+.cal-event-card {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+    transition: all var(--transition-fast);
+    overflow: hidden;
+    cursor: grab;
+    margin: 1px 2px;
+}
+
+.cal-event-card:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.cal-event-card:active {
+    cursor: grabbing;
+}
+
+.cal-event-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.cal-event-time {
+    font-size: 0.65rem;
     font-weight: 700;
-    opacity: 0.9;
-    margin-bottom: 0.125rem;
+    opacity: 0.7;
 }
 
-.fc-event-custom .event-title {
-    font-weight: 600;
+.cal-event-title {
+    font-size: 0.75rem;
+    font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 0.125rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
 }
 
-.fc-event-custom .event-loc {
-    font-size: 0.6875rem;
-    opacity: 0.8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+.cal-event-room {
+    font-size: 0.65rem;
+    font-weight: 500;
+    opacity: 0.6;
+    margin-top: 1px;
 }
 
-/* Prevent FullCalendar event wrapper overflow */
-.fc .fc-event {
-    overflow: hidden !important;
+/* Variações por Categoria */
+.event-eng { background: var(--cal-eng-bg) !important; color: var(--cal-eng-text) !important; border-left-color: var(--cal-eng-text) !important; }
+.event-sau { background: var(--cal-sau-bg) !important; color: var(--cal-sau-text) !important; border-left-color: var(--cal-sau-text) !important; }
+.event-lic { background: var(--cal-lic-bg) !important; color: var(--cal-lic-text) !important; border-left-color: var(--cal-lic-text) !important; }
+.event-out { background: var(--cal-other-bg) !important; color: var(--cal-other-text) !important; border-left-color: var(--cal-other-text) !important; }
+
+/* Indicador de Conflito */
+.cal-conflict-indicator {
+    color: var(--danger-500);
+    font-size: 0.7rem;
+    animation: pulse 2s infinite;
 }
 
-.fc .fc-event-main {
-    overflow: hidden;
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+.fc-v-event {
+    border: none !important;
+    background: transparent !important;
 }
 
 .event-conflito-badge {

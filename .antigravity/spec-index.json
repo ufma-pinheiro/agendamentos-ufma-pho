@@ -4,6 +4,12 @@
   "specs_ativas": [],
   "specs_concluidas": [
     {
+      "id": "FEAT-004",
+      "titulo": "Redesign Premium do Calendário (UX/UI SaaS)",
+      "status": "Concluído e Auditado",
+      "arquivo": "specs/active/FEAT-004-redesign-calendario.md"
+    },
+    {
       "id": "FEAT-002",
       "titulo": "Painel de Conflitos Global",
       "concluido_em": "2026-04-22",

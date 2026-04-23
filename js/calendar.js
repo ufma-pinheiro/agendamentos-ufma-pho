@@ -59,7 +59,14 @@ export function iniciarSistema(estado, callbacks) {
     if (!calendarEl) return;
 
     calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
+        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
+        windowResize: function(arg) {
+            if (window.innerWidth < 768) {
+                calendar.changeView('listMonth');
+            } else {
+                calendar.changeView('dayGridMonth');
+            }
+        },
         locale: 'pt-br',
         headerToolbar: { 
             left: 'prev,next today', 
@@ -68,6 +75,56 @@ export function iniciarSistema(estado, callbacks) {
         },
         buttonText: { today: 'Hoje', month: 'Mês', week: 'Semana', day: 'Dia' },
         eventDisplay: 'block',
+        editable: estado.nivelAcesso !== 'leitor',
+        dayMaxEvents: 3,
+        navLinks: true, // Permite clicar no número do dia ou "+mais" para ver detalhes
+        eventTimeFormat: {
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: false,
+            hour12: false
+        },
+        eventStartEditable: (ev) => {
+            const props = ev.extendedProps;
+            return estado.nivelAcesso === 'dono' || props.criadoPor === estado.usuarioLogado?.email;
+        },
+        eventDurationEditable: (ev) => {
+            const props = ev.extendedProps;
+            return estado.nivelAcesso === 'dono' || props.criadoPor === estado.usuarioLogado?.email;
+        },
+        eventDrop: async (info) => {
+            try {
+                const { error } = await supabase
+                    .from('reservas')
+                    .update({ 
+                        start_time: info.event.start.toISOString(),
+                        end_time: info.event.end ? info.event.end.toISOString() : info.event.start.toISOString()
+                    })
+                    .eq('id', info.event.id);
+                if (error) throw error;
+                showToast("Agendamento movido!");
+                if (callbacks.onUpdate) callbacks.onUpdate();
+            } catch (e) {
+                showToast("Erro ao mover", "error");
+                info.revert();
+            }
+        },
+        eventResize: async (info) => {
+            try {
+                const { error } = await supabase
+                    .from('reservas')
+                    .update({ 
+                        end_time: info.event.end.toISOString()
+                    })
+                    .eq('id', info.event.id);
+                if (error) throw error;
+                showToast("Duração ajustada!");
+                if (callbacks.onUpdate) callbacks.onUpdate();
+            } catch (e) {
+                showToast("Erro ao ajustar", "error");
+                info.revert();
+            }
+        },
         events: async function (info, successCallback, failureCallback) {
             try {
                 const { data, error } = await supabase
@@ -104,16 +161,49 @@ export function iniciarSistema(estado, callbacks) {
         eventContent: function (arg) {
             const props = arg.event.extendedProps;
             const time = arg.event.start ? `${arg.event.start.getHours().toString().padStart(2, '0')}h` : '';
-            const conflitoDot = props.isConflito ? '<span class="event-conflito-dot" title="Conflito de horário"></span>' : '';
+            const conflitoIcon = props.isConflito ? '<i class="fas fa-exclamation-triangle cal-conflict-indicator" title="Conflito Detectado"></i>' : '';
+            
+            const espaco = (props.espacos || [])[0] || "";
+            let catClass = "event-out";
+            if (espaco.includes("Engenharia")) catClass = "event-eng";
+            if (espaco.includes("Saúde")) catClass = "event-sau";
+            if (espaco.includes("Licenciaturas")) catClass = "event-lic";
+
             return {
                 html: `
-                    <div class="fc-event-custom">
-                        <div class="event-time">${time} ${conflitoDot}</div>
-                        <div class="event-title">${escapeHtml(props.tituloPuro || arg.event.title)}</div>
-                        <div class="event-loc">${escapeHtml((props.espacos || [props.espaco])[0])}</div>
+                    <div class="cal-event-card ${catClass}">
+                        <div class="cal-event-top">
+                            <span class="cal-event-time">${time}</span>
+                            <div class="cal-event-indicators">${conflitoIcon}</div>
+                        </div>
+                        <div class="cal-event-title">${escapeHtml(props.tituloPuro || arg.event.title)}</div>
+                        <div class="cal-event-room">${escapeHtml(espaco)}</div>
                     </div>
                 `
             };
+        },
+        eventDidMount: function(info) {
+            if (typeof tippy === 'function') {
+                const props = info.event.extendedProps;
+                tippy(info.el, {
+                    content: `
+                        <div style="padding: 10px; min-width: 200px;">
+                            <strong style="display:block; font-size: 0.95rem; margin-bottom: 6px; color: var(--text-primary);">${escapeHtml(props.tituloPuro || info.event.title)}</strong>
+                            <div style="font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary);">
+                                <i class="far fa-clock" style="width: 16px;"></i> ${info.event.start.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})} - ${info.event.end ? info.event.end.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) : '-'}<br>
+                                <i class="fas fa-map-marker-alt" style="width: 16px;"></i> ${escapeHtml((props.espacos || []).join(', '))}<br>
+                                <i class="far fa-user" style="width: 16px;"></i> ${escapeHtml(props.responsavel)}
+                            </div>
+                            ${props.isConflito ? '<div style="margin-top:8px; padding-top:8px; border-top: 1px solid var(--border-color); color: var(--danger-500); font-weight: 700; font-size: 0.75rem;"><i class="fas fa-exclamation-triangle"></i> ATENÇÃO: CONFLITO DETECTADO</div>' : ''}
+                        </div>
+                    `,
+                    allowHTML: true,
+                    theme: 'light-border',
+                    placement: 'top',
+                    interactive: true,
+                    appendTo: () => document.body
+                });
+            }
         }
     });
 
