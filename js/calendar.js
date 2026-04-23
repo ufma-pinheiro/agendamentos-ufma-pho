@@ -56,17 +56,22 @@ export async function buscarDadosMensais(ano, mes) {
  */
 
 /**
- * Calcula a altura disponível para o FullCalendar baseada no espaço real da tela.
- * Desconta: topbar (48px) + padding do wrapper (12px) + padding do card (16px) + recent-strip
+ * Calcula a altura do calendário baseada em window.innerHeight menos os elementos ao redor.
+ * Esta abordagem é determinística e não depende do flex layout estar completo.
  */
 function calcularAlturaCalendario() {
-    const abaEl = document.getElementById('abaCalendario');
+    const topbarH = document.querySelector('.top-bar')?.offsetHeight ?? 48;
     const stripEl = document.querySelector('.recent-strip');
-    if (!abaEl) return 600;
-    const abaH = abaEl.clientHeight;
     const stripH = stripEl ? stripEl.offsetHeight : 0;
-    const gap = stripH > 0 ? 12 : 0; // gap só se strip visível
-    return Math.max(400, abaH - stripH - gap - 2);
+    const gap = stripH > 0 ? 12 : 0;
+
+    // Padding do .content-wrapper (0.75rem = 12px em cima e em baixo)
+    const wrapperPad = 12 * 2;
+    // Padding do .calendar-card (0.5rem topo + 0.75rem base = 8 + 12 = 20px)
+    const cardPad = 8 + 12;
+
+    const altura = window.innerHeight - topbarH - wrapperPad - cardPad - stripH - gap - 2;
+    return Math.max(400, altura);
 }
 
 export function iniciarSistema(estado, callbacks) {
