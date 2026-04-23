@@ -1179,18 +1179,76 @@ body {
     min-height: 0;
 }
 
-/* FullCalendar sempre mostra todas as semanas sem truncar */
+/* FullCalendar - Sem scroll interno, tela cheia */
+
+/* O elemento #calendar precisa de altura definida para que height:'100%' funcione */
+.calendar-card #calendar {
+    flex: 1;
+    min-height: 0;
+    height: 0; /* forçar reflow correto via flex */
+}
+
+/* O harness da view deve crescer com o container */
+.fc .fc-view-harness {
+    flex: 1;
+    height: 100% !important;
+}
+
+/* Remover scroll de TODOS os scrollers internos do FullCalendar */
+.fc .fc-scroller {
+    overflow: hidden !important;
+    height: auto !important;
+}
+
+.fc .fc-scroller-harness {
+    overflow: hidden !important;
+}
+
+/* Grid sem scroll */
+.fc .fc-scrollgrid {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Linhas da seção do corpo se expandem para preencher */
+.fc .fc-scrollgrid-section-body > td {
+    height: 100%;
+}
+
+.fc .fc-scrollgrid-section-expandable > td {
+    height: 100%;
+}
+
+/* Daygrid body sem largura/altura fixas do JS */
 .fc .fc-daygrid-body {
     width: 100% !important;
+    height: 100% !important;
 }
 
 .fc .fc-scrollgrid-sync-table {
     width: 100% !important;
+    height: 100% !important;
+}
+
+/* Remover min-height fixo nas células — deixar flex cuidar */
+.fc .fc-daygrid-day-frame {
+    min-height: 0;
     height: 100%;
 }
 
-.fc .fc-daygrid-day-frame {
-    min-height: 80px;
+/* Garantir que as linhas da grade se expandam igualmente */
+.fc .fc-daygrid-body tr {
+    height: auto;
+}
+
+/* Esconder qualquer scrollbar residual */
+.fc ::-webkit-scrollbar {
+    display: none !important;
+}
+
+.fc * {
+    scrollbar-width: none !important;
 }
 
 /* Últimos Registros - Collapsible Strip */
