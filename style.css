@@ -1181,11 +1181,10 @@ body {
 
 /* FullCalendar - Sem scroll interno, tela cheia */
 
-/* O elemento #calendar precisa de altura definida para que height:'100%' funcione */
 .calendar-card #calendar {
     flex: 1;
     min-height: 0;
-    height: 0; /* forçar reflow correto via flex */
+    /* Altura gerenciada via JS (calcularAlturaCalendario) */
 }
 
 /* O harness da view deve crescer com o container */

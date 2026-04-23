@@ -54,6 +54,21 @@ export async function buscarDadosMensais(ano, mes) {
 /**
  * Inicializa o FullCalendar
  */
+
+/**
+ * Calcula a altura disponível para o FullCalendar baseada no espaço real da tela.
+ * Desconta: topbar (48px) + padding do wrapper (12px) + padding do card (16px) + recent-strip
+ */
+function calcularAlturaCalendario() {
+    const abaEl = document.getElementById('abaCalendario');
+    const stripEl = document.querySelector('.recent-strip');
+    if (!abaEl) return 600;
+    const abaH = abaEl.clientHeight;
+    const stripH = stripEl ? stripEl.offsetHeight : 0;
+    const gap = stripH > 0 ? 12 : 0; // gap só se strip visível
+    return Math.max(400, abaH - stripH - gap - 2);
+}
+
 export function iniciarSistema(estado, callbacks) {
     const calendarEl = document.getElementById('calendar');
     if (!calendarEl) return;
@@ -139,10 +154,10 @@ export function iniciarSistema(estado, callbacks) {
                 failureCallback(error);
             }
         },
-        height: '100%',
+        height: calcularAlturaCalendario(),
         expandRows: true,
-        handleWindowResize: true,
-        windowResizeDelay: 100,
+        handleWindowResize: false,
+        windowResizeDelay: 0,
         dateClick: (info) => {
             if (estado.nivelAcesso === 'leitor') { 
                 showToast('Modo leitura: Não é possível criar eventos', 'info'); 
@@ -202,6 +217,19 @@ export function iniciarSistema(estado, callbacks) {
     });
 
     calendar.render();
+
+    // Ajusta altura ao redimensionar a janela
+    window.addEventListener('resize', () => {
+        const h = calcularAlturaCalendario();
+        calendar.setOption('height', h);
+    });
+
+    // Ajuste inicial após render (layout pode mudar após o primeiro paint)
+    requestAnimationFrame(() => {
+        const h = calcularAlturaCalendario();
+        calendar.setOption('height', h);
+    });
+
     iniciarRealtime(callbacks.onUpdate);
 }
 
