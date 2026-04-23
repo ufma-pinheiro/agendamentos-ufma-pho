@@ -56,22 +56,32 @@ export async function buscarDadosMensais(ano, mes) {
  */
 
 /**
- * Calcula a altura do calendário baseada em window.innerHeight menos os elementos ao redor.
- * Esta abordagem é determinística e não depende do flex layout estar completo.
+ * Calcula a altura ideal do calendário medindo os elementos reais do DOM.
+ * Usa window.innerHeight como base e subtrai todos os elementos ao redor.
  */
 function calcularAlturaCalendario() {
     const topbarH = document.querySelector('.top-bar')?.offsetHeight ?? 48;
     const stripEl = document.querySelector('.recent-strip');
     const stripH = stripEl ? stripEl.offsetHeight : 0;
+    const cardEl = document.querySelector('.calendar-card');
+
+    if (cardEl) {
+        // Método mais preciso: medir o card real após o layout
+        const cardRect = cardEl.getBoundingClientRect();
+        const style = getComputedStyle(cardEl);
+        const padTop = parseFloat(style.paddingTop) || 0;
+        const padBot = parseFloat(style.paddingBottom) || 0;
+        const borderTop = parseFloat(style.borderTopWidth) || 0;
+        const borderBot = parseFloat(style.borderBottomWidth) || 0;
+        const innerH = cardRect.height - padTop - padBot - borderTop - borderBot;
+        if (innerH > 200) return innerH;
+    }
+
+    // Fallback: cálculo via window.innerHeight
+    const wrapperPad = 24;  // 0.75rem × 2
+    const cardPad = 20;     // 0.5rem topo + 0.75rem base
     const gap = stripH > 0 ? 12 : 0;
-
-    // Padding do .content-wrapper (0.75rem = 12px em cima e em baixo)
-    const wrapperPad = 12 * 2;
-    // Padding do .calendar-card (0.5rem topo + 0.75rem base = 8 + 12 = 20px)
-    const cardPad = 8 + 12;
-
-    const altura = window.innerHeight - topbarH - wrapperPad - cardPad - stripH - gap - 2;
-    return Math.max(400, altura);
+    return Math.max(400, window.innerHeight - topbarH - wrapperPad - cardPad - stripH - gap);
 }
 
 export function iniciarSistema(estado, callbacks) {
@@ -223,16 +233,25 @@ export function iniciarSistema(estado, callbacks) {
 
     calendar.render();
 
-    // Ajusta altura ao redimensionar a janela
-    window.addEventListener('resize', () => {
+    // Função para atualizar altura e forcar re-render
+    function atualizarAltura() {
         const h = calcularAlturaCalendario();
         calendar.setOption('height', h);
+        calendar.updateSize();
+    }
+
+    // 1º ajuste: após o primeiro frame (DOM pronto mas antes do paint final)
+    requestAnimationFrame(() => {
+        atualizarAltura();
+        // 2º ajuste: após 200ms para garantir que o layout flex terminou
+        setTimeout(atualizarAltura, 200);
     });
 
-    // Ajuste inicial após render (layout pode mudar após o primeiro paint)
-    requestAnimationFrame(() => {
-        const h = calcularAlturaCalendario();
-        calendar.setOption('height', h);
+    // Atualizar ao redimensionar a janela
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(atualizarAltura, 100);
     });
 
     iniciarRealtime(callbacks.onUpdate);

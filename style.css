@@ -1179,75 +1179,37 @@ body {
     min-height: 0;
 }
 
-/* FullCalendar - Sem scroll interno, tela cheia */
+/* FullCalendar - altura gerenciada via JS (calcularAlturaCalendario) */
+/* IMPORTANTE: não sobrescrever height em elementos internos do FC
+   pois ele define alturas inline via JS próprio. Sobrescrever causa corte. */
 
 .calendar-card #calendar {
     flex: 1;
     min-height: 0;
-    /* Altura gerenciada via JS (calcularAlturaCalendario) */
 }
 
-/* O harness da view deve crescer com o container */
-.fc .fc-view-harness {
-    flex: 1;
-    height: 100% !important;
-}
-
-/* Remover scroll de TODOS os scrollers internos do FullCalendar */
-.fc .fc-scroller {
-    overflow: hidden !important;
-    height: auto !important;
-}
-
-.fc .fc-scroller-harness {
-    overflow: hidden !important;
-}
-
-/* Grid sem scroll */
-.fc .fc-scrollgrid {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    height: 100%;
-}
-
-/* Linhas da seção do corpo se expandem para preencher */
-.fc .fc-scrollgrid-section-body > td {
-    height: 100%;
-}
-
-.fc .fc-scrollgrid-section-expandable > td {
-    height: 100%;
-}
-
-/* Daygrid body sem largura/altura fixas do JS */
-.fc .fc-daygrid-body {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.fc .fc-scrollgrid-sync-table {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-/* Remover min-height fixo nas células — deixar flex cuidar */
-.fc .fc-daygrid-day-frame {
-    min-height: 0;
-    height: 100%;
-}
-
-/* Garantir que as linhas da grade se expandam igualmente */
-.fc .fc-daygrid-body tr {
-    height: auto;
-}
-
-/* Esconder qualquer scrollbar residual */
+/* Apenas esconder scrollbars visuais — o overflow é gerenciado pelo FC */
 .fc ::-webkit-scrollbar {
     display: none !important;
 }
 
 .fc * {
     scrollbar-width: none !important;
+}
+
+/* Garantir que a grade ocupe toda a largura disponível */
+.fc .fc-daygrid-body {
+    width: 100% !important;
+}
+
+.fc .fc-scrollgrid-sync-table {
+    width: 100% !important;
+}
+
+/* Border-radius no grid */
+.fc .fc-scrollgrid {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
 }
 
 /* Últimos Registros - Collapsible Strip */
