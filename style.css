@@ -137,6 +137,25 @@
     
     /* Bordas: Um cinza escuro sutil */
     --border-color: #444746;
+
+    /* Calendário Premium - Cores Dark Mode mais visíveis */
+    --cal-eng-bg: rgba(216, 180, 254, 0.15);
+    --cal-eng-text: #E9D5FF;
+    --cal-eng-border: #C084FC;
+
+    --cal-sau-bg: rgba(134, 239, 172, 0.15);
+    --cal-sau-text: #BBF7D0;
+    --cal-sau-border: #4ADE80;
+
+    --cal-lic-bg: rgba(253, 186, 116, 0.15);
+    --cal-lic-text: #FED7AA;
+    --cal-lic-border: #FB923C;
+
+    --cal-other-bg: rgba(147, 197, 253, 0.15);
+    --cal-other-text: #BFDBFE;
+    --cal-other-border: #60A5FA;
+    
+    --cal-grid-border: rgba(68, 71, 70, 0.6);
 }
 
 /* ============================================
@@ -1000,7 +1019,10 @@ body {
     flex: 1;
     padding: 1.5rem;
     overflow-y: auto;
+    height: calc(100vh - 64px);
     max-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -1115,7 +1137,53 @@ body {
 }
 
 .calendar-card {
-    min-height: 600px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    min-height: 0;
+}
+
+.calendar-card #calendar {
+    flex: 1;
+    min-height: 0;
+}
+
+/* Aba Calendário ocupa toda a altura disponível */
+#abaCalendario {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 0.75rem;
+}
+
+#abaCalendario .tab-content {
+    flex: 1;
+    min-height: 0;
+}
+
+/* Somente a aba do calendário usa layout flex em tela cheia */
+#abaCalendario.active,
+#abaCalendario.tab-content.active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* FullCalendar sempre mostra todas as semanas sem truncar */
+.fc .fc-daygrid-body {
+    width: 100% !important;
+}
+
+.fc .fc-scrollgrid-sync-table {
+    width: 100% !important;
+    height: 100%;
+}
+
+.fc .fc-daygrid-day-frame {
+    min-height: 80px;
 }
 
 /* Últimos Registros - Collapsible Strip */
@@ -1432,16 +1500,16 @@ body {
 .event-date-box .day {
     font-size: 1.375rem;
     font-weight: 800;
-    color: white;
+    color: currentColor;
     line-height: 1;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .event-date-box .month {
     font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.85);
+    color: currentColor;
+    opacity: 0.85;
     margin-top: 0.125rem;
     letter-spacing: 0.05em;
 }
@@ -4202,3 +4270,17 @@ body {
     font-weight: 700;
 }
 
+/* ============================================
+   TOOLTIPS (TIPPY.JS)
+   ============================================ */
+.tippy-box {
+    background-color: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border-radius: var(--radius-md) !important;
+}
+
+.tippy-arrow {
+    color: var(--bg-elevated) !important;
+}

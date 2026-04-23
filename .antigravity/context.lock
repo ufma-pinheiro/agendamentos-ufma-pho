@@ -1,15 +1,13 @@
 {
-  "sessao_ativa": true,
-  "inicio": "2026-04-22T16:52:30-03:00",
-  "especialista_atual": "auditor",
-  "ultimo_especialista": "qa",
+  "sessao_ativa": false,
+  "fim": "2026-04-23T08:57:00-03:00",
+  "especialista_atual": null,
+  "ultimo_especialista": "auditor",
   "proximo_especialista": null,
   "ciclo_id": "CICLO-2026-04-22-6",
-  "escopo": "Grande",
-  "objetivo": "FEAT-004: Redesign Premium do Calendário (UX/UI SaaS)",
-  "veredicto": null,
+  "veredicto": "APROVADO",
   "findings_criticos": 0,
   "findings_altos": 0,
-  "versao_context": "1.8.0",
-  "checksum": "sha256:pending"
+  "versao_context": "2.0.0",
+  "checksum": "sha256:bb6d1d5"
 }

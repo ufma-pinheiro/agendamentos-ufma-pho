@@ -59,14 +59,7 @@ export function iniciarSistema(estado, callbacks) {
     if (!calendarEl) return;
 
     calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
-        windowResize: function(arg) {
-            if (window.innerWidth < 768) {
-                calendar.changeView('listMonth');
-            } else {
-                calendar.changeView('dayGridMonth');
-            }
-        },
+        initialView: 'dayGridMonth',
         locale: 'pt-br',
         headerToolbar: { 
             left: 'prev,next today', 
@@ -146,8 +139,10 @@ export function iniciarSistema(estado, callbacks) {
                 failureCallback(error);
             }
         },
-        height: 'auto',
-        contentHeight: 'auto',
+        height: '100%',
+        expandRows: true,
+        handleWindowResize: true,
+        windowResizeDelay: 100,
         dateClick: (info) => {
             if (estado.nivelAcesso === 'leitor') { 
                 showToast('Modo leitura: Não é possível criar eventos', 'info'); 
@@ -198,7 +193,6 @@ export function iniciarSistema(estado, callbacks) {
                         </div>
                     `,
                     allowHTML: true,
-                    theme: 'light-border',
                     placement: 'top',
                     interactive: true,
                     appendTo: () => document.body
