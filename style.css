@@ -679,13 +679,13 @@ body {
 
 /* Top Bar */
 .top-bar {
-    height: 64px;
+    height: 48px;
     background: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
@@ -1017,12 +1017,18 @@ body {
    ============================================ */
 .content-wrapper {
     flex: 1;
-    padding: 1.5rem;
-    overflow-y: auto;
-    height: calc(100vh - 64px);
-    max-height: calc(100vh - 64px);
+    padding: 0.75rem;
+    overflow: hidden;
+    height: calc(100vh - 48px);
+    max-height: calc(100vh - 48px);
     display: flex;
     flex-direction: column;
+}
+
+/* Em outras abas que não sejam o calendário, restaurar scroll */
+.content-wrapper:not(:has(#abaCalendario.active)) {
+    overflow-y: auto;
+    padding: 1.5rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -1140,8 +1146,9 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.5rem 0.75rem 0.75rem;
     min-height: 0;
+    overflow: hidden;
 }
 
 .calendar-card #calendar {
@@ -1824,7 +1831,8 @@ body {
 }
 
 .fc-header-toolbar {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0.25rem 0 !important;
 }
 
 .fc-button-primary {
@@ -1832,10 +1840,12 @@ body {
     border: 1px solid var(--border-color) !important;
     color: var(--text-secondary) !important;
     font-weight: 600 !important;
+    font-size: 0.75rem !important;
     text-transform: capitalize !important;
-    padding: 0.5rem 1rem !important;
-    border-radius: var(--radius-lg) !important;
+    padding: 0.3rem 0.75rem !important;
+    border-radius: var(--radius-md) !important;
     transition: all var(--transition-fast) !important;
+    line-height: 1.4 !important;
 }
 
 .fc-button-primary:hover {
@@ -1852,9 +1862,10 @@ body {
 }
 
 .fc-toolbar-title {
-    font-size: 1.25rem !important;
+    font-size: 0.95rem !important;
     font-weight: 700 !important;
     color: var(--text-primary) !important;
+    letter-spacing: -0.01em;
 }
 
 .fc-col-header-cell {
