@@ -199,7 +199,6 @@ export async function deletarEvento(atualizarTodasTelas) {
                 .update({
                     cancelado: true,
                     motivo_cancelamento: motivo,
-                    canceladopor: email,
                     datacancelamento: dataCanc
                 })
                 .eq('id', eventoSelecionadoNoModal.id);
@@ -234,7 +233,6 @@ export async function restaurarEvento(id, atualizarTodasTelas) {
                 .update({ 
                     cancelado: false,
                     motivo_cancelamento: null,
-                    canceladopor: null,
                     datacancelamento: null
                 })
                 .eq('id', id);

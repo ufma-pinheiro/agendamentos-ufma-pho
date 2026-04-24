@@ -180,20 +180,141 @@
     border-color: var(--cal-grid-border) !important;
 }
 
-.fc-daygrid-day-number {
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
-    color: var(--text-tertiary) !important;
-    padding: 8px !important;
+.fc-daygrid-day-top {
+    position: absolute !important;
+    right: 4px !important;
+    top: 4px !important;
+    z-index: 5 !important;
+    flex-direction: row !important;
 }
 
-/* Ajusta a cor de fundo do cabeçalho do calendário */
-[data-theme="dark"] .fc-theme-standard .fc-scrollgrid {
-    background-color: var(--bg-elevated);
+.fc-daygrid-day-number {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--text-tertiary) !important;
+    padding: 2px 6px !important;
+    text-decoration: none !important;
+    transition: color var(--transition-fast) !important;
 }
+
+/* Dia de hoje: Estilo Google (Círculo Azul no número) */
+.fc-day-today {
+    background: transparent !important;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+    background-color: var(--primary-600) !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.7rem !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.fc-day-other .fc-daygrid-day-number {
+    opacity: 0.3;
+}
+
+/* Link "+ more" com estilo de Badge Premium */
+.fc-daygrid-more-link {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--text-tertiary) !important;
+    padding: 2px 8px !important;
+    border-radius: var(--radius-full) !important;
+    background: var(--bg-elevated) !important;
+    transition: all var(--transition-fast) !important;
+    margin-left: 4px !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+}
+
+.fc-daygrid-more-link:hover {
+    background: var(--gray-200) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .fc-daygrid-more-link:hover {
+    background: var(--border-color) !important;
+}
+
+/* Popover (More Link) Styling - Fix para Dark Mode e Transparência */
+.fc-popover {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-radius: var(--radius-md) !important;
+    z-index: 1000 !important;
+    opacity: 1 !important;
+}
+
+.fc-popover-header {
+    background-color: var(--bg-elevated) !important;
+    background: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+    padding: 8px 12px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+    opacity: 1 !important;
+}
+
+.fc-popover-body {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    padding: 10px !important;
+    opacity: 1 !important;
+}
+
+.fc-popover-title {
+    font-size: 0.9rem !important;
+    color: var(--text-primary) !important;
+}
+
+.fc-popover-close {
+    color: var(--text-secondary) !important;
+    opacity: 0.7 !important;
+}
+
+.fc-popover-close:hover {
+    opacity: 1 !important;
+}
+
+.fc-popover .fc-daygrid-event {
+    margin-bottom: 4px !important;
+}
+
+/* Reduzir espaços para forçar títulos a aparecerem */
+.fc-daygrid-day-events {
+    margin-top: 4px !important; /* Espaço mínimo no topo */
+    padding: 0 !important;
+}
+
+.fc-daygrid-event-harness {
+    margin: 1px 2px !important;
+    /* Garantir que o evento não sobreponha o número no canto direito */
+    padding-right: 20px !important; 
+}
+
+/* Esconder o número do dia se o evento for muito longo e passar por cima? 
+   Não, mantemos o número com z-index alto. */
 /* ============================================
    RESET E BASE
    ============================================ */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -674,18 +795,19 @@ body {
 
 .main-content {
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden; /* Mantém a aplicação dentro da tela */
 }
 
 /* Top Bar */
 .top-bar {
-    height: 48px;
+    min-height: 48px;
     background: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
@@ -1017,12 +1139,33 @@ body {
    ============================================ */
 .content-wrapper {
     flex: 1;
-    padding: 0.75rem;
-    overflow: hidden;
-    height: calc(100vh - 48px);
-    max-height: calc(100vh - 48px);
+    padding: 0; /* Removido para preenchimento total */
     display: flex;
     flex-direction: column;
+    position: relative;
+    min-height: 0; 
+    overflow: hidden;
+}
+
+/* Garante que o conteúdo das abas preencha o wrapper */
+.tab-content {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.tab-content.active {
+    display: flex;
+}
+
+#abaCalendario.active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 0; /* Espaço removido entre calendário e faixa inferior */
+    overflow: hidden;
 }
 
 /* Em outras abas que não sejam o calendário, restaurar scroll */
@@ -1146,49 +1289,35 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 0.75rem 0.75rem;
+    padding: 0; /* Preenchimento total */
     min-height: 0;
     overflow: hidden;
+    background: var(--bg-card);
+    border: none; /* Borda removida para estilo edge-to-edge */
+    border-radius: 0; /* Cantos retos para encaixar nas laterais */
 }
 
+/* #calendar agora preenche 100% do .calendar-card */
 .calendar-card #calendar {
     flex: 1;
+    width: 100%;
+    height: 100%;
     min-height: 0;
 }
 
-/* Aba Calendário ocupa toda a altura disponível */
-#abaCalendario {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    gap: 0.75rem;
+/* Suprimir scroll interno do FullCalendar.
+   Com height:'100%' + expandRows:true o calendário preenche o container exatamente.
+   overflow:hidden removido — não deve cortar semanas.
+   Se houver overflow residual em algum navegador, o scrollbar visual é escondido abaixo. */
+.fc .fc-scroller {
+    overflow: auto;
 }
 
-#abaCalendario .tab-content {
-    flex: 1;
-    min-height: 0;
+.fc .fc-scroller-harness {
+    overflow: visible;
 }
 
-/* Somente a aba do calendário usa layout flex em tela cheia */
-#abaCalendario.active,
-#abaCalendario.tab-content.active {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-}
-
-/* FullCalendar - altura gerenciada via JS (calcularAlturaCalendario) */
-/* IMPORTANTE: não sobrescrever height em elementos internos do FC
-   pois ele define alturas inline via JS próprio. Sobrescrever causa corte. */
-
-.calendar-card #calendar {
-    flex: 1;
-    min-height: 0;
-}
-
-/* Apenas esconder scrollbars visuais — o overflow é gerenciado pelo FC */
+/* Esconder scrollbars residuais em todos os navegadores */
 .fc ::-webkit-scrollbar {
     display: none !important;
 }
@@ -1197,7 +1326,7 @@ body {
     scrollbar-width: none !important;
 }
 
-/* Garantir que a grade ocupe toda a largura disponível */
+/* Garantir largura total da grade */
 .fc .fc-daygrid-body {
     width: 100% !important;
 }
@@ -1212,76 +1341,10 @@ body {
     overflow: hidden;
 }
 
-/* Últimos Registros - Collapsible Strip */
-.recent-strip {
-    margin-top: 1rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
+/* Calendário - Estilos específicos se necessário */
+.calendar-card {
+    padding: 0;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-}
-
-.recent-strip-toggle {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1.25rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    font-family: var(--font-sans);
-    transition: all var(--transition-fast);
-}
-
-.recent-strip-toggle:hover {
-    color: var(--text-primary);
-    background: var(--bg-elevated);
-}
-
-.recent-strip-toggle span {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.recent-strip-toggle span i {
-    color: var(--primary-500);
-    font-size: 0.75rem;
-}
-
-.recent-strip-toggle .toggle-chevron {
-    font-size: 0.7rem;
-    transition: transform var(--transition);
-}
-
-.recent-strip.open .toggle-chevron {
-    transform: rotate(180deg);
-}
-
-.recent-strip-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding: 0 1rem;
-}
-
-.recent-strip.open .recent-strip-content {
-    max-height: 400px;
-    padding: 0 1rem 1rem;
-    overflow-y: auto;
-}
-
-.recent-strip-content .event-mini-card {
-    margin-bottom: 0.5rem;
-}
-
-.recent-strip-content .empty-state.small {
-    padding: 1rem;
 }
 
 .charts-grid {
@@ -1588,6 +1651,84 @@ body {
     align-items: center;
     gap: 0.25rem;
     flex-shrink: 0;
+}
+
+/* Badge de Cancelamento */
+.badge-cancelado {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-500);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .badge-cancelado {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.event-row.cancelled {
+    background: rgba(239, 68, 68, 0.06) !important;
+    border-left: 4px solid var(--danger-500) !important;
+    opacity: 1;
+}
+
+[data-theme="dark"] .event-row.cancelled {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: var(--border-color);
+    border-left-color: var(--danger-500) !important;
+}
+
+.event-row.cancelled .event-date-box {
+    background: var(--danger-500) !important;
+    color: white !important;
+    opacity: 1;
+}
+
+.event-row.cancelled h4 {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.cancel-reason-row {
+    margin-top: 0.75rem;
+    padding: 0.875rem;
+    background: rgba(239, 68, 68, 0.04) !important;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--danger-500);
+}
+
+[data-theme="dark"] .cancel-reason-row {
+    background: rgba(239, 68, 68, 0.08) !important;
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.cancel-reason-row i {
+    color: var(--danger-500);
+    margin-top: 0.15rem;
+    font-size: 1rem;
+}
+
+.cancel-reason-row span {
+    line-height: 1.5;
+}
+
+.cancel-reason-row strong {
+    color: var(--danger-500);
+    display: block;
+    margin-bottom: 0.125rem;
 }
 
 .event-meta {
@@ -1918,18 +2059,23 @@ body {
 }
 
 .cal-event-card {
-    padding: 4px 8px;
-    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
     border-left: 3px solid transparent;
     transition: all var(--transition-fast);
     overflow: hidden;
     cursor: grab;
     margin: 1px 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .cal-event-card:hover {
-    filter: brightness(0.95);
-    transform: translateY(-1px);
+    filter: brightness(0.92);
+    transform: translateY(-0.5px);
     box-shadow: var(--shadow-sm);
 }
 
@@ -1937,33 +2083,28 @@ body {
     cursor: grabbing;
 }
 
-.cal-event-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2px;
-}
-
 .cal-event-time {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    opacity: 0.7;
+    opacity: 0.85;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
 }
 
 .cal-event-title {
     font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1.2;
-    white-space: nowrap;
+    font-weight: 600;
+    line-height: 1.4;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1;
 }
 
-.cal-event-room {
-    font-size: 0.65rem;
-    font-weight: 500;
-    opacity: 0.6;
-    margin-top: 1px;
+.cal-conflict-indicator {
+    color: var(--danger-500);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
 }
 
 /* Variações por Categoria */

@@ -1,13 +1,12 @@
 {
-  "sessao_ativa": false,
-  "fim": "2026-04-23T08:57:00-03:00",
-  "especialista_atual": null,
-  "ultimo_especialista": "auditor",
-  "proximo_especialista": null,
-  "ciclo_id": "CICLO-2026-04-22-6",
-  "veredicto": "APROVADO",
+  "sessao_ativa": true,
+  "inicio": "2026-04-24T08:50:12-03:00",
+  "especialista_atual": "frontend",
+  "ultimo_especialista": "product",
+  "proximo_especialista": "security-arch",
+  "ciclo_id": "CICLO-2026-04-24-1",
+  "veredicto": null,
   "findings_criticos": 0,
   "findings_altos": 0,
-  "versao_context": "2.0.0",
-  "checksum": "sha256:bb6d1d5"
+  "checksum": "sha256:init_v7"
 }

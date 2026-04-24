@@ -56,33 +56,11 @@ export async function buscarDadosMensais(ano, mes) {
  */
 
 /**
- * Calcula a altura ideal do calendário medindo os elementos reais do DOM.
- * Usa window.innerHeight como base e subtrai todos os elementos ao redor.
+ * Altura gerenciada 100% via CSS flex chain:
+ * .content-wrapper → #abaCalendario.active → .calendar-card → #calendar
+ * height:'100%' faz o FullCalendar respeitar o tamanho já definido pelo CSS.
+ * expandRows:true distribui o espaço igualmente entre as semanas (estilo Google Calendar).
  */
-function calcularAlturaCalendario() {
-    const topbarH = document.querySelector('.top-bar')?.offsetHeight ?? 48;
-    const stripEl = document.querySelector('.recent-strip');
-    const stripH = stripEl ? stripEl.offsetHeight : 0;
-    const cardEl = document.querySelector('.calendar-card');
-
-    if (cardEl) {
-        // Método mais preciso: medir o card real após o layout
-        const cardRect = cardEl.getBoundingClientRect();
-        const style = getComputedStyle(cardEl);
-        const padTop = parseFloat(style.paddingTop) || 0;
-        const padBot = parseFloat(style.paddingBottom) || 0;
-        const borderTop = parseFloat(style.borderTopWidth) || 0;
-        const borderBot = parseFloat(style.borderBottomWidth) || 0;
-        const innerH = cardRect.height - padTop - padBot - borderTop - borderBot;
-        if (innerH > 200) return innerH;
-    }
-
-    // Fallback: cálculo via window.innerHeight
-    const wrapperPad = 24;  // 0.75rem × 2
-    const cardPad = 20;     // 0.5rem topo + 0.75rem base
-    const gap = stripH > 0 ? 12 : 0;
-    return Math.max(400, window.innerHeight - topbarH - wrapperPad - cardPad - stripH - gap);
-}
 
 export function iniciarSistema(estado, callbacks) {
     const calendarEl = document.getElementById('calendar');
@@ -91,62 +69,21 @@ export function iniciarSistema(estado, callbacks) {
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
-        headerToolbar: { 
-            left: 'prev,next today', 
-            center: 'title', 
-            right: 'dayGridMonth,timeGridWeek,timeGridDay' 
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         buttonText: { today: 'Hoje', month: 'Mês', week: 'Semana', day: 'Dia' },
         eventDisplay: 'block',
-        editable: estado.nivelAcesso !== 'leitor',
-        dayMaxEvents: 3,
-        navLinks: true, // Permite clicar no número do dia ou "+mais" para ver detalhes
+        editable: false,
+        dayMaxEvents: 4,
+        navLinks: true,
         eventTimeFormat: {
             hour: '2-digit',
             minute: '2-digit',
             meridiem: false,
             hour12: false
-        },
-        eventStartEditable: (ev) => {
-            const props = ev.extendedProps;
-            return estado.nivelAcesso === 'dono' || props.criadoPor === estado.usuarioLogado?.email;
-        },
-        eventDurationEditable: (ev) => {
-            const props = ev.extendedProps;
-            return estado.nivelAcesso === 'dono' || props.criadoPor === estado.usuarioLogado?.email;
-        },
-        eventDrop: async (info) => {
-            try {
-                const { error } = await supabase
-                    .from('reservas')
-                    .update({ 
-                        start_time: info.event.start.toISOString(),
-                        end_time: info.event.end ? info.event.end.toISOString() : info.event.start.toISOString()
-                    })
-                    .eq('id', info.event.id);
-                if (error) throw error;
-                showToast("Agendamento movido!");
-                if (callbacks.onUpdate) callbacks.onUpdate();
-            } catch (e) {
-                showToast("Erro ao mover", "error");
-                info.revert();
-            }
-        },
-        eventResize: async (info) => {
-            try {
-                const { error } = await supabase
-                    .from('reservas')
-                    .update({ 
-                        end_time: info.event.end.toISOString()
-                    })
-                    .eq('id', info.event.id);
-                if (error) throw error;
-                showToast("Duração ajustada!");
-                if (callbacks.onUpdate) callbacks.onUpdate();
-            } catch (e) {
-                showToast("Erro ao ajustar", "error");
-                info.revert();
-            }
         },
         events: async function (info, successCallback, failureCallback) {
             try {
@@ -169,14 +106,15 @@ export function iniciarSistema(estado, callbacks) {
                 failureCallback(error);
             }
         },
-        height: calcularAlturaCalendario(),
+        height: '100%',
         expandRows: true,
-        handleWindowResize: false,
+        dayMaxEventRows: true,
+        handleWindowResize: true,
         windowResizeDelay: 0,
         dateClick: (info) => {
-            if (estado.nivelAcesso === 'leitor') { 
-                showToast('Modo leitura: Não é possível criar eventos', 'info'); 
-                return; 
+            if (estado.nivelAcesso === 'leitor') {
+                showToast('Modo leitura: Não é possível criar eventos', 'info');
+                return;
             }
             if (callbacks.onDateClick) callbacks.onDateClick(info.dateStr);
         },
@@ -187,7 +125,7 @@ export function iniciarSistema(estado, callbacks) {
             const props = arg.event.extendedProps;
             const time = arg.event.start ? `${arg.event.start.getHours().toString().padStart(2, '0')}h` : '';
             const conflitoIcon = props.isConflito ? '<i class="fas fa-exclamation-triangle cal-conflict-indicator" title="Conflito Detectado"></i>' : '';
-            
+
             const espaco = (props.espacos || [])[0] || "";
             let catClass = "event-out";
             if (espaco.includes("Engenharia")) catClass = "event-eng";
@@ -196,63 +134,29 @@ export function iniciarSistema(estado, callbacks) {
 
             return {
                 html: `
-                    <div class="cal-event-card ${catClass}">
-                        <div class="cal-event-top">
-                            <span class="cal-event-time">${time}</span>
-                            <div class="cal-event-indicators">${conflitoIcon}</div>
-                        </div>
-                        <div class="cal-event-title">${escapeHtml(props.tituloPuro || arg.event.title)}</div>
-                        <div class="cal-event-room">${escapeHtml(espaco)}</div>
+                    <div class="cal-event-card ${catClass}" title="${escapeHtml(arg.event.title)}">
+                        <span class="cal-event-time">${time}</span>
+                        <span class="cal-event-title">${escapeHtml(props.tituloPuro || arg.event.title)}</span>
+                        ${conflitoIcon}
                     </div>
                 `
             };
         },
-        eventDidMount: function(info) {
-            if (typeof tippy === 'function') {
-                const props = info.event.extendedProps;
-                tippy(info.el, {
-                    content: `
-                        <div style="padding: 10px; min-width: 200px;">
-                            <strong style="display:block; font-size: 0.95rem; margin-bottom: 6px; color: var(--text-primary);">${escapeHtml(props.tituloPuro || info.event.title)}</strong>
-                            <div style="font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary);">
-                                <i class="far fa-clock" style="width: 16px;"></i> ${info.event.start.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})} - ${info.event.end ? info.event.end.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) : '-'}<br>
-                                <i class="fas fa-map-marker-alt" style="width: 16px;"></i> ${escapeHtml((props.espacos || []).join(', '))}<br>
-                                <i class="far fa-user" style="width: 16px;"></i> ${escapeHtml(props.responsavel)}
-                            </div>
-                            ${props.isConflito ? '<div style="margin-top:8px; padding-top:8px; border-top: 1px solid var(--border-color); color: var(--danger-500); font-weight: 700; font-size: 0.75rem;"><i class="fas fa-exclamation-triangle"></i> ATENÇÃO: CONFLITO DETECTADO</div>' : ''}
-                        </div>
-                    `,
-                    allowHTML: true,
-                    placement: 'top',
-                    interactive: true,
-                    appendTo: () => document.body
-                });
-            }
+        moreLinkContent: (arg) => {
+            return { html: `+${arg.num}` }; // Estilo minimalista
         }
     });
 
     calendar.render();
 
-    // Função para atualizar altura e forcar re-render
-    function atualizarAltura() {
-        const h = calcularAlturaCalendario();
-        calendar.setOption('height', h);
-        calendar.updateSize();
-    }
-
-    // 1º ajuste: após o primeiro frame (DOM pronto mas antes do paint final)
-    requestAnimationFrame(() => {
-        atualizarAltura();
-        // 2º ajuste: após 200ms para garantir que o layout flex terminou
-        setTimeout(atualizarAltura, 200);
-    });
-
-    // Atualizar ao redimensionar a janela
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(atualizarAltura, 100);
-    });
+    // Com o novo layout Flexbox 100% vh, o FullCalendar se ajusta automaticamente.
+    // Disparamos um updateSize inicial para garantir que o grid preencha o container.
+    setTimeout(() => {
+        if (calendar) {
+            calendar.updateSize();
+            window.dispatchEvent(new Event('resize'));
+        }
+    }, 100);
 
     iniciarRealtime(callbacks.onUpdate);
 }

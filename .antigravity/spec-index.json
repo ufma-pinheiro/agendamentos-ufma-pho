@@ -1,8 +1,21 @@
 {
   "versao": "1.0.0",
   "ultima_atualizacao": "2026-04-21",
-  "specs_ativas": [],
+  "specs_ativas": [
+    {
+      "id": "FEAT-006",
+      "titulo": "Migração de Últimos Registros para Sidebar",
+      "status": "Planejado",
+      "arquivo": "specs/active/FEAT-006-migracao-sidebar-ultimos-registros.md"
+    }
+  ],
   "specs_concluidas": [
+    {
+      "id": "FEAT-005",
+      "titulo": "Redesign do Painel de Últimos Registros",
+      "status": "Concluído",
+      "arquivo": "specs/active/FEAT-005-redesign-ultimos-registros.md"
+    },
     {
       "id": "FEAT-004",
       "titulo": "Redesign Premium do Calendário (UX/UI SaaS)",

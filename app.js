@@ -8,6 +8,7 @@ import { atualizarPainelNotificacoes } from './js/notifications.js';
 import { atualizarDashboard } from './js/dashboard.js';
 import { atualizarPainelConflitos } from './js/conflitos.js';
 import { salvarOuEditarEvento, deletarEvento, initReservasWindow, fecharModal, fecharModalForm } from './js/reservas.js';
+import { gerarCardEventoHtml } from './js/components.js';
 
 // Estado global
 const estado = {
@@ -52,20 +53,22 @@ window.switchTab = function (tabId, navElement) {
         'abaRelatorios': 'Relatórios', 'abaUsuarios': 'Gestão de Usuários',
         'abaNotificacoes': 'Central de Notificações',
         'abaCancelamentos': 'Histórico de Cancelamentos',
-        'abaConflitos': 'Painel de Conflitos Global'
+        'abaConflitos': 'Painel de Conflitos Global',
+        'abaUltimosRegistros': 'Últimos Registros'
     };
     const pageTitle = document.getElementById('pageTitle');
     if (pageTitle) pageTitle.textContent = titles[tabId] || 'Calendário';
 
     try {
         if (tabId === 'abaCalendario' && getCalendar()) {
-            setTimeout(() => getCalendar().updateSize(), 100);
+            setTimeout(() => getCalendar().updateSize(), 250);
         }
         if (tabId === 'abaResumo') atualizarResumoMes();
         if (tabId === 'abaDashboard') atualizarDashboard(estado);
         if (tabId === 'abaMeusEventos') atualizarMeusEventos();
         if (tabId === 'abaCancelamentos') atualizarCancelamentos();
         if (tabId === 'abaConflitos') atualizarPainelConflitos();
+        if (tabId === 'abaUltimosRegistros') atualizarUltimosEventos();
         if (tabId === 'abaNotificacoes' && typeof atualizarPainelNotificacoes === 'function') {
             atualizarPainelNotificacoes();
         }
@@ -273,10 +276,12 @@ initAuth(estado, () => {
     authVerificado = true;
     initUI();
     aplicarPermissoes(estado.nivelAcesso, carregarListaUsuariosAdmin);
+    initReservasWindow(atualizarTodasTelas);
+    
     iniciarSistema(estado, {
         onEventsLoaded: atualizarTodasTelas,
         onUpdate: atualizarTodasTelas,
-        onDateClick: window.abrirModalFormulario,
+        onDateClick: (date) => window.abrirModalFormulario(date),
         onEventClick: (info) => {
             if (typeof window.setEventoSelecionado === 'function') {
                 window.setEventoSelecionado(info.event);
@@ -284,8 +289,6 @@ initAuth(estado, () => {
             window.abrirDetalhes(info.event);
         }
     });
-
-    initReservasWindow(atualizarTodasTelas);
     hideLoading();
 });
 
@@ -594,6 +597,7 @@ function atualizarTodasTelas() {
     if (abaResumo?.classList.contains('active')) atualizarResumoMes();
     if (abaDashboard?.classList.contains('active')) atualizarDashboard(estado);
     if (document.getElementById('abaConflitos')?.classList.contains('active')) atualizarPainelConflitos();
+    if (document.getElementById('abaUltimosRegistros')?.classList.contains('active')) atualizarUltimosEventos();
     if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 
@@ -611,43 +615,7 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
     const passados = lista.filter(ev => (ev.end || ev.start) < agora);
 
     function renderCard(ev) {
-        const passado = (ev.end || ev.start) < agora;
-        const inicio = new Date(ev.start);
-        const fim = ev.end ? new Date(ev.end) : null;
-        const dia = inicio.getDate().toString().padStart(2, '0');
-        const mes = mesesAbrev[inicio.getMonth()];
-        
-        const horaInicio = inicio.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        const horaFim = fim ? fim.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
-        const periodo = horaFim ? `${horaInicio} - ${horaFim}` : `A partir das ${horaInicio}`;
-        
-        const espacos = ev.extendedProps.espacos || [ev.extendedProps.espaco] || [];
-        const cor = ev.backgroundColor || ev.color || '#0056b3';
-        const badgeConflito = ev.extendedProps.isConflito ? `<span class="badge-conflito"><i class="fas fa-exclamation"></i> Conflito</span>` : '';
-
-        return `
-            <div class="event-row ${passado ? 'past' : ''}" style="--event-color: ${cor}">
-                <div class="event-date-box" style="background: ${cor}15; color: ${cor};">
-                    <span class="day">${dia}</span>
-                    <span class="month">${mes}</span>
-                </div>
-                <div class="event-content" onclick="abrirDetalhes(getCalendar()?.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
-                    <div class="event-header-row">
-                        <h4>${escapeHtml(ev.extendedProps.tituloPuro || ev.title)}</h4>
-                        ${badgeConflito}
-                    </div>
-                    <div class="event-meta">
-                        <span><i class="far fa-clock"></i> ${periodo}</span>
-                        <span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel) || '-'}</span>
-                    </div>
-                    <div class="event-locais">${espacos.map(e => `<span class="tag-local-mini ${getClasseBadge(e)}">${escapeHtml(e)}</span>`).join('')}</div>
-                </div>
-                ${(!ev.extendedProps.isFeriado && (estado.nivelAcesso === 'dono' || (estado.nivelAcesso === 'editor' && ev.extendedProps.criadoPor === estado.usuarioLogado?.email))) ? `
-                <div class="event-actions">
-                    <button class="btn-icon-sm" onclick="event.stopPropagation(); prepararEdicaoPorId('${ev.id}')" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon-sm danger" onclick="event.stopPropagation(); deletarPorId('${ev.id}')" title="Excluir"><i class="fas fa-trash"></i></button>
-                </div>` : ''}
-            </div>`;
+        return gerarCardEventoHtml(ev, estado);
     }
 
     let html = ativos.map(renderCard).join('');
@@ -660,7 +628,7 @@ function renderizarCards(eventos, containerId, mensagemVazio) {
 async function atualizarUltimosEventos() {
     const cal = getCalendar();
     if (!cal) return;
-    const container = document.getElementById('containerUltimosEventos');
+    const container = document.getElementById('listaUltimosRegistros');
     if (!container) return;
 
     try {
@@ -669,19 +637,13 @@ async function atualizarUltimosEventos() {
             .select('id, title, start_time, end_time, color, titulopuro, espacos, responsavel, contatowhats, contatoemail, isconflito, groupid, datacriacao, criadopor')
             .eq('cancelado', false)
             .order('datacriacao', { ascending: false })
-            .limit(5);
+            .limit(30);
 
         if (error) throw error;
+        document.getElementById('listaUltimosRegistros__count').textContent = data.length;
         const eventos = data.map(dbParaFrontend);
-
-        container.innerHTML = eventos.map(ev => `
-            <div class="event-mini-card" onclick="abrirDetalhes(getCalendar()?.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
-                <div class="event-info">
-                    <h5>${escapeHtml(ev.extendedProps.tituloPuro)}</h5>
-                    <div class="event-meta-mini"><span><i class="far fa-user"></i> ${escapeHtml(ev.extendedProps.responsavel)}</span></div>
-                </div>
-                <i class="fas fa-chevron-right arrow"></i>
-            </div>`).join('');
+        
+        container.innerHTML = eventos.map(ev => gerarCardEventoHtml(ev, estado)).join('');
     } catch (e) { console.error(e); }
 }
 
@@ -781,30 +743,7 @@ function renderizarCardsCancelados(eventos, containerId, mensagemVazio) {
         return;
     }
 
-    container.innerHTML = eventos.map(ev => {
-        const props = ev.extendedProps;
-        const dataCanc = props.datacancelamento ? new Date(props.datacancelamento).toLocaleDateString('pt-BR') : '';
-        
-        return `
-            <div class="event-card cancelled">
-                <div class="event-card-header">
-                    <span class="event-card-date"><i class="far fa-calendar"></i> ${new Date(ev.start).toLocaleDateString('pt-BR')}</span>
-                    <span class="badge badge-leitor">Cancelado em ${dataCanc}</span>
-                </div>
-                <h4 class="event-card-title">${escapeHtml(props.tituloPuro)}</h4>
-                <div class="event-card-info">
-                    <i class="fas fa-map-marker-alt"></i> ${escapeHtml(props.espacos.join(', '))}
-                </div>
-                <div class="cancel-reason-badge">
-                    <i class="fas fa-comment-slash"></i>
-                    <div>
-                        <strong>Motivo do Cancelamento:</strong><br>
-                        ${escapeHtml(props.motivo_cancelamento || 'Não informado')}
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
+    container.innerHTML = eventos.map(ev => gerarCardEventoHtml(ev, estado)).join('');
 }
 
 async function atualizarResumoMes() {
@@ -924,19 +863,34 @@ function exportarPDF() {
     showToast('PDF gerado com sucesso!');
 }
 
-function fazerBackupJSON() {
-    const cal = getCalendar();
-    if (!cal) return;
-    const dados = cal.getEvents().map(ev => ({
-        id: ev.id,
-        ...ev.extendedProps,
-        start: ev.start?.toISOString(),
-        end: ev.end?.toISOString()
-    }));
-    const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob); const a = document.createElement('a');
-    a.href = url; a.download = `backup_ufma_${new Date().toISOString().split('T')[0]}.json`; a.click();
-    URL.revokeObjectURL(url); showToast('Backup salvo!');
+async function fazerBackupJSON() {
+    try {
+        const { data, error } = await supabase.from('reservas').select('*');
+        if (error) throw error;
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8;' });
+        const url = URL.createObjectURL(blob); 
+        const a = document.createElement('a');
+        
+        const agora = new Date();
+        const d = String(agora.getDate()).padStart(2, '0');
+        const m = String(agora.getMonth() + 1).padStart(2, '0');
+        const ano = agora.getFullYear();
+        const h = String(agora.getHours()).padStart(2, '0');
+        const min = String(agora.getMinutes()).padStart(2, '0');
+        
+        a.href = url; 
+        a.setAttribute('download', `Backup_Agendamentos_${d}-${m}-${ano}_as_${h}h${min}.json`); 
+        
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url); 
+        showToast('Backup salvo com sucesso!');
+    } catch (err) {
+        console.error("Erro ao gerar backup:", err);
+        showToast('Erro ao gerar backup: ' + err.message, 'error');
+    }
 }
 
 async function restaurarBackupJSON(e) {
@@ -944,7 +898,7 @@ async function restaurarBackupJSON(e) {
     if (!file) return;
     const confirm = await Swal.fire({
         title: 'Restaurar Backup?',
-        text: 'Isso pode sobrescrever dados existentes. Continuar?',
+        text: 'Isso pode sobrescrever dados existentes e restaurará eventos cancelados. Continuar?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sim, restaurar',
@@ -956,39 +910,84 @@ async function restaurarBackupJSON(e) {
     reader.onload = async (evt) => {
         try {
             const dados = JSON.parse(evt.target.result);
-            if (!Array.isArray(dados)) throw new Error('Formato inválido');
+            if (!Array.isArray(dados)) throw new Error('O arquivo não contém um array JSON válido.');
             Swal.fire({ title: 'Restaurando...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+            let sucessos = 0;
+            let conflitosIgnorados = 0;
 
             for (const item of dados) {
                 const { id, ...rest } = item;
-                // Mapeia os campos do backup para o formato do banco
+                
+                // Ignorar feriados fixos que foram incluídos no backup antigo
+                if (rest.isFeriado || item.isFeriado) continue;
+                // Ignorar se o ID for explicitamente uma string não numérica (ex: "feriado-1")
+                if (id && isNaN(parseInt(id, 10))) continue;
+
+                // Mapeia os campos do backup (antigo do frontend ou novo direto do Supabase) para o formato do banco
                 const dadosDb = {
-                    title: rest.title || rest.tituloPuro,
-                    titulopuro: rest.tituloPuro || rest.titulopuro || rest.title,
-                    start_time: rest.start || rest.start_time,
-                    end_time: rest.end || rest.end_time,
-                    espacos: rest.espacos,
-                    responsavel: rest.responsavel,
-                    contatowhats: rest.contatoWhats || rest.contatowhats || null,
-                    contatoemail: rest.contatoEmail || rest.contatoemail || null,
-                    color: rest.color,
-                    isconflito: rest.isConflito || rest.isconflito || false,
-                    groupid: rest.groupId || rest.groupid || null,
-                    datacriacao: rest.dataCriacao || rest.datacriacao,
-                    criadopor: rest.criadoPor || rest.criadopor || null
+                    title: rest.title || rest.tituloPuro || rest.titulopuro || 'Evento sem título',
+                    titulopuro: rest.titulopuro || rest.tituloPuro || rest.title || 'Evento sem título',
+                    start_time: rest.start_time || rest.start,
+                    end_time: rest.end_time || rest.end,
+                    espacos: rest.espacos || (rest.espaco ? [rest.espaco] : []),
+                    responsavel: rest.responsavel || 'Não informado',
+                    contatowhats: rest.contatowhats || rest.contatoWhats || null,
+                    contatoemail: rest.contatoemail || rest.contatoEmail || null,
+                    color: rest.color || '#0056b3',
+                    isconflito: rest.isconflito !== undefined ? rest.isconflito : (rest.isConflito || false),
+                    groupid: rest.groupid || rest.groupId || null,
+                    datacriacao: rest.datacriacao || rest.dataCriacao || new Date().toISOString(),
+                    criadopor: rest.criadopor || rest.criadoPor || null,
+                    // Novos campos de soft delete
+                    cancelado: rest.cancelado !== undefined ? rest.cancelado : false,
+                    motivo_cancelamento: rest.motivo_cancelamento || null,
+                    datacancelamento: rest.datacancelamento || null
                 };
 
+                if (!dadosDb.start_time || !dadosDb.end_time) {
+                    console.warn("Evento sem start_time ignorado:", item);
+                    continue;
+                }
+
+                let erroSupabase = null;
                 if (id) {
                     dadosDb.id = id;
-                    await supabase.from('reservas').upsert(dadosDb, { onConflict: 'id' });
+                    const { error } = await supabase.from('reservas').upsert(dadosDb, { onConflict: 'id' });
+                    erroSupabase = error;
                 } else {
-                    await supabase.from('reservas').insert(dadosDb);
+                    const { error } = await supabase.from('reservas').insert(dadosDb);
+                    erroSupabase = error;
+                }
+
+                if (erroSupabase) {
+                    // P0001 = Raise Exception (Provavelmente a Trigger de Conflito do Supabase)
+                    if (erroSupabase.code === 'P0001') {
+                        console.warn(`Item ignorado (conflito detectado): ${dadosDb.title}`, erroSupabase.message);
+                        conflitosIgnorados++;
+                    } else {
+                        console.error("Erro no item:", dadosDb, "Erro Supabase:", erroSupabase);
+                        throw new Error(erroSupabase.message || JSON.stringify(erroSupabase));
+                    }
+                } else {
+                    sucessos++;
                 }
             }
 
-            await recarregarDados();
+            if (typeof recarregarDados === 'function') {
+                await recarregarDados();
+            }
+            if (document.getElementById('abaMeusEventos')?.classList.contains('active')) {
+                if (typeof atualizarMeusEventos === 'function') atualizarMeusEventos();
+            }
+            
             Swal.close();
-            showToast('Backup restaurado com sucesso!');
+            
+            if (conflitosIgnorados > 0) {
+                Swal.fire('Restaurado com Ressalvas', `Backup restaurado: ${sucessos} eventos. Omitidos ${conflitosIgnorados} eventos por conflito com a agenda atual.`, 'warning');
+            } else {
+                showToast(`Backup restaurado com sucesso! (${sucessos} eventos)`);
+            }
         } catch (err) {
             console.error("Erro ao restaurar:", err);
             Swal.close();

@@ -54,12 +54,12 @@ O `eventContent` deve retornar o seguinte HTML estruturado:
 - `.cal-event-room`: Font-size 0.65rem, opacity 0.6.
 
 ## 3. Tooltip (Hover)
-- **Biblioteca**: Usar Tippy.js (via CDN) para tooltips performáticos.
+- **Biblioteca**: .
 - **Tema**: Glassmorphism (bg branco semi-transparente + blur).
 - **Conteúdo**: Título (H4), Horário, Local e Responsável.
 
 ## 4. Interatividade
-- **Drag & Drop**: O card deve ter um cursor `grab` e, ao ser arrastado, reduzir a opacidade para 0.5.
+
 - **Resize**: Alça de redimensionamento na parte inferior sutil.
 
 ## 5. Responsividade (Mobile)

@@ -1,0 +1,25 @@
+{
+  "name": "em-dev-agendamentos-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ufma-pinheiro/agendamentos-ufma-pho.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ufma-pinheiro/agendamentos-ufma-pho/issues"
+  },
+  "homepage": "https://github.com/ufma-pinheiro/agendamentos-ufma-pho#readme"
+}

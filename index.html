@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://esm.sh https://vercel.live https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' wss://ibukwhlxefiyqalrooam.supabase.co https://ibukwhlxefiyqalrooam.supabase.co https://cdn.jsdelivr.net https://esm.sh; img-src 'self' data: https://vercel.live; frame-src https://vercel.live">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://esm.sh https://vercel.live https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' wss://ibukwhlxefiyqalrooam.supabase.co https://ibukwhlxefiyqalrooam.supabase.co https://cdn.jsdelivr.net https://esm.sh https://unpkg.com; img-src 'self' data: https://vercel.live; frame-src https://vercel.live">
     <title>Sistema de Agendamentos | UFMA</title>
     <meta name="description" content="Sistema de agendamentos de espaços UFMA">
 
@@ -110,6 +110,10 @@
                     <button class="nav-item" data-target="abaResumo" onclick="switchTab('abaResumo')">
                         <i class="fas fa-list-alt"></i>
                         <span>Resumo Mensal</span>
+                    </button>
+                    <button class="nav-item" data-target="abaUltimosRegistros" onclick="switchTab('abaUltimosRegistros')">
+                        <i class="fas fa-history"></i>
+                        <span>Últimos Registros</span>
                     </button>
                 </div>
 
@@ -230,20 +234,6 @@
                     <div class="card calendar-card calendar-full">
                         <div id="calendar"></div>
                     </div>
-
-                    <div class="recent-strip" id="recentStrip">
-                        <button class="recent-strip-toggle" id="btnToggleRecent"
-                            onclick="document.getElementById('recentStrip').classList.toggle('open')">
-                            <span><i class="fas fa-bolt"></i> Últimos Registros</span>
-                            <i class="fas fa-chevron-down toggle-chevron"></i>
-                        </button>
-                        <div class="recent-strip-content" id="containerUltimosEventos">
-                            <div class="empty-state small">
-                                <i class="fas fa-spinner fa-spin"></i>
-                                <span>Carregando eventos...</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Meus Eventos -->
@@ -271,6 +261,24 @@
                                 <i class="fas fa-calendar-times"></i>
                                 <h3>Nenhum evento encontrado</h3>
                                 <p>Você ainda não criou nenhum agendamento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Últimos Registros -->
+                <div id="abaUltimosRegistros" class="tab-content">
+                    <div class="page-header">
+                        <h2><i class="fas fa-history"></i> Últimos Registros <span class="events-count-badge" id="listaUltimosRegistros__count">0</span></h2>
+                        <p class="page-description">Histórico recente de agendamentos realizados no sistema</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body" id="listaUltimosRegistros">
+                            <div class="empty-state">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <h3>Carregando...</h3>
+                                <p>Buscando registros recentes no banco de dados.</p>
                             </div>
                         </div>
                     </div>

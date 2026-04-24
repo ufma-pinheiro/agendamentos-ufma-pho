@@ -41,7 +41,10 @@ export function dbParaFrontend(row) {
             isConflito:   row.isconflito,
             groupId:      row.groupid,
             dataCriacao:  row.datacriacao,
-            criadoPor:    row.criadopor
+            criadoPor:    row.criadopor,
+            cancelado:    row.cancelado,
+            motivo_cancelamento: row.motivo_cancelamento,
+            datacancelamento:    row.datacancelamento
         }
     };
 }
