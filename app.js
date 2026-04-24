@@ -695,32 +695,53 @@ async function atualizarCancelamentos() {
         if (error) throw error;
         
         if (data.length === 0) {
-            container.innerHTML = `<tr><td colspan="5" class="text-center p-4">Nenhum cancelamento registrado.</td></tr>`;
+            container.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Nenhum evento cancelado foi encontrado no histórico.</span>
+                </div>`;
             return;
         }
 
         container.innerHTML = data.map(ev => {
             const evento = dbParaFrontend(ev);
             const dataCanc = ev.datacancelamento ? new Date(ev.datacancelamento).toLocaleString('pt-BR') : '-';
+            const dataCancSplit = dataCanc.split(', ');
             const dataEvento = new Date(evento.start).toLocaleDateString('pt-BR');
             
             return `
-                <tr>
-                    <td><span class="text-secondary">${dataCanc}</span></td>
-                    <td>
-                        <div class="d-flex flex-column">
-                            <strong>${escapeHtml(evento.extendedProps.tituloPuro)}</strong>
-                            <span class="text-xs text-tertiary">${dataEvento} • ${escapeHtml(evento.extendedProps.espacos.join(', '))}</span>
+                <div class="cancelamento-card">
+                    <div class="canc-header">
+                        <div class="canc-date">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>${dataCancSplit[0] || dataCanc}</strong>
+                                <span>${dataCancSplit[1] || ''}</span>
+                            </div>
                         </div>
-                    </td>
-                    <td><span class="badge badge-leitor">${escapeHtml(ev.canceladopor || 'Sistema')}</span></td>
-                    <td><div class="text-sm italic text-danger" style="max-width: 250px;">"${escapeHtml(ev.motivo_cancelamento || 'Sem motivo')}"</div></td>
-                    <td>
-                        <button class="btn-restore-mini" onclick="window.restaurarEvento('${evento.id}')">
-                            <i class="fas fa-trash-restore"></i> Restaurar
+                        <span class="badge canc-author">
+                            <i class="fas fa-user-times"></i> ${escapeHtml(ev.canceladopor || 'Sistema')}
+                        </span>
+                    </div>
+                    
+                    <div class="canc-body">
+                        <h4 class="canc-title">${escapeHtml(evento.extendedProps.tituloPuro)}</h4>
+                        <div class="canc-info">
+                            <span><i class="far fa-calendar-alt"></i> ${dataEvento}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(evento.extendedProps.espacos.join(', '))}</span>
+                        </div>
+                        <div class="canc-reason">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <p>${escapeHtml(ev.motivo_cancelamento || 'Sem motivo informado')}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="canc-footer">
+                        <button class="btn-restore-mini" onclick="window.restaurarEvento('${evento.id}')" title="Restaurar este agendamento">
+                            <i class="fas fa-undo"></i> Restaurar Evento
                         </button>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             `;
         }).join('');
 

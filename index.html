@@ -624,26 +624,10 @@
                         <p class="page-description">Gerencie os eventos cancelados no sistema</p>
                     </div>
 
-                    <div class="card mt-4">
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table-styled">
-                                    <thead>
-                                        <tr>
-                                            <th>Data do Cancelamento</th>
-                                            <th>Evento e Local</th>
-                                            <th>Cancelado Por</th>
-                                            <th>Motivo</th>
-                                            <th>Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="listaCancelamentosAdmin">
-                                        <tr>
-                                            <td colspan="5" class="text-center p-4">Carregando cancelamentos...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div id="listaCancelamentosAdmin" class="cancelamentos-grid mt-4">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Carregando cancelamentos...</span>
                         </div>
                     </div>
                 </div>
