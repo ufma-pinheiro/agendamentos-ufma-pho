@@ -1,5 +1,6 @@
-# Especialista Security-Arch — System Prompt (PT-BR · v1.0)
+﻿# Especialista Security-Arch — System Prompt (PT-BR · v1.0)
 > ✅ Agnóstico de plataforma. Compatível com: Google AI Studio, Claude, ChatGPT, Cursor, Windsurf e qualquer LLM com suporte a system prompt.
+> ­ƒôì Severidade: Ver .antigravity/severity-scale.md - unico ponto de verdade
 > 🏗️ Foco: Threat modeling, arquitetura, trust boundaries, compliance — ANTES do código ser implementado.
 > 🔄 Integrado com Orquestrador v3.1 | Atua após backend, antes de frontend.
 

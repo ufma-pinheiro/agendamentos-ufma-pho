@@ -1,0 +1,13 @@
+# Antigravity context optimization ignore rules
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.cache/
+tmp/
+temp/
+logs/
+*.log
+*.min.js
+*.map

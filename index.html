@@ -826,6 +826,43 @@
                             <div class="datas-list" id="datasContainer">
                                 <!-- Linhas de data preenchidas via JS -->
                             </div>
+
+                            <div class="recorrencia-panel">
+                                <label class="switch-row">
+                                    <input type="checkbox" id="recorrenciaAtiva">
+                                    <span>Evento recorrente</span>
+                                </label>
+
+                                <div id="recorrenciaOpcoes" class="recorrencia-opcoes hidden">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Frequência</label>
+                                            <select id="recorrenciaFrequencia" class="input-date">
+                                                <option value="daily">Diária</option>
+                                                <option value="weekly" selected>Semanal</option>
+                                                <option value="monthly">Mensal</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Data final da série</label>
+                                            <input type="date" id="recorrenciaFim" class="input-date">
+                                        </div>
+                                    </div>
+
+                                    <div id="recorrenciaDiasSemanaBox" class="recorrencia-dias">
+                                        <label>Dias da semana</label>
+                                        <div class="recorrencia-dias-grid">
+                                            <label class="checkbox-card"><input type="checkbox" name="recorrenciaDiaSemana" value="1"><span class="checkbox-box"><i class="fas fa-check"></i></span><span>Seg</span></label>
+                                            <label class="checkbox-card"><input type="checkbox" name="recorrenciaDiaSemana" value="2"><span class="checkbox-box"><i class="fas fa-check"></i></span><span>Ter</span></label>
+                                            <label class="checkbox-card"><input type="checkbox" name="recorrenciaDiaSemana" value="3"><span class="checkbox-box"><i class="fas fa-check"></i></span><span>Qua</span></label>
+                                            <label class="checkbox-card"><input type="checkbox" name="recorrenciaDiaSemana" value="4"><span class="checkbox-box"><i class="fas fa-check"></i></span><span>Qui</span></label>
+                                            <label class="checkbox-card"><input type="checkbox" name="recorrenciaDiaSemana" value="5"><span class="checkbox-box"><i class="fas fa-check"></i></span><span>Sex</span></label>
+                                            <label class="checkbox-card"><input type="checkbox" name="recorrenciaDiaSemana" value="6"><span class="checkbox-box"><i class="fas fa-check"></i></span><span>Sáb</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </form>

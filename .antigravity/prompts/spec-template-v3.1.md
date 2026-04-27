@@ -1,5 +1,6 @@
-# 📐 Spec — [Nome da Feature / Melhoria / Correção]
-> ✅ Versão 3.1 — Integrado com Orquestrador v3.1 + Handoff Template v2.0
+﻿# 📐 Spec — [Nome da Feature / Melhoria / Correção]
+> ✅ Versão 3.1 — Integrado com Orquestrador v3.1 + Handoff Template v2.1
+> ­ƒôì Severidade: Ver .antigravity/severity-scale.md - unico ponto de verdade
 > ⚠️ Este arquivo define O QUE será construído, como deve se comportar e como sabemos que está pronto.
 > Deve ser lido em conjunto com o `context.md` do projeto.
 > Preencha antes de ativar qualquer especialista de execução.

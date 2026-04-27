@@ -1,165 +1,280 @@
-# 📋 Contexto do Projeto — Fonte da Verdade
-> ⚠️ Este arquivo NÃO é preenchido manualmente pelo humano.
-> A IA deve inferir e preencher automaticamente com base nos artefatos fornecidos.
-> Todos os especialistas devem ler este arquivo antes de qualquer ação.
-> Campos inferidos com incerteza: `[inferido — confirmar]`
-> Campos sem evidência: `[não identificado — aguardando mais contexto]`
+# 📋 Contexto do Projeto — Fonte da Verdade Autônoma
+> ✅ Versão 1.2.0 — Corrigido: sessao_ativa com strings explícitas + Referências a novos artefatos
+> ⚠️ Este arquivo é LIDO e ESCRITO automaticamente pela IA.
+> NUNCA edite manualmente. Use o Orchestrator para solicitar mudanças.
+> Versão gerenciada por: `.antigravity/context.lock`
+> 🔄 Integrado com Orquestrador v4.0 + Handoff Template v2.1 + Severity Scale v1.0
+
+---
+meta:
+  versao: "1.2.0"
+  ultima_atualizacao: "2026-04-27T13:08:09.7063686Z"
+  atualizado_por: "orchestrator"
+  ciclo_atual: "CICLO-2026-04-27-001"
+  sessao_ativa: "active"  # "none" | "active" | "closed"
+  checksum: "sha256:..."
+---
+
+> 📌 NOTA SOBRE `sessao_ativa` (C-01 — CORRIGIDO v1.2):
+> - `"none"` = Nenhum ciclo ativo. Orquestrador iniciará Gate 0 normalmente.
+> - `"active"` = Ciclo em andamento. Orquestrador ativará Modo 6 (Recuperação de Falha).
+> - `"closed"` = Ciclo encerrado com sucesso. Orquestrador iniciará novo ciclo.
+> ⚠️ NUNCA use valores booleanos (true/false/null) — strings obrigatórias.
 
 ---
 
-## 📌 Versão deste Arquivo
-- Versão: `2.0.6`
-- Última atualização: `2026-04-24`
-- Atualizado por: `Orchestrator — Hotfixes de UI e Backup Concluídos`
+## 📚 Artefatos do Ecossistema (Referências Obrigatórias)
 
----
+Todos os especialistas devem referenciar estes arquivos quando aplicável:
 
-## 🤖 Instrução de Autopreenchimento
-Ao receber qualquer artefato (código, repositório, README, descrição, PR, conversa), a IA deve:
-1. Analisar o artefato e inferir os campos abaixo
-2. Preencher cada campo com o que foi identificado
-3. Marcar campos incertos como `[inferido — confirmar]`
-4. Marcar campos sem evidência como `[não identificado — aguardando mais contexto]`
-5. Nunca pedir ao humano para preencher este arquivo manualmente
-6. Registrar no histórico o que foi inferido e quando
+| Artefato | Versão | Localização | Função |
+|----------|--------|-------------|--------|
+| **Severity Scale** | v1.0.0 | `.antigravity/severity-scale.md` | Escala única de severidade para TODOS os especialistas |
+| **Token Optimizer** | v1.0.0 | `.antigravity/token-optimizer-rules.md` | Regras de otimização de contexto (Gate 0) |
+| **Handoff Registry** | v1.0.0 | `.antigravity/handoff-registry.yaml` | Índice centralizado de handoffs com checksum |
+| **Handoff Template** | v2.1.0 | `.antigravity/handoff-template-v2.1.md` | Protocolo padronizado de handoff |
+| **Spec Template** | v3.1.0 | `specs/spec-template-v3.1.md` | Template de especificação |
 
 ---
 
 ## 1️⃣ Identidade e Propósito
-- Nome do Produto: `Sistema de Agendamento UFMA (Pinheiro)`
-- Proposta de Valor (1 frase): `Gestão centralizada de reservas de espaços acadêmicos com calendários dinâmicos, controle de permissões e análise de ocupação.`
-- Fase Atual: `Estável` (Calendário Premium e Últimos Registros padronizados; FEAT-006: Migração para Sidebar iniciada).
-- Tipo de Sistema: `Ferramenta Interna`
+- Nome do Produto: `Sistema de Agendamento UFMA (Pinheiro) [inferido - confirmar]`
+- Proposta de Valor (1 frase): `Gestao centralizada de reservas de espacos academicos com controle de permissoes e visao de ocupacao. [inferido - confirmar]`
+- Fase Atual: `Desenvolvimento [inferido - confirmar]`
+- Tipo de Sistema: `Ferramenta Interna [inferido - confirmar]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 2️⃣ Domínio e Glossário
-- Termos-chave do negócio: `Agendamento/Reserva`, `Espaço/Sala`, `Responsável`, `Conflito`, `Role (Papel)`.
-- Regras de negócio não-óbvias:
-    - Fuso horário fixo em `UTC-3` (Brasília) para evitar erros de renderização no calendario.
-    - Divisão cronológica: Eventos que abrangem vários dias são fragmentados em registros individuais (um por dia).
-    - Filtros por categoria: Engenharia, Licenciaturas, Saúde (com cores específicas).
-    - **Notificações:** Apenas via E-mail (24h antes) para avisar TI/Responsáveis sobre logística (datashow, auditório). WhatsApp proibido.
-- Entidades e relações principais: `Reservas` (eventos de agenda), `Usuários` (permissões vinculadas ao e-mail institucional).
-- Termos proibidos ou ambíguos: `[não identificado — aguardando mais contexto]`
+- Termos-chave do negócio: `[ ]`
+- Regras de negócio não-óbvias: `[ ]`
+- Entidades e relações principais: `[ ]`
+- Termos proibidos ou ambíguos: `[ ]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 3️⃣ Usuários e Mercado
-- Público Principal: `Comunidade UFMA (Professores, Alunos e Técnicos do Campus Pinheiro).`
-- Perfis / Níveis de Acesso:
-    - `leitor`: Apenas visualiza a agenda e dashboard.
-    - `editor`: Cria, edita e exclui seus próprios agendamentos.
-    - `dono`: Acesso total (Gestão de usuários, dashboard administrativo, exclusão global).
-- Nível de Confiança Exigido: `Alto` (Controle de acesso físico a salas e auditórios).
-- Tom ou Diferencial de Marca: `Institucional e Profissional.`
+- Público Principal: `[ ]`
+- Perfis / Níveis de Acesso: `[ ]`
+- Nível de Confiança Exigido: `[Baixo / Médio / Alto / Regulamentado]`
+- Tom ou Diferencial de Marca: `[ ]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 4️⃣ Fluxos e Funcionalidades Críticas
-- Fluxo Principal (Job to be Done): `Verificar disponibilidade -> Selecionar Horário -> Confirmar Agendamento -> [Opcional] Cancelamento.`
-- Funcionalidades Essenciais: `Calendário Interativo (FullCalendar), Dashboard de ocupação (Chart.js), Exportação PDF/Excel, Notificações de 24h por E-mail.`
-- Fluxos de Alto Risco / Sensíveis: `Detecção de conflitos automática` e `Cancelamento de reservas`.
-- Estados que Não Podem Falhar: `Sincronização com Supabase Realtime` e `Verificação de Auth` no Login.
+- Fluxo Principal (Job to be Done): `[ ]`
+- Funcionalidades Essenciais: `[ ]`
+- Fluxos de Alto Risco / Sensíveis: `[ ]`
+- Estados que Não Podem Falhar: `[ ]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 5️⃣ Stack e Arquitetura
-- Frontend: `Vanilla JavaScript (ES Modules), HTML5, CSS3.`
-- Backend: `Supabase (PostgREST + Realtime).`
-- Banco de Dados: `PostgreSQL (Supabase).`
-- Infra / Deploy: `Vercel.`
-- Estilo de API: `Direct PostgREST` (via SDK do Supabase).
-- Autenticação / Autorização: `Supabase Auth` com validação customizada baseada na tabela `usuarios`.
-- Gerenciamento de Estado / Cache: `Estado Global` (objeto `estado` em `app.js`).
-- Dependências Críticas: `FullCalendar@6`, `Chart.js`, `Flatpickr`, `SweetAlert2`, `XLSX`, `jsPDF`.
+- Frontend: `Vanilla JavaScript (ES Modules), HTML5, CSS3 [inferido - confirmar]`
+- Backend: `Supabase (PostgREST + Realtime) [inferido - confirmar]`
+- Banco de Dados: `PostgreSQL (Supabase) [inferido - confirmar]`
+- Infra / Deploy: `Vercel [inferido - confirmar]`
+- Estilo de API: `REST (PostgREST via SDK Supabase) [inferido - confirmar]`
+- Autenticação / Autorização: `Supabase Auth + controle de role em tabela usuarios [inferido - confirmar]`
+- Gerenciamento de Estado / Cache: `Estado global em JavaScript no cliente [inferido - confirmar]`
+- Dependências Críticas ou Lock de Stack: `FullCalendar, Chart.js, Flatpickr, XLSX, jsPDF [inferido - confirmar]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 6️⃣ Ambientes e Secrets
-- Ambientes ativos: `Local` (desenvolvimento) e `Produção` (Vercel).
-- Diferenças entre ambientes: `[não identificado — aguardando mais contexto]`
-- Estratégia de secrets: `Supabase URL/Anon Key` gerenciadas via arquivos de configuração/variáveis de ambiente no Vercel.
-- URLs de referência: `https://github.com/ufma-pinheiro/agendamentos-ufma-pho`
+- Ambientes ativos: `local e prod [inferido - confirmar]`
+- Diferenças entre ambientes: `[nao identificado - aguardando mais contexto]`
+- Estratégia de secrets: `Supabase URL e anon key via variaveis de ambiente [inferido - confirmar]`
+- URLs de referência: `https://github.com/ufma-pinheiro/agendamentos-ufma-pho [inferido - confirmar]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
-## 7️⃣ Integrações e Dependências Externas
-- Integrações ativas: `Supabase (Backend-as-a-Service).`
-- SLAs ou limites conhecidos: `[não identificado — aguardando mais contexto]`
-- Fallback se integração cair: `Alertas visuais via showToast e SweetAlert2.`
-- Dependências críticas: `CDN's de bibliotecas (jsDelivr, unpkg).`
-- Domínios externos inventariados (CSP): `cdn.jsdelivr.net, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com, fonts.gstatic.com, vercel.live`
+## 7️⃣ Integrações e Dependências Externas (C-02)
+
+> 📝 Dono desta seção: `devops-specialist` (infra/ambiente) + `backend-specialist` (APIs/contratos)
+> Ambos podem escrever. Em caso de conflito, DevOps decide infra, Backend decide contratos.
+
+- Integrações ativas: `Supabase [inferido - confirmar]`
+- SLAs ou limites conhecidos: `[nao identificado - aguardando mais contexto]`
+- Fallback se integração cair: `feedback visual via toasts/modais [inferido - confirmar]`
+- Dependências críticas: `CDNs externas e servicos Supabase [inferido - confirmar]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 8️⃣ Restrições e Regras
-- Equipe e Recursos: `Refatoração focada em modularização (app.js de 1500+ linhas).`
-- Prazos ou Marcos: `[não identificado — aguardando mais contexto]`
-- Compliance / Privacidade: `Uso restrito institucional (LGPD implícita).`
-- Limites Técnicos ou de Negócio: `O código atual é monolítico; mudanças devem ser incrementais (ZERO regressão).`
+- Equipe e Recursos: `Refatoracao incremental sem regressao [inferido - confirmar]`
+- Prazos ou Marcos: `[nao identificado - aguardando mais contexto]`
+- Compliance / Privacidade: `LGPD (institucional) [inferido - confirmar]`
+- Limites Técnicos ou de Negócio: `Nao quebrar fluxo principal de agendamento e auth [inferido - confirmar]`
+
+### 🛡️ Regra de Ouro do Fluxo (Anti-Regressão)
+- **Gate do Auditor:** Nenhuma entrega é considerada "Pronta" (Done) sem o veredicto APROVADO do Auditor Independente.
+- **Ordem de Validação:** A implementação pode ocorrer, mas o Auditor deve atuar **antes** de qualquer Merge em `main` ou Deploy em `produção`.
+- **Falha de Processo:** É proibido declarar sucesso apenas com implementação técnica. O sucesso só é declarado após a auditoria final.
+
+### 🆕 Regra de Integração de Contratos (C-06)
+- **Contract Sync Gate:** Quando backend e frontend atuam em paralelo (∥), o especialista `contract-sync` DEVE ser ativado antes de `ui-review`.
+- **Verificação Obrigatória:** Todos os endpoints declarados pelo backend devem ter chamada correspondente no frontend, com tipos alinhados.
+- **Divergência Crítica:** Qualquer endpoint crítico sem alinhamento bloqueia o pipeline até resolução.
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 9️⃣ Contrato de Qualidade
-- Cobertura de testes mínima: `[não identificado]`
-- Padrão de code review: `Não modularizado inicialmente; refatoração para padrão modular em andamento.`
-- Tratamento de erros obrigatório: `Captura de exceções em todas as chamadas do Supabase com feedback visual.`
-- Acessibilidade: `Semântica básica e uso de tags ARIA [inferido — confirmar].`
-- Internacionalização: `Somente PT-BR.`
-- Definição de "Pronto": `Funcionalidade testada, sem conflitos de agenda e persistida no Supabase.`
+- Cobertura de testes mínima: `[nao identificado - aguardando mais contexto]`
+- Padrão de code review: `Mudancas incrementais com validacao de regressao [inferido - confirmar]`
+- Tratamento de erros obrigatório: `Capturar erros Supabase e mostrar feedback ao usuario [inferido - confirmar]`
+- Acessibilidade: `Somente semantica basica [inferido - confirmar]`
+- Internacionalização: `PT-BR only [inferido - confirmar]`
+- Definição de "Pronto": `Funcionalidade validada sem regressao no fluxo critico [inferido - confirmar]`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
 ## 🔟 Métricas e Sucesso
-- Métrica Principal (North Star): `Taxa de utilização dos espaços versus pedidos de agendamento.`
-- Indicadores de Saúde Técnica: `Tempo de carregamento (TTI) com Lazy Loading das abas.`
-- O que NÃO deve acontecer (Anti-Goals): `Sobreposição de horários (Conflitos), Acesso de usuários não cadastrados.`
+- Métrica Principal (North Star): `[ ]`
+- Indicadores de Saúde Técnica: `[ ]`
+- O que NÃO deve acontecer (Anti-Goals): `[ ]`
+
+### 📊 Métricas do Ciclo Atual (C-03)
+
+> Preenchido automaticamente pelo Orquestrador ao final de cada ciclo.
+> Referenciar `.antigravity/handoff-registry.yaml` para métricas detalhadas.
+
+```yaml
+metricas_ciclo:
+  ciclo_id: "[ID]"
+  inicio: "ISO8601"
+  fim: "ISO8601"
+  duracao_minutos: "[N]"
+  especialistas_atuados: "[N]"
+  findings:
+    critico: "[N]"
+    alto: "[N]"
+    medio: "[N]"
+    baixo: "[N]"
+  taxa_aprovacao_auditor: "[APROVADO / CONDICIONADO / REJEITADO]"
+  tokens_estimados: "[N]"
+  retrabalhos: "[N]"
+  regressoes_detectadas: "[sim/não]"
+  divergencias_api: "[N]"  # 🆕 NOVO v1.2: Divergências encontradas pelo contract-sync
+```
+
+> 🔄 [AUTO] Atualizado por: Orquestrador | [data] | motivo: fechamento de ciclo
 
 ---
 
-## 🗂️ Artefatos Vinculados
-- Figma / Protótipo: `[não identificado]`
-- Diagrama de arquitetura: `[não identificado]`
-- Schema do banco: `Tabelas: reservas, usuarios (Supabase).`
-- Repositório(s): `https://github.com/ufma-pinheiro/agendamentos-ufma-pho`
+## 🧠 Mural de Decisões Ativas (C-04)
+
+decisoes:
+  - id: "[ID]"
+    titulo: "[descrição]"
+    tomada_por: "[especialista]"
+    data: "[ISO8601]"
+    raciocinio: "[por que]"
+    afeta: ["[IDs de especialistas]"]
+    status: "[ativa / revisada / revogada]"
+    pode_mudar: true/false
+    condicao_mudanca: "[texto]"
+    revisada_em: "[ISO8601 ou null]"
+    revisada_por: "[especialista ou null]"
+    motivo_revisao: "[texto ou null]"
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
-## 🤖 Modo de Operação da IA
-- Especialistas ativos: `Orchestrator, Backend, Frontend, Security, QA, DevOps, Auditor Independente, Product Strategist, UI Reviewer.`
-- Nível de autonomia: `Sugerir + implementar (sob supervisão).`
-- Língua de resposta: `PT-BR`
-- Formato padrão de resposta: `Markdown + Código Direto.`
-- Quando escalar para humano: `Em caso de ambiguidades críticas no esquema do banco.`
-- Gates obrigatórios: `Validação de deleção/remoção de arquivos. Auditor deve emitir veredicto ANTES do push.`
-- Prompts dos especialistas: `.antigravity/prompts/`
+## 🚫 Anti-Padrões e Erros Recorrentes
+
+erros_passados:
+  - id: "ERR-001"
+    tipo: "[categoria]"
+    descricao: "[texto]"
+    primeiro_ciclo: "[ID]"
+    reincidencias: 0
+    penalidade: "[texto]"
+    status: "[ativo / aprendido]"
+
+alertas_automaticos:
+  - trigger: "[padrão de código]"
+    acao: "[alerta ou bloqueio]"
 
 ---
 
-## 🔍 Contexto Inferido pela IA
-*(Preenchido automaticamente. Não apague.)*
+## 🎯 Fio de Atenção do Ciclo Atual
 
-- **Estrutura de Pastas Detectada**: Modularização em progresso. Pasta `/js` com `utils.js`, `db.js` e `auth.js`. `app.js` reduzido para ~1390 linhas.
-- **Riscos Imediatos Observados**:
-    - `app.js` ainda monolítico (auth, calendar, dashboard misturados) — modularização em progresso.
-    - Dependência de CDNs externas pode gerar indisponibilidade.
-- **Schema Confirmado**:
-    - `reservas`: `id, title, start_time, end_time, espacos, responsavel, criadopor, datacriacao, isconflito, groupid, color, titulopuro, contatowhats, contatoemail, motivo_cancelamento, canceladopor, datacancelamento, cancelado`
-    - `usuarios`: `email, role` (sem coluna `id` — confirmado pelo 400 na PERF-001)
-- **Módulos JS Criados** (branch `devAgendamento`):
-    - `js/utils.js` — funções utilitárias puras (showToast, escapeHtml, adjustColor, etc.)
-    - `js/db.js` — mapeamento DB↔Frontend (dbParaFrontend, frontendParaDb)
-- **CSP Ativa** em `index.html` e `login.html` com diretivas para: cdn.jsdelivr.net, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com, fonts.gstatic.com, vercel.live (frame-src).
-- **Fixes Aplicados** (branch `devAgendamento`):
-    - `SECURITY-001`: admin hardcoded, XSS, memory leak
-    - `SECURITY-002`: CSP headers + hotfixes de frame-src e font-src
-    - `PERF-001`: projeções explícitas no Supabase
-    - `ARCH-001 Step 1`: extração de utils.js e db.js
-    - `BUG-CSS-001`: calendário exibido em todas as abas por conflito de especificidade CSS (seletor ID vs classe)
-    - `BUG-CSS-002`: calendário cortado ou invisível — RESOLVIDO com migração para layout 100vh Flexbox e uso de `dayMaxEventRows: true`.
-- **Sistema de Especialistas**: configurado em `2026-04-21`. Prompts em `.antigravity/prompts/`. Specs rastreadas em `.antigravity/spec-index.json`.
-- **Interface de Notificações**: Substituição do SweetAlert2 por Modais Nativos Personalizados.
+ciclo_atual:
+  id: "CICLO-2026-04-27-001"
+  iniciado_por: "humano"
+  objetivo: "Usar codigo pronto da pasta em-dev-agendamentos-main como baseline do ciclo"
+  especialistas_envolvidos:
+    - orchestrator: "concluido (Gate 0 + triagem inicial)"
+    - discovery: "concluido"
+    - tech-decision: "concluido"
+    - security-arch: "concluido (sem findings criticos/altos)"
+    - spec-enricher: "concluido"
+    - sprint-planner: "concluido"
+    - sprint-validator: "concluido"
+    - backend: "concluido"
+    - frontend: "concluido"
+    - ui-review: "concluido"
+    - security-code: "concluido"
+    - qa: "em andamento"
+  bloqueios_ativos:
+    - tipo: "dependencia"
+      de: "qa"
+      para: "devops"
+      motivo: "Falta validacao funcional manual em browser para serie recorrente"
+  proximos_passos:
+    - "Baseline confirmada: atuar direto em em-dev-agendamentos-main"
+    - "Feature alvo confirmada: FEAT-007 (agendamentos recorrentes)"
+    - "Concluir QA manual da FEAT-007"
+    - "Executar roteiro em em-dev-agendamentos-main/docs/QA_FEAT-007_RECORRENCIA.md"
+    - "Executar gate devops e preparar auditoria final"
+
+---
+
+## 🔍 Contexto Inferido pela IA (C-05)
+
+> Quando este arquivo está vazio ou incompleto, o especialista DEVE inferir
+> o contexto a partir dos artefatos disponíveis (código, configurações, docs).
+> Use este mini-guia:
+
+### Guia de Inferência Automática
+1. **Estrutura de Pastas:** Liste diretórios principais (`src/`, `app/`, `api/`, etc.)
+2. **Stack:** Identifique `package.json`, `requirements.txt`, `Cargo.toml`, etc.
+3. **Framework:** Detecte imports principais (React, Vue, Django, FastAPI, etc.)
+4. **Banco:** Busque `schema.prisma`, migrations, models
+5. **Auth:** Busque middleware de auth, JWT, OAuth
+6. **Deploy:** Busque `Dockerfile`, `.github/workflows/`, `vercel.json`
+7. **Testes:** Busque `jest.config`, `pytest.ini`, `cypress/`
+8. **Marque tudo como** `[inferido — confirmar]` até validação humana
+
+- Estrutura de Pastas Detectada: `Projeto em em-dev-agendamentos-main com js/, docs/, specs/active e specs/completed [inferido - confirmar]`
+- Contratos / Endpoints Identificados: `Supabase PostgREST para reservas e usuarios [inferido - confirmar]`
+- Modelo de Dados / Schema Inferido: `Tabelas reservas e usuarios no Supabase [inferido - confirmar]`
+- Riscos Imediatos Observados: `Dependencia de CDN e risco de regressao em app.js legado [inferido - confirmar]`
+- Padrões, Dependências ou Locks de Stack: `Projeto ES Modules com frontend vanilla e deploy Vercel [inferido - confirmar]`
+- Estado do CI/CD e Testes: `Sem suite automatizada declarada no package.json [inferido - confirmar]`
+- Lacunas de Documentação ou Contexto Faltante: `SLA de integracoes, staging, meta de cobertura e prioridade da proxima entrega`
+
+> 🔄 [AUTO] Atualizado por: [especialista] | [data] | motivo: [texto]
 
 ---
 
@@ -167,87 +282,24 @@ Ao receber qualquer artefato (código, repositório, README, descrição, PR, co
 
 | Data | Especialista | O que mudou | Motivo / Trade-off | Gate Validado? |
 |------|-------------|-------------|-------------------|----------------|
-| 2026-04-20 | Orchestrator | Re-população total do Contexto | Manual reset e inserção de novas diretrizes | Sim |
-| 2026-04-20 | Orchestrator | Deletados arquivos legados | Limpeza de artefatos temporários (PROJETO_STATUS.md, etc) | Sim |
-| 2026-04-20 | Orchestrator + Backend | SECURITY-001 Fix 1: removido admin hardcoded | Role 100% baseada na tabela `usuarios`; admin verificado via MCP antes da remoção | Sim |
-| 2026-04-20 | Frontend | SECURITY-001 Fix 2: sanitização XSS | Adicionado `escapeHtml()`, `createElement`+`textContent` nos pontos críticos | Sim |
-| 2026-04-20 | Frontend | SECURITY-001 Fix 3: memory leak Realtime | Canal salvo em `realtimeChannel`, `removeChannel()` + `beforeunload` | Sim |
-| 2026-04-20 | Auditor | Veredicto CONDICIONADO — SECURITY-001 | Push ocorreu antes da auditoria (gate violado); 2 condições abertas | Parcial |
-| 2026-04-20 | Orchestrator/Backend | PERF-001 implementada (Projeções Explícitas) | `.select('*')` substituído para reduzir TTI e rede. | Sim |
-| 2026-04-20 | Auditor | Veredicto APROVADO — PERF-001 | Nenhuma regressão detectada; campos validados contra o dbParaFrontend. | Sim |
-| 2026-04-20 | Security/Frontend | SECURITY-002 implementada e Auditada | Injeção de Meta tag CSP em index.html e login.html. Gate Auditor Aprovado. | Sim |
-| 2026-04-20 | Security | SECURITY-002 hotfix #1 | CSP bloqueava esm.sh (Supabase SDK), vercel.live, fontes base64. Domínios adicionados. | Sim |
-| 2026-04-20 | Security + Backend | SECURITY-002 hotfix #2 | Adicionado frame-src vercel.live; removido `id` inválido da query `usuarios` (error 400). | Sim |
-| 2026-04-20 | Frontend (ARCH-001) | Modularização Step 1: js/utils.js + js/db.js criados | Redução de 141 linhas no app.js. Auditado e aprovado antes do push. | Sim |
-| 2026-04-21 | Orchestrator | Migração context.md para .antigravity/context.md | Alinhamento com novo protocolo do orquestrador v3.0 | Sim |
-| 2026-04-21 | Orchestrator | Infraestrutura do sistema criada | .antigravity/context.lock, spec-index.json, history/, specs/active/, specs/completed/ | Sim |
-| 2026-04-21 | Frontend (ARCH-001) | Modularização Step 2: js/auth.js criado | Extração de initAuth e aplicarPermissoes. app.js reduzido. | Sim |
-| 2026-04-21 | Auditor | Veredicto APROVADO — Step 2 | Fluxo de auth e permissões íntegro após modularização. | Sim |
-| 2026-04-21 | Frontend (FEAT-001) | Central de Notificações Criada | Aba administrativa, logs de disparos, templates e regras de 24h. | Sim |
-| 2026-04-21 | Frontend (ARCH-001) | Modularização Step 3, 4 e 5: js/calendar.js, js/dashboard.js, js/reservas.js | Extração total de lógica. app.js reduzido a orquestrador (< 300 linhas). | Sim |
-| 2026-04-21 | Auditor | Veredicto REJEITADO (Regressão) | Identificados SyntaxErrors e deleção acidental de funções de UI. | Não |
-| 2026-04-21 | Frontend | Hotfix Integridade & Sintaxe | Resolvidos conflitos de imports e restaurada lógica de visualização. | Sim |
-| 2026-04-21 | Auditor | Veredicto APROVADO — Sistema Modular | Estabilidade confirmada. Fim do plano ARCH-001 e FEAT-001. | Sim |
-| 2026-04-21 | Frontend | Hotfixes Finais de UI (Pós-Auditoria) | Correção de 'Unexpected token' no renderizarCards e ReferenceError do getCalendar. | Sim |
-| 2026-04-21 | Orchestrator | Save State | Estado final da modularização sincronizado com origin/devAgendamento. | Sim |
-| 2026-04-21 | Backend | Correção RLS (tabela usuarios) | Adicionada política RLS e `is_dono()` no Supabase para resolver erro 403. | Sim |
-| 2026-04-21 | Frontend | Hotfix Botão Logout | Removida dependência da flag primitiva `authVerificado` que impedia redirecionamento. | Sim |
-| 2026-04-21 | Security | Hotfix Permissões UI/CRUD | Bloqueada exclusão/edição para Leitores e Editores (exceto os próprios) via `window.estadoGlobal`. | Sim |
-| 2026-04-21 | Frontend | Hotfix Modal UI | Removido o botão inferior "Fechar" do modal de detalhes, mantendo apenas o "X" superior. | Sim |
-| 2026-04-21 | Frontend | Hotfix Layout | Sincronizadas classes dinâmicas (`time-input`, `btn-remove-data`) em `reservas.js` para consertar o layout quebrado do Modal. | Sim |
-| 2026-04-21 | Frontend | Hotfix Regressão DOM | Corrigido `TypeError` no seletor de eventos do botão de remover data, atualizando-o para `.btn-remove-data`. | Sim |
-| 2026-04-22 | Orchestrator/Frontend | Modais Informativos Nativos | Substituído SweetAlert2 por modais customizados (Sucesso/Conflito) em `utils.js`. | Sim |
-| 2026-04-22 | Frontend/UI | Hotfix Consistência Edição | Modal de sucesso aplicado também ao fluxo de edição de agendamentos. | Sim |
-| 2026-04-22 | UI Reviewer | Badges de Local nos Modais | Locais agora aparecem como badges coloridos (estilo cards) em versão 20% maior. | Sim |
-| 2026-04-22 | Security Auditor | Security Hardening v4.0 | Removido admin hardcoded, protegidas mutações em reservas.js e removido Swal. | Sim |
-| 2026-04-22 | Frontend/UX | Padronização de Data BR | Implementado formato DD/MM/YYYY nos modais via altInput do Flatpickr. | Sim |
-| 2026-04-22 | Backend/Fix | Fix Timezone Shift | Forçado offset -03:00 no salvamento para evitar shift de -3h (UTC vs Local). | Sim |
-| 2026-04-22 | Frontend/UI | UI Badges em Conflitos | Locais na lista de conflitos convertidos em badges coloridos dimensionados. | Sim |
-| 2026-04-22 | Frontend/UX | Detalhamento de Conflitos | Adicionada exibição de horários dos eventos conflitantes no modal de alerta. | Sim |
-| 2026-04-22 | Frontend/Fix | Fix Overflow Conflitos | Corrigido transbordamento de títulos longos no modal de conflito com word-break. | Sim |
-| 2026-04-22 | Full Stack | Cancelamento com Motivo | Modal nativo com campo obrigatório; motivo salvo antes de deletar. Schema migrado. | Sim |
-| 2026-04-22 | Full Stack | Soft Delete (Opção A) | Substituiído delete físico por cancelado=true. Motivo e audit trail preservados no banco. | Sim |
-| 2026-04-22 | Frontend/Admin | Histórico de Cancelamentos | Nova aba Admin e filtros Editor para visualização de soft deletes. | Sim |
-| 2026-04-22 | Full Stack | Recurso de Restauração | Botão "Restaurar" funcional para Admin e Auditoria de cancelamentos. | Sim |
-| 2026-04-22 | Auditor | Veredicto APROVADO — FEAT-002 | Painel de Conflitos Global implementado com visão pareada e soft-delete. | Sim |
-| 2026-04-23 | Frontend | Execução FEAT-006 | Migrados Últimos Registros para Sidebar e removida faixa inferior. | Sim |
-| 2026-04-23 | Product | Planejamento FEAT-006 | Definida migração dos Últimos Registros para a Sidebar. | Sim |
-| 2026-04-23 | Auditor | Veredicto APROVADO — FEAT-005 | Padronização dos mini-cards com o padrão global (event-row). | Sim |
-| 2026-04-23 | Frontend | Redesign FEAT-005 | Implementados mini-cards premium na seção de Últimos Registros. | Sim |
-| 2026-04-23 | Product | Planejamento FEAT-005 | Criada especificação para redesign dos Últimos Registros. | Sim |
-| 2026-04-23 | DevOps | Execução Local | Servidor iniciado em http://localhost:3000 via npx serve. | Sim |
-| 2026-04-23 | DevOps | Inicialização do NPM | Criado package.json com type:module e script dev. | Sim |
-| 2026-04-23 | Auditor | Veredicto APROVADO — BUG-CSS-001 | Resolvido vazamento visual do calendário entre abas via ajuste de especificidade. | Sim |
-| 2026-04-23 | Auditor | Veredicto APROVADO — BUG-CSS-002 | Refatoração estrutural: App em 100vh + Flexbox dinâmico. Calendário agora preenche a tela sem cortes (estilo Google). | Sim |
-| 2026-04-22 | Product | PRD FEAT-004 (Redesign Calendário) | Definição de tokens de design e regras de interatividade SaaS premium. | Sim |
-| 2026-04-23 | Frontend/Auditor | BUG-CSS-001: Calendário visível em todas as abas | `#abaCalendario { display:flex }` (especif. ID 1-0-0) sobrescrevia `.tab-content { display:none }` (classe 0-1-0). Fix: display movido exclusivamente para `#abaCalendario.active`. | Sim |
-| 2026-04-24 | Frontend | Refatoração ARCH-002 | Criação do `js/components.js` com função `gerarCardEventoHtml` para eliminar HTML duplicado em todas as listagens. | Sim |
-| 2026-04-24 | Frontend/QA | Remoção de Tooltip (Tippy.js) | Removido popover no hover dos eventos do calendário para evitar sobreposição excessiva de informação. Detalhes devem ser abertos no click. | Sim |
-| 2026-04-24 | Frontend/QA | Remoção Drag and Drop | Desativada funcionalidade de mover e redimensionar no calendário para evitar alterações acidentais de agendamentos. | Sim |
-| 2026-04-24 | Auditor | Veredicto APROVADO — FEAT-006 & ARCH-002 | Sistema estável, refatorado e limpo, sem bugs visuais nas views. | Sim |
-| 2026-04-24 | Frontend/UI | UI Hotfixes | Corrigidos Popovers escuros no tema Dark, badge cancelados refinados, limite dayMaxEvents(4), e pré-preenchimento no click na data. | Sim |
-| 2026-04-24 | Backend/Fix | Backup Refactoring | Refatoração de export/import JSON conectando direto à API. Adicionada ignorância condicional para Feriados e casting rigoroso. | Sim |
-| 2026-04-24 | Security | CSP Hotfix | unpkg.com adicionado na CSP do index.html permitindo bibliotecas externas carregarem corretamente. | Sim |
-| 2026-04-24 | Backend/Fix | 400 Bad Request Fix | Removida propriedade 'canceladopor' inexistente no DB do upsert/update. Adicionado Bypass para Trigger de Conflito (P0001) para não abortar o loop. | Sim |
+|      |             |             |                   |                |
 
 ---
 
 ## ✅ Checklist de Validação (Orchestrator)
-- [x] `context.md` está legível, versionado e atualizado
-- [x] Glossário e regras de domínio estão explícitos
-- [x] Stack, ambientes e integrações estão documentados
-- [x] Fluxos críticos e anti-goals estão definidos
-- [x] Contrato de qualidade e definição de "pronto" estão claros
-- [x] Modo de operação da IA e gates estão configurados
-- [x] Artefatos externos estão linkados
-- [x] Nenhuma decisão contradiz entrada anterior sem justificativa
 
----
-
-## ⚠️ Pendências Abertas (Rastreadas pelo Auditor)
-
-| ID | Severidade | Descrição | Responsável | Prazo |
-|----|-----------|-----------|-------------|-------|
-| P-001 | Médio | CA-01 a CA-04 (SECURITY-001) sem evidência de teste — login admin, acesso negado, XSS literal, Realtime único | QA / Usuário | Próximo ciclo |
-| P-003 | Baixo | Gate do Auditor deve ser acionado ANTES do push (não depois) | Orchestrator | Processo |
-| P-005 | Baixo | Inventariar TODOS os domínios externos antes de qualquer nova CSP (lição do hotfix SECURITY-002) | Security | Processo |
+- [ ] `context.md` está legível, versionado e atualizado
+- [ ] `sessao_ativa` usa strings explícitas ("none"/"active"/"closed")
+- [ ] Referências a artefatos do ecossistema estão presentes (§Artefatos)
+- [ ] Glossário e regras de domínio estão explícitos
+- [ ] Stack, ambientes e integrações estão documentados
+- [ ] Fluxos críticos e anti-goals estão definidos
+- [ ] Contrato de qualidade e definição de "pronto" estão claros
+- [ ] Modo de operação da IA e gates estão configurados
+- [ ] Artefatos externos estão linkados
+- [ ] Nenhuma decisão contradiz entrada anterior sem justificativa
+- [ ] Mural de Decisões reflete estado atual
+- [ ] Nenhum erro recorrente ativo sem mitigação
+- [ ] **Métricas do ciclo atual estão preenchidas (se ciclo encerrado)**
+- [ ] **Seção 7 tem dono definido (DevOps + Backend)**
+- [ ] **Regra de Integração de Contratos (C-06) está ativa se backend ∥ frontend**

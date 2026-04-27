@@ -1,0 +1,24 @@
+{
+  "ciclo_id": "CICLO-2026-04-27-001",
+  "estimativa_pre_otimizacao": {
+    "tokens_contexto_base": 7938,
+    "fontes": [
+      ".antigravity/context.md",
+      ".antigravity/context.lock",
+      ".antigravity/token-optimizer-rules.md",
+      ".antigravity/severity-scale.md",
+      ".antigravity/handoff-registry.yaml"
+    ]
+  },
+  "estimativa_pos_otimizacao": {
+    "especialista_alvo": "discovery",
+    "tokens_estimados_prompt": 1650,
+    "reducao_percentual_aprox": 79,
+    "regras_aplicadas": ["DEDUP-01", "CODE-01", "HIER-01", "HAND-01", "CACHE-01"]
+  },
+  "overflow": {
+    "estouro_detectado": false,
+    "regra_acionada": null
+  },
+  "registrado_em": "2026-04-27T13:08:09.7063686Z"
+}

@@ -356,6 +356,63 @@ export function showConfirmModal(titulo, mensagem) {
 }
 
 /**
+ * Exibe modal para escolher escopo de operacao em serie.
+ * @param {'editar'|'excluir'} acao
+ * @returns {Promise<'single'|'future'|'all'|'cancel'>}
+ */
+export function showSeriesActionModal(acao = 'excluir') {
+    const titulo = acao === 'editar' ? 'Editar Série de Agendamentos' : 'Excluir Série de Agendamentos';
+    const mensagem = acao === 'editar'
+        ? 'Este evento faz parte de uma série recorrente. Escolha o escopo da alteração:'
+        : 'Este evento faz parte de uma série recorrente. Escolha o escopo do cancelamento:';
+
+    const ctaSingle = acao === 'editar' ? 'Editar apenas este evento' : 'Cancelar apenas este evento';
+    const ctaFuture = acao === 'editar' ? 'Editar este e os próximos' : 'Cancelar este e os próximos';
+    const ctaAll = acao === 'editar' ? 'Editar toda a série' : 'Cancelar toda a série';
+
+    return new Promise(resolve => {
+        const existing = document.getElementById('infoModalOverlay');
+        if (existing) existing.remove();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'infoModalOverlay';
+        overlay.className = 'info-modal-overlay';
+        overlay.innerHTML = `
+            <div class="info-modal conflict" role="dialog" aria-modal="true">
+                <div class="info-modal-icon conflict">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h2 class="info-modal-title">${escapeHtml(titulo)}</h2>
+                <p class="info-modal-subtitle">${escapeHtml(mensagem)}</p>
+                <div class="info-modal-actions" style="display:grid; gap:0.625rem; margin-top:1rem;">
+                    <button class="info-modal-btn secondary" id="btnSeriesSingle">${escapeHtml(ctaSingle)}</button>
+                    <button class="info-modal-btn secondary" id="btnSeriesFuture">${escapeHtml(ctaFuture)}</button>
+                    <button class="info-modal-btn danger" id="btnSeriesAll">${escapeHtml(ctaAll)}</button>
+                    <button class="info-modal-btn secondary" id="btnSeriesCancel">Voltar</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+
+        const close = (result) => {
+            overlay.classList.remove('visible');
+            setTimeout(() => {
+                overlay.remove();
+                resolve(result);
+            }, 300);
+        };
+
+        document.getElementById('btnSeriesSingle').addEventListener('click', () => close('single'));
+        document.getElementById('btnSeriesFuture').addEventListener('click', () => close('future'));
+        document.getElementById('btnSeriesAll').addEventListener('click', () => close('all'));
+        document.getElementById('btnSeriesCancel').addEventListener('click', () => close('cancel'));
+        overlay.addEventListener('click', e => { if (e.target === overlay) close('cancel'); });
+    });
+}
+
+/**
  * Exibe modal de cancelamento com campo de motivo obrigatório.
  * @param {string} tituloEvento - Nome do agendamento a ser cancelado
  * @returns {Promise<{confirmado: boolean, motivo: string}>}

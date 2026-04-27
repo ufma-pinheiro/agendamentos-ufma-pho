@@ -1,12 +1,16 @@
 {
-  "sessao_ativa": true,
-  "inicio": "2026-04-24T08:50:12-03:00",
-  "especialista_atual": "frontend",
-  "ultimo_especialista": "product",
-  "proximo_especialista": "security-arch",
-  "ciclo_id": "CICLO-2026-04-24-1",
+  "versao": "1.0.0",
+  "estrutura": "v4.1",
+  "sessao_ativa": "active",
+  "inicio": "2026-04-27T13:08:09.7063686Z",
+  "especialista_atual": "orchestrator",
+  "ultimo_especialista": "qa",
+  "proximo_especialista": "devops",
+  "ciclo_id": "CICLO-2026-04-27-001",
+  "estagio_atual": 4,
   "veredicto": null,
   "findings_criticos": 0,
   "findings_altos": 0,
-  "checksum": "sha256:init_v7"
+  "divergencias_api": 0,
+  "checksum": "sha256:95ce62246b5d0b58ae1e5ff59abcbb7b31e9929afd11b8dd2991f0039df14f45"
 }

@@ -18,9 +18,10 @@ export function dbParaFrontend(row) {
     if (!row) return null;
     const start = row.start_time ? new Date(row.start_time) : null;
     const end   = row.end_time   ? new Date(row.end_time)   : null;
+    const id = row.id != null ? String(row.id) : null;
 
     return {
-        id: row.id,
+        id,
         title: row.title,
         start,
         end,
@@ -31,7 +32,7 @@ export function dbParaFrontend(row) {
         textColor: '#fff',
         display: 'block',
         extendedProps: {
-            id:           row.id,
+            id,
             title:        row.title,
             tituloPuro:   row.titulopuro,
             espacos:      row.espacos,

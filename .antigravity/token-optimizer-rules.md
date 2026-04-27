@@ -1,264 +1,282 @@
-# Token Optimizer — Rules para Antigravity (PT-BR · v2.0)
-> Cole estas rules em ~/.gemini/antigravity/rules.md junto com o Orchestrator.
-> 🔄 Integrado com Orquestrador v3.1 — Executado automaticamente no Gate 0.
-> Objetivo: máximo resultado com mínimo consumo de tokens.
+# Token Optimizer Rules — Antigravity v4.0
+> ✅ Versão 1.0.0 — Obrigatório para Gate 0 do Orquestrador
+> 🎯 Foco: Maximizar qualidade do contexto dentro do limite de tokens do modelo
+> 📊 Métrica: Redução de 30-50% no consumo de tokens sem perda de informação crítica
 
 ---
 
-## INTEGRAÇÃO COM ORQUESTRADOR v3.1 (NOVO)
+## 🎯 Princípio Fundamental
 
-O Token Optimizer é uma **etapa obrigatória do Gate 0**.
-Antes de ativar qualquer especialista, o Orquestrador:
-1. Lê este arquivo
-2. Aplica as regras abaixo
-3. Configura o contexto da sessão para eficiência máxima
+**Contexto é caro. Silêncio é caro. Informação errada é catastrófico.**
 
-> Se o Orquestrador pular esta etapa → finding Médio automático.
+O Token Optimizer aplica regras ANTES de qualquer especialista receber o prompt final. Ele não remove informação — ele **reorganiza prioridade**.
 
 ---
 
-## REGRAS DE EFICIÊNCIA DE TOKEN
+## 📋 Regras de Otimização (Aplicadas em Ordem)
 
-### 1. Nunca varra o projeto inteiro sem ser solicitado
-- Antes de ler arquivos, pergunte: "Quais arquivos são relevantes para ESTA tarefa?"
-- Leia apenas os arquivos diretamente relacionados ao pedido
-- Nunca leia node_modules, dist, .next, coverage, build ou arquivos de lock
-- Se precisar entender o projeto, leia PRIMEIRO o `.antigravity/context.md` — não o diretório inteiro
+### Regra 1: Deduplicação Inteligente (DEDUP-01)
 
-### 2. Planeje antes de executar
-- Antes de qualquer tarefa, declare em 2-3 linhas o que vai fazer e quais arquivos vai tocar
-- Aguarde confirmação antes de varrer diretórios grandes
-- Prefira perguntar "posso focar apenas em X?" a assumir que precisa de tudo
+**Quando aplicar:** Sempre, antes de montar o prompt de qualquer especialista.
 
-### 3. Uma tarefa de cada vez
-- Não resolva problemas que não foram pedidos
-- Se encontrar algo errado fora do escopo, registre como observação — não corrija
-- Escopo expandido = tokens desperdiçados e contexto poluído
+**Como funciona:**
+1. Identificar seções do `context.md` que também aparecem no handoff anterior
+2. Se a informação é idêntica ou equivalente → **referenciar, não repetir**
+3. Formato de referência: `Ver context.md §[seção].[subseção]`
 
-### 4. Respostas proporcionais ao pedido
-- Pedido simples → resposta direta, sem introdução, sem resumo final desnecessário
-- Pedido complexo → estruturado, mas sem repetir o que já foi dito
-- Nunca repita o contexto de volta para o usuário
-- Nunca produza código que não foi pedido "por precaução"
-
-### 5. Reutilize contexto já carregado
-- Se um arquivo foi lido nesta sessão, não o releia
-- Se uma decisão foi tomada, referencie — não reexplique
-- Construa sobre o que já existe no contexto em vez de recriar
-
----
-
-## CAMINHOS DO SISTEMA AUTÔNOMO
-
-Sempre priorize esta ordem de leitura:
-
-1. `.antigravity/context.md` — memória viva do projeto
-2. `.antigravity/context.lock` — estado da sessão
-3. `.antigravity/spec-index.json` — specs e dependências
-4. `specs/spec-ativa.md` — especificação do ciclo atual
-5. `.antigravity/handoffs/[CICLO-ID]-[especialista]-handoff.md` — handoffs do ciclo
-6. Código-fonte relevante (apontado pelo contexto ou spec)
-
-NUNCA leia o diretório inteiro antes de ler o context.md.
-
----
-
-## .antigravityignore RECOMENDADO
-
-Crie este arquivo na raiz do projeto (automático no setup):
-
+**Exemplo:**
 ```
-# Dependências
-node_modules/
-.pnp/
-.pnp.js
+❌ ANTES (redundante):
+context.md diz: "Stack: React + Node.js + PostgreSQL"
+handoff do backend diz: "Stack definida: React + Node.js + PostgreSQL"
+Prompt do frontend recebe AMBOS → tokens duplicados
 
-# Build outputs
-dist/
-build/
-.next/
-.nuxt/
-out/
-.output/
-
-# Testes e coverage
-coverage/
-.nyc_output/
-*.test.ts
-*.test.tsx
-*.spec.ts
-*.spec.tsx
-__tests__/
-__mocks__/
-
-# Cache e temporários
-.cache/
-.turbo/
-.parcel-cache/
-*.tsbuildinfo
-
-# Logs
-*.log
-logs/
-npm-debug.log*
-
-# Ambiente
-.env
-.env.*
-!.env.example
-
-# IDE e OS
-.DS_Store
-.vscode/
-.idea/
-Thumbs.db
-
-# Assets pesados
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
-*.ico
-*.woff
-*.woff2
-*.ttf
-public/
-assets/
-
-# Sistema autônomo (já lido via context.md)
-.antigravity/history/
+✅ DEPOIS (otimizado):
+Prompt do frontend recebe:
+"Stack: React + Node.js + PostgreSQL (ver context.md §5 para detalhes de infra)"
 ```
 
----
-
-## ESTRATÉGIA DE MODELO POR TAREFA
-
-Use o modelo certo para cada tipo de tarefa:
-
-| Tarefa | Modelo recomendado | Por quê |
-|--------|-------------------|---------|
-| Diagnóstico geral, arquitetura, decisões complexas | Gemini 3.1 Pro | Precisa entender contexto amplo |
-| Implementação de feature, refatoração | Gemini 3.1 Pro | Qualidade importa |
-| Boilerplate, documentação, formatação | Gemini Flash | Rápido e barato |
-| Testes unitários simples | Gemini Flash | Tarefa repetitiva |
-| Revisão de código pequena | Gemini Flash | Contexto limitado |
-| Debug complexo multi-arquivo | Gemini 3.1 Pro | Precisa raciocinar |
-
-> Nota: Se o sistema não detectar o modelo, assuma Gemini 3.1 Pro para segurança.
+**Exceções (NUNCA deduplicar):**
+- Findings Crítico/Alto (sempre incluir completos)
+- Decisões tomadas no ciclo atual (sempre incluir completas)
+- Código implementado na atuação anterior (incluir diff, não referência)
 
 ---
 
-## COMO FORMULAR PROMPTS QUE ECONOMIZAM TOKENS
+### Regra 2: Compressão de Código (CODE-01)
 
-### ❌ Prompt caro (vago, força varredura)
-```
-"Melhora o sistema de autenticação"
-```
-→ A IA vai ler o projeto inteiro para entender o que existe
+**Quando aplicar:** Quando código fonte é parte do contexto.
 
-### ✅ Prompt barato (específico, escopo definido)
+**Limite de linhas:**
+
+| Tipo | Limite | Ação |
+|------|--------|------|
+| Código novo/alterado | ≤ 50 linhas | Incluir COMPLETO |
+| Código novo/alterado | > 50 linhas | Resumir com comentários de alto nível + diff |
+| Código existente (referência) | ≤ 20 linhas | Incluir trecho relevante |
+| Código existente (referência) | > 20 linhas | Referenciar arquivo + linhas |
+
+**Formato de resumo:**
 ```
-"No arquivo src/auth/login.ts, o token JWT não está expirando corretamente.
-A função validateToken na linha 45 não verifica o campo exp.
-Corrija apenas essa função."
+// [arquivo: src/auth/login.js]
+// Função: valida credenciais, gera JWT, registra último login
+// Linhas 45-78 (33 linhas totais)
+// Principais operações: bcrypt.compare → jwt.sign → db.update
+// Edge case tratado: usuário inativo retorna 403 com mensagem específica
 ```
-→ A IA lê 1 arquivo, 1 função, faz 1 mudança
+
+**Exceções (sempre incluir completo):**
+- Funções de autenticação/autorização
+- Validação de input sanitization
+- Queries de banco (SQL/ORM)
+- Configuração de CORS/security headers
 
 ---
 
-### Fórmula de prompt eficiente:
+### Regra 3: Hierarquia de Contexto (HIER-01)
+
+**Ordem de prioridade para inclusão no prompt:**
+
 ```
-[ARQUIVO ou MÓDULO] + [PROBLEMA ESPECÍFICO] + [O QUE FAZER] + [O QUE NÃO TOCAR]
+1. 🔴 CRÍTICO (sempre incluir, nunca omitir)
+   ├── Findings Crítico/Alto do ciclo atual
+   ├── CAs obrigatórios pendentes
+   ├── Decisões ativas que afetam este especialista
+   ├── Contradições detectadas (Modo 4)
+   └── Locks de sessão (context.lock)
+
+2. 🟠 ALTO (incluir completo, resumir se necessário)
+   ├── Handoff do especialista anterior
+   ├── Spec enriquecida (seções relevantes ao especialista)
+   ├── Fluxos críticos do context.md
+   └── Requisitos de security-arch (se aplicável)
+
+3. 🟡 MÉDIO (referenciar, incluir se espaço permitir)
+   ├── Histórico de decisões do context.md
+   ├── Stack e arquitetura (context.md §5)
+   ├── Integrações externas (context.md §7)
+   └── Métricas do ciclo anterior
+
+4. 🟢 BAIXO (omitir, referenciar se perguntado)
+   ├── Anti-padrões históricos já mitigados
+   ├── Métricas de ciclos antigos (>3 ciclos)
+   ├── Artefatos de versões deprecadas
+   └── Exemplos de código de implementações anteriores
 ```
 
-Exemplos:
-- "Em src/api/orders.ts, adicione validação de campo no endpoint POST /orders. Não altere os outros endpoints."
-- "No componente CheckoutForm, o estado de loading não está sendo resetado após erro. Corrija apenas o handler onSubmit."
-- "Revisa apenas as funções de permissão em src/lib/auth.ts. Não leia outros arquivos."
+**Algoritmo de corte:**
+- Calcular tokens estimados do prompt completo
+- Se > 80% do limite do modelo: remover camada Baixo
+- Se > 90% do limite: remover camada Médio, manter apenas referências
+- Se > 95% do limite: emitir ALERTA ao Orquestrador para ativar Modo 5 (Reavaliação)
 
 ---
 
-## SESSÕES INTELIGENTES — COMO ESTRUTURAR O DIA
+### Regra 4: Fallback por Estouro (OVERFLOW-01)
 
-### Sessão focada (recomendado)
-Uma sessão = um problema ou uma feature.
-Não misture "melhorar UI" com "corrigir bug de auth" na mesma sessão.
-Contexto misturado = tokens desperdiçados + resultados piores.
+**Trigger:** Prompt estimado > 95% do limite de tokens do modelo.
 
-### Ao iniciar uma sessão nova:
-1. Cole o `.antigravity/context.md` atualizado (ou deixe a IA ler sozinha)
-2. Descreva APENAS o que quer fazer nesta sessão
-3. Referencie arquivos específicos com @arquivo.ts
-4. Declare o que está fora do escopo
+**Ações em cascata:**
 
-### Ao encerrar uma sessão:
-1. Atualize o `.antigravity/context.md` com decisões tomadas
-2. Registre o que ficou pendente
-3. Feche a sessão — não arraste contexto antigo
+1. **Primeiro corte:** Remover exemplos de código (manter apenas assinaturas)
+2. **Segundo corte:** Resumir histórico de decisões (manter apenas últimas 3)
+3. **Terceiro corte:** Referenciar spec completa (incluir apenas CAs relevantes)
+4. **Quarto corte:** Emitir PERGUNTA_RAPIDA ao humano: "Contexto excede limite. Quer resumir [área] ou dividir em sub-ciclos?"
+5. **Último recurso:** Ativar Modo 5 (Reavaliação) + registrar no context.md: `estouro_tokens: true`
+
+**NUNCA cortar:**
+- Findings Crítico/Alto
+- Instruções de segurança (security-arch/code)
+- Requisitos de compliance ativo
+- Locks de sessão
 
 ---
 
-## REGRA DO PROMPT ÚNICO
+### Regra 5: Compactação de Handoff (HAND-01)
 
-O pedido mal especificado custa muito mais do que o pedido completo:
+**Quando o handoff anterior é muito longo:**
 
 ```
-❌ 4 prompts vagos = ~90 créditos
-Prompt 1: "Cria página de login"           → 30 créditos
-Prompt 2: "Adiciona Google auth também"    → 25 créditos  
-Prompt 3: "Adiciona reset de senha"        → 20 créditos
-Prompt 4: "Deixa o design mais moderno"    → 15 créditos
-
-✅ 1 prompt completo = ~40 créditos
-"Cria página de login com:
-- Google auth + email/senha
-- Reset de senha
-- UI moderna com TailwindCSS e dark mode
-- Validação de formulário com mensagens de erro
-- Estados de loading
-Stack: Next.js + Firebase Auth"
+Tamanho do handoff | Ação
+-------------------|------
+≤ 2000 tokens      | Incluir completo
+2001-4000 tokens   | Incluir seções 1, 2, 3, 8 completas; resumir 4, 5, 6, 7
+4001-6000 tokens   | Incluir seções 1, 2, 3, 8; referenciar 4, 5, 6, 7
+> 6000 tokens      | Incluir seções 1 (resumo), 3 (findings), 8 (próximo); referenciar restante
 ```
 
-**Regra:** pense 2 minutos antes de enviar. Vale muito mais que 4 prompts de correção.
+**Formato de resumo de handoff:**
+```
+## Resumo do Handoff Anterior — [especialista]
+Status: [Concluído/Bloqueado/Parcial]
+Findings: [N Crítico | N Alto | N Médio | N Baixo]
+Decisões chave: [D1], [D2]
+Próximo sugerido: [ID]
+Artefatos: [lista breve]
+⚠️ Ver arquivo completo: .antigravity/handoffs/[CICLO]-[especialista]-handoff.md
+```
 
 ---
 
-## REFERÊNCIA RÁPIDA ANTI-DESPERDÍCIO
+### Regra 6: Cache de Contexto Estático (CACHE-01)
 
-| Situação | O que fazer |
-|----------|-------------|
-| Precisa entender o projeto | Leia o `.antigravity/context.md`, não o diretório |
-| Precisa corrigir um bug | Aponte o arquivo e a linha |
-| Precisa de nova feature | Use spec.md completo antes |
-| Sessão está longa e lenta | Encerre, atualize context.md, abra nova sessão |
-| IA está lendo arquivos desnecessários | Diga: "Pare. Leia apenas X e Y." |
-| Resposta ficou enorme e desnecessária | Diga: "Responda em no máximo 5 linhas." |
-| Contexto está poluído | Nova sessão com context.md atualizado |
+**Informações que raramente mudam dentro de um ciclo:**
+
+| Informação | Frequência de mudança | Estratégia |
+|------------|----------------------|------------|
+| Nome do produto | Nunca | Incluir apenas na primeira ativação |
+| Stack definida | Estágio 2 apenas | Referenciar após Estágio 2 |
+| Compliance ativo | Nunca | Referenciar sempre |
+| Glossário de domínio | Raramente | Incluir termos relevantes apenas |
+| North Star | Raramente | Referenciar após Estágio 1 |
+
+**Implementação:**
+- Orquestrador mantém `contexto_estatico_checksum` no context.lock
+- Se checksum não mudou desde última ativação → referenciar, não incluir
+- Se mudou → incluir apenas delta (o que mudou)
 
 ---
 
-## MÉTRICAS DE EFICIÊNCIA (NOVO)
+## 📊 Métricas de Eficiência
 
-O Orquestrador registra automaticamente:
+O Orquestrador deve registrar a cada ciclo:
 
 ```yaml
-metricas_tokens:
-  sessao_id: "[ID]"
-  tokens_entrada: "[N]"
-  tokens_saida: "[N]"
-  custo_estimado: "[N créditos]"
-  arquivos_lidos: "[N]"
-  arquivos_modificados: "[N]"
-  eficiencia: "[alta / media / baixa]"
-  motivo_baixa_eficiencia: "[se aplicável]"
+metricas_token:
+  ciclo_id: "[ID]"
+  tokens_prompt_orquestrador: "[N]"
+  tokens_prompt_discovery: "[N]"
+  tokens_prompt_product: "[N]"
+  tokens_prompt_backend: "[N]"
+  tokens_prompt_frontend: "[N]"
+  tokens_prompt_auditor: "[N]"
+  tokens_totais_ciclo: "[N]"
+  reducao_por_optimizacao: "[N%]"
+  estouros_detectados: "[N]"
+  cortes_aplicados: ["DEDUP-01", "CODE-01", "HIER-01", "HAND-01"]
 ```
 
-> Se eficiência = baixa por 3 sessões consecutivas → ativar revisão de processo.
+**Meta de eficiência:**
+- Redução mínima de 30% vs. prompt não otimizado
+- Zero estouros em ciclos normais (especs < 10 CAs)
+- Máximo 1 estouro por ciclo em especs grandes (aceitável)
 
 ---
 
-## Princípio Final
+## 🔄 Integração com Orquestrador
 
-Tokens economizados = tempo economizado = mais features entregues.
-Não seja barato por ser barato. Seja eficiente por ser preciso.
+### Gate 0 — Passo 3 (Atualizado)
+```
+3. Token Optimizer (O-05): 
+   a. Ler `.antigravity/token-optimizer-rules.md` ← ESTE ARQUIVO
+   b. Aplicar DEDUP-01, CODE-01, HIER-01, HAND-01, CACHE-01
+   c. Calcular tokens estimados do prompt do próximo especialista
+   d. Se estouro detectado → aplicar OVERFLOW-01
+   e. Registrar métricas em `.antigravity/metrics/[CICLO]-tokens.json`
+```
+
+### Modo 5 — Reavaliação (Trigger por estouro)
+```
+Se OVERFLOW-01 ativar quarto corte:
+→ Orquestrador pergunta: "Contexto excede limite. Opções:
+   1. Dividir ciclo em sub-ciclos (menor escopo por ciclo)
+   2. Resumir áreas não-críticas (pode perder detalhe)
+   3. Usar modelo com maior contexto (se disponível)
+   4. Prosseguir com risco de omissão (registrar no context.md)"
+```
+
+---
+
+## ✅ Checklist de Aplicação
+
+Antes de ativar qualquer especialista, o Orquestrador deve:
+
+- [ ] Ler este arquivo (token-optimizer-rules.md)
+- [ ] Identificar especialista alvo e suas necessidades de contexto
+- [ ] Aplicar DEDUP-01 (remover redundâncias context.md vs handoff)
+- [ ] Aplicar CODE-01 (comprimir código >50 linhas)
+- [ ] Aplicar HIER-01 (priorizar Crítico/Alto, referenciar Baixo)
+- [ ] Aplicar HAND-01 (resumir handoff anterior se muito longo)
+- [ ] Aplicar CACHE-01 (referenciar contexto estático)
+- [ ] Calcular tokens estimados
+- [ ] Se estouro → aplicar OVERFLOW-01
+- [ ] Registrar métricas em `.antigravity/metrics/[CICLO]-tokens.json`
+
+---
+
+## 📝 Exemplo de Aplicação Completa
+
+**Cenário:** Ativar `backend` após `security-arch` em ciclo de API de pagamentos.
+
+**ANTES (sem otimização):**
+```
+Prompt backend recebe:
+- context.md completo (~3000 tokens)
+- handoff security-arch completo (~2500 tokens)  
+- spec-enriquecida completa (~4000 tokens)
+- código de referência (~2000 tokens)
+TOTAL: ~11.500 tokens → ESTOURO em modelo 8k/16k
+```
+
+**DEPOIS (com otimização):**
+```
+Prompt backend recebe:
+- context.md: §4 (fluxos críticos) + §5 (stack) + §8 (compliance) = ~800 tokens
+  Referência: "Ver context.md §1-3, §6-7, §9-10 para detalhes"
+- handoff security-arch: Resumo (§1, §3 findings Crítico/Alto, §8) = ~600 tokens
+  Referência: "Ver handoff completo em .antigravity/handoffs/..."
+- spec-enriquecida: CAs de backend + edge cases P0/P1 = ~1200 tokens
+  Referência: "Ver spec-enriquecida.md para CAs de frontend/QA"
+- código: Apenas interfaces e contratos de API = ~400 tokens
+TOTAL: ~3.000 tokens ✅
+```
+
+**Redução: 74%** sem perda de informação crítica para o backend.
+
+---
+
+## 🆕 Changelog
+
+| Versão | Data | Mudança |
+|--------|------|---------|
+| 1.0.0 | 2026-04-24 | Criação inicial — arquivo faltante no ecossistema v4.0 |

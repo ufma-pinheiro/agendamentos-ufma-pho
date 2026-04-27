@@ -8,6 +8,20 @@ export let calendar;
 export function getCalendar() { return calendar; }
 export let realtimeChannel = null;
 
+function normalizeEventId(id) {
+    return id != null ? String(id) : null;
+}
+
+function removeCalendarEventsById(id) {
+    if (!calendar) return;
+    const eventId = normalizeEventId(id);
+    if (!eventId) return;
+
+    calendar.getEvents()
+        .filter(ev => String(ev.id) === eventId)
+        .forEach(ev => ev.remove());
+}
+
 /**
  * Retorna a cor baseada no primeiro espaço da lista
  */
@@ -173,34 +187,33 @@ export function iniciarRealtime(onUpdate) {
     realtimeChannel = supabase
         .channel('reservas-realtime')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'reservas' }, (payload) => {
+            if (!calendar || payload.new?.cancelado === true) return;
             const evento = dbParaFrontend(payload.new);
-            const existing = calendar.getEventById(String(evento.id));
-            if (!existing) {
-                calendar.addEvent(evento);
-                if (onUpdate) onUpdate();
-            }
+            evento.id = normalizeEventId(evento.id);
+            removeCalendarEventsById(evento.id);
+            calendar.addEvent(evento);
+            if (onUpdate) onUpdate();
         })
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'reservas' }, (payload) => {
+            if (!calendar) return;
             const evento = dbParaFrontend(payload.new);
-            const existing = calendar.getEventById(evento.id);
+            const eventId = normalizeEventId(evento.id);
             // Se foi soft-deleted (cancelado), remover do calendário sem re-adicionar
             if (payload.new.cancelado === true) {
-                if (existing) {
-                    existing.remove();
-                    if (onUpdate) onUpdate();
-                }
+                removeCalendarEventsById(eventId);
+                if (onUpdate) onUpdate();
                 return;
             }
-            if (existing) existing.remove();
+
+            evento.id = eventId;
+            removeCalendarEventsById(eventId);
             calendar.addEvent(evento);
             if (onUpdate) onUpdate();
         })
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'reservas' }, (payload) => {
-            const existing = calendar.getEventById(payload.old.id);
-            if (existing) {
-                existing.remove();
-                if (onUpdate) onUpdate();
-            }
+            if (!calendar) return;
+            removeCalendarEventsById(payload.old?.id);
+            if (onUpdate) onUpdate();
         })
         .subscribe();
 

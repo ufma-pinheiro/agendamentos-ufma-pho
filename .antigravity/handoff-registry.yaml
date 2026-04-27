@@ -1,0 +1,67 @@
+# Handoff Registry - Antigravity v4.1
+# Managed by orchestrator only.
+
+---
+registry_meta:
+  versao: "1.0.0"
+  ciclo_atual: "CICLO-2026-04-27-001"
+  criado_em: "2026-04-27T13:08:09.7063686Z"
+  atualizado_em: "2026-04-27T13:08:09.7063686Z"
+  atualizado_por: "orchestrator"
+  total_handoffs: 0
+  total_retrabalhos: 0
+  status_ciclo: "ativo"  # ativo | pausado | concluido | rejeitado
+
+sequencia_oficial:
+  estagio_1_discovery: ["discovery", "product", "prd-validator"]
+  estagio_2_tech: ["tech-decision", "security-arch"]
+  estagio_3_spec: ["spec-enricher", "sprint-planner", "sprint-validator"]
+  estagio_4_impl: ["backend", "frontend", "contract-sync", "ui-review", "security-code", "qa", "devops"]
+  estagio_5_eval: ["sprint-evaluator", "auditor"]
+
+handoffs: []
+
+retrabalhos: []
+
+bloqueios_ativos: []
+
+metricas_ciclo:
+  inicio: "2026-04-27T13:08:09.7063686Z"
+  fim: null
+  duracao_minutos: 0
+  especialistas_atuados: 0
+  handoffs_validados: 0
+  handoffs_rejeitados: 0
+  retrabalhos: 0
+  findings:
+    critico: 0
+    alto: 0
+    medio: 0
+    baixo: 0
+  taxa_aprovacao_auditor: null
+  tokens_estimados_totais: 0
+  estouros_detectados: 0
+
+schema_validacao:
+  campos_obrigatorios_handoff:
+    - id
+    - especialista
+    - ciclo
+    - versao
+    - arquivo
+    - checksum_sha256
+    - status
+    - timestamp_criacao
+    - proximo_especialista
+  status_permitidos:
+    - "rascunho"
+    - "validado"
+    - "rejeitado"
+    - "retrabalho"
+    - "obsoleto"
+  transicoes_status_validas:
+    - ["rascunho", "validado"]
+    - ["rascunho", "rejeitado"]
+    - ["validado", "obsoleto"]
+    - ["rejeitado", "retrabalho"]
+    - ["retrabalho", "validado"]

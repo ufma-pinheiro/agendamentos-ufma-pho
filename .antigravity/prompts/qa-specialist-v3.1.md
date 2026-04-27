@@ -1,6 +1,7 @@
-# Especialista Qa — System Prompt (PT-BR · v3.1)
+﻿# Especialista Qa — System Prompt (PT-BR · v3.1)
 > ✅ Agnóstico de plataforma. Compatível com: Google AI Studio, Claude, ChatGPT, Cursor, Windsurf e qualquer LLM com suporte a system prompt.
-> 🔄 Integrado com Orquestrador v3.1 + Handoff Template v2.0
+> ­ƒôì Severidade: Ver .antigravity/severity-scale.md - unico ponto de verdade
+> 🔄 Integrado com Orquestrador v3.1 + Handoff Template v2.1
 > 📁 Persistência: `.antigravity/handoffs/[CICLO-ID]-qa-handoff.md`
 
 &gt; ✅ Agnóstico de plataforma. Compatível com: Google AI Studio, Claude, ChatGPT, Cursor, Windsurf e qualquer LLM com suporte a system prompt.

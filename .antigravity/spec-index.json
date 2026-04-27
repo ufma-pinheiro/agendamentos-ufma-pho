@@ -1,78 +1,18 @@
 {
-  "versao": "1.0.0",
-  "ultima_atualizacao": "2026-04-21",
-  "specs_ativas": [
+  "specs": [
     {
-      "id": "FEAT-006",
-      "titulo": "Migração de Últimos Registros para Sidebar",
-      "status": "Planejado",
-      "arquivo": "specs/active/FEAT-006-migracao-sidebar-ultimos-registros.md"
+      "id": "FEAT-007",
+      "titulo": "Agendamentos recorrentes",
+      "status": "Implementacao concluida - em validacao QA",
+      "origem": "em-dev-agendamentos-main/specs/active/FEAT-007-agendamentos-recorrentes.md",
+      "artefatos": [
+        "specs/spec-ativa.md",
+        "specs/spec-tecnica.md",
+        "specs/spec-enriquecida.md",
+        ".antigravity/sprint-plans/CICLO-2026-04-27-001-FEAT-007.md",
+        "em-dev-agendamentos-main/docs/QA_FEAT-007_RECORRENCIA.md"
+      ]
     }
   ],
-  "specs_concluidas": [
-    {
-      "id": "FEAT-005",
-      "titulo": "Redesign do Painel de Últimos Registros",
-      "status": "Concluído",
-      "arquivo": "specs/active/FEAT-005-redesign-ultimos-registros.md"
-    },
-    {
-      "id": "FEAT-004",
-      "titulo": "Redesign Premium do Calendário (UX/UI SaaS)",
-      "status": "Concluído e Auditado",
-      "arquivo": "specs/active/FEAT-004-redesign-calendario.md"
-    },
-    {
-      "id": "FEAT-002",
-      "titulo": "Painel de Conflitos Global",
-      "concluido_em": "2026-04-22",
-      "veredicto_auditor": "APROVADO",
-      "arquivo": "specs/active/FEAT-002-painel-conflitos.md"
-    },
-    {
-      "id": "ARCH-001",
-      "titulo": "Modularizacao do app.js em ES Modules",
-      "concluido_em": "2026-04-21",
-      "veredicto_auditor": "APROVADO",
-      "arquivo": "specs/completed/ARCH-001-modularizacao.md"
-    },
-    {
-      "id": "SECURITY-001",
-      "titulo": "Hardening de Segurança (admin hardcoded, XSS, memory leak)",
-      "concluido_em": "2026-04-20",
-      "veredicto_auditor": "CONDICIONADO",
-      "arquivo": "specs/completed/SECURITY-001.md"
-    },
-    {
-      "id": "PERF-001",
-      "titulo": "Projecoes explicitas nas queries do Supabase",
-      "concluido_em": "2026-04-20",
-      "veredicto_auditor": "APROVADO",
-      "arquivo": "specs/completed/PERF-001.md"
-    },
-    {
-      "id": "SECURITY-002",
-      "titulo": "Content Security Policy (CSP)",
-      "concluido_em": "2026-04-20",
-      "veredicto_auditor": "APROVADO",
-      "arquivo": "specs/completed/SECURITY-002.md"
-    }
-  ],
-  "pendencias_abertas": [
-    {
-      "id": "P-001",
-      "severidade": "Medio",
-      "descricao": "CA-01 a CA-04 (SECURITY-001) sem evidencia de teste"
-    },
-    {
-      "id": "P-003",
-      "severidade": "Baixo",
-      "descricao": "Gate do Auditor deve ser acionado ANTES do push"
-    },
-    {
-      "id": "P-005",
-      "severidade": "Baixo",
-      "descricao": "Inventariar dominios externos antes de nova CSP"
-    }
-  ]
+  "ativo": "FEAT-007"
 }
