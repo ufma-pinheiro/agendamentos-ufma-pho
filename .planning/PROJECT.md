@@ -32,8 +32,8 @@ O calendário deve ser a tela principal — claro, rápido e intuitivo — permi
 - [ ] Migrar para Vite como bundler — substituir scripts CDN por pacotes npm gerenciados
 - [ ] Modularizar `app.js` (>1000 linhas) em componentes menores e especializados por domínio
 - [ ] Eliminar dependência de `window` para handlers — usar `addEventListener` de forma coesa
-- [ ] Redesenhar a topbar e sidebar para maximizar o espaço do calendário (foco no usuário final)
-- [ ] Melhorar a UX do calendário — filtros visuais, interação mais fluída, informações contextuais melhores
+- [ ] Redesenhar toda a interface do sistema (sidebar, topbar, calendário, dashboard, relatórios, admin, resumo mensal)
+- [ ] UX premium em todas as telas — visual moderno, micro-animações, estados vazios informativos
 - [ ] Organizar CSS em camadas: design tokens → base → componentes → páginas
 
 ### Out of Scope
@@ -66,7 +66,7 @@ O calendário deve ser a tela principal — claro, rápido e intuitivo — permi
 |---|---|---|
 | Migrar CDN → Vite + npm | Controle de versões, tree-shaking, DX melhor | — Pendente |
 | Modularizar por domínio | Facilitar manutenção sem reescrever lógica | — Pendente |
-| Redesenhar UI do calendário | Calendário é o core value; deve ter máximo espaço | — Pendente |
+| Redesenhar toda a UI do sistema | Melhorar manutenibilidade e experiência em todas as telas | — Pendente |
 | Manter Vanilla JS (sem framework) | Equipe conhece o código; sem necessidade de React/Vue | — Pendente |
 
 ## Evolution

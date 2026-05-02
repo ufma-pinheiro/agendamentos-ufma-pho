@@ -22,10 +22,13 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 |------|--------|--------|
 | 1 | Scaffold Vite + Dependências npm | `[ ] Pendente` |
 | 2 | Modularização do Código JS | `[ ] Pendente` |
-| 3 | Reorganização do CSS | `[ ] Pendente` |
-| 4 | Redesign da UI: Sidebar & Topbar | `[ ] Pendente` |
-| 5 | Redesign da UI: Calendário & Modal de Evento | `[ ] Pendente` |
-| 6 | Build de Produção & Deploy | `[ ] Pendente` |
+| 3 | Reorganização do CSS & Design Tokens | `[ ] Pendente` |
+| 4 | Redesign: Layout Global (Sidebar & Topbar) | `[ ] Pendente` |
+| 5 | Redesign: Calendário & Interação com Eventos | `[ ] Pendente` |
+| 6 | Redesign: Dashboard & Relatórios | `[ ] Pendente` |
+| 7 | Redesign: Seções Administrativas | `[ ] Pendente` |
+| 8 | Redesign: Resumo Mensal, Meus Eventos & Últimos Registros | `[ ] Pendente` |
+| 9 | Build de Produção & Deploy | `[ ] Pendente` |
 
 ---
 
