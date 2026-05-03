@@ -1,0 +1,345 @@
+
+Sua tarefa é redesenhar a interface de um sistema web de **agendamento de espaços ufma**, incluindo duas telas principais:
+
+1. "Resumo Mensal" (todos os agendamentos)
+2. "Meus Agendamentos" (agendamentos do usuário)
+
+⚠️ IMPORTANTE: O sistema também possui uma seção de **eventos encerrados**, que deve ser tratada corretamente no UX.
+
+---
+
+# 🎯 OBJETIVO
+
+Criar uma interface:
+
+* Extremamente escaneável (leitura em até 2 segundos)
+* Limpa e moderna (dark mode premium)
+* Escalável (suporta 100+ eventos)
+* Funcional (UX melhor que estética)
+* Consistente entre telas
+
+---
+
+# 🧩 CONTEXTO REAL (BASEADO NA UI ATUAL)
+
+Cada agendamento possui:
+
+* Data (ex: 03 ABR)
+* Nome do evento
+* Horário
+* Sala(s)
+* Categoria(s): Saúde, Engenharia, Licenciaturas
+* Responsável (às vezes)
+* Ações: editar, excluir
+
+Problemas atuais:
+
+* Cards grandes e pesados
+* Excesso de cores
+* Tags poluídas
+* Data repetitiva
+* Falta de hierarquia
+* UX ruim para muitos eventos
+
+---
+
+# 🔥 NOVA ESTRUTURA GLOBAL
+
+## 🔝 HEADER PADRÃO (AMBAS AS TELAS)
+
+Deve conter:
+
+* Título dinâmico:
+
+  * "Resumo Mensal"
+  * "Meus Agendamentos"
+* Contador de itens (badge)
+* Campo de busca global
+* Filtros rápidos:
+
+  * Hoje
+  * Esta semana
+  * Este mês
+* Filtros avançados (dropdown):
+
+  * Categoria
+  * Sala
+  * Responsável
+* Seletor de mês (dropdown moderno)
+* Botão primário: "+ Novo Agendamento"
+
+---
+
+# 📅 LISTAGEM PRINCIPAL (PADRÃO)
+
+## 🔹 AGRUPAMENTO POR DATA (OBRIGATÓRIO)
+
+Exemplo:
+
+📅 17 de Abril (quinta-feira)
+────────────────────────────
+• Evento A
+• Evento B
+
+📅 18 de Abril
+────────────────────────────
+• Evento C
+
+⚠️ NÃO repetir data em cada item
+
+---
+
+# 🧾 ITEM DE AGENDAMENTO (REDESIGN COMPLETO)
+
+## Estrutura ideal:
+
+[ Nome do Evento ]
+08:00 – 18:00  •  Sala 05  •  SEMED
+Tags discretas
+
+---
+
+## 🎯 REGRAS
+
+* Nome = destaque principal
+* Infos secundárias = menor contraste
+* Tags = pequenas e minimalistas
+* Ícones sutis (sem poluição)
+* Item inteiro clicável
+
+---
+
+# 🎨 VISUAL
+
+* Remover bordas fortes
+* Sem glow exagerado
+* Fundo com leve contraste (glass/subtle)
+* Espaçamento consistente
+* Hover suave
+
+---
+
+# 🎨 CORES (CATEGORIAS)
+
+Categorias:
+
+* Engenharia → roxo
+* Licenciaturas → laranja
+* Saúde → verde
+
+⚠️ Usar cor apenas em:
+
+* tag OU
+* borda lateral fina
+
+Nunca duplicar cor no mesmo item
+
+---
+
+# ⚡ MENU DE AÇÕES (IMPORTANTE)
+
+Substituir ícones por:
+
+⋮ Menu contextual
+
+Opções:
+
+* Editar
+* Excluir
+* Duplicar
+* Ver detalhes
+
+---
+
+# 🔴 SEÇÃO: EVENTOS ENCERRADOS (MUITO IMPORTANTE)
+
+Baseado na UI atual, existe:
+"Encerrados do mês" / "Encerrados"
+
+## NOVO COMPORTAMENTO:
+
+* Deve ser uma seção separada no final da lista
+* Estilo colapsável (accordion)
+
+Exemplo:
+
+▼ Encerrados do mês (49)
+────────────────────────────
+
+## Estado fechado:
+
+* Compacto
+* Menor destaque visual
+
+## Estado aberto:
+
+* Lista eventos encerrados
+
+---
+
+## 🎨 VISUAL DOS ENCERRADOS
+
+* Opacidade reduzida (ex: 60%)
+* Sem destaque de cor forte
+* Sem hover chamativo
+* Aparência "desativada"
+
+---
+
+# 👤 TELA: MEUS AGENDAMENTOS
+
+Essa tela tem comportamento diferente:
+
+## DIFERENÇAS IMPORTANTES:
+
+* Mostrar apenas eventos do usuário
+* Ações mais relevantes (editar/excluir sempre visível no hover)
+* Pode ter múltiplas salas/categorias no mesmo evento
+
+---
+
+## ⚠️ PROBLEMA ATUAL (IMAGEM 2)
+
+* Muitas tags → poluição visual
+* Informações repetidas
+* Layout pesado
+
+---
+
+## ✔️ SOLUÇÃO
+
+### Tags:
+
+* Limitar exibição:
+
+  * Mostrar até 2 tags
+  * Restante: "+3"
+
+Exemplo:
+Licenciaturas - Sala 06, Engenharia - Auditório, +2
+
+---
+
+## 🎯 FOCO DO UX
+
+* Rápido de entender
+* Fácil de editar
+* Visual limpo mesmo com múltiplas informações
+
+---
+
+# 🔄 MODO DE VISUALIZAÇÃO
+
+Adicionar toggle:
+
+[ Lista ] [ Tabela ]
+
+---
+
+## 📊 MODO TABELA
+
+Colunas:
+
+| Data | Evento | Sala | Horário | Categoria | Ações |
+
+* Compacto
+* Ordenável
+* Ideal para usuários avançados
+
+---
+
+# 🔍 BUSCA E FILTROS
+
+## Busca:
+
+* Tempo real
+* Busca por:
+
+  * Evento
+  * Sala
+  * Responsável
+
+## Filtros:
+
+* Chips multi-select
+* Estado ativo claro
+
+---
+
+# 🎬 MICROINTERAÇÕES
+
+* Hover suave (150–200ms)
+* Skeleton loading
+* Feedback ao filtrar
+* Animação ao expandir "Encerrados"
+
+---
+
+# 📱 RESPONSIVIDADE
+
+## Desktop:
+
+* Completo
+
+## Mobile:
+
+* Cards simplificados
+* Menu ⋮ essencial
+
+---
+
+# 🧱 COMPONENTES
+
+Criar:
+
+* Header
+* SearchBar
+* FilterChips
+* MonthSelector
+* EventGroup (por data)
+* EventItem
+* TagList (com +N)
+* ActionMenu
+* CollapsibleSection (Encerrados)
+* TableView
+
+---
+
+# 💻 IMPLEMENTAÇÃO
+
+Gerar código com:
+
+* React
+* TailwindCSS
+* Componentização limpa
+* Código reutilizável
+
+---
+
+# 🚀 RESULTADO FINAL
+
+* UI nível SaaS premium
+* Escalável (100+ eventos)
+* UX clara e rápida
+* Consistência entre telas
+* Eventos encerrados bem organizados
+* Tela "Meus Agendamentos" otimizada
+
+---
+
+# ⚠️ NÃO FAZER
+
+* Não usar cards pesados
+* Não repetir data
+* Não usar cores excessivas
+* Não poluir com tags
+* Não esconder ações importantes
+
+---
+
+Agora gere:
+
+1. Wireframe detalhado
+2. Layout completo
+3. Código React + Tailwind
+4. Explicação das decisões de UX

@@ -1,4 +1,7 @@
 // js/reservas.js - Gerenciamento de Reservas e Eventos (CRUD)
+import flatpickr from 'flatpickr';
+import { Portuguese } from 'flatpickr/dist/l10n/pt.js';
+import Swal from 'sweetalert2';
 import { supabase } from '../supabaseClient.js';
 import { calendar, getCorPorEspaco, recarregarDados } from './calendar.js';
 import { frontendParaDb } from './db.js';
@@ -749,7 +752,7 @@ export function adicionarLinhaData(dataEspecifica = null) {
 
     if (typeof flatpickr === 'function') {
         flatpickr(`#data_${id}`, {
-            locale: 'pt',
+            locale: Portuguese,
             dateFormat: 'Y-m-d',
             altInput: true,
             altFormat: 'd/m/Y',

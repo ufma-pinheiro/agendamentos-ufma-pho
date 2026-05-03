@@ -1,4 +1,6 @@
 // login.js - Autenticação via Supabase (apenas Google OAuth)
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './style.css';
 import { supabase } from './supabaseClient.js';
 
 // Verifica se já está logado

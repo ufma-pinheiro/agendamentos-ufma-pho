@@ -1,3 +1,13 @@
+import 'flatpickr/dist/flatpickr.min.css';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light-border.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './style.css';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import Swal from 'sweetalert2';
 import { supabase } from './supabaseClient.js';
 import { showToast, setButtonLoading, hideLoading, debounce, stringToColor, adjustColor, escapeHtml } from './js/utils.js';
 import { dbParaFrontend, frontendParaDb } from './js/db.js';
@@ -876,7 +886,7 @@ function exportarExcel() {
 function exportarPDF() {
     const dados = obterDadosParaExportacao();
     if (dados.length === 0) { showToast('Nenhum dado para exportar', 'error'); return; }
-    const { jsPDF } = window.jspdf; const doc = new jsPDF('landscape');
+    const doc = new jsPDF('landscape');
     doc.setFontSize(20); doc.text("Relatório de Agendamentos UFMA", 14, 20);
     doc.setFontSize(10); doc.setTextColor(100); doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 28);
     doc.autoTable({ head: [Object.keys(dados[0])], body: dados.map(obj => Object.values(obj)), startY: 35, theme: 'grid', styles: { fontSize: 9, cellPadding: 3 }, headStyles: { fillColor: [59, 130, 246], textColor: 255 } });

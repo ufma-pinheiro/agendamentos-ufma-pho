@@ -1,4 +1,10 @@
 // js/calendar.js - Módulo de Gestão do FullCalendar e Realtime
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+import multiMonthPlugin from '@fullcalendar/multimonth';
 import { supabase } from '../supabaseClient.js';
 import { showToast, escapeHtml, debounce } from './utils.js';
 import { dbParaFrontend } from './db.js';
@@ -80,7 +86,8 @@ export function iniciarSistema(estado, callbacks) {
     const calendarEl = document.getElementById('calendar');
     if (!calendarEl) return;
 
-    calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new Calendar(calendarEl, {
+        plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, multiMonthPlugin],
         initialView: 'dayGridMonth',
         locale: 'pt-br',
         headerToolbar: {

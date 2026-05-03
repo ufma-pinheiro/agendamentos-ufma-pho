@@ -172,6 +172,7 @@
 }
 
 /* Garante que o texto dos dias da semana e números sejam visíveis no modo escuro */
+.fc-col-header-cell-cushion, .fc-daygrid-day-number {
     color: var(--text-primary) !important;
 }
 

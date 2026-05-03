@@ -1,4 +1,5 @@
 // js/dashboard.js - Módulo de Analytics e Dashboard
+import Chart from 'chart.js/auto';
 import { supabase } from '../supabaseClient.js';
 import { buscarDadosMensais, calendar } from './calendar.js';
 import { dbParaFrontend } from './db.js';

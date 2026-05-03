@@ -11,8 +11,8 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 ## Current State
 
-**Fase ativa:** Nenhuma (projeto recém-inicializado)
-**Próxima ação:** Executar Fase 1 — Scaffold Vite + Dependências npm
+**Fase ativa:** Fase 2 — Modularização do Código JS
+**Próxima ação:** Fragmentar o app.js em módulos especializados em src/features/
 
 ---
 
@@ -20,7 +20,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 | Fase | Título | Status |
 |------|--------|--------|
-| 1 | Scaffold Vite + Dependências npm | `[ ] Pendente` |
+| 1 | Scaffold Vite + Dependências npm | `[x] Concluído` |
 | 2 | Modularização do Código JS | `[ ] Pendente` |
 | 3 | Reorganização do CSS & Design Tokens | `[ ] Pendente` |
 | 4 | Redesign: Layout Global (Sidebar & Topbar) | `[ ] Pendente` |
@@ -41,4 +41,4 @@ See: `.planning/PROJECT.md` (updated 2026-05-02)
 
 ---
 
-*Atualizado em: 2026-05-02 — inicialização do projeto*
+*Atualizado em: 2026-05-03 — Conclusão da Fase 1*
