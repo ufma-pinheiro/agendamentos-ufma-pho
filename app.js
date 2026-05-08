@@ -82,14 +82,22 @@ function showToast(message, type = 'success', duration = 3000) {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.innerHTML = `
-        <div class="toast-icon">
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-info-circle'}"></i>
-        </div>
-        <div class="toast-content">
-            <span>${message}</span>
-        </div>
-    `;
+
+    const iconMap = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+    const toastIcon = document.createElement('div');
+    toastIcon.className = 'toast-icon';
+    const icon = document.createElement('i');
+    icon.className = `fas ${iconMap[type] || 'fa-info-circle'}`;
+    toastIcon.appendChild(icon);
+
+    const toastContent = document.createElement('div');
+    toastContent.className = 'toast-content';
+    const span = document.createElement('span');
+    span.textContent = message;
+    toastContent.appendChild(span);
+
+    toast.appendChild(toastIcon);
+    toast.appendChild(toastContent);
     
     container.appendChild(toast);
     
@@ -214,11 +222,26 @@ window.abrirDetalhes = function(event) {
     
     const rowContato = document.getElementById('rowModalContato');
     const modalContato = document.getElementById('modalContato');
+    modalContato.innerHTML = '';
     if(props.contatoWhats || props.contatoEmail) {
-        let html = '';
-        if(props.contatoWhats) html += `<i class="fab fa-whatsapp" style="color: #25d366; margin-right: 0.5rem;"></i>${props.contatoWhats}<br>`;
-        if(props.contatoEmail) html += `<i class="fas fa-envelope" style="color: var(--primary-500); margin-right: 0.5rem;"></i>${props.contatoEmail}`;
-        modalContato.innerHTML = html;
+        if(props.contatoWhats) {
+            const whatsIcon = document.createElement('i');
+            whatsIcon.className = 'fab fa-whatsapp';
+            whatsIcon.style.cssText = 'color:#25d366;margin-right:0.5rem';
+            const whatsText = document.createTextNode(props.contatoWhats);
+            const br = document.createElement('br');
+            modalContato.appendChild(whatsIcon);
+            modalContato.appendChild(whatsText);
+            modalContato.appendChild(br);
+        }
+        if(props.contatoEmail) {
+            const emailIcon = document.createElement('i');
+            emailIcon.className = 'fas fa-envelope';
+            emailIcon.style.cssText = 'color:var(--primary-500);margin-right:0.5rem';
+            const emailText = document.createTextNode(props.contatoEmail);
+            modalContato.appendChild(emailIcon);
+            modalContato.appendChild(emailText);
+        }
         rowContato.style.display = 'flex';
     } else {
         rowContato.style.display = 'none';
@@ -469,9 +492,7 @@ async function initAuth() {
             .eq('email', user.email)
             .single();
         
-        if(user.email === 'tipinheiro@ufma.br') {
-            estado.nivelAcesso = 'dono';
-        } else if(userData && userData.role) {
+        if(userData && userData.role) {
             estado.nivelAcesso = userData.role;
         } else {
             // Email não cadastrado - mostrar tela de acesso negado
@@ -497,6 +518,10 @@ async function initAuth() {
 // Escuta mudanças de auth (logout, etc.)
 supabase.auth.onAuthStateChange((event, session) => {
     if(event === 'SIGNED_OUT' && authVerificado) {
+        if(realtimeChannel) {
+            supabase.removeChannel(realtimeChannel);
+            realtimeChannel = null;
+        }
         window.location.href = "login.html";
     }
 });
@@ -745,7 +770,7 @@ function iniciarSistema() {
                 // Iniciar carregamento
                 const { data, error } = await supabase
                     .from('reservas')
-                    .select('*')
+                    .select('id,title,titulopuro,start_time,end_time,espacos,responsavel,contatowhats,contatoemail,color,isconflito,groupid,datacriacao,criadopor')
                     .gte('start_time', info.start.toISOString())
                     .lte('end_time', info.end.toISOString());
 
@@ -828,7 +853,7 @@ async function buscarDadosMensais(ano, mes) {
     
     const { data, error } = await supabase
         .from('reservas')
-        .select('*')
+        .select('id,title,titulopuro,start_time,end_time,espacos,responsavel,contatowhats,contatoemail,color,isconflito,groupid,datacriacao,criadopor')
         .gte('start_time', inicioMes)
         .lte('end_time', fimMes);
         
@@ -854,8 +879,10 @@ async function recarregarDados() {
 // REALTIME
 // ==========================================
 
+let realtimeChannel = null;
+
 function iniciarRealtime() {
-    supabase
+    realtimeChannel = supabase
         .channel('reservas-realtime')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'reservas' }, (payload) => {
             const evento = dbParaFrontend(payload.new);

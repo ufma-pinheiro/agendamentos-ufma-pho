@@ -39,16 +39,13 @@ supabase.auth.onAuthStateChange(async (event, session) => {
 
 // Verifica se o email existe na tabela usuarios
 async function verificarAcesso(email) {
-    // Hardcoded admin como fallback
-    if(email === 'tipinheiro@ufma.br') return true;
-    
     try {
         const { data, error } = await supabase
             .from('usuarios')
             .select('email')
             .eq('email', email)
             .single();
-        
+
         return !!data;
     } catch(e) {
         return false;
@@ -84,11 +81,17 @@ document.getElementById('btnGoogleLogin').addEventListener('click', async () => 
 function showError(message) {
     const existing = document.querySelector('.error-message');
     if(existing) existing.remove();
-    
+
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
-    errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>${message}</span>`;
-    
+
+    const icon = document.createElement('i');
+    icon.className = 'fas fa-exclamation-circle';
+    const text = document.createElement('span');
+    text.textContent = message;
+    errorDiv.appendChild(icon);
+    errorDiv.appendChild(text);
+
     const container = document.querySelector('.login-card .login-content');
     container.insertBefore(errorDiv, container.firstChild);
     
