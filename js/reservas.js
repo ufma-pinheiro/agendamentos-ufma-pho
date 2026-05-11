@@ -566,7 +566,8 @@ export async function deletarEvento(atualizarTodasTelas) {
             .update({
                 cancelado: true,
                 motivo_cancelamento: motivo,
-                datacancelamento: dataCanc
+                datacancelamento: dataCanc,
+                canceladopor: estado?.usuarioLogado?.email
             });
 
         if (escopo === 'single') {

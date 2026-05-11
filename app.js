@@ -249,7 +249,7 @@ function toggleTheme() {
 
     if (typeof atualizarDashboard === 'function' &&
         document.getElementById('abaDashboard')?.classList.contains('active')) {
-        atualizarDashboard();
+        atualizarDashboard(estado);
     }
 }
 
@@ -340,6 +340,24 @@ function initUI() {
                 if (modal.id === 'modalFormAgendamento') fecharModalForm();
             }
         });
+    });
+
+    document.addEventListener('click', (e) => {
+        const eventContent = e.target.closest('.event-content-clickable');
+        if (eventContent) {
+            const id = eventContent.getAttribute('data-event-id');
+            const jsonStr = eventContent.getAttribute('data-event-json');
+            const cal = window.getCalendar && window.getCalendar();
+            let ev = cal ? cal.getEventById(id) : null;
+            if (!ev && jsonStr) {
+                try {
+                    ev = JSON.parse(jsonStr.replace(/&quot;/g, '"'));
+                } catch (err) {
+                    console.error('Erro ao parsear JSON do evento', err);
+                }
+            }
+            if (ev) window.abrirDetalhes(ev);
+        }
     });
 
     // Atalhos de teclado

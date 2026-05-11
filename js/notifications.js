@@ -42,19 +42,13 @@ export async function atualizarPainelNotificacoes() {
                     <td>${escapeHtml(ev.contatoemail || 'N/A')}</td>
                     <td><span class="badge badge-warning">Pendente (${horasAntecedencia}h)</span></td>
                     <td>
-                        <button class="btn-action-mini btn-notificar" data-id="${ev.id}" title="Notificar Agora">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
+                        <span class="text-muted text-xs">Em breve</span>
                     </td>
                 </tr>
             `;
         }).join('');
 
-        // Listeners para disparo manual
-        lista.querySelectorAll('.btn-notificar').forEach(btn => {
-            btn.addEventListener('click', () => dispararNotificacaoManual(btn.dataset.id));
-        });
-
+        // Listeners removidos na Fase 0 (feature em construção)
     } catch (e) {
         console.error("Erro ao carregar notificações:", e);
         lista.innerHTML = `<tr><td colspan="5" class="text-center p-4 text-danger">Erro ao carregar dados.</td></tr>`;

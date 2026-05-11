@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf /tmp/everything-claude-code)",
+      "Bash(git clone *)",
+      "Bash(rtk ls *)"
+    ]
+  },
+  "enabledPlugins": {
+    "everything-claude-code@everything-claude-code": true
+  }
+}

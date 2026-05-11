@@ -52,7 +52,7 @@ export function gerarCardEventoHtml(ev, estado) {
                 <span class="day">${dia}</span>
                 <span class="month">${mes}</span>
             </div>
-            <div class="event-content" onclick="window.abrirDetalhes(window.getCalendar()?.getEventById('${ev.id}') || ${JSON.stringify(ev).replace(/"/g, '&quot;')})">
+            <div class="event-content event-content-clickable" data-event-id="${ev.id}" data-event-json="${escapeHtml(JSON.stringify(ev))}">
                 <div class="event-header-row">
                     <h4>${escapeHtml(ev.extendedProps.tituloPuro || ev.title)}</h4>
                     ${badgeConflito}

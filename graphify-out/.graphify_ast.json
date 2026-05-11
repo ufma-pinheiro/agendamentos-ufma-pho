@@ -1,0 +1,4004 @@
+{
+  "nodes": [
+    {
+      "id": "app_js",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_estado",
+      "label": "estado",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_selectedtab",
+      "label": "selectedTab",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L40"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_btn",
+      "label": "btn",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L46"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_titles",
+      "label": "titles",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L50"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_pagetitle",
+      "label": "pageTitle",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L59"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_sidebar",
+      "label": "sidebar",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L79"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_modal",
+      "label": "modal",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L89"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_header",
+      "label": "header",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L96"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_formatdate",
+      "label": "formatDate()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L102"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_formattime",
+      "label": "formatTime()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L103"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_rowcontato",
+      "label": "rowContato",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L115"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_modalcontato",
+      "label": "modalContato",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L116"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_iconw",
+      "label": "iconW",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L120"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_icone",
+      "label": "iconE",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L128"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_tagscontainer",
+      "label": "tagsContainer",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L140"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_cor",
+      "label": "cor",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L143"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_span",
+      "label": "span",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L144"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_warning",
+      "label": "warning",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L151"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_allchip",
+      "label": "allChip",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L166"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_categorychips",
+      "label": "categoryChips",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L167"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_todosativos",
+      "label": "todosAtivos",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L176"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_algumativo",
+      "label": "algumAtivo",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L177"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_cal",
+      "label": "cal",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L188"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_activefilters",
+      "label": "activeFilters",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L190"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_match",
+      "label": "match",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L198"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_inittheme",
+      "label": "initTheme()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L235"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_toggletheme",
+      "label": "toggleTheme()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L241"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_updatethemeicon",
+      "label": "updateThemeIcon()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L256"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_failsafeloading",
+      "label": "failsafeLoading",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L270"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_initui",
+      "label": "initUI()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L298"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_construirinterfacedinamica",
+      "label": "construirInterfaceDinamica()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L399"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_mudarano",
+      "label": "mudarAno()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L527"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_atualizarselecaomes",
+      "label": "atualizarSelecaoMes()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L533"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_aplicarbusca",
+      "label": "aplicarBusca()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L546"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "label": "atualizarTodasTelas()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L592"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_renderizarcards",
+      "label": "renderizarCards()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L604"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_atualizarultimoseventos",
+      "label": "atualizarUltimosEventos()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L628"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "label": "atualizarMeusEventos()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L650"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_atualizarcancelamentos",
+      "label": "atualizarCancelamentos()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L684"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_renderizarcardscancelados",
+      "label": "renderizarCardsCancelados()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L754"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "label": "atualizarResumoMes()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L770"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_adicionarusuarioviaadmin",
+      "label": "adicionarUsuarioViaAdmin()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L782"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_carregarlistausuariosadmin",
+      "label": "carregarListaUsuariosAdmin()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L810"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_obterdadosparaexportacao",
+      "label": "obterDadosParaExportacao()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L844"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_exportarexcel",
+      "label": "exportarExcel()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L867"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_exportarpdf",
+      "label": "exportarPDF()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L876"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_fazerbackupjson",
+      "label": "fazerBackupJSON()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L887"
+    },
+    {
+      "id": "agendamentos_ufma_pho_app_restaurarbackupjson",
+      "label": "restaurarBackupJSON()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L917"
+    },
+    {
+      "id": "login_js",
+      "label": "login.js",
+      "file_type": "code",
+      "source_file": "login.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "agendamentos_ufma_pho_login_checksession",
+      "label": "checkSession()",
+      "file_type": "code",
+      "source_file": "login.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "agendamentos_ufma_pho_login_verificaracesso",
+      "label": "verificarAcesso()",
+      "file_type": "code",
+      "source_file": "login.js",
+      "source_location": "L41"
+    },
+    {
+      "id": "agendamentos_ufma_pho_login_btn",
+      "label": "btn",
+      "file_type": "code",
+      "source_file": "login.js",
+      "source_location": "L60"
+    },
+    {
+      "id": "agendamentos_ufma_pho_login_showerror",
+      "label": "showError()",
+      "file_type": "code",
+      "source_file": "login.js",
+      "source_location": "L84"
+    },
+    {
+      "id": "agendamentos_ufma_pho_login_overlay",
+      "label": "overlay",
+      "file_type": "code",
+      "source_file": "login.js",
+      "source_location": "L105"
+    },
+    {
+      "id": "supabaseclient_js",
+      "label": "supabaseClient.js",
+      "file_type": "code",
+      "source_file": "supabaseClient.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "label": "supabase",
+      "file_type": "code",
+      "source_file": "supabaseClient.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "js_auth_js",
+      "label": "auth.js",
+      "file_type": "code",
+      "source_file": "js\\auth.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_auth_mostraracessonegado",
+      "label": "mostrarAcessoNegado()",
+      "file_type": "code",
+      "source_file": "js\\auth.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "js_auth_initauth",
+      "label": "initAuth()",
+      "file_type": "code",
+      "source_file": "js\\auth.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "js_auth_aplicarpermissoes",
+      "label": "aplicarPermissoes()",
+      "file_type": "code",
+      "source_file": "js\\auth.js",
+      "source_location": "L66"
+    },
+    {
+      "id": "js_auth_setupauthlistener",
+      "label": "setupAuthListener()",
+      "file_type": "code",
+      "source_file": "js\\auth.js",
+      "source_location": "L117"
+    },
+    {
+      "id": "js_calendar_js",
+      "label": "calendar.js",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_calendar_getcalendar",
+      "label": "getCalendar()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "js_calendar_normalizeeventid",
+      "label": "normalizeEventId()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "js_calendar_removecalendareventsbyid",
+      "label": "removeCalendarEventsById()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "js_calendar_getcorporespaco",
+      "label": "getCorPorEspaco()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "js_calendar_getclassebadge",
+      "label": "getClasseBadge()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L39"
+    },
+    {
+      "id": "js_calendar_buscardadosmensais",
+      "label": "buscarDadosMensais()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L50"
+    },
+    {
+      "id": "js_calendar_iniciarsistema",
+      "label": "iniciarSistema()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L79"
+    },
+    {
+      "id": "js_calendar_iniciarrealtime",
+      "label": "iniciarRealtime()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L181"
+    },
+    {
+      "id": "js_calendar_recarregardados",
+      "label": "recarregarDados()",
+      "file_type": "code",
+      "source_file": "js\\calendar.js",
+      "source_location": "L228"
+    },
+    {
+      "id": "js_components_js",
+      "label": "components.js",
+      "file_type": "code",
+      "source_file": "js\\components.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_components_gerarcardeventohtml",
+      "label": "gerarCardEventoHtml()",
+      "file_type": "code",
+      "source_file": "js\\components.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "js_conflitos_js",
+      "label": "conflitos.js",
+      "file_type": "code",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_conflitos_atualizarpainelconflitos",
+      "label": "atualizarPainelConflitos()",
+      "file_type": "code",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "js_conflitos_renderizarparconflito",
+      "label": "renderizarParConflito()",
+      "file_type": "code",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L76"
+    },
+    {
+      "id": "js_constants_js",
+      "label": "constants.js",
+      "file_type": "code",
+      "source_file": "js\\constants.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_constants_mesesabrev",
+      "label": "mesesAbrev",
+      "file_type": "code",
+      "source_file": "js\\constants.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "js_constants_feriadosfixos",
+      "label": "feriadosFixos",
+      "file_type": "code",
+      "source_file": "js\\constants.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "js_dashboard_js",
+      "label": "dashboard.js",
+      "file_type": "code",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_dashboard_atualizardashboard",
+      "label": "atualizarDashboard()",
+      "file_type": "code",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "js_dashboard_processarmetricas",
+      "label": "processarMetricas()",
+      "file_type": "code",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L51"
+    },
+    {
+      "id": "js_dashboard_renderizarmetricas",
+      "label": "renderizarMetricas()",
+      "file_type": "code",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L93"
+    },
+    {
+      "id": "js_dashboard_renderizargraficos",
+      "label": "renderizarGraficos()",
+      "file_type": "code",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L101"
+    },
+    {
+      "id": "js_dashboard_animatevalue",
+      "label": "animateValue()",
+      "file_type": "code",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L150"
+    },
+    {
+      "id": "js_db_js",
+      "label": "db.js",
+      "file_type": "code",
+      "source_file": "js\\db.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_db_dbparafrontend",
+      "label": "dbParaFrontend()",
+      "file_type": "code",
+      "source_file": "js\\db.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "js_db_frontendparadb",
+      "label": "frontendParaDb()",
+      "file_type": "code",
+      "source_file": "js\\db.js",
+      "source_location": "L58"
+    },
+    {
+      "id": "js_notifications_js",
+      "label": "notifications.js",
+      "file_type": "code",
+      "source_file": "js\\notifications.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_notifications_atualizarpainelnotificacoes",
+      "label": "atualizarPainelNotificacoes()",
+      "file_type": "code",
+      "source_file": "js\\notifications.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "js_notifications_dispararnotificacaomanual",
+      "label": "dispararNotificacaoManual()",
+      "file_type": "code",
+      "source_file": "js\\notifications.js",
+      "source_location": "L67"
+    },
+    {
+      "id": "js_reservas_js",
+      "label": "reservas.js",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_reservas_pad2",
+      "label": "pad2()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L19"
+    },
+    {
+      "id": "js_reservas_formatdateymd",
+      "label": "formatDateYmd()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L23"
+    },
+    {
+      "id": "js_reservas_parseymdtoutcdate",
+      "label": "parseYmdToUtcDate()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L27"
+    },
+    {
+      "id": "js_reservas_geraruuid",
+      "label": "gerarUuid()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L32"
+    },
+    {
+      "id": "js_reservas_montarsessao",
+      "label": "montarSessao()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L37"
+    },
+    {
+      "id": "js_reservas_coletarsessoesdoformulario",
+      "label": "coletarSessoesDoFormulario()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L44"
+    },
+    {
+      "id": "js_reservas_validarhorarios",
+      "label": "validarHorarios()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L59"
+    },
+    {
+      "id": "js_reservas_obterconfigrecorrencia",
+      "label": "obterConfigRecorrencia()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L68"
+    },
+    {
+      "id": "js_reservas_atualizaruirecorrencia",
+      "label": "atualizarUIRecorrencia()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L77"
+    },
+    {
+      "id": "js_reservas_resetrecorrenciaformulario",
+      "label": "resetRecorrenciaFormulario()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L122"
+    },
+    {
+      "id": "js_reservas_gerarsessoesrecorrentes",
+      "label": "gerarSessoesRecorrentes()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L138"
+    },
+    {
+      "id": "js_reservas_carregarserieporescopo",
+      "label": "carregarSeriePorEscopo()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L201"
+    },
+    {
+      "id": "js_reservas_carregareventosconflito",
+      "label": "carregarEventosConflito()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L218"
+    },
+    {
+      "id": "js_reservas_detectarconflitos",
+      "label": "detectarConflitos()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L259"
+    },
+    {
+      "id": "js_reservas_salvaroueditarevento",
+      "label": "salvarOuEditarEvento()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L289"
+    },
+    {
+      "id": "js_reservas_deletarevento",
+      "label": "deletarEvento()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L524"
+    },
+    {
+      "id": "js_reservas_restaurarevento",
+      "label": "restaurarEvento()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L596"
+    },
+    {
+      "id": "js_reservas_abrirmodalformulario",
+      "label": "abrirModalFormulario()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L627"
+    },
+    {
+      "id": "js_reservas_fecharmodalform",
+      "label": "fecharModalForm()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L652"
+    },
+    {
+      "id": "js_reservas_fecharmodal",
+      "label": "fecharModal()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L660"
+    },
+    {
+      "id": "js_reservas_prepararedicao",
+      "label": "prepararEdicao()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L668"
+    },
+    {
+      "id": "js_reservas_adicionarlinhadata",
+      "label": "adicionarLinhaData()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L723"
+    },
+    {
+      "id": "js_reservas_bindrecorrencialisteners",
+      "label": "bindRecorrenciaListeners()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L770"
+    },
+    {
+      "id": "js_reservas_initreservaswindow",
+      "label": "initReservasWindow()",
+      "file_type": "code",
+      "source_file": "js\\reservas.js",
+      "source_location": "L789"
+    },
+    {
+      "id": "js_utils_js",
+      "label": "utils.js",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_utils_showtoast",
+      "label": "showToast()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "js_utils_setbuttonloading",
+      "label": "setButtonLoading()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L35"
+    },
+    {
+      "id": "js_utils_hideloading",
+      "label": "hideLoading()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L46"
+    },
+    {
+      "id": "js_utils_debounce",
+      "label": "debounce()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L58"
+    },
+    {
+      "id": "js_utils_stringtocolor",
+      "label": "stringToColor()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L71"
+    },
+    {
+      "id": "js_utils_adjustcolor",
+      "label": "adjustColor()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L80"
+    },
+    {
+      "id": "js_utils_escapehtml",
+      "label": "escapeHtml()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L90"
+    },
+    {
+      "id": "js_utils_showsuccessmodal",
+      "label": "showSuccessModal()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L108"
+    },
+    {
+      "id": "js_utils_showconflictmodal",
+      "label": "showConflictModal()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L199"
+    },
+    {
+      "id": "js_utils_showconfirmmodal",
+      "label": "showConfirmModal()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L319"
+    },
+    {
+      "id": "js_utils_showseriesactionmodal",
+      "label": "showSeriesActionModal()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L363"
+    },
+    {
+      "id": "js_utils_showcancelmotivmodal",
+      "label": "showCancelMotivModal()",
+      "file_type": "code",
+      "source_file": "js\\utils.js",
+      "source_location": "L420"
+    }
+  ],
+  "edges": [
+    {
+      "source": "app_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_showtoast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_setbuttonloading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_hideloading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_debounce",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_stringtocolor",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_adjustcolor",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_utils_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_db_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_db_dbparafrontend",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_db_frontendparadb",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_auth_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_auth_initauth",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_auth_aplicarpermissoes",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_auth_setupauthlistener",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_iniciarsistema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_getcalendar",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_getcorporespaco",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_getclassebadge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_buscardadosmensais",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_calendar_recarregardados",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_constants_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_constants_mesesabrev",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_constants_feriadosfixos",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_notifications_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_notifications_atualizarpainelnotificacoes",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_dashboard_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_dashboard_atualizardashboard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_conflitos_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_conflitos_atualizarpainelconflitos",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_reservas_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_reservas_salvaroueditarevento",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_reservas_deletarevento",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_reservas_initreservaswindow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_reservas_fecharmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_reservas_fecharmodalform",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_components_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "js_components_gerarcardeventohtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_estado",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_selectedtab",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_btn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_titles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_pagetitle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_sidebar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_modal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_header",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_formatdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_formattime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_rowcontato",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_modalcontato",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_iconw",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_icone",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_tagscontainer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_cor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_span",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_warning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_allchip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_categorychips",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_todosativos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_algumativo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_cal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_activefilters",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_match",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_inittheme",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L235",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_toggletheme",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L241",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_updatethemeicon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L256",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_failsafeloading",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L270",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_initui",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L298",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_construirinterfacedinamica",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L399",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_mudarano",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L527",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_atualizarselecaomes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L533",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_aplicarbusca",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L546",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L592",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_renderizarcards",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L604",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_atualizarultimoseventos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L628",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L650",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_atualizarcancelamentos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L684",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_renderizarcardscancelados",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L754",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L770",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_adicionarusuarioviaadmin",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L782",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_carregarlistausuariosadmin",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L810",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_obterdadosparaexportacao",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L844",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_exportarexcel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L867",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_exportarpdf",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L876",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_fazerbackupjson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L887",
+      "weight": 1.0
+    },
+    {
+      "source": "app_js",
+      "target": "agendamentos_ufma_pho_app_restaurarbackupjson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L917",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_inittheme",
+      "target": "agendamentos_ufma_pho_app_updatethemeicon",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_toggletheme",
+      "target": "agendamentos_ufma_pho_app_updatethemeicon",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_initui",
+      "target": "agendamentos_ufma_pho_app_inittheme",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L382",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_initui",
+      "target": "agendamentos_ufma_pho_app_construirinterfacedinamica",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L383",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_construirinterfacedinamica",
+      "target": "agendamentos_ufma_pho_app_atualizarselecaomes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L462",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_mudarano",
+      "target": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L530",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_aplicarbusca",
+      "target": "agendamentos_ufma_pho_app_atualizarultimoseventos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L550",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_aplicarbusca",
+      "target": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L551",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_aplicarbusca",
+      "target": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L552",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "target": "agendamentos_ufma_pho_app_atualizarultimoseventos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L593",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "target": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L597",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "target": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L601",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "target": "agendamentos_ufma_pho_app_renderizarcardscancelados",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L666",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "target": "agendamentos_ufma_pho_app_renderizarcards",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L668",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "target": "agendamentos_ufma_pho_app_renderizarcards",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L773",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_adicionarusuarioviaadmin",
+      "target": "agendamentos_ufma_pho_app_carregarlistausuariosadmin",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L801",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_exportarexcel",
+      "target": "agendamentos_ufma_pho_app_obterdadosparaexportacao",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L868",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_exportarpdf",
+      "target": "agendamentos_ufma_pho_app_obterdadosparaexportacao",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L877",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "agendamentos_ufma_pho_login_checksession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "agendamentos_ufma_pho_login_verificaracesso",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "agendamentos_ufma_pho_login_btn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "agendamentos_ufma_pho_login_showerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "login_js",
+      "target": "agendamentos_ufma_pho_login_overlay",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_login_checksession",
+      "target": "agendamentos_ufma_pho_login_verificaracesso",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_login_checksession",
+      "target": "agendamentos_ufma_pho_login_showerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "login.js",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "supabaseclient_js",
+      "target": "supabase_js_2",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "supabaseClient.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "supabaseclient_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "supabaseClient.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_utils_showtoast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_utils_hideloading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_auth_mostraracessonegado",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_auth_initauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_auth_aplicarpermissoes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_js",
+      "target": "js_auth_setupauthlistener",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_initauth",
+      "target": "js_auth_mostraracessonegado",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\auth.js",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_utils_showtoast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_utils_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_utils_debounce",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_db_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_db_dbparafrontend",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_constants_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_constants_feriadosfixos",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_getcalendar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_normalizeeventid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_removecalendareventsbyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_getcorporespaco",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_getclassebadge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_buscardadosmensais",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_iniciarsistema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_iniciarrealtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_js",
+      "target": "js_calendar_recarregardados",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L228",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_removecalendareventsbyid",
+      "target": "js_calendar_normalizeeventid",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_iniciarsistema",
+      "target": "js_calendar_iniciarrealtime",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\calendar.js",
+      "source_location": "L175",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_utils_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_constants_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_constants_mesesabrev",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_calendar_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_calendar_getclassebadge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_js",
+      "target": "js_components_gerarcardeventohtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\components.js",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_db_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_db_dbparafrontend",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_utils_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_calendar_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_calendar_getclassebadge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_conflitos_atualizarpainelconflitos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_js",
+      "target": "js_conflitos_renderizarparconflito",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "js_conflitos_atualizarpainelconflitos",
+      "target": "js_conflitos_renderizarparconflito",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\conflitos.js",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "js_constants_js",
+      "target": "js_constants_mesesabrev",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\constants.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_constants_js",
+      "target": "js_constants_feriadosfixos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\constants.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_calendar_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_calendar_buscardadosmensais",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_calendar_calendar",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_db_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_db_dbparafrontend",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_constants_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_constants_mesesabrev",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_utils_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_dashboard_atualizardashboard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_dashboard_processarmetricas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_dashboard_renderizarmetricas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_dashboard_renderizargraficos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_js",
+      "target": "js_dashboard_animatevalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L150",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_atualizardashboard",
+      "target": "js_dashboard_processarmetricas",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_atualizardashboard",
+      "target": "js_dashboard_renderizarmetricas",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_atualizardashboard",
+      "target": "js_dashboard_renderizargraficos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_renderizarmetricas",
+      "target": "js_dashboard_animatevalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\dashboard.js",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "js_db_js",
+      "target": "js_db_dbparafrontend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\db.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "js_db_js",
+      "target": "js_db_frontendparadb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\db.js",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "js_utils_showtoast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "js_utils_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "js_notifications_atualizarpainelnotificacoes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_js",
+      "target": "js_notifications_dispararnotificacaomanual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\notifications.js",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "supabaseclient_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "agendamentos_ufma_pho_supabaseclient_supabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_calendar_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_calendar_calendar",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_calendar_getcorporespaco",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_calendar_recarregardados",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_db_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_db_frontendparadb",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_showtoast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_showsuccessmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_showconflictmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_showconfirmmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_showcancelmotivmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_utils_showseriesactionmodal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_pad2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_formatdateymd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_parseymdtoutcdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_geraruuid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_montarsessao",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_coletarsessoesdoformulario",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_validarhorarios",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_obterconfigrecorrencia",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_atualizaruirecorrencia",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_resetrecorrenciaformulario",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_gerarsessoesrecorrentes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_carregarserieporescopo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L201",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_carregareventosconflito",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_detectarconflitos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L259",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_salvaroueditarevento",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L289",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_deletarevento",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L524",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_restaurarevento",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L596",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_abrirmodalformulario",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L627",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_fecharmodalform",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L652",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_fecharmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L660",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_prepararedicao",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L668",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_adicionarlinhadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L723",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_bindrecorrencialisteners",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L770",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_js",
+      "target": "js_reservas_initreservaswindow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L789",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_formatdateymd",
+      "target": "js_reservas_pad2",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_atualizaruirecorrencia",
+      "target": "js_reservas_parseymdtoutcdate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_resetrecorrenciaformulario",
+      "target": "js_reservas_atualizaruirecorrencia",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_gerarsessoesrecorrentes",
+      "target": "js_reservas_parseymdtoutcdate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_obterconfigrecorrencia",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L304",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_coletarsessoesdoformulario",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L316",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_validarhorarios",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L334",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_gerarsessoesrecorrentes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L367",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_carregarserieporescopo",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L369",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_carregareventosconflito",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L396",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_detectarconflitos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L417",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_geraruuid",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L428",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_reservas_fecharmodalform",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L495",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "js_reservas_carregarserieporescopo",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L551",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "js_reservas_pad2",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L562",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "js_reservas_fecharmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L584",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_abrirmodalformulario",
+      "target": "js_reservas_resetrecorrenciaformulario",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L643",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_abrirmodalformulario",
+      "target": "js_reservas_adicionarlinhadata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L646",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_prepararedicao",
+      "target": "js_reservas_fecharmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L683",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_prepararedicao",
+      "target": "js_reservas_resetrecorrenciaformulario",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L699",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_prepararedicao",
+      "target": "js_reservas_adicionarlinhadata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L702",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_bindrecorrencialisteners",
+      "target": "js_reservas_atualizaruirecorrencia",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L783",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_initreservaswindow",
+      "target": "js_reservas_bindrecorrencialisteners",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\reservas.js",
+      "source_location": "L811",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_showtoast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_setbuttonloading",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_hideloading",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_debounce",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_stringtocolor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_adjustcolor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_escapehtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_showsuccessmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_showconflictmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_showconfirmmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L319",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_showseriesactionmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L363",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_js",
+      "target": "js_utils_showcancelmotivmodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L420",
+      "weight": 1.0
+    },
+    {
+      "source": "js_utils_showsuccessmodal",
+      "target": "js_utils_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\utils.js",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_toggletheme",
+      "target": "js_calendar_getcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L248",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_toggletheme",
+      "target": "js_dashboard_atualizardashboard",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_initui",
+      "target": "js_utils_stringtocolor",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_construirinterfacedinamica",
+      "target": "js_utils_debounce",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L484",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_aplicarbusca",
+      "target": "js_calendar_getcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L555",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "target": "js_dashboard_atualizardashboard",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L598",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "target": "js_conflitos_atualizarpainelconflitos",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L599",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarultimoseventos",
+      "target": "js_calendar_getcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L629",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarmeuseventos",
+      "target": "js_calendar_getcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L651",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "target": "js_calendar_getcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L771",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_atualizarresumomes",
+      "target": "js_calendar_buscardadosmensais",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L772",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_adicionarusuarioviaadmin",
+      "target": "js_utils_setbuttonloading",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L785",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_adicionarusuarioviaadmin",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L797",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_obterdadosparaexportacao",
+      "target": "js_calendar_getcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L845",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_exportarexcel",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L869",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_exportarpdf",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L878",
+      "weight": 1.0
+    },
+    {
+      "source": "agendamentos_ufma_pho_app_fazerbackupjson",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L910",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_initauth",
+      "target": "js_utils_hideloading",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\auth.js",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_initauth",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\auth.js",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "js_auth_aplicarpermissoes",
+      "target": "agendamentos_ufma_pho_app_carregarlistausuariosadmin",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "js\\auth.js",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_iniciarsistema",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\calendar.js",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_iniciarsistema",
+      "target": "js_utils_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\calendar.js",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "js_calendar_recarregardados",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\calendar.js",
+      "source_location": "L231",
+      "weight": 1.0
+    },
+    {
+      "source": "js_components_gerarcardeventohtml",
+      "target": "js_utils_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\components.js",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "js_dashboard_atualizardashboard",
+      "target": "js_calendar_buscardadosmensais",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\dashboard.js",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "js_notifications_dispararnotificacaomanual",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\notifications.js",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_atualizaruirecorrencia",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L312",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_utils_showseriesactionmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L353",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_utils_showconflictmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L421",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_calendar_getcorporespaco",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L426",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_utils_showconfirmmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L480",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "js\\reservas.js",
+      "source_location": "L496",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_salvaroueditarevento",
+      "target": "js_utils_showsuccessmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L498",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L533",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "js_utils_showcancelmotivmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L539",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "js_utils_showseriesactionmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L545",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_deletarevento",
+      "target": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "js\\reservas.js",
+      "source_location": "L585",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_restaurarevento",
+      "target": "js_utils_showconfirmmodal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L599",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_restaurarevento",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L618",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_restaurarevento",
+      "target": "agendamentos_ufma_pho_app_atualizartodastelas",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "js\\reservas.js",
+      "source_location": "L619",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_restaurarevento",
+      "target": "js_calendar_recarregardados",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L620",
+      "weight": 1.0
+    },
+    {
+      "source": "js_reservas_prepararedicao",
+      "target": "js_utils_showtoast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js\\reservas.js",
+      "source_location": "L678",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

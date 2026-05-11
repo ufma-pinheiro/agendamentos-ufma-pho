@@ -1,0 +1,251 @@
+{
+  "nodes": [
+    {"id": "app_estado_global", "label": "estado (global state)", "file_type": "code", "source_file": "app.js", "source_location": "14-23", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_switchtab", "label": "switchTab", "file_type": "code", "source_file": "app.js", "source_location": "36-81", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_abrirdetalhes", "label": "abrirDetalhes", "file_type": "code", "source_file": "app.js", "source_location": "83-162", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_filtrarporespaço", "label": "filtrarPorEspaco", "file_type": "code", "source_file": "app.js", "source_location": "165-201", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_deletarusuario", "label": "deletarUsuario", "file_type": "code", "source_file": "app.js", "source_location": "206-225", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_inittheme", "label": "initTheme", "file_type": "code", "source_file": "app.js", "source_location": "235-239", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_toggletheme", "label": "toggleTheme", "file_type": "code", "source_file": "app.js", "source_location": "241-254", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_initui", "label": "initUI", "file_type": "code", "source_file": "app.js", "source_location": "298-391", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_construirinterfacedinamica", "label": "construirInterfaceDinamica", "file_type": "code", "source_file": "app.js", "source_location": "399-508", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_mudarano", "label": "mudarAno", "file_type": "code", "source_file": "app.js", "source_location": "527-531", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_aplicarbusca", "label": "aplicarBusca", "file_type": "code", "source_file": "app.js", "source_location": "546-586", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_atualizartodasTelas", "label": "atualizarTodasTelas", "file_type": "code", "source_file": "app.js", "source_location": "592-602", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_renderizarcards", "label": "renderizarCards", "file_type": "code", "source_file": "app.js", "source_location": "604-626", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_atualizarultimoseventos", "label": "atualizarUltimosEventos", "file_type": "code", "source_file": "app.js", "source_location": "628-648", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_atualizarmeuseneventos", "label": "atualizarMeusEventos", "file_type": "code", "source_file": "app.js", "source_location": "650-675", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_atualizarcancelamentos", "label": "atualizarCancelamentos", "file_type": "code", "source_file": "app.js", "source_location": "684-752", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_atualizarresumomes", "label": "atualizarResumoMes", "file_type": "code", "source_file": "app.js", "source_location": "770-773", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_adicionarusuarioviaadmin", "label": "adicionarUsuarioViaAdmin", "file_type": "code", "source_file": "app.js", "source_location": "782-808", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_carregarlistausuariosadmin", "label": "carregarListaUsuariosAdmin", "file_type": "code", "source_file": "app.js", "source_location": "810-842", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_exportarexcel", "label": "exportarExcel", "file_type": "code", "source_file": "app.js", "source_location": "867-874", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_exportarpdf", "label": "exportarPDF", "file_type": "code", "source_file": "app.js", "source_location": "876-885", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_fazerbackupjson", "label": "fazerBackupJSON", "file_type": "code", "source_file": "app.js", "source_location": "887-915", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "app_restaurarbackupjson", "label": "restaurarBackupJSON", "file_type": "code", "source_file": "app.js", "source_location": "917-1020", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "auth_initauth", "label": "initAuth", "file_type": "code", "source_file": "js/auth.js", "source_location": "21-59", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "auth_aplicarpermissoes", "label": "aplicarPermissoes", "file_type": "code", "source_file": "js/auth.js", "source_location": "66-112", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "auth_setupauthlistener", "label": "setupAuthListener", "file_type": "code", "source_file": "js/auth.js", "source_location": "117-123", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "auth_mostraracessonegado", "label": "mostrarAcessoNegado", "file_type": "code", "source_file": "js/auth.js", "source_location": "8-14", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "calendar_iniciarsistema", "label": "iniciarSistema", "file_type": "code", "source_file": "js/calendar.js", "source_location": "79-176", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_getcalendar", "label": "getCalendar", "file_type": "code", "source_file": "js/calendar.js", "source_location": "8", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_getCorPorEspaco", "label": "getCorPorEspaco", "file_type": "code", "source_file": "js/calendar.js", "source_location": "28-34", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_getclassebadge", "label": "getClasseBadge", "file_type": "code", "source_file": "js/calendar.js", "source_location": "39-45", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_buscardadosmensais", "label": "buscarDadosMensais", "file_type": "code", "source_file": "js/calendar.js", "source_location": "50-66", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_iniciarrealtime", "label": "iniciarRealtime", "file_type": "code", "source_file": "js/calendar.js", "source_location": "181-223", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_recarregardados", "label": "recarregarDados", "file_type": "code", "source_file": "js/calendar.js", "source_location": "228-233", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "calendar_calendar_var", "label": "calendar (FullCalendar instance)", "file_type": "code", "source_file": "js/calendar.js", "source_location": "7", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "components_gerarcardhtml", "label": "gerarCardEventoHtml", "file_type": "code", "source_file": "js/components.js", "source_location": "13-76", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "conflitos_atualizarpainelconflitos", "label": "atualizarPainelConflitos", "file_type": "code", "source_file": "js/conflitos.js", "source_location": "12-71", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "conflitos_renderizarparconflito", "label": "renderizarParConflito", "file_type": "code", "source_file": "js/conflitos.js", "source_location": "76-121", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "constants_mesesabrev", "label": "mesesAbrev", "file_type": "code", "source_file": "js/constants.js", "source_location": "2", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "constants_feriadosfixos", "label": "feriadosFixos", "file_type": "code", "source_file": "js/constants.js", "source_location": "8-10", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "dashboard_atualizardashboard", "label": "atualizarDashboard", "file_type": "code", "source_file": "js/dashboard.js", "source_location": "12-48", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "dashboard_processarmetricas", "label": "processarMetricas", "file_type": "code", "source_file": "js/dashboard.js", "source_location": "51-91", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "dashboard_renderizarmetricas", "label": "renderizarMetricas", "file_type": "code", "source_file": "js/dashboard.js", "source_location": "93-98", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "dashboard_renderizargraficos", "label": "renderizarGraficos", "file_type": "code", "source_file": "js/dashboard.js", "source_location": "100-148", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "dashboard_animatevalue", "label": "animateValue", "file_type": "code", "source_file": "js/dashboard.js", "source_location": "150-170", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "db_dbparafrontend", "label": "dbParaFrontend", "file_type": "code", "source_file": "js/db.js", "source_location": "17-51", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "db_frontendparadb", "label": "frontendParaDb", "file_type": "code", "source_file": "js/db.js", "source_location": "58-75", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "notifications_atualizarpainelnotificacoes", "label": "atualizarPainelNotificacoes", "file_type": "code", "source_file": "js/notifications.js", "source_location": "8-62", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "notifications_dispararnotificacaomanual", "label": "dispararNotificacaoManual", "file_type": "code", "source_file": "js/notifications.js", "source_location": "67-88", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "reservas_salvaroueditar", "label": "salvarOuEditarEvento", "file_type": "code", "source_file": "js/reservas.js", "source_location": "289-519", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_deletarevento", "label": "deletarEvento", "file_type": "code", "source_file": "js/reservas.js", "source_location": "524-591", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_restaurarevento", "label": "restaurarEvento", "file_type": "code", "source_file": "js/reservas.js", "source_location": "596-625", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_abrirmodalformulario", "label": "abrirModalFormulario", "file_type": "code", "source_file": "js/reservas.js", "source_location": "627-650", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_fecharmodalform", "label": "fecharModalForm", "file_type": "code", "source_file": "js/reservas.js", "source_location": "652-658", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_fecharmodal", "label": "fecharModal", "file_type": "code", "source_file": "js/reservas.js", "source_location": "660-666", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_prepararedição", "label": "prepararEdicao", "file_type": "code", "source_file": "js/reservas.js", "source_location": "668-721", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_adicionarlinhadata", "label": "adicionarLinhaData", "file_type": "code", "source_file": "js/reservas.js", "source_location": "723-768", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_initreservaswindow", "label": "initReservasWindow", "file_type": "code", "source_file": "js/reservas.js", "source_location": "789-812", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_detectarconflitos", "label": "detectarConflitos", "file_type": "code", "source_file": "js/reservas.js", "source_location": "259-284", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "reservas_gerarsessoesrecorrentes", "label": "gerarSessoesRecorrentes", "file_type": "code", "source_file": "js/reservas.js", "source_location": "138-199", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "utils_showtoast", "label": "showToast", "file_type": "code", "source_file": "js/utils.js", "source_location": "11-33", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_setbuttonloading", "label": "setButtonLoading", "file_type": "code", "source_file": "js/utils.js", "source_location": "35-44", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_hideloading", "label": "hideLoading", "file_type": "code", "source_file": "js/utils.js", "source_location": "46-52", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_debounce", "label": "debounce", "file_type": "code", "source_file": "js/utils.js", "source_location": "58-65", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_stringtocolor", "label": "stringToColor", "file_type": "code", "source_file": "js/utils.js", "source_location": "71-78", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_adjustcolor", "label": "adjustColor", "file_type": "code", "source_file": "js/utils.js", "source_location": "80-84", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_escapehtml", "label": "escapeHtml", "file_type": "code", "source_file": "js/utils.js", "source_location": "90-98", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_showsuccessmodal", "label": "showSuccessModal", "file_type": "code", "source_file": "js/utils.js", "source_location": "108-192", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_showconflictmodal", "label": "showConflictModal", "file_type": "code", "source_file": "js/utils.js", "source_location": "199-311", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_showconfirmmodal", "label": "showConfirmModal", "file_type": "code", "source_file": "js/utils.js", "source_location": "319-356", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_showseriesactionmodal", "label": "showSeriesActionModal", "file_type": "code", "source_file": "js/utils.js", "source_location": "363-413", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "utils_showcancelmotivmodal", "label": "showCancelMotivModal", "file_type": "code", "source_file": "js/utils.js", "source_location": "420-500", "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "index_html", "label": "index.html (main app shell)", "file_type": "document", "source_file": "index.html", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "login_html", "label": "login.html (Google OAuth login)", "file_type": "document", "source_file": "login.html", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "claude_md", "label": "CLAUDE.md (project AI context doc)", "file_type": "document", "source_file": "CLAUDE.md", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null}
+  ],
+  "edges": [
+    {"source": "app_estado_global", "target": "auth_initauth", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "275", "weight": 1.0},
+    {"source": "app_estado_global", "target": "dashboard_atualizardashboard", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "67", "weight": 1.0},
+    {"source": "app_estado_global", "target": "reservas_salvaroueditar", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "494", "weight": 1.0},
+    {"source": "app_estado_global", "target": "components_gerarcardhtml", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "619", "weight": 1.0},
+
+    {"source": "app_initui", "target": "auth_initauth", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "275-293", "weight": 1.0},
+    {"source": "app_initui", "target": "auth_aplicarpermissoes", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "278", "weight": 1.0},
+    {"source": "app_initui", "target": "reservas_initreservaswindow", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "279", "weight": 1.0},
+    {"source": "app_initui", "target": "calendar_iniciarsistema", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "281", "weight": 1.0},
+    {"source": "app_initui", "target": "auth_setupauthlistener", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "296", "weight": 1.0},
+    {"source": "app_initui", "target": "app_construirinterfacedinamica", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "383", "weight": 1.0},
+    {"source": "app_initui", "target": "app_inittheme", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "382", "weight": 1.0},
+    {"source": "app_initui", "target": "reservas_fecharmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "331-333", "weight": 1.0},
+    {"source": "app_initui", "target": "reservas_fecharmodalform", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "333-334", "weight": 1.0},
+
+    {"source": "app_switchtab", "target": "app_atualizarresumomes", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "66", "weight": 1.0},
+    {"source": "app_switchtab", "target": "dashboard_atualizardashboard", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "67", "weight": 1.0},
+    {"source": "app_switchtab", "target": "app_atualizarmeuseneventos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "68", "weight": 1.0},
+    {"source": "app_switchtab", "target": "app_atualizarcancelamentos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "69", "weight": 1.0},
+    {"source": "app_switchtab", "target": "conflitos_atualizarpainelconflitos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "70", "weight": 1.0},
+    {"source": "app_switchtab", "target": "app_atualizarultimoseventos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "71", "weight": 1.0},
+    {"source": "app_switchtab", "target": "notifications_atualizarpainelnotificacoes", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "73", "weight": 1.0},
+    {"source": "app_switchtab", "target": "calendar_getcalendar", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "63", "weight": 1.0},
+
+    {"source": "app_abrirdetalhes", "target": "calendar_getCorPorEspaco", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "143", "weight": 1.0},
+    {"source": "app_abrirdetalhes", "target": "utils_adjustcolor", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "97", "weight": 1.0},
+    {"source": "app_abrirdetalhes", "target": "app_estado_global", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "155-157", "weight": 1.0},
+
+    {"source": "app_filtrarporespaço", "target": "calendar_getcalendar", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "188", "weight": 1.0},
+
+    {"source": "app_atualizartodasTelas", "target": "app_atualizarultimoseventos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "593", "weight": 1.0},
+    {"source": "app_atualizartodasTelas", "target": "app_atualizarresumomes", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "597", "weight": 1.0},
+    {"source": "app_atualizartodasTelas", "target": "dashboard_atualizardashboard", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "598", "weight": 1.0},
+    {"source": "app_atualizartodasTelas", "target": "conflitos_atualizarpainelconflitos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "599", "weight": 1.0},
+    {"source": "app_atualizartodasTelas", "target": "app_atualizarmeuseneventos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "601", "weight": 1.0},
+
+    {"source": "app_renderizarcards", "target": "components_gerarcardhtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "617-618", "weight": 1.0},
+
+    {"source": "app_atualizarultimoseventos", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "644", "weight": 1.0},
+    {"source": "app_atualizarultimoseventos", "target": "components_gerarcardhtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "646", "weight": 1.0},
+
+    {"source": "app_atualizarmeuseneventos", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "666-668", "weight": 1.0},
+    {"source": "app_atualizarmeuseneventos", "target": "app_renderizarcards", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "668", "weight": 1.0},
+
+    {"source": "app_atualizarcancelamentos", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "707", "weight": 1.0},
+    {"source": "app_atualizarcancelamentos", "target": "utils_escapehtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "723", "weight": 1.0},
+
+    {"source": "app_atualizarresumomes", "target": "calendar_buscardadosmensais", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "772", "weight": 1.0},
+    {"source": "app_atualizarresumomes", "target": "app_renderizarcards", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "773", "weight": 1.0},
+
+    {"source": "app_aplicarbusca", "target": "calendar_getcalendar", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "555", "weight": 1.0},
+    {"source": "app_aplicarbusca", "target": "utils_escapehtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "579", "weight": 1.0},
+    {"source": "app_aplicarbusca", "target": "app_atualizarultimoseventos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "550", "weight": 1.0},
+    {"source": "app_aplicarbusca", "target": "app_atualizarmeuseneventos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "551", "weight": 1.0},
+
+    {"source": "app_construirinterfacedinamica", "target": "constants_mesesabrev", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "459", "weight": 1.0},
+    {"source": "app_construirinterfacedinamica", "target": "calendar_recarregardados", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "473", "weight": 1.0},
+    {"source": "app_construirinterfacedinamica", "target": "reservas_salvaroueditar", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "494", "weight": 1.0},
+    {"source": "app_construirinterfacedinamica", "target": "reservas_deletarevento", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "492", "weight": 1.0},
+    {"source": "app_construirinterfacedinamica", "target": "dashboard_atualizardashboard", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "475", "weight": 1.0},
+    {"source": "app_construirinterfacedinamica", "target": "utils_debounce", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "484", "weight": 1.0},
+
+    {"source": "app_exportarexcel", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "869", "weight": 1.0},
+    {"source": "app_exportarpdf", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "885", "weight": 1.0},
+    {"source": "app_fazerbackupjson", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "910", "weight": 1.0},
+    {"source": "app_restaurarbackupjson", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "948-966", "weight": 1.0},
+    {"source": "app_restaurarbackupjson", "target": "calendar_recarregardados", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "998", "weight": 1.0},
+
+    {"source": "app_adicionarusuarioviaadmin", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "797-798", "weight": 1.0},
+    {"source": "app_adicionarusuarioviaadmin", "target": "app_carregarlistausuariosadmin", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "801", "weight": 1.0},
+    {"source": "app_carregarlistausuariosadmin", "target": "utils_stringtocolor", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "app.js", "source_location": "833", "weight": 1.0},
+
+    {"source": "auth_initauth", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "57", "weight": 1.0},
+    {"source": "auth_initauth", "target": "utils_hideloading", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "56", "weight": 1.0},
+    {"source": "auth_initauth", "target": "auth_mostraracessonegado", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "45", "weight": 1.0},
+    {"source": "auth_initauth", "target": "app_estado_global", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "31-41", "weight": 1.0},
+    {"source": "auth_setupauthlistener", "target": "login_html", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "120", "weight": 1.0},
+    {"source": "auth_initauth", "target": "login_html", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "26", "weight": 1.0},
+    {"source": "auth_aplicarpermissoes", "target": "app_carregarlistausuariosadmin", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/auth.js", "source_location": "93", "weight": 1.0},
+
+    {"source": "calendar_iniciarsistema", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "113", "weight": 1.0},
+    {"source": "calendar_iniciarsistema", "target": "constants_feriadosfixos", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "114", "weight": 1.0},
+    {"source": "calendar_iniciarsistema", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "119", "weight": 1.0},
+    {"source": "calendar_iniciarsistema", "target": "utils_escapehtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "151", "weight": 1.0},
+    {"source": "calendar_iniciarsistema", "target": "calendar_iniciarrealtime", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "175", "weight": 1.0},
+
+    {"source": "calendar_iniciarrealtime", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "191", "weight": 1.0},
+    {"source": "calendar_iniciarrealtime", "target": "calendar_calendar_var", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "190-216", "weight": 1.0},
+
+    {"source": "calendar_buscardadosmensais", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/calendar.js", "source_location": "65", "weight": 1.0},
+
+    {"source": "components_gerarcardhtml", "target": "utils_escapehtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/components.js", "source_location": "57-67", "weight": 1.0},
+    {"source": "components_gerarcardhtml", "target": "calendar_getclassebadge", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/components.js", "source_location": "66", "weight": 1.0},
+    {"source": "components_gerarcardhtml", "target": "constants_mesesabrev", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/components.js", "source_location": "17", "weight": 1.0},
+    {"source": "components_gerarcardhtml", "target": "app_estado_global", "relation": "shares_data_with", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/components.js", "source_location": "45-47", "weight": 1.0},
+
+    {"source": "conflitos_atualizarpainelconflitos", "target": "conflitos_renderizarparconflito", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/conflitos.js", "source_location": "61", "weight": 1.0},
+    {"source": "conflitos_renderizarparconflito", "target": "utils_escapehtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/conflitos.js", "source_location": "90-93", "weight": 1.0},
+    {"source": "conflitos_renderizarparconflito", "target": "calendar_getclassebadge", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/conflitos.js", "source_location": "96", "weight": 1.0},
+
+    {"source": "dashboard_atualizardashboard", "target": "db_dbparafrontend", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "32", "weight": 1.0},
+    {"source": "dashboard_atualizardashboard", "target": "calendar_buscardadosmensais", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "34", "weight": 1.0},
+    {"source": "dashboard_atualizardashboard", "target": "dashboard_processarmetricas", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "42", "weight": 1.0},
+    {"source": "dashboard_atualizardashboard", "target": "dashboard_renderizarmetricas", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "43", "weight": 1.0},
+    {"source": "dashboard_atualizardashboard", "target": "dashboard_renderizargraficos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "44", "weight": 1.0},
+    {"source": "dashboard_renderizarmetricas", "target": "dashboard_animatevalue", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "94-98", "weight": 1.0},
+    {"source": "dashboard_renderizargraficos", "target": "constants_mesesabrev", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "115", "weight": 1.0},
+    {"source": "dashboard_atualizardashboard", "target": "calendar_calendar_var", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/dashboard.js", "source_location": "13", "weight": 1.0},
+
+    {"source": "notifications_atualizarpainelnotificacoes", "target": "utils_escapehtml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/notifications.js", "source_location": "34", "weight": 1.0},
+    {"source": "notifications_atualizarpainelnotificacoes", "target": "notifications_dispararnotificacaomanual", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/notifications.js", "source_location": "55", "weight": 1.0},
+    {"source": "notifications_dispararnotificacaomanual", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/notifications.js", "source_location": "83", "weight": 1.0},
+
+    {"source": "reservas_salvaroueditar", "target": "db_frontendparadb", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "448", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "calendar_getCorPorEspaco", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "426", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "312", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "utils_showconflictmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "421", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "utils_showsuccessmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "498", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "utils_showseriesactionmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "353", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "utils_showconfirmmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "482", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "reservas_detectarconflitos", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "417", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "reservas_gerarsessoesrecorrentes", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "367", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "reservas_fecharmodalform", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "495", "weight": 1.0},
+    {"source": "reservas_salvaroueditar", "target": "calendar_calendar_var", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "343", "weight": 1.0},
+
+    {"source": "reservas_deletarevento", "target": "utils_showcancelmotivmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "539", "weight": 1.0},
+    {"source": "reservas_deletarevento", "target": "utils_showseriesactionmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "545", "weight": 1.0},
+    {"source": "reservas_deletarevento", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "586", "weight": 1.0},
+    {"source": "reservas_deletarevento", "target": "reservas_fecharmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "584", "weight": 1.0},
+    {"source": "reservas_deletarevento", "target": "app_estado_global", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "527", "weight": 1.0},
+
+    {"source": "reservas_restaurarevento", "target": "utils_showconfirmmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "598", "weight": 1.0},
+    {"source": "reservas_restaurarevento", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "618", "weight": 1.0},
+    {"source": "reservas_restaurarevento", "target": "calendar_recarregardados", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "620", "weight": 1.0},
+
+    {"source": "reservas_prepararedição", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "679", "weight": 1.0},
+    {"source": "reservas_prepararedição", "target": "reservas_fecharmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "683", "weight": 1.0},
+    {"source": "reservas_prepararedição", "target": "app_estado_global", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "673", "weight": 1.0},
+
+    {"source": "reservas_initreservaswindow", "target": "reservas_abrirmodalformulario", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "790", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "reservas_adicionarlinhadata", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "791", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "reservas_fecharmodalform", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "792", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "reservas_fecharmodal", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "793", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "reservas_prepararedição", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "794", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "reservas_deletarevento", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "802-805", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "reservas_restaurarevento", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "795", "weight": 1.0},
+    {"source": "reservas_initreservaswindow", "target": "calendar_calendar_var", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "798-804", "weight": 1.0},
+
+    {"source": "reservas_adicionarlinhadata", "target": "utils_showtoast", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/reservas.js", "source_location": "765", "weight": 1.0},
+
+    {"source": "index_html", "target": "app_initui", "relation": "references", "confidence": "INFERRED", "confidence_score": 0.95, "source_file": "index.html", "source_location": null, "weight": 0.95},
+    {"source": "index_html", "target": "login_html", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "index.html", "source_location": "63", "weight": 1.0},
+
+    {"source": "calendar_getCorPorEspaco", "target": "calendar_getclassebadge", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.75, "source_file": "js/calendar.js", "source_location": "28-45", "weight": 0.75},
+
+    {"source": "db_dbparafrontend", "target": "db_frontendparadb", "relation": "semantically_similar_to", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "js/db.js", "source_location": "17-75", "weight": 1.0}
+  ],
+  "hyperedges": [],
+  "input_tokens": 12000,
+  "output_tokens": 3200
+}
