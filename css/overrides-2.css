@@ -1,0 +1,225 @@
+/* ============================================
+   CORREÇÃO: LISTA DA TELA DE GESTÃO DE USUÁRIOS
+   ============================================ */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.user-list-styled {
+    list-style: none; /* Tira as bolinhas padrão da lista */
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background var(--transition-fast);
+}
+
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-item:hover {
+    background: var(--bg-elevated);
+}
+
+.user-info-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Isso conserta o fundo que estava vazando tela afora */
+.user-avatar-mini {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.user-email-list {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-role-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.you-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--primary-100);
+    color: var(--primary-700);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full);
+}
+
+/* ============================================
+   CORREÇÃO: RODAPÉ DO MODAL (BOTÕES À DIREITA)
+   ============================================ */
+.modal-footer {
+    /* Empurra os botões "Cancelar" e "Salvar" para o lado direito */
+    justify-content: flex-end !important; 
+}
+
+/* ============================================
+   CORREÇÃO: ALINHAMENTO DAS DATAS E BOTÃO X
+   ============================================ */
+@media (min-width: 641px) {
+    .data-row-styled {
+        /* Cria exatamente 5 colunas para os 5 elementos, impedindo o "X" de cair de linha */
+        grid-template-columns: 2fr 1fr auto 1fr auto !important;
+    }
+}
+
+/* ============================================
+   CORREÇÃO DEFINITIVA: ALINHAMENTO DE DATAS E HORÁRIOS
+   ============================================ */
+.data-row-styled {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-end !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.time-inputs {
+    display: flex !important;
+    align-items: flex-end !important;
+    gap: 0.5rem !important;
+    flex: 2 !important; /* Dá mais espaço para os horários */
+}
+
+.date-input-group {
+    flex: 1.5 !important; /* Dá espaço adequado para a data */
+    min-width: 130px !important;
+}
+
+.time-input {
+    flex: 1 !important;
+}
+
+.btn-remove-data {
+    flex-shrink: 0 !important;
+}
+
+/* Garante que no celular fique um embaixo do outro bonitinho */
+@media (max-width: 640px) {
+    .data-row-styled {
+        flex-wrap: wrap !important;
+    }
+    .date-input-group, .time-inputs {
+        width: 100% !important;
+        flex: none !important;
+    }
+    .time-inputs {
+        justify-content: space-between !important;
+    }
+}
+
+/* ============================================
+   CORREÇÃO: DIA ATUAL (HOJE) NO MODO ESCURO
+   ============================================ */
+[data-theme="dark"] .fc-day-today {
+    /* Troca o branco por um azul translúcido e sofisticado, alinhado ao visual Gemini */
+    background: rgba(59, 130, 246, 0.15) !important; 
+}
+
+/* ============================================
+   AJUSTES: MODAL DE DETALHES (TÍTULO E BOTÕES)
+   ============================================ */
+   
+/* Ajusta o espaçamento do título agora que ele está no cabeçalho */
+.modal-header .event-title {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+/* Força os botões do rodapé a se separarem (um na esquerda, outro na direita) */
+#modalActionButtons {
+    justify-content: space-between !important;
+}
+
+/* Novo estilo discreto para o botão de excluir */
+.btn-text-danger {
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--danger-500);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Efeito de hover suave no botão excluir */
+.btn-text-danger:hover {
+    background: rgba(239, 68, 68, 0.1); 
+    color: var(--danger-600);
+}
+
+/* ============================================
+   INVERSÃO DE TAMANHO: BOTÕES DO MODAL
+   ============================================ */
+#modalActionButtons {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1rem !important;
+    width: 100% !important;
+}
+
+/* 1. Botão Editar: Fica GIGANTE e preenche o espaço */
+#btnEditEvent {
+    flex: 1 !important; /* Faz o botão crescer para ocupar o espaço livre */
+    width: 100% !important;
+    justify-content: center !important;
+}
+
+/* 2. Botão Excluir: Fica PEQUENO e com visual discreto */
+#btnDeleteEvent {
+    flex: none !important; /* Impede o botão de crescer */
+    width: auto !important; /* Volta pro tamanho natural do texto */
+    background: transparent !important; /* Tira o fundo vermelho forte */
+    color: var(--danger-500) !important; /* Deixa apenas o texto/ícone vermelho */
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+}
+
+/* Efeito ao passar o mouse no botão excluir */
+#btnDeleteEvent:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: var(--danger-600) !important;
+}
+

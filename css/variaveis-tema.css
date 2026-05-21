@@ -1,0 +1,307 @@
+/* style.css - Design System Polido e Moderno */
+
+/* ============================================
+   VARIÁVEIS E TEMAS
+   ============================================ */
+:root {
+    /* Cores Primárias */
+    --primary-50: #eff6ff;
+    --primary-100: #dbeafe;
+    --primary-500: #3b82f6;
+    --primary-600: #2563eb;
+    --primary-700: #1d4ed8;
+    --primary-900: #1e3a8a;
+    
+    /* Cores de Sucesso */
+    --success-50: #f0fdf4;
+    --success-100: #dcfce7;
+    --success-500: #22c55e;
+    --success-600: #16a34a;
+    
+    /* Cores de Aviso */
+    --warning-50: #fffbeb;
+    --warning-500: #f59e0b;
+    
+    /* Cores de Perigo */
+    --danger-50: #fef2f2;
+    --danger-100: #fee2e2;
+    --danger-500: #ef4444;
+    --danger-600: #dc2626;
+    
+    /* Cores Neutras */
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    
+    /* Cores Semânticas Espaços */
+    --eng-color: #8e44ad;
+    --lic-color: #e67e22;
+    --sau-color: #27ae60;
+    --outros-color: #3b82f6;
+
+    /* Paleta Muted Premium (Calendário) */
+    --cal-eng-bg: rgba(126, 34, 206, 0.08);
+    --cal-eng-text: #7E22CE;
+    --cal-eng-border: #D8B4FE;
+
+    --cal-sau-bg: rgba(22, 163, 74, 0.08);
+    --cal-sau-text: #166534;
+    --cal-sau-border: #86EFAC;
+
+    --cal-lic-bg: rgba(234, 88, 12, 0.08);
+    --cal-lic-text: #9A3412;
+    --cal-lic-border: #FDBA74;
+
+    --cal-other-bg: rgba(37, 99, 235, 0.08);
+    --cal-other-text: #075985;
+    --cal-other-border: #93C5FD;
+
+    --cal-grid-border: rgba(226, 232, 240, 0.6);
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    
+    /* Bordas */
+    --radius-sm: 0.375rem;
+    --radius: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 9999px;
+    
+    /* Tipografia */
+    --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --font-mono: ui-monospace, monospace;
+    
+    /* Transições */
+    --transition-fast: 150ms ease;
+    --transition: 200ms ease;
+    --transition-slow: 300ms ease;
+    
+    /* Z-index */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-modal: 300;
+    --z-toast: 400;
+    --z-loading: 500;
+}
+/* ============================================
+   VARIÁVEIS DE TEMA (CLARO E ESCURO)
+   ============================================ */
+
+/* 1. Tema Claro (padrão) - DEVE VIR PRIMEIRO */
+/* ============================================
+   VARIÁVEIS DE TEMA (CLARO E ESCURO)
+   ============================================ */
+
+/* 1. Tema Claro (padrão) */
+:root, [data-theme="light"] {
+    --bg-body: #f1f5f9;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-elevated: #f8fafc;
+    --bg-input: #ffffff;
+    --text-primary: #111827; /* Gray-900 */
+    --text-secondary: #4b5563; /* Gray-600 */
+    --text-tertiary: #94a3b8; /* Gray-400 */
+    --border-color: #e2e8f0; /* Gray-200 */
+}
+
+/* 2. Tema Escuro (Inspirado no Gemini) */
+[data-theme="dark"] {
+    /* Fundo principal: Um cinza-azulado muito profundo */
+    --bg-body: #101214; 
+    
+    /* Fundos elevados (Sidebar, Cards): Um cinza-azulado escuro */
+    --bg-sidebar: #1e1f21;
+    --bg-card: #1e1f21;
+    --bg-elevated: #2d2f31;
+    --bg-input: #101214;
+
+    /* Textos: Tons de cinza claro e azul claro */
+    --text-primary: #e3e3e3; 
+    --text-secondary: #c4c7c5;
+    --text-tertiary: #80868b;
+    
+    /* Bordas: Um cinza escuro sutil */
+    --border-color: #444746;
+
+    /* Calendário Premium - Cores Dark Mode mais visíveis */
+    --cal-eng-bg: rgba(216, 180, 254, 0.15);
+    --cal-eng-text: #E9D5FF;
+    --cal-eng-border: #C084FC;
+
+    --cal-sau-bg: rgba(134, 239, 172, 0.15);
+    --cal-sau-text: #BBF7D0;
+    --cal-sau-border: #4ADE80;
+
+    --cal-lic-bg: rgba(253, 186, 116, 0.15);
+    --cal-lic-text: #FED7AA;
+    --cal-lic-border: #FB923C;
+
+    --cal-other-bg: rgba(147, 197, 253, 0.15);
+    --cal-other-text: #BFDBFE;
+    --cal-other-border: #60A5FA;
+    
+    --cal-grid-border: rgba(68, 71, 70, 0.6);
+}
+
+/* ============================================
+   INTEGRAÇÃO DO FULLCALENDAR COM O TEMA
+   ============================================ */
+.fc {
+    --fc-page-bg-color: var(--bg-card);
+    --fc-border-color: var(--border-color);
+    --fc-event-text-color: #ffffff; /* Cor do texto dentro dos blocos de evento */
+    
+    /* Cores do texto no calendário */
+    --fc-neutral-text-color: var(--text-primary);
+    --fc-today-bg-color: rgba(59, 130, 246, 0.1); /* Cor de destaque para 'hoje' */
+}
+
+/* Garante que o texto dos dias da semana e números sejam visíveis no modo escuro */
+    color: var(--text-primary) !important;
+}
+
+/* Customização Premium do Grid */
+.fc-theme-standard td, .fc-theme-standard th {
+    border-color: var(--cal-grid-border) !important;
+}
+
+.fc-daygrid-day-top {
+    position: absolute !important;
+    right: 4px !important;
+    top: 4px !important;
+    z-index: 5 !important;
+    flex-direction: row !important;
+}
+
+.fc-daygrid-day-number {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--text-tertiary) !important;
+    padding: 2px 6px !important;
+    text-decoration: none !important;
+    transition: color var(--transition-fast) !important;
+}
+
+/* Dia de hoje: Estilo Google (Círculo Azul no número) */
+.fc-day-today {
+    background: transparent !important;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+    background-color: var(--primary-600) !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.7rem !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.fc-day-other .fc-daygrid-day-number {
+    opacity: 0.3;
+}
+
+/* Link "+ more" com estilo de Badge Premium */
+.fc-daygrid-more-link {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--text-tertiary) !important;
+    padding: 2px 8px !important;
+    border-radius: var(--radius-full) !important;
+    background: var(--bg-elevated) !important;
+    transition: all var(--transition-fast) !important;
+    margin-left: 4px !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+}
+
+.fc-daygrid-more-link:hover {
+    background: var(--gray-200) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .fc-daygrid-more-link:hover {
+    background: var(--border-color) !important;
+}
+
+/* Popover (More Link) Styling - Fix para Dark Mode e Transparência */
+.fc-popover {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-radius: var(--radius-md) !important;
+    z-index: 1000 !important;
+    opacity: 1 !important;
+}
+
+.fc-popover-header {
+    background-color: var(--bg-elevated) !important;
+    background: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+    padding: 8px 12px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+    opacity: 1 !important;
+}
+
+.fc-popover-body {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    padding: 10px !important;
+    opacity: 1 !important;
+}
+
+.fc-popover-title {
+    font-size: 0.9rem !important;
+    color: var(--text-primary) !important;
+}
+
+.fc-popover-close {
+    color: var(--text-secondary) !important;
+    opacity: 0.7 !important;
+}
+
+.fc-popover-close:hover {
+    opacity: 1 !important;
+}
+
+.fc-popover .fc-daygrid-event {
+    margin-bottom: 4px !important;
+}
+
+/* Reduzir espaços para forçar títulos a aparecerem */
+.fc-daygrid-day-events {
+    margin-top: 4px !important; /* Espaço mínimo no topo */
+    padding: 0 !important;
+}
+
+.fc-daygrid-event-harness {
+    margin: 1px 2px !important;
+    /* Garantir que o evento não sobreponha o número no canto direito */
+    padding-right: 20px !important; 
+}
+
+/* Esconder o número do dia se o evento for muito longo e passar por cima? 
+   Não, mantemos o número com z-index alto. */

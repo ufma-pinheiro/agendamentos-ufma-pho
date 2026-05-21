@@ -1,0 +1,117 @@
+/* ============================================
+   UTILITÁRIOS
+   ============================================ */
+.spinner-inline {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.w-full {
+    width: 100%;
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    /* recent-strip já é responsivo por padrão */
+    
+    .btn-collapse-sidebar {
+        display: none;
+    }
+    
+    .sidebar.collapsed ~ .main-content {
+        margin-left: 0;
+    }
+    
+    .legend-filter-chips {
+        display: none;
+    }
+    
+    .top-bar-center {
+        display: none;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .top-bar {
+        padding: 0 1rem;
+        height: auto;
+        min-height: 64px;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .search-box {
+        width: 100%;
+        order: 3;
+    }
+    
+    .content-wrapper {
+        padding: 1rem;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .event-row {
+        flex-wrap: wrap;
+    }
+    
+    .event-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .data-row-styled {
+        grid-template-columns: 1fr;
+    }
+    
+    .time-inputs {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+    }
+    
+    .time-separator {
+        text-align: center;
+    }
+}
+

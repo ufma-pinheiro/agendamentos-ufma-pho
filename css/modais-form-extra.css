@@ -1,0 +1,190 @@
+/* Datas List */
+.datas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.data-row-styled {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto;
+    gap: 0.75rem;
+    align-items: flex-end;
+    background: var(--bg-elevated);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+[data-theme="dark"] .data-row-styled {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.date-input-group,
+.time-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.date-input-group label,
+.time-input label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.input-date,
+.input-time {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    text-align: center;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    transition: all var(--transition-fast);
+}
+
+.input-date:focus,
+.input-time:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+[data-theme="dark"] .input-date,
+[data-theme="dark"] .input-time {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .input-date:focus,
+[data-theme="dark"] .input-time:focus {
+    border-color: var(--primary-500);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+/* Flatpickr dark mode override */
+[data-theme="dark"] .flatpickr-input {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.time-inputs {
+    display: contents;
+}
+
+.time-separator {
+    padding-bottom: 0.5rem;
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+}
+
+.btn-remove-data {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    border-radius: var(--radius-md);
+    color: var(--text-tertiary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-remove-data:hover {
+    background: var(--danger-50);
+    color: var(--danger-600);
+    border-color: var(--danger-200);
+}
+
+[data-theme="dark"] .btn-remove-data:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.recorrencia-panel {
+    margin-top: 1rem;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 1rem;
+}
+
+.switch-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.recorrencia-opcoes {
+    margin-top: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.recorrencia-opcoes.hidden,
+.recorrencia-dias.hidden {
+    display: none;
+}
+
+.recorrencia-dias {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.recorrencia-dias > label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.recorrencia-dias-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.recorrencia-dias-grid .checkbox-card {
+    justify-content: center;
+    padding: 0.5rem 0.375rem;
+}
+
+.btn-add-mini:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Dark mode for all form inputs */
+[data-theme="dark"] .input-group input,
+[data-theme="dark"] .input-group select {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .input-group input:focus,
+[data-theme="dark"] .input-group select:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+/* Form section step badges dark mode */
+[data-theme="dark"] .form-section-header .step-badge {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--primary-400);
+}
+

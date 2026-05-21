@@ -1,0 +1,202 @@
+/* ============================================
+   CONTROLE DE ABAS (TABS)
+   ============================================ */
+.tab-content {
+    display: none; /* Esconde todas as abas por padrão */
+    animation: fadeInTab 0.3s ease-out forwards; /* Adiciona uma transição suave */
+}
+
+.tab-content.active {
+    display: block; /* Mostra apenas a aba que tem a classe 'active' */
+}
+
+/* Animação suave ao trocar de aba */
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============================================
+   CORREÇÃO DO BOTÃO DE MENU (DESKTOP)
+   ============================================ */
+@media (min-width: 1025px) {
+    .menu-toggle {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   LEGENDA DO CALENDÁRIO
+   ============================================ */
+.calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.legend-item .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Cores das bolinhas da legenda */
+.legend-item .dot.eng { background-color: #8e44ad; }
+.legend-item .dot.lic { background-color: #e67e22; }
+.legend-item .dot.sau { background-color: #27ae60; }
+.legend-item .dot.outros { background-color: #3b82f6; }
+
+
+/* ============================================
+   CORREÇÃO: SELECTS E FILTROS (Dashboard e Relatórios)
+   ============================================ */
+.filters-row {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.select-styled {
+    padding: 0.625rem 2.25rem 0.625rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-fast);
+    /* Remove a setinha padrão feia do navegador e coloca uma moderna */
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+.select-styled:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+/* ============================================
+   CORREÇÃO: CARDS DA TELA DE RELATÓRIOS
+   ============================================ */
+.export-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.export-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform var(--transition-fast);
+}
+
+.export-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.export-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.export-icon.excel { background: #dcfce7; color: #16a34a; }
+.export-icon.pdf { background: #fee2e2; color: #dc2626; }
+.export-icon.backup { background: #f3f4f6; color: #4b5563; }
+
+.export-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.export-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.export-filters {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.backup-actions {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.backup-actions button {
+    flex: 1;
+}
+
+/* Botões extras que faltavam (Sucesso, Perigo e Aviso) */
+.btn-success {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.625rem 1rem; background: var(--success-600); color: white;
+    border: none; border-radius: var(--radius-lg); font-size: 0.875rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition-fast); width: 100%;
+}
+.btn-success:hover { background: var(--success-500); }
+
+.btn-danger {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.625rem 1rem; background: var(--danger-600); color: white;
+    border: none; border-radius: var(--radius-lg); font-size: 0.875rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition-fast); width: 100%;
+}
+.btn-danger:hover { background: var(--danger-500); }
+
+.btn-warning {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.625rem 1rem; background: var(--warning-500); color: white;
+    border: none; border-radius: var(--radius-lg); font-size: 0.875rem; font-weight: 600;
+    cursor: pointer; transition: all var(--transition-fast); width: 100%;
+}
+.btn-warning:hover { background: #d97706; }
+

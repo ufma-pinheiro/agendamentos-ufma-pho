@@ -1,0 +1,291 @@
+/* ============================================
+   PÁGINAS E CONTEÚDO
+   ============================================ */
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-header h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.page-header h2 i {
+    color: var(--primary-600);
+}
+
+.page-description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Alerta Modo Leitura */
+.alert-mode-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, #fef3c7, #fde68a);
+    color: #92400e;
+    padding: 0.75rem 1.5rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.alert-mode-banner i {
+    font-size: 1rem;
+}
+
+/* Grids */
+.calendar-full {
+    width: 100%;
+}
+
+.calendar-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* Preenchimento total */
+    min-height: 0;
+    overflow: hidden;
+    background: var(--bg-card);
+    border: none; /* Borda removida para estilo edge-to-edge */
+    border-radius: 0; /* Cantos retos para encaixar nas laterais */
+}
+
+/* #calendar agora preenche 100% do .calendar-card */
+.calendar-card #calendar {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Suprimir scroll interno do FullCalendar.
+   Com height:'100%' + expandRows:true o calendário preenche o container exatamente.
+   overflow:hidden removido — não deve cortar semanas.
+   Se houver overflow residual em algum navegador, o scrollbar visual é escondido abaixo. */
+.fc .fc-scroller {
+    overflow: auto;
+}
+
+.fc .fc-scroller-harness {
+    overflow: visible;
+}
+
+/* Esconder scrollbars residuais em todos os navegadores */
+.fc ::-webkit-scrollbar {
+    display: none !important;
+}
+
+.fc * {
+    scrollbar-width: none !important;
+}
+
+/* Garantir largura total da grade */
+.fc .fc-daygrid-body {
+    width: 100% !important;
+}
+
+.fc .fc-scrollgrid-sync-table {
+    width: 100% !important;
+}
+
+/* Border-radius no grid */
+.fc .fc-scrollgrid {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+/* Calendário - Estilos específicos se necessário */
+.calendar-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.chart-card {
+    min-height: 350px;
+}
+
+.chart-container {
+    height: 280px;
+    position: relative;
+}
+
+.chart-container.doughnut {
+    height: 250px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metric-card.primary { border-top: 3px solid var(--primary-500); }
+.metric-card.success { border-top: 3px solid var(--success-500); }
+.metric-card.info { border-top: 3px solid #06b6d4; }
+.metric-card.warning { border-top: 3px solid var(--warning-500); }
+.metric-card.danger { border-top: 3px solid var(--danger-500); }
+
+.metric-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.metric-card.primary .metric-icon { background: var(--primary-50); color: var(--primary-600); }
+.metric-card.success .metric-icon { background: var(--success-50); color: var(--success-600); }
+.metric-card.info .metric-icon { background: #ecfeff; color: #0891b2; }
+.metric-card.warning .metric-icon { background: var(--warning-50); color: #b45309; }
+.metric-card.danger .metric-icon { background: var(--danger-50); color: var(--danger-600); }
+
+.metric-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.metric-value {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.metric-value .suffix {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-left: 0.25rem;
+}
+
+/* Filter Bar */
+.filter-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.year-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.year-display {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    min-width: 80px;
+    text-align: center;
+}
+
+.month-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.month-chip {
+    padding: 0.5rem 1rem;
+    border: 1.5px solid var(--border-color);
+    background: transparent;
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+    min-width: 52px;
+    text-align: center;
+}
+
+.month-chip:hover {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.month-chip.active {
+    background: var(--primary-600);
+    color: white;
+    border-color: var(--primary-600);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+}
+
+/* Events count badge */
+.events-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 0.5rem;
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--primary-500);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    transition: all 0.2s ease;
+}
+
