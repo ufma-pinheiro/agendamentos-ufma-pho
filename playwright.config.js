@@ -14,6 +14,11 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'retain-on-failure',
+    // Bypass Vercel Deployment Protection para preview URLs
+    // Configurar em: Vercel Dashboard → Project → Settings → Deployment Protection
+    extraHTTPHeaders: process.env.VERCEL_BYPASS_SECRET ? {
+      'x-vercel-protection-bypass': process.env.VERCEL_BYPASS_SECRET,
+    } : {},
   },
 
   // Inicia servidor local automaticamente se TEST_BASE_URL não definida
