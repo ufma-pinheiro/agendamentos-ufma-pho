@@ -10,16 +10,13 @@
     grid-template-columns: 1fr auto 1fr auto;
     gap: 0.75rem;
     align-items: flex-end;
-    background: var(--bg-elevated);
+    background: oklch(var(--muted));
     padding: 1rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid oklch(var(--border));
     border-radius: var(--radius-lg);
 }
 
-[data-theme="dark"] .data-row-styled {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
-}
+/* dark mode absorvido por tokens */
 
 .date-input-group,
 .time-input {
@@ -40,42 +37,24 @@
 .input-date,
 .input-time {
     padding: 0.5rem 0.75rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid oklch(var(--border));
     border-radius: var(--radius-md);
     font-size: 0.9375rem;
     text-align: center;
-    background: var(--bg-input);
-    color: var(--text-primary);
+    background: oklch(var(--background));
+    color: oklch(var(--foreground));
     font-family: var(--font-sans);
-    transition: all var(--transition-fast);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .input-date:focus,
 .input-time:focus {
     outline: none;
-    border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    border-color: oklch(var(--primary));
+    box-shadow: 0 0 0 3px oklch(var(--primary) / .15);
 }
 
-[data-theme="dark"] .input-date,
-[data-theme="dark"] .input-time {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .input-date:focus,
-[data-theme="dark"] .input-time:focus {
-    border-color: var(--primary-500);
-    background: rgba(59, 130, 246, 0.08);
-}
-
-/* Flatpickr dark mode override */
-[data-theme="dark"] .flatpickr-input {
-    background: rgba(255, 255, 255, 0.06) !important;
-    color: var(--text-primary) !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-}
+/* dark mode absorvido por tokens — sem overrides de rgba necessários */
 
 .time-inputs {
     display: contents;
@@ -87,13 +66,14 @@
     font-size: 0.875rem;
 }
 
-.btn-remove-data {
+.btn-remove-data,
+.btn-remover-data {
     width: 32px;
     height: 32px;
-    border: 1px solid var(--border-color);
+    border: 1px solid oklch(var(--border));
     background: transparent;
     border-radius: var(--radius-md);
-    color: var(--text-tertiary);
+    color: oklch(var(--muted-foreground));
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -101,16 +81,14 @@
     transition: all var(--transition-fast);
 }
 
-.btn-remove-data:hover {
-    background: var(--danger-50);
-    color: var(--danger-600);
-    border-color: var(--danger-200);
+.btn-remove-data:hover,
+.btn-remover-data:hover {
+    background: oklch(var(--destructive) / .10);
+    color: oklch(var(--destructive));
+    border-color: oklch(var(--destructive) / .35);
 }
 
-[data-theme="dark"] .btn-remove-data:hover {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: rgba(239, 68, 68, 0.3);
-}
+/* dark mode absorvido por tokens */
 
 .recorrencia-panel {
     margin-top: 1rem;
@@ -168,23 +146,27 @@
     cursor: not-allowed;
 }
 
-/* Dark mode for all form inputs */
-[data-theme="dark"] .input-group input,
-[data-theme="dark"] .input-group select {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
+/* Task F: btn-add-data token alias */
+.btn-add-data {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    background: transparent;
+    border: 1px dashed oklch(var(--border));
+    border-radius: var(--radius-md);
+    color: oklch(var(--primary));
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
 }
 
-[data-theme="dark"] .input-group input:focus,
-[data-theme="dark"] .input-group select:focus {
-    border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-    background: rgba(59, 130, 246, 0.08);
+.btn-add-data:hover {
+    background: oklch(var(--primary) / .08);
+    border-style: solid;
+    border-color: oklch(var(--primary) / .4);
 }
 
-/* Form section step badges dark mode */
-[data-theme="dark"] .form-section-header .step-badge {
-    background: rgba(59, 130, 246, 0.2);
-    color: var(--primary-400);
-}
+/* dark mode absorvido por tokens — sem overrides rgba necessários */
 

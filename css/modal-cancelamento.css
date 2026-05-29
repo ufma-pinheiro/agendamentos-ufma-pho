@@ -13,35 +13,35 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: oklch(var(--foreground));
     margin-bottom: 0.5rem;
 }
 
 .required-star {
-    color: #ef4444;
+    color: oklch(var(--destructive));
     font-size: 1rem;
 }
 
 .cancel-motiv-textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1.5px solid var(--border-color);
+    border: 1.5px solid oklch(var(--border));
     border-radius: var(--radius-lg);
-    background: var(--bg-elevated);
-    color: var(--text-primary);
-    font-family: inherit;
+    background: oklch(var(--muted));
+    color: oklch(var(--foreground));
+    font-family: var(--font-sans);
     font-size: 0.9rem;
     line-height: 1.6;
     resize: vertical;
     min-height: 90px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     box-sizing: border-box;
 }
 
 .cancel-motiv-textarea:focus {
     outline: none;
-    border-color: var(--primary-400);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    border-color: oklch(var(--primary));
+    box-shadow: 0 0 0 3px oklch(var(--primary) / .15);
 }
 
 .cancel-motiv-counter {
@@ -55,12 +55,12 @@
 
 .cancel-motiv-hint {
     font-weight: 500;
-    color: #f59e0b;
-    transition: color 0.2s;
+    color: oklch(var(--warning));
+    transition: color var(--transition-fast);
 }
 
 .cancel-motiv-hint.valid {
-    color: #22c55e;
+    color: oklch(var(--success));
 }
 
 #btnCancelMotivConfirm:disabled {
@@ -70,21 +70,7 @@
     box-shadow: none !important;
 }
 
-/* Dark mode */
-
-[data-theme="dark"] .info-modal {
-    background: var(--bg-card);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .info-modal-details {
-    background: var(--bg-elevated);
-}
-
-[data-theme="dark"] .info-modal-session,
-[data-theme="dark"] .info-modal-conflict-item {
-    background: var(--bg-card);
-}
+/* dark mode absorvido por tokens OKLCH */
 
 /* Responsividade */
 @media (max-width: 640px) {
