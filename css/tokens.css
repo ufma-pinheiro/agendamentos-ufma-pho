@@ -1,67 +1,91 @@
-/* css/tokens.css - Design System UFMA shadcn-style (OKLCH) */
+/* css/tokens.css - shadcn-style CSS Variables based on OKLCH */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
+  /* Globals */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --radius: 0.625rem;
 
+  /* Shadows (shadcn-like) */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-  /* Valores "L C H" — uso: oklch(var(--name)) */
-  --background:             100% 0 0;
-  --foreground:             20% 0 0;
-  --card:                   100% 0 0;
-  --card-foreground:        20% 0 0;
-  --popover:                100% 0 0;
-  --popover-foreground:     20% 0 0;
-  --primary:                45% 0.15 260;
-  --primary-foreground:     98% 0 0;
-  --secondary:              96% 0.01 260;
-  --secondary-foreground:   20% 0 0;
-  --muted:                  96% 0.01 260;
-  --muted-foreground:       55% 0.02 260;
-  --accent:                 96% 0.01 260;
-  --accent-foreground:      20% 0 0;
-  --destructive:            60% 0.2 25;
-  --destructive-foreground: 98% 0 0;
-  --success:                65% 0.15 150;
-  --success-foreground:     98% 0 0;
-  --warning:                75% 0.18 80;
-  --warning-foreground:     20% 0 0;
-  --border:                 90% 0.02 260;
-  --input:                  90% 0.02 260;
-  --ring:                   45% 0.15 260;
+  /* Light Theme (Base) */
+  --background: 100% 0 0; /* #ffffff */
+  --foreground: 20% 0 0; /* #0f172a / slate-900 */
+  
+  --card: 100% 0 0;
+  --card-foreground: 20% 0 0;
 
-  --campus-eng: 55% 0.15 300;
-  --campus-lic: 75% 0.18 80;
-  --campus-sau: 65% 0.15 150;
+  --popover: 100% 0 0;
+  --popover-foreground: 20% 0 0;
+
+  --primary: 45% 0.15 260; /* Brand UFMA Blue-ish */
+  --primary-foreground: 98% 0 0;
+
+  --secondary: 96% 0.01 260;
+  --secondary-foreground: 20% 0 0;
+
+  --muted: 96% 0.01 260;
+  --muted-foreground: 55% 0.02 260; /* slate-500 */
+
+  --accent: 96% 0.01 260;
+  --accent-foreground: 20% 0 0;
+
+  --destructive: 60% 0.2 25; /* red-500 */
+  --destructive-foreground: 98% 0 0;
+  
+  --success: 65% 0.15 150; /* green-500 */
+  --success-foreground: 98% 0 0;
+  
+  --warning: 75% 0.18 80; /* amber-500 */
+  --warning-foreground: 20% 0 0;
+
+  --border: 90% 0.02 260; /* slate-200 */
+  --input: 90% 0.02 260;
+  --ring: 45% 0.15 260; /* same as primary */
+
+  /* Campus Colors */
+  --campus-eng: 55% 0.15 300; /* Purple */
+  --campus-lic: 75% 0.18 80; /* Amber */
+  --campus-sau: 65% 0.15 150; /* Emerald */
 }
 
 [data-theme="dark"] {
-  --background:             20% 0 0;
-  --foreground:             98% 0 0;
-  --card:                   20% 0 0;
-  --card-foreground:        98% 0 0;
-  --popover:                20% 0 0;
-  --popover-foreground:     98% 0 0;
-  --primary:                65% 0.15 260;
-  --primary-foreground:     20% 0 0;
-  --secondary:              30% 0.02 260;
-  --secondary-foreground:   98% 0 0;
-  --muted:                  30% 0.02 260;
-  --muted-foreground:       70% 0.02 260;
-  --accent:                 30% 0.02 260;
-  --accent-foreground:      98% 0 0;
-  --destructive:            50% 0.2 25;
+  --background: 20% 0 0; /* #0f172a */
+  --foreground: 98% 0 0; /* slate-50 */
+  
+  --card: 20% 0 0;
+  --card-foreground: 98% 0 0;
+
+  --popover: 20% 0 0;
+  --popover-foreground: 98% 0 0;
+
+  --primary: 65% 0.15 260; /* Lighter blue for dark mode */
+  --primary-foreground: 20% 0 0;
+
+  --secondary: 30% 0.02 260;
+  --secondary-foreground: 98% 0 0;
+
+  --muted: 30% 0.02 260;
+  --muted-foreground: 70% 0.02 260;
+
+  --accent: 30% 0.02 260;
+  --accent-foreground: 98% 0 0;
+
+  --destructive: 50% 0.2 25;
   --destructive-foreground: 98% 0 0;
-  --success:                55% 0.15 150;
-  --success-foreground:     98% 0 0;
-  --warning:                65% 0.18 80;
-  --warning-foreground:     98% 0 0;
-  --border:                 30% 0.02 260;
-  --input:                  30% 0.02 260;
-  --ring:                   65% 0.15 260;
+
+  --success: 55% 0.15 150;
+  --success-foreground: 98% 0 0;
+
+  --warning: 65% 0.18 80;
+  --warning-foreground: 98% 0 0;
+
+  --border: 30% 0.02 260;
+  --input: 30% 0.02 260;
+  --ring: 65% 0.15 260;
 
   --campus-eng: 65% 0.15 300;
   --campus-lic: 75% 0.18 80;

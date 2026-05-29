@@ -3,7 +3,10 @@
     "allow": [
       "Bash(rm -rf /tmp/everything-claude-code)",
       "Bash(git clone *)",
-      "Bash(rtk ls *)"
+      "Bash(rtk ls *)",
+      "Bash(rtk git *)",
+      "Bash(rtk grep *)",
+      "Bash(rtk wc *)"
     ]
   },
   "enabledPlugins": {
