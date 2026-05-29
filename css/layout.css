@@ -3,7 +3,9 @@
    ============================================ */
 .app-container {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    background: oklch(var(--background));
 }
 
 /* Sidebar */
@@ -335,5 +337,59 @@
     background: var(--danger-50);
     color: var(--danger-600);
     border-color: var(--danger-100);
+}
+
+/* ============================================
+   MAIN CONTENT — shell flex 100vh
+   ============================================ */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ============================================
+   CONTENT WRAPPER — scroll interno + atmosfera
+   ============================================ */
+.content-wrapper {
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+    background: radial-gradient(
+        120% 80% at 100% 0%,
+        oklch(var(--primary) / .04),
+        transparent 60%
+    );
+}
+
+/* ============================================
+   TAB CONTENT — base e estado ativo
+   ============================================ */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+/* ============================================
+   CALENDÁRIO — fix BUG-CSS-002 (corte vertical)
+   ============================================ */
+#abaCalendario.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#calendario {
+    flex: 1;
+    min-height: 0; /* CRÍTICO: sem isso o flexbox estoura */
+    overflow: auto;
 }
 
