@@ -292,7 +292,7 @@
 .tag-local-modal {
     font-size: 0.8125rem !important;
     padding: 0.375rem 0.875rem !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
 }
 
 .conflict-locais {

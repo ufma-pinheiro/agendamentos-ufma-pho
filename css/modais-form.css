@@ -303,7 +303,7 @@ textarea:not(.cancel-motiv-textarea) {
 .btn-confirmar,
 .btn-primary {
     background: oklch(var(--primary));
-    color: #fff;
+    color: oklch(var(--primary-foreground));
     border: none;
     border-radius: var(--radius-md);
     padding: 10px 24px;
