@@ -1,4 +1,6 @@
 /* css/tokens.css - shadcn-style CSS Variables based on OKLCH */
+/* Browser support note: uses oklch(var(--L-C-H-tuple)) pattern.
+   Requires: Chrome 111+, Firefox 113+, Safari 16.4+ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {

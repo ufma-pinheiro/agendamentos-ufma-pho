@@ -12,7 +12,7 @@
 .reveal:nth-child(4) { animation-delay: .19s; }
 
 /* fade na troca de abas */
-.tab-content.active { animation: rise .3s cubic-bezier(.4,0,.2,1) both; }
+.tab-content.active { animation: rise .3s cubic-bezier(.4,0,.2,1) forwards; }
 
 /* fallback: se motion reduzido, nada fica escondido */
 @media (prefers-reduced-motion: reduce) {
@@ -32,7 +32,7 @@
 }
 
 /* scrollbar custom */
-* { scrollbar-width: thin; scrollbar-color: oklch(var(--border)) transparent; }
+html { scrollbar-width: thin; scrollbar-color: oklch(var(--border)) transparent; }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb { background: oklch(var(--border)); border-radius: 4px; }
