@@ -27,7 +27,28 @@ export function initUI() {
         await supabase.auth.signOut();
     });
     document.getElementById('btnToggleTheme')?.addEventListener('click', toggleTheme);
-    document.getElementById('menuToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+    document.getElementById('menuToggle')?.addEventListener('click', () => {
+        const sidebar = document.getElementById('sidebar');
+        const isOpen = sidebar.classList.toggle('open');
+        // Overlay mobile: body.sidebar-open ativa ::before em utilitarios-responsivo.css
+        document.body.classList.toggle('sidebar-open', isOpen);
+    });
+
+    // Fechar drawer ao clicar no overlay (body::before não é clicável diretamente,
+    // então ouvimos click no body e checamos se o alvo está fora da sidebar)
+    document.body.addEventListener('click', (e) => {
+        const sidebar = document.getElementById('sidebar');
+        if (
+            window.innerWidth < 768 &&
+            sidebar?.classList.contains('open') &&
+            !sidebar.contains(e.target) &&
+            e.target.id !== 'menuToggle' &&
+            !e.target.closest('#menuToggle')
+        ) {
+            sidebar.classList.remove('open');
+            document.body.classList.remove('sidebar-open');
+        }
+    });
 
     // Sidebar collapse
     const btnCollapse = document.getElementById('btnCollapseSidebar');

@@ -423,6 +423,28 @@
 }
 
 /* ============================================
+   MOBILE DRAWER — sidebar vira overlay (<768px)
+   JS: ui.js toggle .open em #sidebar via #menuToggle
+   body.sidebar-open adicionado para overlay via ::before
+   (ver css/utilitarios-responsivo.css)
+   ============================================ */
+@media (max-width: 767px) {
+    .sidebar {
+        left: -264px;
+        z-index: var(--z-modal);
+        transition: left var(--transition-slow);
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+    }
+}
+
+/* ============================================
    CALENDÁRIO — fix BUG-CSS-002 (corte vertical)
    ============================================ */
 #abaCalendario.active {

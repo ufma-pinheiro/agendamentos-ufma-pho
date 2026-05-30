@@ -55,7 +55,10 @@ window.switchTab = function (tabId, navElement) {
     }
 
     const sidebar = document.getElementById('sidebar');
-    if (sidebar && window.innerWidth < 1024) sidebar.classList.remove('open');
+    if (sidebar && window.innerWidth < 1024) {
+        sidebar.classList.remove('open');
+        document.body.classList.remove('sidebar-open');
+    }
 };
 
 window.abrirDetalhes = function (event) {
