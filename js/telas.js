@@ -20,6 +20,54 @@ export function atualizarTodasTelas() {
     if (estado.nivelAcesso !== 'leitor') atualizarMeusEventos();
 }
 
+// ===== Helpers internos de agrupamento =====
+
+function agruparPorData(eventos) {
+    const grupos = new Map();
+    eventos.forEach(ev => {
+        const d = new Date(ev.start);
+        const key = d.toISOString().slice(0, 10);
+        if (!grupos.has(key)) grupos.set(key, { data: d, eventos: [] });
+        grupos.get(key).eventos.push(ev);
+    });
+    // ordenar asc (mais próximo primeiro)
+    return [...grupos.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([, v]) => v);
+}
+
+function headerGrupo(d) {
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = d.toLocaleDateString('pt-BR', { month: 'long' });
+    const dow = d.toLocaleDateString('pt-BR', { weekday: 'long' });
+    return `<div class="grupo-data reveal">
+    <div class="grupo-head">
+      <span class="grupo-dia">${dia}</span>
+      <span class="grupo-info">de ${mes} (${dow})</span>
+    </div>
+    <div class="grupo-linha"></div>`;
+}
+
+function secaoEncerrados(encerrados, estadoLocal) {
+    if (encerrados.length === 0) return '';
+    const grupos = agruparPorData(encerrados);
+    const itens = grupos.map(g =>
+        headerGrupo(g.data) +
+        g.eventos.map(ev => gerarCardEventoHtml(ev, estadoLocal)).join('') +
+        '</div>'
+    ).join('');
+    return `
+    <div class="encerrados reveal">
+      <button class="enc-toggle" aria-expanded="false"
+        onclick="const c=this.nextElementSibling; c.hidden=!c.hidden; this.setAttribute('aria-expanded', !c.hidden); this.querySelector('i').className = c.hidden ? 'fas fa-chevron-down' : 'fas fa-chevron-up';">
+        <i class="fas fa-chevron-down"></i>
+        <b>Encerrados do mês</b>
+        <span>(${encerrados.length})</span>
+      </button>
+      <div class="enc-conteudo" hidden>${itens}</div>
+    </div>`;
+}
+
+// ===== Função principal =====
+
 export function renderizarCards(eventos, containerId, mensagemVazio) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -30,17 +78,25 @@ export function renderizarCards(eventos, containerId, mensagemVazio) {
     }
 
     const agora = new Date();
-    const ativos = lista.filter(ev => (ev.end || ev.start) >= agora);
-    const passados = lista.filter(ev => (ev.end || ev.start) < agora);
+    const ativos = lista.filter(ev => !ev.extendedProps.cancelado && new Date(ev.end || ev.start) >= agora);
+    const encerrados = lista.filter(ev => ev.extendedProps.cancelado || new Date(ev.end || ev.start) < agora);
 
-    function renderCard(ev) {
-        return gerarCardEventoHtml(ev, estado);
+    if (ativos.length === 0 && encerrados.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-calendar-xmark"></i><h3>${mensagemVazio}</h3><p>Nenhum agendamento encontrado.</p></div>`;
+        return;
     }
 
-    let html = ativos.map(renderCard).join('');
-    if (passados.length > 0) {
-        html += `<div class="past-divider">Encerrados (${passados.length})</div>` + passados.map(renderCard).join('');
+    const gruposAtivos = agruparPorData(ativos);
+    let html = '';
+    if (ativos.length > 0) {
+        html += '<div class="view-head"><h2>Agendamentos ativos</h2></div>';
+        html += gruposAtivos.map(g =>
+            headerGrupo(g.data) +
+            g.eventos.map(ev => gerarCardEventoHtml(ev, estado)).join('') +
+            '</div>'
+        ).join('');
     }
+    html += secaoEncerrados(encerrados, estado);
     container.innerHTML = html;
 }
 

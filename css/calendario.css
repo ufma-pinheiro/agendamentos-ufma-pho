@@ -5,74 +5,101 @@
     font-family: var(--font-sans) !important;
 }
 
-.fc-header-toolbar {
-    margin-bottom: 0.5rem !important;
-    padding: 0.25rem 0 !important;
-}
+/* Ocultar header nativo do FullCalendar (topbar já controla navegação) */
+.fc .fc-toolbar { display: none !important; }
 
-.fc-button-primary {
-    background: var(--bg-elevated) !important;
-    border: 1px solid var(--border-color) !important;
-    color: var(--text-secondary) !important;
-    font-weight: 600 !important;
-    font-size: 0.75rem !important;
-    text-transform: capitalize !important;
-    padding: 0.3rem 0.75rem !important;
-    border-radius: var(--radius-md) !important;
-    transition: all var(--transition-fast) !important;
-    line-height: 1.4 !important;
-}
-
-.fc-button-primary:hover {
-    background: var(--gray-100) !important;
-    color: var(--text-primary) !important;
-}
-
-.fc-button-primary:not(:disabled).fc-button-active,
-.fc-button-primary:not(:disabled):active {
-    background: var(--primary-600) !important;
-    border-color: var(--primary-600) !important;
-    color: white !important;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
-}
-
-.fc-toolbar-title {
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    color: var(--text-primary) !important;
-    letter-spacing: -0.01em;
-}
-
-.fc-col-header-cell {
-    padding: 0.75rem 0 !important;
-    background: var(--bg-elevated) !important;
-    font-weight: 600 !important;
-    font-size: 0.75rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    color: var(--text-secondary) !important;
-}
-
-.fc-daygrid-day {
-    transition: background var(--transition-fast) !important;
-}
-
-.fc-daygrid-day:hover {
-    background: var(--bg-elevated) !important;
-}
-
-.fc-day-today {
-    background: var(--primary-50) !important;
-}
-
-/* Estilo Premium dos Cards de Evento (FEAT-004) */
-.fc-event {
+/* Células */
+.fc .fc-daygrid-day { border-color: oklch(var(--border)) !important; }
+.fc .fc-col-header-cell {
+    font-size: 11px;
+    font-weight: 500;
+    color: oklch(var(--muted-foreground));
+    text-transform: uppercase;
+    padding: 8px !important;
     background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    border-color: oklch(var(--border)) !important;
+}
+.fc .fc-daygrid-day-number {
+    font-size: 12px;
+    color: oklch(var(--muted-foreground));
+    padding: 6px 8px !important;
+}
+
+/* Dia atual — bolinha azul */
+.fc .fc-day-today {
+    background: oklch(var(--primary) / .04) !important;
+}
+.fc .fc-day-today .fc-daygrid-day-number {
+    background: oklch(var(--primary));
+    color: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 0 !important;
 }
 
+/* Dias de outros meses */
+.fc .fc-day-other { opacity: 0.4; }
+
+/* Hover nas células */
+.fc-daygrid-day {
+    transition: background var(--transition-fast) !important;
+}
+.fc-daygrid-day:hover {
+    background: oklch(var(--muted)) !important;
+}
+
+/* Eventos — border-left colorido + fundo translúcido */
+.fc-event {
+    border: none !important;
+    padding: 2px 6px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+}
+
+/* Campus eng */
+.fc-event.badge-eng, .fc-event[data-campus="Engenharia"] {
+    background: var(--cal-eng-bg) !important;
+    color: var(--cal-eng-text) !important;
+    border-left: 3px solid var(--cal-eng-border) !important;
+}
+/* Campus lic */
+.fc-event.badge-lic, .fc-event[data-campus="Licenciaturas"] {
+    background: var(--cal-lic-bg) !important;
+    color: var(--cal-lic-text) !important;
+    border-left: 3px solid var(--cal-lic-border) !important;
+}
+/* Campus sau */
+.fc-event.badge-sau, .fc-event[data-campus="Saúde"] {
+    background: var(--cal-sau-bg) !important;
+    color: var(--cal-sau-text) !important;
+    border-left: 3px solid var(--cal-sau-border) !important;
+}
+/* Default / Outros */
+.fc-event {
+    background: var(--cal-other-bg) !important;
+    color: var(--cal-other-text) !important;
+    border-left: 3px solid var(--cal-other-border) !important;
+}
+
+/* +more link */
+.fc .fc-daygrid-more-link {
+    font-size: 11px;
+    font-weight: 500;
+    color: oklch(var(--muted-foreground));
+}
+.fc .fc-daygrid-more-link:hover {
+    color: oklch(var(--foreground));
+    background: oklch(var(--muted));
+    border-radius: var(--radius-sm);
+}
+
+/* Legado — mantido para card premium existente (FEAT-004) */
 .cal-event-card {
     display: flex;
     align-items: center;
@@ -115,14 +142,7 @@
     flex: 1;
 }
 
-.cal-conflict-indicator {
-    color: var(--danger-500);
-    font-size: 0.7rem;
-    flex-shrink: 0;
-    animation: pulse 2s infinite;
-}
-
-/* Variações por Categoria */
+/* Variações por Categoria (legado) */
 .event-eng { background: var(--cal-eng-bg) !important; color: var(--cal-eng-text) !important; border-left-color: var(--cal-eng-text) !important; }
 .event-sau { background: var(--cal-sau-bg) !important; color: var(--cal-sau-text) !important; border-left-color: var(--cal-sau-text) !important; }
 .event-lic { background: var(--cal-lic-bg) !important; color: var(--cal-lic-text) !important; border-left-color: var(--cal-lic-text) !important; }

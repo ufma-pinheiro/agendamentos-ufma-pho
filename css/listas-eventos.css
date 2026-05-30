@@ -1,4 +1,4 @@
-/* Event Lists */
+/* Event Lists — legado mantido para compatibilidade com elementos fora do redesign */
 .event-row {
     display: flex;
     align-items: center;
@@ -233,3 +233,163 @@
     flex-shrink: 0;
 }
 
+/* ===== GRUPO DE DATA ===== */
+.grupo-data { margin-bottom: 4px; }
+.grupo-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 24px 0 10px;
+}
+.grupo-dia {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -1px;
+    color: oklch(var(--foreground));
+}
+.grupo-info {
+    font-size: 14px;
+    font-weight: 500;
+    color: oklch(var(--muted-foreground));
+}
+.grupo-linha {
+    height: 1px;
+    background: oklch(var(--border));
+    margin-bottom: 10px;
+}
+
+/* ===== ITEM DE EVENTO ===== */
+.evento {
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    padding: 13px 16px;
+    border-radius: 9px;
+    border: 1px solid transparent;
+    background: oklch(var(--foreground) / .015);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+    position: relative;
+}
+.evento:hover {
+    background: oklch(var(--muted));
+    border-color: oklch(var(--border));
+}
+.evento:hover .evento__acoes { opacity: 1; }
+
+/* Indicador lateral 3px — ÚNICO uso de cor de campus */
+.evento__ind {
+    width: 3px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+.ind-eng    { background: oklch(var(--campus-eng)); }
+.ind-lic    { background: oklch(var(--campus-lic)); }
+.ind-sau    { background: oklch(var(--campus-sau)); }
+.ind-outros { background: oklch(var(--primary)); }
+.ind-cancelado { background: oklch(var(--muted-foreground)); }
+
+/* Conteúdo */
+.evento__body { flex: 1; min-width: 0; }
+.evento__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: oklch(var(--foreground));
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+.evento__meta {
+    font-size: 12px;
+    color: oklch(var(--muted-foreground));
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.evento__meta .sep { opacity: 0.5; }
+.evento__tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+.tag-evento {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: oklch(var(--muted));
+    color: oklch(var(--muted-foreground));
+    border: 1px solid oklch(var(--border));
+}
+
+/* Ações */
+.evento__acoes {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    flex-shrink: 0;
+}
+.acao-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: oklch(var(--muted-foreground));
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+.acao-btn:hover { background: oklch(var(--primary) / .1); color: oklch(var(--primary)); }
+.acao-btn.del:hover { background: oklch(var(--destructive) / .1); color: oklch(var(--destructive)); }
+
+/* Estado encerrado/cancelado */
+.evento.enc { opacity: 0.55; }
+.evento.enc .evento__title { text-decoration: line-through; }
+
+/* ===== SEÇÃO ENCERRADOS ===== */
+.encerrados {
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid oklch(var(--border));
+}
+.enc-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px dashed oklch(var(--border));
+    border-radius: 9px;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: oklch(var(--muted-foreground));
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+.enc-toggle b { font-weight: 500; color: oklch(var(--foreground)); }
+.enc-toggle:hover { background: oklch(var(--muted)); }
+.enc-conteudo { padding-top: 16px; }
+
+/* View header label */
+.view-head h2 {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: oklch(var(--muted-foreground));
+    margin-bottom: 4px;
+}
