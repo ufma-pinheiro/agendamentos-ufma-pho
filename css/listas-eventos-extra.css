@@ -81,38 +81,6 @@
     font-size: 0.875rem;
 }
 
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 3rem 1.5rem;
-    color: oklch(var(--muted-foreground));
-}
-
-.empty-state.small {
-    padding: 2rem 1rem;
-}
-
-.empty-state i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
-}
-
-.empty-state.small i {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.empty-state h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: oklch(var(--foreground));
-    margin-bottom: 0.5rem;
-}
-
-.empty-state p {
-    font-size: 0.875rem;
-}
 
 /* Past Events Section */
 .past-events-section {
