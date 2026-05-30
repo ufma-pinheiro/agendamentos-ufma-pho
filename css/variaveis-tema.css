@@ -49,22 +49,22 @@
   --sau-color:    oklch(var(--campus-sau));
   --outros-color: oklch(var(--primary));
 
-  /* Calendario premium — valores OKLCH diretos com alpha */
-  --cal-eng-bg:     oklch(55% 0.15 300 / 0.08);
-  --cal-eng-text:   oklch(var(--campus-eng));
-  --cal-eng-border: oklch(55% 0.15 300 / 0.6);
+  /* Calendario premium — light mode: texto escuro p/ contraste WCAG, fundo 0.10 */
+  --cal-eng-bg:     oklch(55% 0.15 300 / 0.10);
+  --cal-eng-text:   oklch(43% 0.16 300);
+  --cal-eng-border: oklch(55% 0.15 300 / 0.7);
 
-  --cal-sau-bg:     oklch(65% 0.15 150 / 0.08);
-  --cal-sau-text:   oklch(var(--campus-sau));
-  --cal-sau-border: oklch(65% 0.15 150 / 0.6);
+  --cal-sau-bg:     oklch(65% 0.15 150 / 0.10);
+  --cal-sau-text:   oklch(40% 0.13 155);
+  --cal-sau-border: oklch(60% 0.14 150 / 0.7);
 
-  --cal-lic-bg:     oklch(75% 0.18 80 / 0.08);
-  --cal-lic-text:   oklch(var(--campus-lic));
-  --cal-lic-border: oklch(75% 0.18 80 / 0.6);
+  --cal-lic-bg:     oklch(75% 0.18 80 / 0.12);
+  --cal-lic-text:   oklch(45% 0.12 65);
+  --cal-lic-border: oklch(68% 0.16 75 / 0.7);
 
-  --cal-other-bg:     oklch(45% 0.15 260 / 0.08);
-  --cal-other-text:   oklch(var(--primary));
-  --cal-other-border: oklch(45% 0.15 260 / 0.6);
+  --cal-other-bg:     oklch(45% 0.15 260 / 0.10);
+  --cal-other-text:   oklch(42% 0.16 260);
+  --cal-other-border: oklch(45% 0.15 260 / 0.7);
 
   --cal-grid-border: oklch(90% 0.02 260 / 0.6);
 
@@ -119,4 +119,26 @@
   --text-tertiary:  oklch(var(--muted-foreground) / 0.7);
 
   --border-color: oklch(var(--border));
+}
+
+/* ==============================================
+   SEÇÃO C — Calendário no dark mode
+   Texto claro p/ contraste sobre fundo escuro + fill mais visível.
+   ============================================== */
+[data-theme="dark"] {
+  --cal-eng-bg:     oklch(65% 0.15 300 / 0.18);
+  --cal-eng-text:   oklch(80% 0.13 300);
+  --cal-eng-border: oklch(70% 0.15 300 / 0.8);
+
+  --cal-sau-bg:     oklch(65% 0.15 150 / 0.18);
+  --cal-sau-text:   oklch(78% 0.13 155);
+  --cal-sau-border: oklch(70% 0.14 150 / 0.8);
+
+  --cal-lic-bg:     oklch(75% 0.18 80 / 0.18);
+  --cal-lic-text:   oklch(82% 0.14 80);
+  --cal-lic-border: oklch(75% 0.16 78 / 0.8);
+
+  --cal-other-bg:     oklch(65% 0.15 260 / 0.18);
+  --cal-other-text:   oklch(80% 0.12 260);
+  --cal-other-border: oklch(70% 0.14 260 / 0.8);
 }
