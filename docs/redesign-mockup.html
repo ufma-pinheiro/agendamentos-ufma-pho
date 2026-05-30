@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup Redesign — Agenda UFMA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --font-sans:'Inter',system-ui,sans-serif;
+  --radius:0.625rem;
+  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .05);
+  --shadow-md:0 4px 6px -1px rgb(0 0 0 / .1),0 2px 4px -2px rgb(0 0 0 / .1);
+  --shadow-fab:0 2px 8px oklch(45% 0.15 260 / .30);
+  --background:100% 0 0; --foreground:20% 0 0;
+  --card:100% 0 0; --muted:96% 0.01 260; --muted-foreground:55% 0.02 260;
+  --border:90% 0.02 260; --primary:45% 0.15 260; --accent:96% 0.01 260;
+  --campus-eng:55% 0.15 300; --campus-lic:62% 0.17 55; --campus-sau:60% 0.13 155;
+  --destructive:58% 0.2 25; --success:60% 0.13 155; --warning:70% 0.16 70;
+  /* layout tokens novos (Fase A) */
+  --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px;
+  --t-fast:150ms cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:oklch(var(--muted));color:oklch(var(--foreground));-webkit-font-smoothing:antialiased}
+.app{display:flex;height:100vh;overflow:hidden}
+/* motion de alto impacto: revelação escalonada (skill frontend-design) */
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.grupo-data,.encerrados{animation:rise .45s cubic-bezier(.4,0,.2,1) both}
+.grupo-data:nth-child(2){animation-delay:.05s}
+.grupo-data:nth-child(3){animation-delay:.13s}
+.encerrados{animation-delay:.2s}
+:focus-visible{outline:2px solid oklch(var(--primary));outline-offset:2px;border-radius:4px}
+
+/* ===== SIDEBAR ===== */
+.sidebar{width:264px;flex-shrink:0;background:oklch(var(--card));border-right:1px solid oklch(var(--border));display:flex;flex-direction:column;padding:16px 12px}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 8px 16px}
+.brand-icon{width:38px;height:38px;border-radius:10px;background:oklch(var(--primary));color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-sm)}
+.brand h1{font-size:16px;font-weight:700;line-height:1.1}
+.brand span{font-size:11px;color:oklch(var(--muted-foreground))}
+.btn-criar{display:flex;align-items:center;gap:10px;width:100%;padding:12px 16px;margin:4px 0 18px;border:1px solid oklch(var(--border));border-radius:9999px;background:oklch(var(--card));font-family:inherit;font-size:14px;font-weight:600;color:oklch(var(--foreground));box-shadow:var(--shadow-md);cursor:pointer;transition:var(--t-fast)}
+.btn-criar i{color:oklch(var(--primary));font-size:16px}
+.nav-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:oklch(var(--muted-foreground));padding:14px 12px 6px}
+.nav-item{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:500;color:oklch(var(--foreground));cursor:pointer;position:relative;transition:var(--t-fast)}
+.nav-item i{width:20px;font-size:15px;color:oklch(var(--muted-foreground));text-align:center}
+.nav-item:hover{background:oklch(var(--accent))}
+.nav-item.active{background:oklch(var(--primary) / .09);color:oklch(var(--primary))}
+.nav-item.active i{color:oklch(var(--primary))}
+.nav-item.active::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:oklch(var(--primary))}
+.sidebar-foot{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 8px;border-top:1px solid oklch(var(--border))}
+.avatar{width:34px;height:34px;border-radius:50%;background:oklch(var(--primary));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.sidebar-foot .info{flex:1;min-width:0}
+.sidebar-foot .info b{font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-badge{font-size:10px;padding:1px 7px;border-radius:6px;background:oklch(var(--primary) / .1);color:oklch(var(--primary));font-weight:600}
+
+/* ===== MAIN ===== */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:60px;flex-shrink:0;background:oklch(var(--card));border-bottom:1px solid oklch(var(--border));display:flex;align-items:center;gap:16px;padding:0 20px}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:none;background:transparent;color:oklch(var(--muted-foreground));font-size:15px;cursor:pointer;transition:var(--t-fast)}
+.icon-btn:hover{background:oklch(var(--accent));color:oklch(var(--foreground))}
+.page-title{font-size:18px;font-weight:600}
+.chips{display:flex;gap:8px;margin-left:8px}
+.chip{display:flex;align-items:center;gap:7px;padding:6px 14px;border-radius:9999px;border:1px solid oklch(var(--border));background:transparent;font-family:inherit;font-size:12px;font-weight:500;color:oklch(var(--muted-foreground));cursor:pointer;transition:var(--t-fast)}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.chip.active{background:oklch(var(--primary) / .1);border-color:oklch(var(--primary) / .4);color:oklch(var(--primary))}
+.spacer{flex:1}
+.search{display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:9999px;background:oklch(var(--muted));width:220px}
+.search i{color:oklch(var(--muted-foreground));font-size:13px}
+.search input{border:none;background:transparent;outline:none;font-family:inherit;font-size:13px;width:100%;color:oklch(var(--foreground))}
+.btn-novo{display:flex;align-items:center;gap:8px;padding:9px 20px;border-radius:9999px;border:none;background:oklch(var(--primary));color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-fab)}
+
+.content{flex:1;overflow:auto;padding:24px 36px;background:radial-gradient(120% 80% at 100% 0%, oklch(var(--primary) / .04), transparent 60%)}
+.view-head{margin-bottom:8px}
+.view-head h2{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:oklch(var(--muted-foreground))}
+
+/* ===== GRUPO DE DATA + EVENTO ===== */
+.grupo-data{margin-bottom:8px}
+.grupo-head{display:flex;align-items:baseline;gap:12px;padding:24px 0 10px}
+.grupo-dia{font-size:34px;font-weight:700;line-height:.9;letter-spacing:-1px}
+.grupo-info{font-size:14px;font-weight:500;color:oklch(var(--muted-foreground))}
+.grupo-linha{height:1px;background:oklch(var(--border));margin-bottom:10px}
+
+.evento{display:flex;align-items:stretch;gap:14px;padding:13px 16px;border-radius:9px;border:1px solid transparent;background:oklch(var(--foreground) / .015);margin-bottom:8px;cursor:pointer;transition:var(--t-fast);position:relative}
+.evento:hover{background:oklch(var(--accent));border-color:oklch(var(--border))}
+.evento:hover .acoes{opacity:1}
+.ind{width:3px;border-radius:9999px;flex-shrink:0}
+.ind.eng{background:oklch(var(--campus-eng))}
+.ind.lic{background:oklch(var(--campus-lic))}
+.ind.sau{background:oklch(var(--campus-sau))}
+.ev-body{flex:1;min-width:0}
+.ev-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.ev-meta{font-size:12px;color:oklch(var(--muted-foreground));margin-top:4px;display:flex;gap:7px;flex-wrap:wrap}
+.ev-tags{display:flex;gap:6px;margin-top:8px}
+.tag{font-size:11px;font-weight:500;padding:2px 8px;border-radius:6px;background:oklch(var(--muted));color:oklch(var(--muted-foreground));border:1px solid oklch(var(--border))}
+.badge-conf{font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;color:oklch(var(--destructive));background:oklch(var(--destructive) / .1)}
+.acoes{display:flex;gap:4px;align-items:center;opacity:0;transition:var(--t-fast)}
+.acao{width:30px;height:30px;border-radius:50%;border:none;background:transparent;color:oklch(var(--muted-foreground));cursor:pointer;font-size:13px}
+.acao:hover{background:oklch(var(--primary) / .1);color:oklch(var(--primary))}
+.acao.del:hover{background:oklch(var(--destructive) / .1);color:oklch(var(--destructive))}
+
+/* ===== ENCERRADOS ===== */
+.encerrados{margin-top:34px;padding-top:24px;border-top:1px solid oklch(var(--border))}
+.enc-toggle{display:flex;align-items:center;gap:10px;width:100%;padding:12px 16px;border:1px dashed oklch(var(--border));border-radius:9px;background:transparent;font-family:inherit;font-size:13px;color:oklch(var(--muted-foreground));cursor:pointer}
+.enc-toggle b{font-weight:500;color:oklch(var(--foreground))}
+.evento.enc{opacity:.55;margin-top:10px}
+.evento.enc .ev-title{text-decoration:line-through}
+.evento.enc .ind{background:oklch(var(--muted-foreground))}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon"><i class="fas fa-calendar-check"></i></div>
+      <div><h1>Agenda UFMA</h1><span>Gestão de Espaços</span></div>
+    </div>
+    <button class="btn-criar"><i class="fas fa-plus"></i> Criar agendamento</button>
+
+    <div class="nav-label">Principal</div>
+    <div class="nav-item active"><i class="fas fa-calendar-alt"></i> Calendário</div>
+    <div class="nav-item"><i class="fas fa-user-check"></i> Meus Eventos</div>
+    <div class="nav-item"><i class="fas fa-list-alt"></i> Resumo Mensal</div>
+    <div class="nav-item"><i class="fas fa-history"></i> Últimos Registros</div>
+
+    <div class="nav-label">Administração</div>
+    <div class="nav-item"><i class="fas fa-chart-line"></i> Dashboard</div>
+    <div class="nav-item"><i class="fas fa-trash"></i> Cancelamentos</div>
+    <div class="nav-item"><i class="fas fa-triangle-exclamation"></i> Conflitos</div>
+    <div class="nav-item"><i class="fas fa-file-export"></i> Relatórios</div>
+    <div class="nav-item"><i class="fas fa-users"></i> Usuários</div>
+
+    <div class="sidebar-foot">
+      <div class="avatar">RC</div>
+      <div class="info"><b>romulocosta10@ufma.br</b><span class="role-badge">Editor</span></div>
+      <button class="icon-btn" title="Sair"><i class="fas fa-right-from-bracket"></i></button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn"><i class="fas fa-bars"></i></button>
+      <span class="page-title">Últimos Registros</span>
+      <div class="chips">
+        <button class="chip active"><span class="dot" style="background:oklch(var(--primary))"></span>Todos</button>
+        <button class="chip"><span class="dot" style="background:oklch(var(--campus-eng))"></span>Engenharia</button>
+        <button class="chip"><span class="dot" style="background:oklch(var(--campus-lic))"></span>Licenciaturas</button>
+        <button class="chip"><span class="dot" style="background:oklch(var(--campus-sau))"></span>Saúde</button>
+      </div>
+      <div class="spacer"></div>
+      <div class="search"><i class="fas fa-search"></i><input placeholder="Buscar..."></div>
+      <button class="icon-btn"><i class="fas fa-moon"></i></button>
+      <button class="icon-btn"><i class="fas fa-sync-alt"></i></button>
+      <button class="btn-novo"><i class="fas fa-plus"></i> Novo Agendamento</button>
+    </header>
+
+    <main class="content">
+      <div class="view-head"><h2>Agendamentos ativos</h2></div>
+
+      <!-- GRUPO 1 -->
+      <div class="grupo-data">
+        <div class="grupo-head"><span class="grupo-dia">29</span><span class="grupo-info">de Maio (quinta-feira)</span></div>
+        <div class="grupo-linha"></div>
+
+        <div class="evento">
+          <div class="ind eng"></div>
+          <div class="ev-body">
+            <div class="ev-title">Congresso de Engenharia Civil <span class="badge-conf"><i class="fas fa-exclamation"></i> Conflito</span></div>
+            <div class="ev-meta"><span>08:00 – 18:00</span><span>•</span><span>Auditório Central</span><span>•</span><span>Prof. Carlos Silva</span></div>
+            <div class="ev-tags"><span class="tag">Engenharia</span></div>
+          </div>
+          <div class="acoes"><button class="acao"><i class="fas fa-edit"></i></button><button class="acao del"><i class="fas fa-trash"></i></button></div>
+        </div>
+
+        <div class="evento">
+          <div class="ind sau"></div>
+          <div class="ev-body">
+            <div class="ev-title">Workshop de Saúde Coletiva</div>
+            <div class="ev-meta"><span>14:00 – 17:00</span><span>•</span><span>Sala 05</span><span>•</span><span>Dra. Maria Santos</span></div>
+            <div class="ev-tags"><span class="tag">Saúde</span></div>
+          </div>
+          <div class="acoes"><button class="acao"><i class="fas fa-edit"></i></button><button class="acao del"><i class="fas fa-trash"></i></button></div>
+        </div>
+      </div>
+
+      <!-- GRUPO 2 -->
+      <div class="grupo-data">
+        <div class="grupo-head"><span class="grupo-dia">28</span><span class="grupo-info">de Maio (quarta-feira)</span></div>
+        <div class="grupo-linha"></div>
+
+        <div class="evento">
+          <div class="ind lic"></div>
+          <div class="ev-body">
+            <div class="ev-title">Semana Pedagógica — Licenciaturas</div>
+            <div class="ev-meta"><span>09:00 – 12:00</span><span>•</span><span>Mini-auditório</span><span>•</span><span>SEME</span></div>
+            <div class="ev-tags"><span class="tag">Licenciaturas</span></div>
+          </div>
+          <div class="acoes"><button class="acao"><i class="fas fa-edit"></i></button><button class="acao del"><i class="fas fa-trash"></i></button></div>
+        </div>
+      </div>
+
+      <!-- ENCERRADOS -->
+      <div class="encerrados">
+        <button class="enc-toggle"><i class="fas fa-chevron-down"></i> <b>Encerrados do mês</b> <span>(49)</span></button>
+        <div class="evento enc">
+          <div class="ind"></div>
+          <div class="ev-body">
+            <div class="ev-title">Reunião de Colegiado (cancelado)</div>
+            <div class="ev-meta"><span>10:00 – 11:00</span><span>•</span><span>Sala 02</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>
