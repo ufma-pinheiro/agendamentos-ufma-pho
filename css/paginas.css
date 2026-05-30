@@ -8,7 +8,7 @@
 .page-header h2 {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--text-primary);
+    color: oklch(var(--foreground));
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -16,12 +16,29 @@
 }
 
 .page-header h2 i {
-    color: var(--primary-600);
+    color: oklch(var(--primary));
 }
 
 .page-description {
-    color: var(--text-secondary);
+    color: oklch(var(--muted-foreground));
     font-size: 0.875rem;
+}
+
+/* View header (redesign GCal) */
+.view-header {
+    padding: var(--space-6) var(--space-8) 0;
+}
+.view-header h1,
+.page-section-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: oklch(var(--foreground));
+}
+.view-header p,
+.page-section-subtitle {
+    font-size: 14px;
+    color: oklch(var(--muted-foreground));
+    margin-top: 4px;
 }
 
 /* Alerta Modo Leitura */
@@ -30,8 +47,8 @@
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(90deg, #fef3c7, #fde68a);
-    color: #92400e;
+    background: oklch(var(--warning) / .15);
+    color: oklch(var(--warning));
     padding: 0.75rem 1.5rem;
     display: none;
     align-items: center;
@@ -40,7 +57,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     z-index: 1000;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-md);
 }
 
 .alert-mode-banner i {
@@ -59,7 +76,7 @@
     padding: 0; /* Preenchimento total */
     min-height: 0;
     overflow: hidden;
-    background: var(--bg-card);
+    background: oklch(var(--card));
     border: none; /* Borda removida para estilo edge-to-edge */
     border-radius: 0; /* Cantos retos para encaixar nas laterais */
 }
@@ -134,35 +151,41 @@
     height: 250px;
 }
 
-.metrics-grid {
+/* ============================================
+   DASHBOARD — KPI Grid + Metric Cards
+   ============================================ */
+.metrics-grid,
+.kpi-grid,
+.metric-cards {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-5);
     margin-bottom: 1.5rem;
 }
 
-.metric-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
+.metric-card,
+.kpi-card {
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    border-radius: var(--radius-lg);
     padding: 1.25rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-fast);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.metric-card:hover {
+.metric-card:hover,
+.kpi-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
-.metric-card.primary { border-top: 3px solid var(--primary-500); }
-.metric-card.success { border-top: 3px solid var(--success-500); }
-.metric-card.info { border-top: 3px solid #06b6d4; }
-.metric-card.warning { border-top: 3px solid var(--warning-500); }
-.metric-card.danger { border-top: 3px solid var(--danger-500); }
+.metric-card.primary { border-top: 3px solid oklch(var(--primary)); }
+.metric-card.success { border-top: 3px solid oklch(var(--success)); }
+.metric-card.info    { border-top: 3px solid oklch(var(--primary) / .7); }
+.metric-card.warning { border-top: 3px solid oklch(var(--warning)); }
+.metric-card.danger  { border-top: 3px solid oklch(var(--destructive)); }
 
 .metric-icon {
     width: 48px;
@@ -174,11 +197,11 @@
     font-size: 1.25rem;
 }
 
-.metric-card.primary .metric-icon { background: var(--primary-50); color: var(--primary-600); }
-.metric-card.success .metric-icon { background: var(--success-50); color: var(--success-600); }
-.metric-card.info .metric-icon { background: #ecfeff; color: #0891b2; }
-.metric-card.warning .metric-icon { background: var(--warning-50); color: #b45309; }
-.metric-card.danger .metric-icon { background: var(--danger-50); color: var(--danger-600); }
+.metric-card.primary .metric-icon { background: oklch(var(--primary) / .1); color: oklch(var(--primary)); }
+.metric-card.success .metric-icon { background: oklch(var(--success) / .1); color: oklch(var(--success)); }
+.metric-card.info    .metric-icon { background: oklch(var(--primary) / .08); color: oklch(var(--primary) / .8); }
+.metric-card.warning .metric-icon { background: oklch(var(--warning) / .1); color: oklch(var(--warning)); }
+.metric-card.danger  .metric-icon { background: oklch(var(--destructive) / .1); color: oklch(var(--destructive)); }
 
 .metric-info {
     display: flex;
@@ -187,31 +210,48 @@
 
 .metric-label {
     font-size: 0.75rem;
-    color: var(--text-tertiary);
+    color: oklch(var(--muted-foreground));
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
 }
 
-.metric-value {
+.metric-value,
+.kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: oklch(var(--foreground));
+    line-height: 1;
+    margin-top: var(--space-4);
+}
+
+/* Quando metric-card usa layout flex (icon + info), o margin-top não aplica */
+.metric-card .metric-value,
+.kpi-card .kpi-value {
+    margin-top: 0;
     font-size: 1.875rem;
     font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1;
 }
 
 .metric-value .suffix {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: oklch(var(--muted-foreground));
     margin-left: 0.25rem;
+}
+
+.metric-card .metric-label,
+.kpi-card .kpi-label {
+    font-size: 13px;
+    color: oklch(var(--muted-foreground));
+    margin-top: 4px;
 }
 
 /* Filter Bar */
 .filter-bar {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
     border-radius: var(--radius-xl);
     padding: 1.25rem;
     margin-bottom: 1.5rem;
@@ -228,7 +268,7 @@
 .year-display {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--text-primary);
+    color: oklch(var(--foreground));
     min-width: 80px;
     text-align: center;
 }
@@ -242,12 +282,12 @@
 
 .month-chip {
     padding: 0.5rem 1rem;
-    border: 1.5px solid var(--border-color);
+    border: 1.5px solid oklch(var(--border));
     background: transparent;
     border-radius: var(--radius-full);
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: oklch(var(--muted-foreground));
     cursor: pointer;
     transition: all 0.18s ease;
     position: relative;
@@ -256,17 +296,17 @@
 }
 
 .month-chip:hover {
-    background: rgba(59, 130, 246, 0.08);
-    border-color: rgba(59, 130, 246, 0.3);
-    color: var(--text-primary);
+    background: oklch(var(--primary) / .08);
+    border-color: oklch(var(--primary) / .3);
+    color: oklch(var(--foreground));
     transform: translateY(-1px);
 }
 
 .month-chip.active {
-    background: var(--primary-600);
+    background: oklch(var(--primary));
     color: white;
-    border-color: var(--primary-600);
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    border-color: oklch(var(--primary));
+    box-shadow: var(--shadow-md);
     transform: translateY(-1px);
 }
 
@@ -278,9 +318,9 @@
     min-width: 26px;
     height: 26px;
     padding: 0 0.5rem;
-    background: rgba(59, 130, 246, 0.15);
-    color: var(--primary-500);
-    border: 1px solid rgba(59, 130, 246, 0.25);
+    background: oklch(var(--primary) / .15);
+    color: oklch(var(--primary));
+    border: 1px solid oklch(var(--primary) / .25);
     border-radius: var(--radius-full);
     font-size: 0.75rem;
     font-weight: 700;
@@ -288,4 +328,206 @@
     margin-left: 0.5rem;
     transition: all 0.2s ease;
 }
+
+/* ============================================
+   DASHBOARD — Chart Cards
+   ============================================ */
+.chart-card {
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.chart-card .card-header,
+.chart-card .chart-header {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid oklch(var(--border));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chart-card .card-header h3,
+.chart-card .chart-header h3,
+.chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: oklch(var(--foreground));
+}
+
+.chart-card .chart-body {
+    padding: var(--space-5);
+}
+
+/* ============================================
+   RELATÓRIOS — Export Cards
+   ============================================ */
+.export-grid,
+.export-cards-grid,
+.relatorios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+    margin-top: 1.5rem;
+}
+
+.export-card,
+.relatorio-card {
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    min-height: 280px;
+}
+
+.export-card:hover,
+.relatorio-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.export-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: var(--space-5);
+}
+
+.export-icon.excel  { background: oklch(var(--success) / .1); color: oklch(var(--success)); }
+.export-icon.pdf    { background: oklch(var(--destructive) / .1); color: oklch(var(--destructive)); }
+.export-icon.backup { background: oklch(var(--warning) / .1); color: oklch(var(--warning)); }
+
+.export-card h3,
+.relatorio-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: oklch(var(--foreground));
+    margin-bottom: 0.5rem;
+}
+
+.export-card p,
+.relatorio-card p {
+    font-size: 13px;
+    color: oklch(var(--muted-foreground));
+    margin-bottom: var(--space-5);
+    flex: 1;
+}
+
+.export-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: var(--space-4);
+}
+
+.backup-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   USUÁRIOS — Tabela + Avatar + Badges
+   ============================================ */
+.users-table,
+.usuarios-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.users-table thead th,
+.usuarios-table thead th {
+    background: oklch(var(--muted));
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: oklch(var(--muted-foreground));
+    padding: 12px 16px;
+    border-bottom: 1px solid oklch(var(--border));
+    text-align: left;
+}
+
+.users-table tbody tr,
+.usuarios-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.users-table tbody tr:hover,
+.usuarios-table tbody tr:hover {
+    background: oklch(var(--muted));
+}
+
+.users-table tbody td,
+.usuarios-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid oklch(var(--border));
+    font-size: 13px;
+    color: oklch(var(--foreground));
+    vertical-align: middle;
+}
+
+/* User list styled (markup atual usa ul.user-list-styled) */
+.user-list-styled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.user-list-styled li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 14px 16px;
+    border-bottom: 1px solid oklch(var(--border));
+    font-size: 13px;
+    color: oklch(var(--foreground));
+    transition: background var(--transition-fast);
+}
+
+.user-list-styled li:hover {
+    background: oklch(var(--muted));
+}
+
+.user-list-styled li:last-child {
+    border-bottom: none;
+}
+
+/* User avatar */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: oklch(var(--primary));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* Role badges */
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.role-badge-dono   { background: oklch(var(--campus-eng) / .1); color: oklch(var(--campus-eng)); }
+.role-badge-editor { background: oklch(var(--primary) / .1);     color: oklch(var(--primary)); }
+.role-badge-leitor { background: oklch(var(--muted));             color: oklch(var(--muted-foreground)); }
 
